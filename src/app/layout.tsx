@@ -2,8 +2,8 @@ import "src/styles/globals.css";
 
 import { Inter as FontSans } from "next/font/google";
 import { cookies } from "next/headers";
-import { cn } from "@/lib/utils";
-
+import { cn } from "src/lib/utils";
+import { MainNavigation } from "@/components/main-navigation";
 import { TRPCReactProvider } from "src/trpc/react";
 
 const fontSans = FontSans({
@@ -26,6 +26,7 @@ export default function RootLayout({
         )}
       >
         <TRPCReactProvider cookies={cookies().toString()}>
+          <MainNavigation />
           {children}
         </TRPCReactProvider>
       </body>
