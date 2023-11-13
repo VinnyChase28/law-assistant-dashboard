@@ -1,9 +1,10 @@
 import { type Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 
+import { getServerAuthSession } from "src/server/auth";
 import { getChat } from "@/app/actions";
 import { Chat } from "@/components/chat";
-import { getServerAuthSession } from "src/server/auth";
+
 export const runtime = "edge";
 export const preferredRegion = "home";
 

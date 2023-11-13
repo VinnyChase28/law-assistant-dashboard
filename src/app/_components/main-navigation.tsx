@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import { ModeToggle } from "@/components/dark-mode-toggle";
-
+import AuthButton from "./sign-in-out";
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Alert Dialog",
@@ -60,7 +60,7 @@ export function MainNavigation() {
       <ModeToggle />
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
+          <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Casey
             </NavigationMenuLink>

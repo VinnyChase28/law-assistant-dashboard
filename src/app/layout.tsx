@@ -6,7 +6,8 @@ import { cn } from "src/lib/utils";
 import { MainNavigation } from "@/components/main-navigation";
 import { TRPCReactProvider } from "src/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
-import { TooltipProvider } from "@/components/ui/tooltip"; // Import TooltipProvider
+import { TooltipProvider } from "@/components/ui/tooltip";
+import AuthButton from "./_components/sign-in-out";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -23,7 +24,7 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "flex min-h-screen items-center justify-center bg-background font-sans antialiased",
+          "flex min-h-screen flex-col bg-background font-sans antialiased",
           fontSans.variable,
         )}
       >
@@ -35,10 +36,14 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <TooltipProvider>
-              {" "}
-              {/* Wrap content with TooltipProvider */}
-              <div className="flex w-full flex-col items-center justify-center">
+              {/* Header container */}
+              <div className="flex w-full items-center justify-between p-4">
                 <MainNavigation />
+                <AuthButton />
+              </div>
+
+              {/* Main content */}
+              <div className="flex w-full flex-1 flex-col items-center justify-center">
                 {children}
               </div>
             </TooltipProvider>
