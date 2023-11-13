@@ -74,5 +74,5 @@ export function ChatPanel({
         </div>
       </div>
     </div>
-  )
+  );
 }
