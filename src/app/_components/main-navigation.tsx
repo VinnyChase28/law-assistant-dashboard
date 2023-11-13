@@ -14,6 +14,8 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
+import { ModeToggle } from "@/components/dark-mode-toggle";
+
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Alert Dialog",
@@ -55,6 +57,7 @@ const components: { title: string; href: string; description: string }[] = [
 export function MainNavigation() {
   return (
     <NavigationMenu>
+      <ModeToggle />
       <NavigationMenuList>
         <NavigationMenuItem>
           <Link href="/docs" legacyBehavior passHref>

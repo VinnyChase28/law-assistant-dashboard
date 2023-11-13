@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { cn } from "src/lib/utils";
 import { MainNavigation } from "@/components/main-navigation";
 import { TRPCReactProvider } from "src/trpc/react";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -21,13 +22,24 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "flex min-h-screen items-center justify-center bg-background font-sans antialiased",
           fontSans.variable,
         )}
       >
         <TRPCReactProvider cookies={cookies().toString()}>
-          <MainNavigation />
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="flex w-full flex-col items-center justify-center">
+              {" "}
+              {/* Flex container for centering */}
+              <MainNavigation />
+              {children}
+            </div>
+          </ThemeProvider>
         </TRPCReactProvider>
       </body>
     </html>
