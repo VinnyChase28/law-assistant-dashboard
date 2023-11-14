@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useDraggable } from "@dnd-kit/core";
+import { Button } from "../ui/button";
 
 export function Draggable(props) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
@@ -15,14 +16,14 @@ export function Draggable(props) {
     : undefined;
 
   return (
-    <button
+    <Button
       ref={setNodeRef}
       style={style}
+      variant="outline"
       {...listeners}
       {...attributes}
-      className="min-w-40 min-h-10 p-2" // Example Tailwind classes for padding and size
     >
       {props.children}
-    </button>
+    </Button>
   );
 }

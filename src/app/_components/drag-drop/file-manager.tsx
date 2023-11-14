@@ -6,40 +6,36 @@ import { Droppable } from "./droppable";
 import { Draggable } from "./draggable";
 import { Label } from "@/components/ui/label";
 
+interface FileState {
+  [key: string]: File[];
+}
+
 export default function FileManager() {
-  const [parent, setParent] = useState(null);
-  const draggableMarkup = <Draggable id="draggable">Drag me</Draggable>;
+
+  const containers = ["New", "Legal", "Projects"];
+
+  const [parent, setParent] = useState("New");
+
+  const draggableMarkup = (
+    <Draggable id="draggable">Thisisalongfilename.pdf</Draggable>
+  );
 
   return (
     <div>
-      <h3 className="p6 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-2xl">
-        File Management
-      </h3>
       <DndContext onDragEnd={handleDragEnd}>
-        <div className="flex flex-col items-center">
-          {/* New section */}
-          <div className="mb-4 text-center">
-            <Label>New</Label>
-            <Droppable id="New" className="min-h-[300px] min-w-[1920px]">
-              {parent === "New" ? draggableMarkup : null}
-            </Droppable>
-          </div>
-
-          {/* Legal and Projects in two columns */}
-          <div className="flex w-full justify-between">
-            <div className="w-1/2 pr-2 text-center">
-              <Label>Legal</Label>
-              <Droppable id="Legal" className="min-h-[600px] min-w-[300px]">
-                {parent === "Legal" ? draggableMarkup : null}
+        <div className="m-3 flex flex-wrap items-start justify-center text-center">
+          {/* Map through each container */}
+          {containers.map((id) => (
+            <div key={id} className="mb-4 w-full px-2 md:w-1/3">
+              <Label>{id === "New" ? "New" : id + " Docs"}</Label>
+              <Droppable
+                id={id}
+                className="min-h-[300px] w-full  min-w-[300px] border border-gray-300"
+              >
+                {parent === id ? draggableMarkup : "Drop here"}
               </Droppable>
             </div>
-            <div className="w-1/2 pl-2 text-center">
-              <Label>Projects</Label>
-              <Droppable id="Projects" className="min-h-[600px] min-w-[300px]">
-                {parent === "Projects" ? draggableMarkup : null}
-              </Droppable>
-            </div>
-          </div>
+          ))}
         </div>
       </DndContext>
     </div>
@@ -47,6 +43,7 @@ export default function FileManager() {
 
   function handleDragEnd(event) {
     const { over } = event;
+    // Set the parent based on the droppable container the item was dropped into
     setParent(over ? over.id : null);
   }
 }
