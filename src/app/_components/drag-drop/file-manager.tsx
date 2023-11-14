@@ -12,7 +12,7 @@ interface FileState {
 
 export default function FileManager() {
 
-  const containers = ["New", "Legal", "Projects"];
+  const containers = ["Legal", "Projects"];
 
   const [parent, setParent] = useState("New");
 
@@ -26,7 +26,7 @@ export default function FileManager() {
         <div className="m-3 flex flex-wrap items-start justify-center text-center">
           {/* Map through each container */}
           {containers.map((id) => (
-            <div key={id} className="mb-4 w-full px-2 md:w-1/3">
+            <div key={id} className="mb-4 w-full px-2 md:w-1/2">
               <Label>{id === "New" ? "New" : id + " Docs"}</Label>
               <Droppable
                 id={id}
