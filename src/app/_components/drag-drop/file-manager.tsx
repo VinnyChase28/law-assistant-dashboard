@@ -10,32 +10,36 @@ import { Label } from "@/components/ui/label";
 import { InputFile } from "../input-file";
 import { truncateFileName } from "src/app/helpers/textTransformers";
 
+type FileKey = "Legal" | "Projects" | "New";
+const fileKeys: FileKey[] = ["Legal", "Projects"];
+
 export default function FileManager() {
   const containers = ["New", "Legal", "Projects"];
-  const [files, setFiles] = useState({
+
+  const [files, setFiles] = useState<Record<FileKey, any[]>>({
     Legal: [],
     Projects: [],
     New: [],
   });
 
-  const [folders, setFolders] = useState({
+  const [folders, setFolders] = useState<Record<string, any[]>>({
     Legal: [],
     Projects: [],
   });
 
-  const handleFilesChange = (newFiles) => {
+  const handleFilesChange = (newFiles: any) => {
     setFiles({
       ...files,
       New: [...files.New, ...Array.from(newFiles)],
     });
   };
 
-  const handleDragEnd = (event) => {
+  const handleDragEnd = (event: any) => {
     const { active, over } = event;
 
     if (over) {
-      const sourceContainer = active.id.split("-")[0];
-      const targetContainer = over.id;
+      const sourceContainer = active.id.split("-")[0] as FileKey;
+      const targetContainer = over.id as FileKey;
       const fileIndex = parseInt(active.id.split("-")[2], 10);
 
       // Check if the source and target containers are the same
@@ -84,12 +88,12 @@ export default function FileManager() {
 
           {/* Legal and Projects Sections */}
           <div className="flex w-full flex-wrap">
-            {["Legal", "Projects"].map((id) => (
+            {fileKeys.map((id: FileKey) => (
               <div key={id} className="mb-4 w-full px-2 md:w-1/2">
                 <Label>{id} Docs</Label>
                 <Droppable
                   id={id}
-                  className="min-h-[600px] w-full min-w-[300px] border border"
+                  className="min-h-[300px] w-full min-w-[300px] border border"
                 >
                   {files[id].map((file, index) => (
                     <Draggable key={index} id={`${id}-file-${index}`}>
