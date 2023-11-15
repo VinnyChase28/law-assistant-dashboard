@@ -1,4 +1,4 @@
-import FileManager from "../_components/drag-drop/file-manager";
+import FileManager from "../_components/file-manager/file-manager";
 
 export default async function Home() {
   return (
