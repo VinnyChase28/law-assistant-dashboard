@@ -24,7 +24,7 @@ model Post {
 }
 
 model File {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
   folder    String
   createdAt DateTime @default(now())

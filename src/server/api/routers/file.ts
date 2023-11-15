@@ -1,15 +1,9 @@
 // In your post.ts or a new file.ts
 import { z } from "zod";
 
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "src/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 
 export const fileRouter = createTRPCRouter({
-  // ... other procedures
-
   moveFile: protectedProcedure
     .input(z.object({ fileId: z.number(), newFolder: z.string() }))
     .mutation(async ({ ctx, input }) => {
@@ -19,5 +13,5 @@ export const fileRouter = createTRPCRouter({
       });
     }),
 
-  // Add other procedures like createFile, deleteFile, etc.
+  //TODO: Add other procedures like createFile, deleteFile, etc.
 });
