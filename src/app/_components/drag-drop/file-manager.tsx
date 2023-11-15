@@ -10,7 +10,7 @@ import { InputFile } from "../input-file";
 import { truncateFileName } from "src/app/helpers/textTransformers";
 
 type FileKey = string; // Since folder names are dynamic, we use string
-type File = { name: string /* other file properties */ };
+type File = { name: string };
 type FilesState = Record<FileKey, File[]>;
 type FoldersState = Record<FileKey, File[]>;
 
