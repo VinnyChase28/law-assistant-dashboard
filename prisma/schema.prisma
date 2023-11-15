@@ -23,6 +23,14 @@ model Post {
     @@index([name])
 }
 
+model File {
+  id        Int    @id @default(autoincrement())
+  name      String
+  folder    String
+  createdAt DateTime @default(now())
+  // Add other fields as necessary
+}
+
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
