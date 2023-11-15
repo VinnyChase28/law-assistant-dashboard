@@ -8,9 +8,10 @@ import { Draggable } from "./draggable";
 import { Label } from "@/components/ui/label";
 import { InputFile } from "../input-file";
 import { truncateFileName } from "src/app/helpers/textTransformers";
+import { api } from "src/trpc/react";
 
 type FileKey = string; // Since folder names are dynamic, we use string
-type File = { name: string };
+type File = { id: number; name: string }; // Assuming each file has a unique ID
 type FilesState = Record<FileKey, File[]>;
 type FoldersState = Record<FileKey, File[]>;
 
@@ -26,12 +27,24 @@ export default function FileManager() {
     Projects: [],
   });
 
+  const moveFile = api.file.moveFile.useMutation({
+    onSuccess: () => {
+      console.log("File moved successfully");
+    },
+    onError: (error) => {
+      console.error("Error moving file:", error);
+    },
+  });
+
   const handleFilesChange = (newFiles: FileList) => {
     setFiles({
       ...files,
       New: [
         ...(files.New ?? []),
-        ...Array.from(newFiles).map((file) => ({ name: file.name })),
+        ...Array.from(newFiles).map((file) => ({
+          id: Math.random(),
+          name: file.name,
+        })),
       ],
     });
   };
@@ -44,16 +57,15 @@ export default function FileManager() {
       const targetContainer = over.id;
       const fileIndex = parseInt(active.id.split("-")[2], 10);
 
-      // Check if sourceContainer and targetContainer are valid keys in files
       if (sourceContainer in files && targetContainer in files) {
         const sourceFiles = files[sourceContainer];
-        const targetFiles = files[targetContainer] ?? []; // Fallback to empty array if undefined
+        const targetFiles = files[targetContainer] ?? [];
 
-        // Ensure sourceFiles is defined before accessing it
         if (sourceFiles) {
           const file = sourceFiles[fileIndex];
 
           if (file) {
+            // Optimistic UI update
             setFiles({
               ...files,
               [sourceContainer]: sourceFiles.filter(
@@ -61,6 +73,9 @@ export default function FileManager() {
               ),
               [targetContainer]: [...targetFiles, file],
             });
+
+            // Call the mutation
+            moveFile.mutate({ fileId: file.id, newFolder: targetContainer });
           }
         }
       }
@@ -97,7 +112,7 @@ export default function FileManager() {
               className="border-gray-25 min-h-[200px] w-full min-w-[900px] border"
             >
               {files.New?.map((file, index) => (
-                <Draggable key={index} id={`New-file-${index}`}>
+                <Draggable key={file.id} id={`New-file-${index}`}>
                   {truncateFileName(file.name)}
                 </Draggable>
               )) ?? []}
@@ -110,7 +125,7 @@ export default function FileManager() {
               <Label>{id}</Label>
               <Droppable id={id} className="min-h-[200px] min-w-[200px] border">
                 {(files[id] || []).map((file, index) => (
-                  <Draggable key={index} id={`${id}-file-${index}`}>
+                  <Draggable key={file.id} id={`${id}-file-${index}`}>
                     {truncateFileName(file.name)}
                   </Draggable>
                 ))}
