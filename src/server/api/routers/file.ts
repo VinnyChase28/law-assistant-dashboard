@@ -1,8 +1,9 @@
 // In your post.ts or a new file.ts
 import { z } from "zod";
+import { put } from "@vercel/blob";
 
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
- 
+
 export const fileRouter = createTRPCRouter({
   moveFile: protectedProcedure
     .input(z.object({ fileId: z.number(), newFolder: z.string() }))
@@ -23,5 +24,27 @@ export const fileRouter = createTRPCRouter({
       });
     }),
 
-  //TODO: Add other procedures like createFile, deleteFile, etc.
+  uploadFile: protectedProcedure
+    .input(z.object({ file: z.any(), folder: z.string() })) // Adjust the input validation as needed
+    .mutation(async ({ ctx, input }) => {
+      // Ensure the user is authenticated
+      if (!ctx.session.user) {
+        throw new Error("UNAUTHORIZED");
+      }
+
+      // Upload file to Vercel Blob Storage
+      const { url } = await put(`your-folder/${input.file.name}`, input.file, {
+        access: "public",
+      });
+
+      // Create a record in the database
+      return ctx.db.file.create({
+        data: {
+          name: input.file.name,
+          folder: input.folder,
+          userId: ctx.session.user.id,
+          blobUrl: url,
+        },
+      });
+    }),
 });

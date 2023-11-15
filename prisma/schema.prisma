@@ -29,7 +29,7 @@ model File {
   folder    String
   createdAt DateTime @default(now())
   userId    String
-  // Add other fields as necessary
+  blobUrl   String?  // URL to the file in blob storage
 }
 
 // Necessary for Next auth
