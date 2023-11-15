@@ -28,6 +28,7 @@ model File {
   name      String
   folder    String
   createdAt DateTime @default(now())
+  userId    String
   // Add other fields as necessary
 }
 
