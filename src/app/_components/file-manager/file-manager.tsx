@@ -35,17 +35,46 @@ export default function FileManager() {
     },
   });
 
-  const handleFilesChange = (newFiles: FileList) => {
-    setFiles({
-      ...files,
-      New: [
-        ...(files.New ?? []),
-        ...Array.from(newFiles).map((file) => ({
-          id: Math.random(),
-          name: file.name,
-        })),
-      ],
-    });
+  const uploadFile = api.file.uploadFile.useMutation({
+    onSuccess: (data) => {
+      console.log("File uploaded successfully", data);
+      // Optionally, index the document in Pinecone here if it's a text file
+    },
+    onError: (error) => {
+      console.error("Error uploading file:", error);
+    },
+  });
+
+  const handleFilesChange = async (newFiles: FileList) => {
+    try {
+      const uploadedFiles = await Promise.all(
+        Array.from(newFiles).map(async (file) => {
+          // Ensure the file object has a name property
+          if (!file.name) {
+            throw new Error("File name is missing");
+          }
+
+          const response = await uploadFile.mutateAsync({
+            file,
+            folder: "New", // Assuming the default folder is "New"
+          });
+
+          return {
+            id: response.id, // Assuming the response contains the file ID
+            name: file.name,
+            // Add other file properties as needed
+          };
+        }),
+      );
+
+      setFiles({
+        ...files,
+        New: [...(files.New ?? []), ...uploadedFiles],
+      });
+    } catch (error) {
+      console.error("Error uploading files:", error);
+      // Handle the error appropriately
+    }
   };
 
   const handleDragEnd = (event: any) => {

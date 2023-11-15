@@ -1,7 +1,6 @@
 // In your post.ts or a new file.ts
 import { z } from "zod";
 import { put } from "@vercel/blob";
-
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 
 export const fileRouter = createTRPCRouter({
@@ -31,13 +30,11 @@ export const fileRouter = createTRPCRouter({
       if (!ctx.session.user) {
         throw new Error("UNAUTHORIZED");
       }
-
       // Upload file to Vercel Blob Storage
-      const { url } = await put(`your-folder/${input.file.name}`, input.file, {
+      const { url } = await put(`files/${input.file.name}`, input.file, {
         access: "public",
       });
 
-      // Create a record in the database
       return ctx.db.file.create({
         data: {
           name: input.file.name,
