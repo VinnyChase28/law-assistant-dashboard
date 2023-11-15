@@ -34,6 +34,7 @@
     "@trpc/react-query": "^10.37.1",
     "@trpc/server": "^10.37.1",
     "@vercel/kv": "^1.0.0",
+    "@vercel/postgres": "^0.5.1",
     "ai": "^2.2.22",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",

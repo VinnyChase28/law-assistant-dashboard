@@ -4,7 +4,7 @@ import React from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { Button } from "../ui/button";
 
-export function Draggable(props) {
+export function Draggable(props: any) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: props.id,
   });

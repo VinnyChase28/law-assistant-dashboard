@@ -107,7 +107,7 @@ export default function FileManager() {
           {/* Dynamic Folders */}
           {Object.keys(folders).map((id) => (
             <div key={id} className="mb-4 w-full px-2 md:w-1/2">
-              <Label>{id} Docs</Label>
+              <Label>{id}</Label>
               <Droppable id={id} className="min-h-[200px] min-w-[200px] border">
                 {(files[id] || []).map((file, index) => (
                   <Draggable key={index} id={`${id}-file-${index}`}>

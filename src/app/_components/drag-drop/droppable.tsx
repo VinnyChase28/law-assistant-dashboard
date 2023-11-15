@@ -3,13 +3,7 @@
 import React from "react";
 import { useDroppable } from "@dnd-kit/core";
 
-interface DroppableProps {
-  id: string;
-  onFileDrop: (id: string, files: FileList) => void;
-  // Other props
-}
-
-export function Droppable(props) {
+export function Droppable(props: any) {
   const { isOver, setNodeRef } = useDroppable({
     id: props.id,
   });
