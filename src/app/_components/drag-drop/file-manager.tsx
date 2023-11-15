@@ -9,6 +9,7 @@ import { Draggable } from "./draggable";
 import { Label } from "@/components/ui/label";
 import { InputFile } from "../input-file";
 import { truncateFileName } from "src/app/helpers/textTransformers";
+import PopOverButton from "../popover";
 
 type FileKey = "Legal" | "Projects" | "New";
 const fileKeys: FileKey[] = ["Legal", "Projects"];
@@ -64,16 +65,30 @@ export default function FileManager() {
     }
   };
 
+  const addNewFolder = (folderName: string) => {
+    setFolders({
+      ...folders,
+      [folderName]: [],
+    });
+
+    setFiles({
+      ...files,
+      [folderName]: [],
+    });
+  };
+
   return (
     <div className="justify-center">
       <div className="flex justify-center">
         <InputFile onFilesChange={handleFilesChange} />
+        <div>
+          <PopOverButton />
+        </div>
       </div>
       <DndContext onDragEnd={handleDragEnd}>
         <div className="m-3 flex flex-wrap items-start justify-center text-center">
           {/* New Section */}
           <div className="mb-4 w-full px-2">
-            <Label>New</Label>
             <Droppable
               id="New"
               className="border-gray-25 min-h-[100px] w-full min-w-[300px] border"

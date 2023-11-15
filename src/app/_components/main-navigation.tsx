@@ -15,19 +15,19 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import { ModeToggle } from "@/components/dark-mode-toggle";
-import AuthButton from "./sign-in-out";
+
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: "Alert Dialog",
+    title: "Compliance Checker",
     href: "/docs/primitives/alert-dialog",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "This tool will check any document against a list of legal documents, checking for compliance.",
   },
   {
-    title: "Hover Card",
+    title: "Legal Research",
     href: "/docs/primitives/hover-card",
     description:
-      "For sighted users to preview content available behind a link.",
+      "Will perform legal research based on case data, evidence and other parameters.",
   },
   {
     title: "Progress",

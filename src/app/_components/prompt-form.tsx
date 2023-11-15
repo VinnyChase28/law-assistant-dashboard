@@ -37,13 +37,14 @@ export function PromptForm({
 
   return (
     <form
-      onSubmit={async e => {
-        e.preventDefault()
+      onSubmit={async (e) => {
+        e.preventDefault();
+        console.log("Form submitted with input:", input); // Log the input
         if (!input?.trim()) {
-          return
+          return;
         }
-        setInput('')
-        await onSubmit(input)
+        setInput("");
+        await onSubmit(input);
       }}
       ref={formRef}
     >
@@ -51,14 +52,14 @@ export function PromptForm({
         <Tooltip>
           <TooltipTrigger asChild>
             <button
-              onClick={e => {
-                e.preventDefault()
-                router.refresh()
-                router.push('/')
+              onClick={(e) => {
+                e.preventDefault();
+                router.refresh();
+                router.push("/");
               }}
               className={cn(
-                buttonVariants({ size: 'sm', variant: 'outline' }),
-                'absolute left-0 top-4 h-8 w-8 rounded-full bg-background p-0 sm:left-4'
+                buttonVariants({ size: "sm", variant: "outline" }),
+                "absolute left-0 top-4 h-8 w-8 rounded-full bg-background p-0 sm:left-4",
               )}
             >
               <IconPlus />
@@ -73,7 +74,7 @@ export function PromptForm({
           onKeyDown={onKeyDown}
           rows={1}
           value={input}
-          onChange={e => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
           placeholder="Send a message."
           spellCheck={false}
           className="min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
@@ -84,7 +85,7 @@ export function PromptForm({
               <Button
                 type="submit"
                 size="icon"
-                disabled={isLoading || input === ''}
+                disabled={isLoading || input === ""}
               >
                 <IconArrowElbow />
                 <span className="sr-only">Send message</span>
@@ -95,5 +96,5 @@ export function PromptForm({
         </div>
       </div>
     </form>
-  )
+  );
 }
