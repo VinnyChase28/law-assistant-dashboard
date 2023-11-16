@@ -1,6 +1,5 @@
 // In your post.ts or a new file.ts
 import { z } from "zod";
-import { put } from "@vercel/blob";
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 
 export const fileRouter = createTRPCRouter({
@@ -22,9 +21,9 @@ export const fileRouter = createTRPCRouter({
         data: { folder: input.newFolder },
       });
     }),
-
+    
   uploadFile: protectedProcedure
-    .input(z.object({ file: z.any(), folder: z.string(), url: z.string() })) // Adjust the input validation as needed
+    .input(z.object({ fileName: z.string(), folder: z.string() })) // Adjust the input validation as needed
     .mutation(async ({ ctx, input }) => {
       // Ensure the user is authenticated
       if (!ctx.session.user) {
@@ -33,11 +32,11 @@ export const fileRouter = createTRPCRouter({
 
       return ctx.db.file.create({
         data: {
-          name: input.file.name,
+          name: input.fileName,
           folder: input.folder,
           userId: ctx.session.user.id,
-          blobUrl: input.url,
         },
       });
     }),
 });
+
