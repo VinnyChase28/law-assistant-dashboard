@@ -1,42 +1,58 @@
-// In your post.ts or a new file.ts
+import { ulid } from "ulid";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
+import { createEmbedding } from "../../../utils/openai";
+import { pinecone } from "src/utils/pinecone";
 
-export const fileRouter = createTRPCRouter({
-  moveFile: protectedProcedure
-    .input(z.object({ fileId: z.number(), newFolder: z.string() }))
+export const openAiPineconeRouter = createTRPCRouter({
+  upsertEmbedding: protectedProcedure
+    .input(z.object({ text: z.string(), title: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      // Fetch the file to check ownership
-      const file = await ctx.db.file.findUnique({
-        where: { id: input.fileId },
+      const { text, title } = input;
+      const id = ulid();
+
+      const embedding = await createEmbedding(text);
+      const vectorEmbedding = embedding.data[0]?.embedding ?? [];
+      await pinecone.upsert({
+        vectors: [
+          {
+            id,
+            values: vectorEmbedding,
+            metadata: { userId: ctx.session.user.id, text, title },
+          },
+        ],
       });
 
-      if (!file || file.userId !== ctx.session.user.id) {
-        throw new Error("UNAUTHORIZED");
-      }
-
-      // Move the file to the new folder
-      return ctx.db.file.update({
-        where: { id: input.fileId },
-        data: { folder: input.newFolder },
-      });
-    }),
-    
-  uploadFile: protectedProcedure
-    .input(z.object({ fileName: z.string(), folder: z.string() })) // Adjust the input validation as needed
-    .mutation(async ({ ctx, input }) => {
-      // Ensure the user is authenticated
-      if (!ctx.session.user) {
-        throw new Error("UNAUTHORIZED");
-      }
-
-      return ctx.db.file.create({
+      await prisma.embedding.create({
         data: {
-          name: input.fileName,
-          folder: input.folder,
+          id,
+          text,
+          title,
           userId: ctx.session.user.id,
         },
       });
+
+      return {
+        text: input.text,
+        user: ctx.session.user.email,
+      };
+    }),
+
+  searchEmbedding: protectedProcedure
+    .input(z.object({ text: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const text = input.text;
+      const embedding = await createEmbedding(text);
+      const vectorEmbedding = embedding.data[0]?.embedding ?? [];
+      const pineconeSearch = await pinecone.query({
+        topK: 3,
+        includeMetadata: true,
+        vector: vectorEmbedding,
+        filter: {
+          userId: ctx.session.user.id,
+        },
+      });
+
+      return { text: input.text, user: ctx.session.user.email, pineconeSearch };
     }),
 });
-

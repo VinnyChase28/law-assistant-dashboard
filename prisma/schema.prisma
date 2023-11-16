@@ -24,12 +24,20 @@ model Post {
 }
 
 model File {
-  id        Int      @id @default(autoincrement())
-  name      String
-  folder    String
-  createdAt DateTime @default(now())
-  userId    String
-  blobUrl   String?  // URL to the file in blob storage
+  id              Int       @id @default(autoincrement())
+  name            String
+  folder          String
+  createdAt       DateTime  @default(now())
+  userId          String
+  blobUrl         String?   // URL to the file in blob storage
+
+  // New fields for embeddings
+  embeddingId     String?   // Unique identifier for the embedding
+  vectorEmbedding Float[]   // Array to store the vector embedding
+  title           String?   // Optional title for the embedding
+  description     String?   // Optional description or text associated with the embedding
+
+  @@index([name])
 }
 
 // Necessary for Next auth
