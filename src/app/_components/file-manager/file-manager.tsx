@@ -51,19 +51,35 @@ export default function FileManager() {
     try {
       const uploadedFiles = await Promise.all(
         Array.from(newFiles).map(async (file) => {
-          // Ensure the file object has a name property
           if (!file.name) {
             throw new Error("File name is missing");
           }
 
+          // Step 1: Upload the file to Vercel Blob storage
+          const formData = new FormData();
+          formData.append("file", file);
+
+          const uploadResponse = await fetch(
+            `/api/blob/?filename=${file.name}`,
+            {
+              method: "POST",
+              body: file,
+            },
+          );
+
+          const { url: blobUrl } = await uploadResponse.json();
+          console.log("blobUrl", blobUrl);
+          // Step 2: Save blob URL in the database
           const response = await uploadFile.mutateAsync({
             fileName: file.name,
             folder: "New", // Assuming the default folder is "New"
+            blobUrl,
           });
 
           return {
             id: response.id, // Assuming the response contains the file ID
             name: file.name,
+            blobUrl,
             // Add other file properties as needed
           };
         }),
@@ -75,7 +91,6 @@ export default function FileManager() {
       });
     } catch (error) {
       console.error("Error uploading files:", error);
-      // Handle the error appropriately
     }
   };
 

@@ -1,3 +1,6 @@
+
+ALTER TABLE "File" ADD COLUMN "blobUrl" TEXT;
+
 -- CreateTable
 CREATE TABLE "Post" (
     "id" SERIAL NOT NULL,

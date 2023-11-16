@@ -23,12 +23,12 @@ model File {
   id        Int      @id @default(autoincrement())
   name      String
   folder    String
+  blobUrl   String   // New field for storing the blob URL
   createdAt DateTime @default(now())
   userId    String
 
   @@index([name])
 }
-
 model Account {
   id                String  @id @default(cuid())
   userId            String

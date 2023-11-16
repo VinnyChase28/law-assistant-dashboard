@@ -3,6 +3,7 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 
 export const fileRouter = createTRPCRouter({
+
   moveFile: protectedProcedure
     .input(z.object({ fileId: z.number(), newFolder: z.string() }))
     .mutation(async ({ ctx, input }) => {
@@ -23,9 +24,14 @@ export const fileRouter = createTRPCRouter({
     }),
 
   uploadFile: protectedProcedure
-    .input(z.object({ fileName: z.string(), folder: z.string() })) // Adjust the input validation as needed
+    .input(
+      z.object({
+        fileName: z.string(),
+        folder: z.string(),
+        blobUrl: z.string(), // Add the blobUrl field
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
-      // Ensure the user is authenticated
       if (!ctx.session.user) {
         throw new Error("UNAUTHORIZED");
       }
@@ -34,6 +40,7 @@ export const fileRouter = createTRPCRouter({
         data: {
           name: input.fileName,
           folder: input.folder,
+          blobUrl: input.blobUrl, // Include the blobUrl in the data being saved
           userId: ctx.session.user.id,
         },
       });

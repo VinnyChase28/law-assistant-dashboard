@@ -1,9 +1,11 @@
+"use client";
+
 export function ExternalLink({
   href,
-  children
+  children,
 }: {
-  href: string
-  children: React.ReactNode
+  href: string;
+  children: React.ReactNode;
 }) {
   return (
     <a
@@ -25,5 +27,5 @@ export function ExternalLink({
         ></path>
       </svg>
     </a>
-  )
+  );
 }

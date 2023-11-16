@@ -1,13 +1,9 @@
-import { Pinecone } from "@pinecone-database/pinecone";
+import { pineconeIndex } from "src/utils/pinecone";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { Document } from "langchain/document";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
-
-// Initialize Pinecone client and index
-const pineconeClient = new Pinecone();
-const pineconeIndex = pineconeClient.Index(process.env.PINECONE_INDEX || "");
 
 export const pineconeRouter = createTRPCRouter({
   indexDocuments: protectedProcedure
