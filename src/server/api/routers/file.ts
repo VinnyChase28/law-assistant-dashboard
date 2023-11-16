@@ -24,23 +24,19 @@ export const fileRouter = createTRPCRouter({
     }),
 
   uploadFile: protectedProcedure
-    .input(z.object({ file: z.any(), folder: z.string() })) // Adjust the input validation as needed
+    .input(z.object({ file: z.any(), folder: z.string(), url: z.string() })) // Adjust the input validation as needed
     .mutation(async ({ ctx, input }) => {
       // Ensure the user is authenticated
       if (!ctx.session.user) {
         throw new Error("UNAUTHORIZED");
       }
-      // Upload file to Vercel Blob Storage
-      const { url } = await put(`files/${input.file.name}`, input.file, {
-        access: "public",
-      });
 
       return ctx.db.file.create({
         data: {
           name: input.file.name,
           folder: input.folder,
           userId: ctx.session.user.id,
-          blobUrl: url,
+          blobUrl: input.url,
         },
       });
     }),

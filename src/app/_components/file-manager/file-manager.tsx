@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { InputFile } from "../input-file";
 import { truncateFileName } from "src/app/helpers/textTransformers";
 import { api } from "src/trpc/react";
+import { put } from "@vercel/blob";
 
 type FileKey = string; // Since folder names are dynamic, we use string
 type File = { id: number; name: string }; // Assuming each file has a unique ID
@@ -35,6 +36,8 @@ export default function FileManager() {
     },
   });
 
+  //create fetch api call for this:
+
   const uploadFile = api.file.uploadFile.useMutation({
     onSuccess: (data) => {
       console.log("File uploaded successfully", data);
@@ -54,7 +57,19 @@ export default function FileManager() {
             throw new Error("File name is missing");
           }
 
+          // Upload file to blob storage and get the URL
+          const blobResponse = await fetch(
+            `/api/file/upload?filename=${file.name}`,
+            {
+              method: "POST",
+              body: file,
+            },
+          );
+
+          const blobData = await blobResponse.json();
+
           const response = await uploadFile.mutateAsync({
+            url: blobData.url,
             file,
             folder: "New", // Assuming the default folder is "New"
           });
