@@ -6,7 +6,7 @@ import { Droppable } from "./droppable";
 import { Draggable } from "./draggable";
 import { Label } from "@/components/ui/label";
 import { InputFile } from "../input-file";
-import { truncateFileName } from "src/app/helpers/textTransformers";
+import { truncateFileName } from "src/helpers/textTransformers";
 import { api } from "src/trpc/react";
 
 type FileKey = string; // Since folder names are dynamic, we use string
