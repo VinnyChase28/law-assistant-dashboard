@@ -24,7 +24,7 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "flex min-h-screen flex-col bg-background font-sans antialiased",
+          "p4 flex min-h-screen flex-col bg-background font-sans antialiased",
           fontSans.variable,
         )}
       >

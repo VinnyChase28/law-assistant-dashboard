@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { InputFile } from "../input-file";
 import { truncateFileName } from "src/helpers/textTransformers";
 import { api } from "src/trpc/react";
-
+import { Button } from "@/components/ui/button";
 type FileKey = string; // Since folder names are dynamic, we use string
 type File = { id: number; name: string }; // Assuming each file has a unique ID
 type FilesState = Record<FileKey, File[]>;
@@ -146,7 +146,7 @@ export default function FileManager() {
     <div className="justify-center">
       <div className="flex justify-center">
         <InputFile onFilesChange={handleFilesChange} />
-        <button onClick={addNewFolder}>Add Folder</button>
+        <Button onClick={addNewFolder}>Add Folder</Button>
       </div>
       <DndContext onDragEnd={handleDragEnd}>
         <div className="m-3 flex flex-wrap items-start justify-center text-center">

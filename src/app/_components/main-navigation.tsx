@@ -60,6 +60,13 @@ export function MainNavigation() {
       <ModeToggle />
       <NavigationMenuList>
         <NavigationMenuItem>
+          <Link href="/dashboard" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Dashboard
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Casey
