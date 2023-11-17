@@ -4,10 +4,11 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Badge } from "src/app/_components/ui/badge";
 import { Checkbox } from "src/app/_components/ui/checkbox";
-import { labels, cost, statuses } from "../data/data";
+import { labels, statuses } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
+import { FileIcon } from "lucide-react";
 
 export const columns: ColumnDef<Task>[] = [
   {
@@ -54,6 +55,7 @@ export const columns: ColumnDef<Task>[] = [
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("title")}
           </span>
+          <FileIcon className="scale-50" />
         </div>
       );
     },
