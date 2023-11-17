@@ -1,14 +1,11 @@
 import { getServerAuthSession } from "src/server/auth";
 import Link from "next/link";
-
+import { Button } from "./ui/button";
 export default async function AuthButton() {
   const session = await getServerAuthSession();
   return (
-    <Link
-      href={session ? "/api/auth/signout" : "/api/auth/signin"}
-      className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-    >
-      {session ? "Sign out" : "Sign in"}
+    <Link href={"/api/auth/signin"}>
+      <Button variant="outline">"Sign in"</Button>
     </Link>
   );
 }
