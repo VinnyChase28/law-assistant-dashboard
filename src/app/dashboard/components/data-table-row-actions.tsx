@@ -12,12 +12,13 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  // DropdownMenuShortcut,
+  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
+} from "src/app/_components/ui/dropdown-menu";
+
 import { labels } from "../data/data";
 import { taskSchema } from "../data/schema";
 
@@ -61,7 +62,7 @@ export function DataTableRowActions<TData>({
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           Delete
-          {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
+          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
