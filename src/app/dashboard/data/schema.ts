@@ -9,5 +9,5 @@ export const taskSchema = z.object({
   label: z.string(),
   cost: z.string(),
 });
- 
+
 export type Task = z.infer<typeof taskSchema>

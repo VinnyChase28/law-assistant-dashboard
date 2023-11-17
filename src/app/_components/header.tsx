@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 import { clearChats } from "@/app/actions";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Sidebar } from "@/components/sidebar";
 import { SidebarList } from "@/components/sidebar-list";
 import {
@@ -16,8 +16,6 @@ import {
 import { SidebarFooter } from "@/components/sidebar-footer";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ClearHistory } from "@/components/clear-history";
-import { UserMenu } from "@/components/user-menu";
-import { LoginButton } from "@/components/login-button";
 import { getServerAuthSession } from "src/server/auth";
 
 export async function Header() {
@@ -44,13 +42,6 @@ export async function Header() {
         )}
         <div className="flex items-center">
           <IconSeparator className="h-6 w-6 text-muted-foreground/50" />
-          {session?.user ? (
-            <UserMenu user={session.user} />
-          ) : (
-            <Button variant="link" asChild className="-ml-2">
-              <Link href="/sign-in?callbackUrl=/">Login</Link>
-            </Button>
-          )}
         </div>
       </div>
       <div className="flex items-center justify-end space-x-2">

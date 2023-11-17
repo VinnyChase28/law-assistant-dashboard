@@ -6,7 +6,6 @@ import { z } from "zod";
 
 import { columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
-import { UserNav } from "../_components/user-nav";
 import { taskSchema } from "./data/schema";
 
 export const metadata: Metadata = {
@@ -53,9 +52,6 @@ export default async function TaskPage() {
             <p className="text-muted-foreground">
               Here&apos;s a list of your generated reports.
             </p>
-          </div>
-          <div className="flex items-center space-x-2">
-            <UserNav />
           </div>
         </div>
         <DataTable data={tasks} columns={columns} />

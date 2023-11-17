@@ -8,7 +8,7 @@ import { Input } from "src/app/_components/ui/input";
 
 import { DataTableViewOptions } from "./data-table-view-options";
 
-import { priorities, statuses } from "../data/data";
+import { cost, statuses } from "../data/data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 
 interface DataTableToolbarProps<TData> {
@@ -38,11 +38,11 @@ export function DataTableToolbar<TData>({
             options={statuses}
           />
         )}
-        {table.getColumn("cost") && (
+        {table.getColumn("priority") && (
           <DataTableFacetedFilter
-            column={table.getColumn("cost")}
+            column={table.getColumn("priority")}
             title="Cost"
-            options={priorities}
+            options={cost}
           />
         )}
         {isFiltered && (

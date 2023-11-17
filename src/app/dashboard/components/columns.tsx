@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Badge } from "src/app/_components/ui/badge";
 import { Checkbox } from "src/app/_components/ui/checkbox";
-import { labels, priorities, statuses } from "../data/data";
+import { labels, cost, statuses } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
@@ -91,20 +91,20 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Cost" />
     ),
     cell: ({ row }) => {
-      const cost = priorities.find(
-        (cost) => cost.value === row.getValue("cost"),
+      const priority = cost.find(
+        (priority) => priority.value === row.getValue("priority"),
       );
 
-      if (!cost) {
+      if (!priority) {
         return null;
       }
 
       return (
         <div className="flex items-center">
-          {cost.icon && (
-            <cost.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+          {priority.icon && (
+            <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
-          <span>{cost.label}</span>
+          <span>{priority.label}</span>
         </div>
       );
     },

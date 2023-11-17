@@ -10,16 +10,16 @@ import {
 
 export const labels = [
   {
-    value: "bug",
-    label: "Bug",
+    value: "research",
+    label: "Research",
   },
   {
-    value: "feature",
-    label: "Feature",
+    value: "summary",
+    label: "Summary",
   },
   {
-    value: "documentation",
-    label: "Documentation",
+    value: "compliance",
+    label: "compliance",
   },
 ];
 
@@ -46,7 +46,7 @@ export const statuses = [
   },
 ];
 
-export const priorities = [
+export const cost = [
   {
     label: "Low",
     value: "low",
@@ -62,4 +62,4 @@ export const priorities = [
     value: "high",
     icon: ArrowUpIcon,
   },
-]
+];
