@@ -3,15 +3,15 @@ import { promises as fs } from "fs";
 import path from "path";
 import { Metadata } from "next";
 import { z } from "zod";
-import { columns } from "./_components/tables/columns";
-import { DataTable } from "./_components/tables/data-table";
+import { columns } from "@/components/tables/columns";
+import { DataTable } from "@/components/tables/data-table";
 import { taskSchema } from "./dashboard-data/schema";
-import Charts from "./_components/charts/charts";
+import Charts from "@/components/charts/charts";
 import { Text } from "@tremor/react";
 
 export const metadata: Metadata = {
-  title: "Tasks",
-  description: "A task and issue tracker build using Tanstack Table.",
+  title: "CaseyAI",
+  description: "An assistant for the legal industry.",
 };
 
 // Simulate a database read for tasks.
