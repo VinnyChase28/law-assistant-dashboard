@@ -30,32 +30,22 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <div
-        className="main-container"
-        style={{
-          paddingTop:
-            "64px" /* Adjust this value based on your Navbar height */,
-          paddingLeft:
-            "64px" /* Adjust this value based on your Sidebar width */,
-        }}
-      >
-        <Text className="p-3 text-3xl font-bold">Dashboard</Text>
-        <Tabs defaultValue="notifications" className="w-full">
-          <TabsList className="border-b-2 border-gray-300">
-            <TabsTrigger value="notifications">Control Center</TabsTrigger>
-            <TabsTrigger value="genaiDocs">GenAi Docs</TabsTrigger>
-          </TabsList>
+      <Text className="pl-10 pt-5 text-3xl font-bold">Dashboard</Text>
+      <Tabs defaultValue="overview" className="w-full p-5">
+        <TabsList className="border-b-2 border-gray-300">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="genaiDocs">GenAi Docs</TabsTrigger>
+        </TabsList>
 
-          <TabsContent value="notifications">
-            <Charts />
-          </TabsContent>
+        <TabsContent value="overview">
+          <Charts />
+        </TabsContent>
 
-          <TabsContent value="genaiDocs">
-            {/* Display GenAi docs in a table */}
-            <DataTable data={tasks} columns={columns} />
-          </TabsContent>
-        </Tabs>
-      </div>
+        <TabsContent value="genaiDocs">
+          {/* Display GenAi docs in a table */}
+          <DataTable data={tasks} columns={columns} />
+        </TabsContent>
+      </Tabs>
     </>
   );
 }
