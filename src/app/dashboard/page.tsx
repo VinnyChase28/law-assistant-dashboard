@@ -30,9 +30,9 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <Text className="pl-10 pt-5 text-3xl font-bold">Dashboard</Text>
+      <Text className="ml-10 pt-5 text-3xl font-bold">Dashboard</Text>
       <Tabs defaultValue="overview" className="w-full p-5">
-        <TabsList className="border-b-2 border-gray-300">
+        <TabsList className="ml-8 border-b-2 border-gray-300">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="genaiDocs">GenAi Docs</TabsTrigger>
         </TabsList>
