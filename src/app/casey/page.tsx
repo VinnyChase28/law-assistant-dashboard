@@ -6,7 +6,7 @@ import { getServerAuthSession } from "src/server/auth";
 import { api } from "src/trpc/server";
 import { Chat } from "../_components/chat";
 
-export default async function Casey() {
+export default async function CaseyAI() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
   const session = await getServerAuthSession();
   const id = nanoid();

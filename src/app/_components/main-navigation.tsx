@@ -20,7 +20,8 @@ const components: { title: string; href: string; description: string }[] = [
   {
     title: "Compliance",
     href: "/docs/primitives/alert-dialog",
-    description: "Collection of tools for verifying compliance.",
+    description:
+      "Upload legal documents to verify other documents for compliance.",
   },
   {
     title: "Research",
@@ -45,7 +46,7 @@ export function MainNavigation() {
       <ModeToggle />
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/dashboard" legacyBehavior passHref>
+          <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Dashboard
             </NavigationMenuLink>
@@ -54,7 +55,7 @@ export function MainNavigation() {
         <NavigationMenuItem>
           <Link href="/casey" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Casey
+              CaseyAI
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
