@@ -10,4 +10,4 @@ export const myFilesSchema = z.object({
   cost: z.string(),
 });
 
-export type Task = z.infer<typeof myFilesSchema>;
+export type File = z.infer<typeof myFilesSchema>;
