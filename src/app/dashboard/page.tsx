@@ -1,12 +1,13 @@
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { promises as fs } from "fs";
 import path from "path";
 import { Metadata } from "next";
-import Image from "next/image";
 import { z } from "zod";
-
 import { columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
 import { taskSchema } from "./data/schema";
+import Charts from "./components/charts/charts";
+import { Text } from "@tremor/react";
 
 export const metadata: Metadata = {
   title: "Tasks",
@@ -24,37 +25,36 @@ async function getTasks() {
   return z.array(taskSchema).parse(tasks);
 }
 
-export default async function TaskPage() {
+export default async function DashboardPage() {
   const tasks = await getTasks();
 
   return (
     <>
-      <div className="md:hidden">
-        <Image
-          src="/examples/tasks-light.png"
-          width={1280}
-          height={998}
-          alt="Playground"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/examples/tasks-dark.png"
-          width={1280}
-          height={998}
-          alt="Playground"
-          className="hidden dark:block"
-        />
-      </div>
-      <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-        <div className="flex items-center justify-between space-y-2">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
-            <p className="text-muted-foreground">
-              Here&apos;s a list of your generated reports.
-            </p>
-          </div>
-        </div>
-        <DataTable data={tasks} columns={columns} />
+      <div
+        className="main-container"
+        style={{
+          paddingTop:
+            "64px" /* Adjust this value based on your Navbar height */,
+          paddingLeft:
+            "64px" /* Adjust this value based on your Sidebar width */,
+        }}
+      >
+        <Text className="p-3 text-3xl font-bold">Dashboard</Text>
+        <Tabs defaultValue="notifications" className="w-full">
+          <TabsList className="border-b-2 border-gray-300">
+            <TabsTrigger value="notifications">Control Center</TabsTrigger>
+            <TabsTrigger value="genaiDocs">GenAi Docs</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="notifications">
+            <Charts />
+          </TabsContent>
+
+          <TabsContent value="genaiDocs">
+            {/* Display GenAi docs in a table */}
+            <DataTable data={tasks} columns={columns} />
+          </TabsContent>
+        </Tabs>
       </div>
     </>
   );

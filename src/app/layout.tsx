@@ -25,7 +25,7 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "p4 flex min-h-screen flex-col bg-background font-sans antialiased",
+          "flex min-h-screen flex-col bg-background font-sans antialiased",
           fontSans.variable,
         )}
       >
@@ -38,15 +38,13 @@ export default function RootLayout({
           >
             <TooltipProvider>
               {/* Header container */}
-              <div className="flex w-full items-center justify-between p-4">
+              <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
                 <MainNavigation />
                 <UserNav />
-              </div>
+              </header>
 
               {/* Main content */}
-              <div className="flex w-full flex-1 flex-col items-center justify-center">
-                {children}
-              </div>
+              <main className="flex w-full flex-1 flex-col">{children}</main>
             </TooltipProvider>
           </ThemeProvider>
         </TRPCReactProvider>

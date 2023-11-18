@@ -24,11 +24,7 @@ export const labels = [
 ];
 
 export const statuses = [
-  {
-    value: "todo",
-    label: "Todo",
-    icon: CircleIcon,
-  },
+
   {
     value: "in progress",
     label: "In Progress",
@@ -46,20 +42,3 @@ export const statuses = [
   },
 ];
 
-export const cost = [
-  {
-    label: "Low",
-    value: "low",
-    icon: ArrowDownIcon,
-  },
-  {
-    label: "Medium",
-    value: "medium",
-    icon: ArrowRightIcon,
-  },
-  {
-    label: "High",
-    value: "high",
-    icon: ArrowUpIcon,
-  },
-];

@@ -36,15 +36,16 @@ export function DataTableViewOptions<TData>({
       <DropdownMenuContent align="end" className="w-[150px]">
         <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          {table
-            .getAllColumns()
-            .filter(
-              (column) =>
-                typeof column.accessorFn !== "undefined" && column.getCanHide(),
-            )
-            .map((column) => {
-              return (
+
+        {table
+          .getAllColumns()
+          .filter(
+            (column) =>
+              typeof column.accessorFn !== "undefined" && column.getCanHide(),
+          )
+          .map((column) => {
+            return (
+              <DropdownMenuItem key={column.id}>
                 <DropdownMenuCheckboxItem
                   key={column.id}
                   className="capitalize"
@@ -53,9 +54,9 @@ export function DataTableViewOptions<TData>({
                 >
                   {column.id}
                 </DropdownMenuCheckboxItem>
-              );
-            })}
-        </DropdownMenuItem>
+              </DropdownMenuItem>
+            );
+          })}
       </DropdownMenuContent>
     </DropdownMenu>
   );
