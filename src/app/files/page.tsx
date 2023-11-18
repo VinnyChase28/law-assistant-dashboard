@@ -1,9 +1,7 @@
-import FileManager from "../_components/file-manager/file-manager";
-
-export default async function Files() {
+export default function Files() {
   return (
     <main className="flex min-h-screen flex-col items-center ">
-      <FileManager />
+          File Table here
     </main>
   );
 }

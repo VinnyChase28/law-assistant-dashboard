@@ -28,7 +28,7 @@ const complianceData = [
   },
 ];
 
-const percentageFormatter = (number: Number) => `${number}%`;
+const percentageFormatter = (number: number) => `${number}%`;
 
 const ComplianceTrendChart = () => (
   <Card>

@@ -83,8 +83,11 @@ export const columns: ColumnDef<Task>[] = [
         </div>
       );
     },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
+    filterFn: (row, id, value: string[]) => {
+      if (Array.isArray(value)) {
+        return value.includes(row.getValue(id));
+      }
+      return false;
     },
   },
   {

@@ -8,7 +8,7 @@ import { Input } from "src/app/_components/ui/input";
 
 import { DataTableViewOptions } from "./data-table-view-options";
 
-import { cost, statuses } from "../data/data";
+import { statuses } from "../data/data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 
 interface DataTableToolbarProps<TData> {

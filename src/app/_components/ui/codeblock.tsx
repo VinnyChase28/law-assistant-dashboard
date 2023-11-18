@@ -63,7 +63,7 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
     if (typeof window === 'undefined') {
       return
     }
-    const fileExtension = programmingLanguages[language] || '.file'
+    const fileExtension = programmingLanguages[language] ?? ".file";
     const suggestedFileName = `file-${generateRandomString(
       3,
       true
