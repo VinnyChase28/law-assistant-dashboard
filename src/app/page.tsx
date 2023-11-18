@@ -1,42 +1,51 @@
-import Link from "next/link";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { promises as fs } from "fs";
+import path from "path";
+import { Metadata } from "next";
+import { z } from "zod";
+import { columns } from "./dashboard/components/columns";
+import { DataTable } from "./dashboard/components/data-table";
+import { taskSchema } from "./dashboard/data/schema";
+import Charts from "./dashboard/components/charts/charts";
+import { Text } from "@tremor/react";
 
-import { CreatePost } from "src/app/_components/create-post";
-import { nanoid } from "src/lib/utils";
-import { getServerAuthSession } from "src/server/auth";
-import { api } from "src/trpc/server";
-import { Chat } from "./_components/chat";
+export const metadata: Metadata = {
+  title: "Tasks",
+  description: "A task and issue tracker build using Tanstack Table.",
+};
 
-
-export default async function Home() {
-  const hello = await api.post.hello.query({ text: "from tRPC" });
-  const session = await getServerAuthSession();
-  const id = nanoid();
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-        <Chat id={id} />
-
-        <CrudShowcase />
-      </div>
-    </main>
+// Simulate a database read for tasks.
+async function getTasks() {
+  const data = await fs.readFile(
+    path.join(process.cwd(), "src/app/dashboard/data/tasks.json"),
   );
+
+  const tasks = JSON.parse(data.toString());
+
+  return z.array(taskSchema).parse(tasks);
 }
 
-async function CrudShowcase() {
-  const session = await getServerAuthSession();
-  if (!session?.user) return null;
-
-  const latestPost = await api.post.getLatest.query();
+export default async function DashboardPage() {
+  const tasks = await getTasks();
 
   return (
-    <div className="w-full max-w-xs">
-      {/* {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.name}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
+    <>
+      <Text className="ml-10 pt-5 text-3xl font-bold">Dashboard</Text>
+      <Tabs defaultValue="overview" className="w-full p-5">
+        <TabsList className="ml-8 border-b-2 border-gray-300">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="genaiDocs">GenAi Docs</TabsTrigger>
+        </TabsList>
 
-      <CreatePost /> */}
-    </div>
+        <TabsContent value="overview">
+          <Charts />
+        </TabsContent>
+
+        <TabsContent value="genaiDocs">
+          {/* Display GenAi docs in a table */}
+          <DataTable data={tasks} columns={columns} />
+        </TabsContent>
+      </Tabs>
+    </>
   );
 }
