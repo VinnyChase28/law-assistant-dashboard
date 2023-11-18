@@ -143,26 +143,10 @@ export default function FileManager() {
   };
 
   return (
-    <div className="justify-center">
-      <div className="flex justify-center">
-        <InputFile onFilesChange={handleFilesChange} />
-        <Button onClick={addNewFolder}>Add Folder</Button>
-      </div>
+    <div className="justify-center p-10">
       <DndContext onDragEnd={handleDragEnd}>
         <div className="m-3 flex flex-wrap items-start justify-center text-center">
           {/* New Section */}
-          <div className="mb-4 w-full px-2">
-            <Droppable
-              id="New"
-              className="border-gray-25 min-h-[200px] w-full min-w-[900px] border"
-            >
-              {files.New?.map((file, index) => (
-                <Draggable key={file.id} id={`New-file-${index}`}>
-                  {truncateFileName(file.name)}
-                </Draggable>
-              )) ?? []}
-            </Droppable>
-          </div>
 
           {/* Dynamic Folders */}
           {Object.keys(folders).map((id) => (
@@ -177,8 +161,25 @@ export default function FileManager() {
               </Droppable>
             </div>
           ))}
+
+          <div className="mb-4 w-full px-2">
+            <Droppable
+              id="New"
+              className="border-gray-25 min-h-[200px] w-full min-w-[900px] border"
+            >
+              {files.New?.map((file, index) => (
+                <Draggable key={file.id} id={`New-file-${index}`}>
+                  {truncateFileName(file.name)}
+                </Draggable>
+              )) ?? []}
+            </Droppable>
+          </div>
         </div>
       </DndContext>
+      <div className="flex justify-center">
+        <InputFile onFilesChange={handleFilesChange} />
+        <Button onClick={addNewFolder}>Add Folder</Button>
+      </div>
     </div>
   );
 }

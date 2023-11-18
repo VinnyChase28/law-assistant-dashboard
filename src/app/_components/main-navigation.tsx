@@ -18,39 +18,24 @@ import { ModeToggle } from "@/components/dark-mode-toggle";
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: "Compliance Checker",
+    title: "Compliance",
     href: "/docs/primitives/alert-dialog",
-    description:
-      "This tool will check any document against a list of legal documents, checking for compliance.",
+    description: "Collection of tools for verifying compliance.",
   },
   {
-    title: "Legal Research",
+    title: "Research",
     href: "/docs/primitives/hover-card",
-    description:
-      "Will perform legal research based on case data, evidence and other parameters.",
+    description: "A collection of tools for researching and analyzing data.",
   },
   {
-    title: "Progress",
+    title: "Summary",
     href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+    description: "A collection of tools for summarizing and visualizing data.",
   },
   {
-    title: "Scroll-area",
+    title: "Contract",
     href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+    description: "A collection of tools for creating contracts.",
   },
 ];
 
@@ -67,7 +52,7 @@ export function MainNavigation() {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
+          <Link href="/casey" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Casey
             </NavigationMenuLink>
