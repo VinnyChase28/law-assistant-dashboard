@@ -2,10 +2,11 @@ import { promises as fs } from "fs";
 import path from "path";
 import { Metadata } from "next";
 import { z } from "zod";
-import { columns } from "@/components/tables/columns";
+import { columns } from "./components/columns";
 import { DataTable } from "@/components/tables/data-table";
-import { taskSchema } from "./data/schema";
+import { myFilesSchema } from "./data/schema";
 import { Text } from "@tremor/react";
+
 export const metadata: Metadata = {
   title: "CaseyAI",
   description: "An assistant for the legal industry.",
@@ -19,7 +20,7 @@ async function getTasks() {
 
   const tasks = JSON.parse(data.toString());
 
-  return z.array(taskSchema).parse(tasks);
+  return z.array(myFilesSchema).parse(tasks);
 }
 
 export default async function Files() {

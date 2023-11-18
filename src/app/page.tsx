@@ -41,7 +41,6 @@ export default async function DashboardPage() {
         </TabsContent>
 
         <TabsContent value="genaiDocs">
-          {/* Display GenAi docs in a table */}
           <DataTable data={tasks} columns={columns} />
         </TabsContent>
       </Tabs>
