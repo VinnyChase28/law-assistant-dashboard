@@ -20,7 +20,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "src/app/_components/ui/popover";
+} from "@/components/ui/popover";
 
 import { Separator } from "@radix-ui/react-separator";
 
