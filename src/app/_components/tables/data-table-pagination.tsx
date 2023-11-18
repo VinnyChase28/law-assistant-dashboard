@@ -5,8 +5,7 @@ import {
   DoubleArrowRightIcon,
 } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
-
-import { Button } from "src/app/_components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,

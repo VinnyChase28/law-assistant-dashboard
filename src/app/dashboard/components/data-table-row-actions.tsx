@@ -3,7 +3,7 @@
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
 
-import { Button } from "src/app/_components/ui/button";
+import { Button } from "@/components/ui/button";
 
 import {
   DropdownMenu,
@@ -17,10 +17,10 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "src/app/_components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
-import { labels } from "../../dashboard-data/data";
-import { taskSchema } from "../../dashboard-data/schema";
+import { labels } from "../../dashboard/data";
+import { taskSchema } from "../../dashboard/schema";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuGroup,
   DropdownMenuShortcut,
-} from "src/app/_components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { getServerAuthSession } from "src/server/auth";
 import AuthButton from "./sign-in-out";
 

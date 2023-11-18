@@ -3,9 +3,9 @@ import { promises as fs } from "fs";
 import path from "path";
 import { Metadata } from "next";
 import { z } from "zod";
-import { columns } from "@/components/tables/columns";
+import { columns } from "./dashboard/components/columns";
 import { DataTable } from "@/components/tables/data-table";
-import { taskSchema } from "./dashboard-data/schema";
+import { taskSchema } from "./dashboard/schema";
 import Charts from "@/components/charts/charts";
 import { Text } from "@tremor/react";
 
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 // Simulate a database read for tasks.
 async function getTasks() {
   const data = await fs.readFile(
-    path.join(process.cwd(), "src/app/dashboard-data/tasks.json"),
+    path.join(process.cwd(), "src/app/dashboard/tasks.json"),
   );
 
   const tasks = JSON.parse(data.toString());
