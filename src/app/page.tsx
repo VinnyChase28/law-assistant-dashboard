@@ -4,7 +4,7 @@ import path from "path";
 import { Metadata } from "next";
 import { z } from "zod";
 import { columns } from "./dashboard/components/columns";
-import { DataTable } from "@/components/tables/data-table";
+import { DataTable } from "./dashboard/components/data-table";
 import { taskSchema } from "./dashboard/schema";
 import Charts from "@/components/charts/charts";
 import { Text } from "@tremor/react";

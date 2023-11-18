@@ -3,7 +3,7 @@ import path from "path";
 import { Metadata } from "next";
 import { z } from "zod";
 import { columns } from "./components/columns";
-import { DataTable } from "@/components/tables/data-table";
+import { DataTable } from "./components/data-table";
 import { myFilesSchema } from "./data/schema";
 import { Text } from "@tremor/react";
 
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 // Simulate a database read for tasks.
 async function getTasks() {
   const data = await fs.readFile(
-    path.join(process.cwd(), "src/app/dashboard-data/tasks.json"),
+    path.join(process.cwd(), "src/app/files/data/files.json"),
   );
 
   const tasks = JSON.parse(data.toString());
