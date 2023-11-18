@@ -3,10 +3,10 @@ import { promises as fs } from "fs";
 import path from "path";
 import { Metadata } from "next";
 import { z } from "zod";
-import { columns } from "./dashboard/components/columns";
-import { DataTable } from "./dashboard/components/data-table";
-import { taskSchema } from "./dashboard/data/schema";
-import Charts from "./dashboard/components/charts/charts";
+import { columns } from "./_components/tables/columns";
+import { DataTable } from "./_components/tables/data-table";
+import { taskSchema } from "./dashboard-data/schema";
+import Charts from "./_components/charts/charts";
 import { Text } from "@tremor/react";
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 // Simulate a database read for tasks.
 async function getTasks() {
   const data = await fs.readFile(
-    path.join(process.cwd(), "src/app/dashboard/data/tasks.json"),
+    path.join(process.cwd(), "src/app/dashboard-data/tasks.json"),
   );
 
   const tasks = JSON.parse(data.toString());
@@ -27,7 +27,6 @@ async function getTasks() {
 
 export default async function DashboardPage() {
   const tasks = await getTasks();
-
   return (
     <>
       <Text className="ml-10 pt-5 text-3xl font-bold">Dashboard</Text>

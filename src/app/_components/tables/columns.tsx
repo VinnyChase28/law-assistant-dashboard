@@ -4,8 +4,8 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Badge } from "src/app/_components/ui/badge";
 import { Checkbox } from "src/app/_components/ui/checkbox";
-import { labels, statuses } from "../data/data";
-import { Task } from "../data/schema";
+import { labels, statuses } from "../../dashboard-data/data";
+import { Task } from "../../dashboard-data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { FileIcon } from "lucide-react";
