@@ -15,24 +15,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { formatBytes } from "src/helpers/textTransformers";
 
 type Project = {
   name: string;
   id: string;
 };
 
-type FileMetadata = {
-  name: string;
-  fileType: string;
-  fileSize: string;
-  projectId: string;
-  blobUrl: string;
-};
-
 export default function InputFile() {
   const [selectedProject, setSelectedProject] =
     useState<string>("Default Project");
-  const [file, setFile] = useState<File | undefined>(undefined);
+  const [file, setFile] = useState<File[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [error, setError] = useState("");
   const allProjects = api.project.getAllProjects.useQuery();
@@ -43,38 +36,75 @@ export default function InputFile() {
     }
   }, [allProjects.data]);
 
-  // Handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (!file) {
-      setError("Please select a file before submitting.");
+    if (file.length === 0) {
+      setError("Please select at least one file before submitting.");
       return;
     }
 
-    // Prepare file metadata
-    const fileMetadata: FileMetadata = {
-      name: file.name,
-      fileType: file.type || "application/pdf",
-      fileSize: file.size.toString(),
-      projectId: selectedProject, // Assuming this is the project ID
-      blobUrl: "", // Placeholder for now
-    };
+    const fileMetadataArray = []; // Array to store metadata for each file
 
-    // Log file metadata
-    console.log("Selected File Metadata:", fileMetadata);
-    console.log("Selected Project:", selectedProject);
-  };
+    for (let i = 0; i < file.length; i++) {
+      if (file[i]) {
+        const formData = new FormData();
+        formData.append("file", file[i]);
 
-  // Handle file change event
+        try {
+          // Upload the file
+          const uploadResponse = await fetch(
+            `/api/upload?filename=${encodeURIComponent(file[i].name)}`,
+            { method: "POST", body: formData },
+          );
+
+          if (!uploadResponse.ok) {
+            throw new Error(`Upload failed for file: ${file[i].name}`);
+          }
+
+          const uploadedFileData = await uploadResponse.json();
+          const blobUrl = uploadedFileData.url; // Assuming this is the blob URL
+
+          // Store file metadata
+          fileMetadataArray.push({
+            name: file[i].name,
+            fileType: file[i].type || "application/pdf",
+            fileSize: formatBytes(file[i].size),
+            projectId: selectedProject,
+            blobUrl: blobUrl,
+          });
+        } catch (error) {
+          console.error(`Error processing file: ${file[i].name}`, error);
+          setError(`Error processing file: ${file[i].name}`);
+          return; // Stop processing further files
+        }
+      } else {
+        console.error(`File at index ${i} is undefined.`);
+        setError(`File at index ${i} is undefined.`);
+        return;
+      }
+    }
+
+    // Insert file metadata into PostgreSQL
+    try {
+      const insertResponse = await Promise.all(
+        fileMetadataArray.map((metadata) =>
+          api.file.insertFileMetadata.mutate(metadata),
+        ),
+      );
+      console.log("All files uploaded and metadata inserted:", insertResponse);
+    } catch (error) {
+      console.error("Error inserting file metadata:", error);
+      setError("Error inserting file metadata");
+    }
+  };````z 
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("file changed");
     const files = e.target.files;
-    console.log(files, "FILES");
+    console.log("Selected Files:", files);
     if (files) {
-      const selectedFiles = Array.from(files);
-      setFile(selectedFiles[0]); // Here we're only handling the first selected file
+      setFile(Array.from(files)); // Store all selected files
     }
   };
 

@@ -64,7 +64,7 @@ export const authOptions: NextAuthOptions = {
         });
 
         // Create a default team
-        const defaultTeam = await db.team.create({
+        await db.team.create({
           data: {
             name: "Default Team",
             companyId: newCompany.id,
@@ -75,7 +75,7 @@ export const authOptions: NextAuthOptions = {
         });
 
         // Create a default project
-        const defaultProject = await db.project.create({
+        await db.project.create({
           data: {
             name: "Default Project",
             userId: newUser.id,
