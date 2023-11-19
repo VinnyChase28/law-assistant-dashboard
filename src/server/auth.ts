@@ -6,63 +6,70 @@ import {
   DefaultUser,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
-import { api } from "src/trpc/react";
 import { env } from "src/env.mjs";
 import { db } from "src/server/db";
 
-/**
- * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
- * object and keep type safety.
- *
- * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
- */
-
 declare module "next-auth" {
   interface User extends DefaultUser {
-    roleId?: string; // Assuming 'roleId' connects to the 'Role' model in Prisma
+    roleId?: string;
   }
   interface Session extends DefaultSession {
     user: {
       id: string;
-      roleId?: string; // Include the role ID in the session
+      roleId?: string;
     } & DefaultSession["user"];
   }
 }
 
-/**
- * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
- *
- * @see https://next-auth.js.org/configuration/options
- */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    async signIn({ user }) {
-      const existingUser = await db.user.findUnique({
-        where: { id: user.id },
+    async signIn({ user, account }) {
+      if (!account) {
+        return false;
+      }
+      const providerAccountId = account.providerAccountId;
+
+      let existingAccount = await db.account.findUnique({
+        where: {
+          provider_providerAccountId: {
+            provider: account.provider,
+            providerAccountId: providerAccountId,
+          },
+        },
       });
 
-      if (!existingUser?.companyId) {
-        // This user is signing in for the first time
+      // If the account does not exist, create the user along with the account
+      if (!existingAccount) {
         let adminRole = await db.role.findFirst({
           where: { name: "ADMIN" },
         });
 
-        // If the ADMIN role doesn't exist, create it
         if (!adminRole) {
           adminRole = await db.role.create({
             data: { name: "ADMIN" },
           });
         }
 
-        // Create a new company
         const newCompany = await db.company.create({
           data: { name: "Default Company" },
         });
 
-        // Assign the company and role to the user
-        await db.user.update({
-          where: { id: user.id },
-          data: { companyId: newCompany.id, roleId: adminRole.id },
+        const newUser = await db.user.create({
+          data: {
+            name: user.name,
+            image: user.image,
+            companyId: newCompany.id,
+            roleId: adminRole.id,
+          },
+        });
+
+        existingAccount = await db.account.create({
+          data: {
+            providerAccountId: providerAccountId,
+            userId: newUser.id,
+            provider: account.provider,
+            type: account.type,
+          },
         });
       }
 
@@ -83,21 +90,7 @@ export const authOptions: NextAuthOptions = {
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
   ],
 };
 
-/**
- * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
- *
- * @see https://next-auth.js.org/configuration/nextjs
- */
 export const getServerAuthSession = () => getServerSession(authOptions);
