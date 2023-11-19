@@ -68,4 +68,25 @@ export const fileRouter = createTRPCRouter({
         },
       });
     }),
+
+  // Fetch Favorite Count for a File
+  getFavoriteCount: protectedProcedure
+    .input(z.number()) // fileId
+    .query(async ({ ctx, input }) => {
+      return ctx.db.favorite.count({
+        where: { fileId: input },
+      });
+    }),
+
+  // Fetch Favorite Files for a User
+  getUserFavoriteFiles: protectedProcedure
+    .input(z.string()) // userId
+    .query(async ({ ctx, input }) => {
+      return ctx.db.favorite.findMany({
+        where: { userId: input },
+        include: {
+          file: true, // Include the file data
+        },
+      });
+    }),
 });
