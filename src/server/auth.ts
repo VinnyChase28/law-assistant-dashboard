@@ -28,8 +28,8 @@ export const authOptions: NextAuthOptions = {
       if (!account) {
         return false;
       }
-      const providerAccountId = account.providerAccountId;
 
+      const providerAccountId = account.providerAccountId;
       let existingAccount = await db.account.findUnique({
         where: {
           provider_providerAccountId: {
@@ -39,7 +39,6 @@ export const authOptions: NextAuthOptions = {
         },
       });
 
-      // If the account does not exist, create the user along with the account
       if (!existingAccount) {
         let adminRole = await db.role.findFirst({
           where: { name: "ADMIN" },
@@ -64,6 +63,25 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
+        // Create a default team
+        const defaultTeam = await db.team.create({
+          data: {
+            name: "Default Team",
+            companyId: newCompany.id,
+            users: {
+              connect: { id: newUser.id },
+            },
+          },
+        });
+
+        // Create a default project
+        const defaultProject = await db.project.create({
+          data: {
+            name: "Default Project",
+            userId: newUser.id,
+          },
+        });
+
         existingAccount = await db.account.create({
           data: {
             providerAccountId: providerAccountId,
@@ -74,14 +92,11 @@ export const authOptions: NextAuthOptions = {
         });
 
         const indexName = `company-${newCompany.id}-index`;
-        console.debug(`Creating index ${indexName}`);
-        const response = await pinecone.createIndex({
+        await pinecone.createIndex({
           name: indexName,
           dimension: 512,
           metric: "cosine",
         });
-
-        console.debug(`Created index ${indexName}`, response);
 
         await db.company.update({
           where: { id: newCompany.id },
