@@ -81,33 +81,33 @@ model Project {
   name        String
   files       File[]
   companyId   String?
-  userId      String 
+  userId      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   description String?
   status      String?
   createBy    String?
+
   @@index([companyId])
 }
 
 model File {
-  id           Int               @id @default(autoincrement())
-  name         String
-  blobUrl      String
-  fileType     String
-  fileSize     String
-  vectorId     String?
+  id                Int               @id @default(autoincrement())
+  name              String
+  blobUrl           String
+  fileType          String
+  fileSize          String
+  vectorId          String?
   processingStatus  String
-  vectorProcessedAt DateTime? 
-  createdAt    DateTime          @default(now())
-  updatedAt    DateTime          @updatedAt
-  projectId    String
-  project      Project          @relation(fields: [projectId], references: [id])
-  userId       String
-  access       FileAccess        @default(PRIVATE)
-  documentType DocumentType?
-  taskHistory  FileTaskHistory[]
- 
+  vectorProcessedAt DateTime?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  projectId         String
+  project           Project           @relation(fields: [projectId], references: [id])
+  userId            String
+  access            FileAccess        @default(PRIVATE)
+  documentType      DocumentType?
+  taskHistory       FileTaskHistory[]
 
   @@index([userId, projectId])
 }
@@ -138,6 +138,7 @@ model User {
   sessions        Session[]
   teamId          String?
   companyId       String?
+  teams           Team[]            @relation("UserTeams")
   team            Team?             @relation(fields: [teamId], references: [id])
   company         Company?          @relation(fields: [companyId], references: [id])
   tasks           Task[]
@@ -182,17 +183,18 @@ model Team {
   id        String  @id @default(cuid())
   name      String
   companyId String
-  users     User[]
+  users     User[]  @relation("UserTeams")
   company   Company @relation(fields: [companyId], references: [id])
+  User      User[]
 
   @@index([companyId])
 }
 
 model Company {
-  id    String @id @default(cuid())
-  name  String
-  teams Team[]
-  users User[]
+  id                String  @id @default(cuid())
+  name              String
+  teams             Team[]
+  users             User[]
   pineconeIndexName String?
 }
 
