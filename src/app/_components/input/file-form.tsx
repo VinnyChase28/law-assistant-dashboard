@@ -30,7 +30,8 @@ type FileMetadata = {
 };
 
 export default function InputFile() {
-  const [selectedProject, setSelectedProject] = useState<string>("Default");
+  const [selectedProject, setSelectedProject] =
+    useState<string>("Default Project");
   const [file, setFile] = useState<File | undefined>(undefined);
   const [projects, setProjects] = useState<Project[]>([]);
   const [error, setError] = useState("");
@@ -42,35 +43,38 @@ export default function InputFile() {
     }
   }, [allProjects.data]);
 
+  // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
-    // Since we're allowing multiple file selections, we should expect 'file' to be an array
     if (!file) {
       setError("Please select a file before submitting.");
       return;
     }
 
+    // Prepare file metadata
     const fileMetadata: FileMetadata = {
       name: file.name,
       fileType: file.type || "application/pdf",
       fileSize: file.size.toString(),
-      projectId: selectedProject,
-      blobUrl: "",
+      projectId: selectedProject, // Assuming this is the project ID
+      blobUrl: "", // Placeholder for now
     };
 
-    // TODO: Insert the file metadata into the database using your TRPC mutation
-    console.log(fileMetadata);
+    // Log file metadata
+    console.log("Selected File Metadata:", fileMetadata);
+    console.log("Selected Project:", selectedProject);
   };
 
+  // Handle file change event
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const fileList = Array.from(e.target.files);
-
-      if (fileList) {
-        setFile(fileList[0]);
-      }
+    console.log("file changed");
+    const files = e.target.files;
+    console.log(files, "FILES");
+    if (files) {
+      const selectedFiles = Array.from(files);
+      setFile(selectedFiles[0]); // Here we're only handling the first selected file
     }
   };
 
@@ -100,7 +104,7 @@ export default function InputFile() {
           <DropdownMenuLabel>Choose Project</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup
-            value={selectedProject ?? "Default"}
+            value={selectedProject}
             onValueChange={setSelectedProject}
           >
             {projects.map((project) => (
