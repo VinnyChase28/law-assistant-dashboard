@@ -2,7 +2,5 @@ import { Pinecone } from "@pinecone-database/pinecone";
 
 export const pinecone = new Pinecone({
   apiKey: process.env.PINECONE_API_KEY ?? "",
-  environment: process.env.PINECONE_ENVIRONMENT ?? "",
+  environment: "gcp-starter",
 });
-
-export const pineconeIndex = pinecone.Index("law-assistant-internal");

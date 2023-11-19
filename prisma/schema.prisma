@@ -54,79 +54,87 @@ enum Label {
 }
 
 model Task {
-  id        String            @id @default(cuid())
-  title     String
-  status    String
-  label     Label
-  cost      String
-  category  String
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
-  userId    String?
-  user      User?             @relation(fields: [userId], references: [id])
+  id          String            @id @default(cuid())
+  title       String
+  status      String
+  label       Label
+  cost        String
+  category    String
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  userId      String?
+  user        User?             @relation(fields: [userId], references: [id])
   fileHistory FileTaskHistory[]
+
   @@index([userId])
 }
 
-
 model Project {
-  id        String   @id @default(cuid())
-  name      String
-  files     File[]
-  companyId String?
-  createdAt DateTime @default(now()) 
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  name        String
+  files       File[]
+  companyId   String?
+  userId      String 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   description String?
   status      String?
+  createBy    String?
   @@index([companyId])
 }
 
 model File {
-  id          Int              @id @default(autoincrement())
-  name        String
-  folder      String
-  blobUrl     String
-  fileType    String
-  fileSize    String
-  vectorId    String
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
-  projectId   String?     
-  project     Project?         @relation(fields: [projectId], references: [id])
-  userId      String       
-  access      FileAccess       @default(PRIVATE) 
+  id           Int               @id @default(autoincrement())
+  name         String
+  blobUrl      String
+  fileType     String
+  fileSize     String
+  vectorId     String
+  processingStatus  String     // New field to track processing status
+  vectorProcessedAt DateTime?  // New field for timestamp of vector processing
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  projectId    String?
+  project      Project?          @relation(fields: [projectId], references: [id])
+  userId       String
+  access       FileAccess        @default(PRIVATE)
   documentType DocumentType?
-  taskHistory FileTaskHistory[]
+  taskHistory  FileTaskHistory[]
+ 
+
   @@index([userId, projectId])
 }
 
 // Join table for File and Task
 model FileTaskHistory {
-  id        String   @id @default(cuid())
-  fileId    Int      // Corresponds to the 'id' in File model
-  taskId    String   // Corresponds to the 'id' in Task model
-  usedAt    DateTime @default(now()) // When the file was used in the task
-  file      File     @relation(fields: [fileId], references: [id])
-  task      Task     @relation(fields: [taskId], references: [id])
+  id     String   @id @default(cuid())
+  fileId Int // Corresponds to the 'id' in File model
+  taskId String // Corresponds to the 'id' in Task model
+  userId String // ID of the user who created this history record
+  usedAt DateTime @default(now()) // When the file was used in the task
+  file   File     @relation(fields: [fileId], references: [id])
+  task   Task     @relation(fields: [taskId], references: [id])
+  user   User     @relation(fields: [userId], references: [id])
 
-  @@index([fileId, taskId])
+  @@index([fileId, taskId, userId])
 }
 
 model User {
-  id            String        @id @default(cuid())
-  name          String?
-  email         String?       @unique
-  emailVerified DateTime?
-  image         String?
-  roleId        String
-  role          Role          @relation(fields: [roleId], references: [id])
-  accounts      Account[]
-  sessions      Session[]
-  teamId        String?
-  companyId     String?
-  team          Team?         @relation(fields: [teamId], references: [id])
-  company       Company?      @relation(fields: [companyId], references: [id])
-  tasks         Task[]
+  id              String            @id @default(cuid())
+  name            String?
+  email           String?           @unique
+  emailVerified   DateTime?
+  image           String?
+  roleId          String
+  role            Role              @relation(fields: [roleId], references: [id])
+  accounts        Account[]
+  sessions        Session[]
+  teamId          String?
+  companyId       String?
+  team            Team?             @relation(fields: [teamId], references: [id])
+  company         Company?          @relation(fields: [companyId], references: [id])
+  tasks           Task[]
+  FileTaskHistory FileTaskHistory[]
 }
 
 model Session {
@@ -140,7 +148,7 @@ model Session {
 }
 
 model Account {
-  id                String   @id @default(cuid())
+  id                String  @id @default(cuid())
   userId            String
   type              String
   provider          String
@@ -152,15 +160,15 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-  user              User     @relation(fields: [userId], references: [id])
+  user              User    @relation(fields: [userId], references: [id])
 
   @@unique([provider, providerAccountId])
 }
 
 model Role {
-  id       String @id @default(cuid())
-  name     UserRole
-  users    User[]
+  id    String   @id @default(cuid())
+  name  UserRole
+  users User[]
 }
 
 model Team {
@@ -178,6 +186,7 @@ model Company {
   name  String
   teams Team[]
   users User[]
+  pineconeIndexName String?
 }
 
 model VerificationToken {

@@ -8,6 +8,7 @@ import {
 import DiscordProvider from "next-auth/providers/discord";
 import { env } from "src/env.mjs";
 import { db } from "src/server/db";
+import { pinecone } from "src/utils/pinecone";
 
 declare module "next-auth" {
   interface User extends DefaultUser {
@@ -70,6 +71,21 @@ export const authOptions: NextAuthOptions = {
             provider: account.provider,
             type: account.type,
           },
+        });
+
+        const indexName = `company-${newCompany.id}-index`;
+        console.debug(`Creating index ${indexName}`);
+        const response = await pinecone.createIndex({
+          name: indexName,
+          dimension: 512,
+          metric: "cosine",
+        });
+
+        console.debug(`Created index ${indexName}`, response);
+
+        await db.company.update({
+          where: { id: newCompany.id },
+          data: { pineconeIndexName: indexName },
         });
       }
 
