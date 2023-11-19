@@ -8,29 +8,129 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-model Post {
-  id          Int      @id @default(autoincrement())
-  name        String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  createdById String
-  createdBy   User     @relation(fields: [createdById], references: [id])
+enum FileAccess {
+  PUBLIC
+  PRIVATE
+  SHARED
+}
 
-  @@index([name])
+enum UserRole {
+  ADMIN
+  MEMBER
+}
+
+enum DocumentType {
+  LEGAL_CONTRACTS
+  LITIGATION_DOCUMENTS
+  CORPORATE_GOVERNANCE
+  REGULATORY_COMPLIANCE
+  INTELLECTUAL_PROPERTY
+  CLIENT_CORRESPONDENCE
+  LEGAL_RESEARCH
+  TRANSACTIONAL_DOCUMENTS
+  ESTATE_PLANNING
+  EMPLOYMENT_LAW
+  REAL_ESTATE_LAW
+  CONSTRUCTION_PROPOSALS
+  DISCOVERY_DOCUMENTS
+}
+
+enum Label {
+  RESEARCH
+  COMPLIANCE
+  SUMMARY
+  EXTRACTION
+  CONTRACT
+}
+
+model Task {
+  id        String            @id @default(cuid())
+  title     String
+  status    String
+  label     Label
+  cost      String
+  category  String
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  userId    String?
+  user      User?             @relation(fields: [userId], references: [id])
+  fileHistory FileTaskHistory[]
+  @@index([userId])
+}
+
+
+model Project {
+  id        String   @id @default(cuid())
+  name      String
+  files     File[]
+  companyId String?
+  createdAt DateTime @default(now()) 
+  updatedAt DateTime @updatedAt
+  description String?
+  status      String?
+  @@index([companyId])
 }
 
 model File {
-  id        Int      @id @default(autoincrement())
-  name      String
-  folder    String
-  blobUrl   String   // New field for storing the blob URL
-  createdAt DateTime @default(now())
-  userId    String
-
-  @@index([name])
+  id          Int              @id @default(autoincrement())
+  name        String
+  folder      String
+  blobUrl     String
+  fileType    String
+  fileSize    String
+  vectorId    String
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  projectId   String?     
+  project     Project?         @relation(fields: [projectId], references: [id])
+  userId      String       
+  access      FileAccess       @default(PRIVATE) 
+  documentType DocumentType?
+  taskHistory FileTaskHistory[]
+  @@index([userId, projectId])
 }
+
+// Join table for File and Task
+model FileTaskHistory {
+  id        String   @id @default(cuid())
+  fileId    Int      // Corresponds to the 'id' in File model
+  taskId    String   // Corresponds to the 'id' in Task model
+  usedAt    DateTime @default(now()) // When the file was used in the task
+  file      File     @relation(fields: [fileId], references: [id])
+  task      Task     @relation(fields: [taskId], references: [id])
+
+  @@index([fileId, taskId])
+}
+
+model User {
+  id            String        @id @default(cuid())
+  name          String?
+  email         String?       @unique
+  emailVerified DateTime?
+  image         String?
+  roleId        String
+  role          Role          @relation(fields: [roleId], references: [id])
+  accounts      Account[]
+  sessions      Session[]
+  teamId        String?
+  companyId     String?
+  team          Team?         @relation(fields: [teamId], references: [id])
+  company       Company?      @relation(fields: [companyId], references: [id])
+  tasks         Task[]
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
 model Account {
-  id                String  @id @default(cuid())
+  id                String   @id @default(cuid())
   userId            String
   type              String
   provider          String
@@ -42,28 +142,32 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User     @relation(fields: [userId], references: [id])
 
   @@unique([provider, providerAccountId])
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Role {
+  id       String @id @default(cuid())
+  name     UserRole
+  users    User[]
 }
 
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  posts         Post[]
-  sessions      Session[]
+model Team {
+  id        String  @id @default(cuid())
+  name      String
+  companyId String
+  users     User[]
+  company   Company @relation(fields: [companyId], references: [id])
+
+  @@index([companyId])
+}
+
+model Company {
+  id    String @id @default(cuid())
+  name  String
+  teams Team[]
+  users User[]
 }
 
 model VerificationToken {

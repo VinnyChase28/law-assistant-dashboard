@@ -3,9 +3,10 @@ import {
   getServerSession,
   type DefaultSession,
   type NextAuthOptions,
+  DefaultUser,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
-
+import { api } from "src/trpc/react";
 import { env } from "src/env.mjs";
 import { db } from "src/server/db";
 
@@ -15,19 +16,17 @@ import { db } from "src/server/db";
  *
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
+
 declare module "next-auth" {
+  interface User extends DefaultUser {
+    roleId?: string; // Assuming 'roleId' connects to the 'Role' model in Prisma
+  }
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
+      roleId?: string; // Include the role ID in the session
     } & DefaultSession["user"];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
 /**
@@ -37,11 +36,44 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
+    async signIn({ user }) {
+      const existingUser = await db.user.findUnique({
+        where: { id: user.id },
+      });
+
+      if (!existingUser?.companyId) {
+        // This user is signing in for the first time
+        let adminRole = await db.role.findFirst({
+          where: { name: "ADMIN" },
+        });
+
+        // If the ADMIN role doesn't exist, create it
+        if (!adminRole) {
+          adminRole = await db.role.create({
+            data: { name: "ADMIN" },
+          });
+        }
+
+        // Create a new company
+        const newCompany = await db.company.create({
+          data: { name: "Default Company" },
+        });
+
+        // Assign the company and role to the user
+        await db.user.update({
+          where: { id: user.id },
+          data: { companyId: newCompany.id, roleId: adminRole.id },
+        });
+      }
+
+      return true;
+    },
     session: ({ session, user }) => ({
       ...session,
       user: {
         ...session.user,
         id: user.id,
+        roleId: user.roleId,
       },
     }),
   },
