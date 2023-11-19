@@ -1,7 +1,8 @@
 "use client";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { DocumentUploadForm } from "./file-uploader-form";
+
+import InputFile from "./file-form";
 
 const AddFiles = () => {
   return (
@@ -10,7 +11,7 @@ const AddFiles = () => {
         <Button>Add Files</Button>
       </DialogTrigger>
       <DialogContent>
-        <DocumentUploadForm />
+        <InputFile />
       </DialogContent>
     </Dialog>
   );

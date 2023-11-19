@@ -1,30 +1,19 @@
-import { z } from "zod";
+import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "src/server/api/trpc";
 export const projectRouter = createTRPCRouter({
-  uploadFile: protectedProcedure
-    .input(
-      z.object({
-        fileName: z.string(),
-        folder: z.string(),
-        blobUrl: z.string(), // Add the blobUrl field
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      if (!ctx.session.user) {
-        throw new Error("UNAUTHORIZED");
-      }
-      return ctx.db.file.create({
-        data: {
-          name: input.fileName,
-          folder: input.folder,
-          blobUrl: input.blobUrl, // Include the blobUrl in the data being saved
-          userId: ctx.session.user.id,
-        },
-      });
-    }),
+  getAllProjects: protectedProcedure.query(async ({ ctx }) => {
+    if (!ctx.session.user) {
+      throw new Error("UNAUTHORIZED");
+    }
+
+    return ctx.db.project.findMany({
+      orderBy: { createdAt: "desc" },
+      where: { userId: ctx.session.user.id },
+      select: {
+        id: true, // Selecting projectId
+        name: true, // Selecting projectName
+        // Exclude other fields by not listing them here
+      },
+    });
+  }),
 });

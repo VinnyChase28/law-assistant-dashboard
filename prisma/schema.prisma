@@ -53,6 +53,13 @@ enum Label {
   INTELLECTUAL_PROPERTY
 }
 
+enum FileProcessingStatus {
+  IN_PROGRESS
+  PROCESSING
+  DONE
+  FAILED
+}
+
 model Task {
   id          String            @id @default(cuid())
   title       String
@@ -89,13 +96,13 @@ model File {
   blobUrl      String
   fileType     String
   fileSize     String
-  vectorId     String
-  processingStatus  String     // New field to track processing status
-  vectorProcessedAt DateTime?  // New field for timestamp of vector processing
+  vectorId     String?
+  processingStatus  String
+  vectorProcessedAt DateTime? 
   createdAt    DateTime          @default(now())
   updatedAt    DateTime          @updatedAt
-  projectId    String?
-  project      Project?          @relation(fields: [projectId], references: [id])
+  projectId    String
+  project      Project          @relation(fields: [projectId], references: [id])
   userId       String
   access       FileAccess        @default(PRIVATE)
   documentType DocumentType?

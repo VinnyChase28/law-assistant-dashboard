@@ -1,28 +1,33 @@
-// In your post.ts or a new file.ts
-
+import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 
 export const fileRouter = createTRPCRouter({
+  insertFileMetadata: protectedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        fileType: z.string(),
+        fileSize: z.string(),
+        projectId: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      // Ensure the user is authenticated
+      if (!ctx.session.user) {
+        throw new Error("UNAUTHORIZED");
+      }
 
-  // uploadFile: protectedProcedure
-  //   .input(
-  //     z.object({
-  //       fileName: z.string(),
-  //       folder: z.string(),
-  //       blobUrl: z.string(), // Add the blobUrl field
-  //     }),
-  //   )
-  //   .mutation(async ({ ctx, input }) => {
-  //     if (!ctx.session.user) {
-  //       throw new Error("UNAUTHORIZED");
-  //     }
-  //     return ctx.db.file.create({
-  //       data: {
-  //         name: input.fileName,
-  //         folder: input.folder,
-  //         blobUrl: input.blobUrl, // Include the blobUrl in the data being saved
-  //         userId: ctx.session.user.id,
-  //       },
-  //     });
-  //   }),
+      // Insert the file metadata into the database
+      return ctx.db.file.create({
+        data: {
+          name: input.name,
+          blobUrl: "", // This should be set after handling the actual file upload
+          fileType: input.fileType,
+          fileSize: input.fileSize,
+          userId: ctx.session.user.id, // Set the user ID from the session
+          projectId: input.projectId,
+          processingStatus: "pending",
+        },
+      });
+    }),
 });
