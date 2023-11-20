@@ -1,13 +1,21 @@
-import { z } from "zod"
+import { z } from "zod";
 
-// We're keeping a simple non-relational schema here.
-// IRL, you will have a schema for your data models.
 export const myFilesSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  status: z.string(),
-  label: z.string(),
-  cost: z.string(),
+  id: z.number(),
+  name: z.string(),
+  blobUrl: z.string(),
+  fileType: z.string(),
+  fileSize: z.string(),
+  vectorId: z.string().nullable().optional(), // Allow null and optional
+  processingStatus: z.string(),
+  vectorProcessedAt: z.date().nullable().optional(), // Allow null and optional
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  projectId: z.string(),
+  userId: z.string(),
+  access: z.enum(["PRIVATE", "PUBLIC", "SHARED"]).optional(), // Adjusted based on your file access types
+  documentType: z.string().nullable().optional(), // Allow null and optional
+  // Include other fields if they are part of your model
 });
 
 export type File = z.infer<typeof myFilesSchema>;

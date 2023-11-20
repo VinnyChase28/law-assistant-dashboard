@@ -18,8 +18,6 @@ export default function UploadFiles() {
       <form
         onSubmit={async (event) => {
           event.preventDefault();
-
-          // Check if the input file is not null and has files
           if (
             !inputFileRef.current ||
             !inputFileRef.current.files ||
