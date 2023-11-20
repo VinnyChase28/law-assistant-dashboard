@@ -8,3 +8,5 @@
 
 After updating the schema, ```run npx prisma migrate dev``` to apply the changes and ```npx prisma generate``` to update the Prisma client.
 
+
+run ```vercel env pull``` to grab all environment variables

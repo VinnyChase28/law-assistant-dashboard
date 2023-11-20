@@ -17,6 +17,7 @@ import AuthButton from "./sign-in-out";
 
 export async function UserNav() {
   const session = await getServerAuthSession();
+  console.log(session);
   return (
     <>
       {session ? (
@@ -33,7 +34,7 @@ export async function UserNav() {
               <div className="flex flex-col space-y-1">
                 <p className="text-sm font-medium leading-none">Vince</p>
                 <p className="text-xs leading-none text-muted-foreground">
-                  vince.gauthier@lawassistant.ai
+                  {session.user.email || "add email in profile"}
                 </p>
               </div>
             </DropdownMenuLabel>
