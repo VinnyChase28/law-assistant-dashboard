@@ -2,40 +2,54 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 
 export const fileRouter = createTRPCRouter({
+  //insert file metadata
   insertFileMetadata: protectedProcedure
     .input(
       z.object({
         name: z.string(),
         fileType: z.string(),
         fileSize: z.string(),
-        projectId: z.string(),
+        blobUrl: z.string(),
+        //TODO: add projectid from list of selectable projects. we default to "Default Project" for now. files must be seperated by project
+        projectId: z.string().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      // Ensure the user is authenticated
-      if (!ctx.session.user) {
-        throw new Error("UNAUTHORIZED");
+      let projectId = input.projectId;
+      if (!projectId) {
+        const defaultProject = await ctx.db.project.findFirst({
+          where: {
+            name: "Default Project",
+            // Add additional conditions if necessary, like userId
+            userId: ctx.session.user.id,
+          },
+        });
+        if (!defaultProject) {
+          throw new Error("Default Project not found.");
+        }
+        projectId = defaultProject.id;
+        // Insert file metadata into the database
+        return ctx.db.file.create({
+          data: {
+            name: input.name,
+            blobUrl: input.blobUrl || "",
+            fileType: input.fileType,
+            fileSize: input.fileSize,
+            userId: ctx.session.user.id,
+            projectId: projectId,
+            processingStatus: "IN_PROGRESS",
+          },
+        });
       }
-
-      return ctx.db.file.create({
-        data: {
-          name: input.name,
-          blobUrl: "",
-          fileType: input.fileType,
-          fileSize: input.fileSize,
-          userId: ctx.session.user.id,
-          projectId: input.projectId,
-          processingStatus: "pending",
-        },
-      });
     }),
+
   // Fetch All Files for a User
   getUserFiles: protectedProcedure
     .input(z.string()) // userId
     .query(async ({ ctx, input }) => {
       return ctx.db.file.findMany({
         where: { userId: input },
-        include: { project: true }, // Include project data if needed
+        include: { project: true },
       });
     }),
 

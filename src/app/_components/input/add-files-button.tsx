@@ -2,7 +2,7 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 
-import InputFile from "./file-form";
+import UploadFiles from "./file-form";
 
 const AddFiles = () => {
   return (
@@ -11,7 +11,7 @@ const AddFiles = () => {
         <Button>Add Files</Button>
       </DialogTrigger>
       <DialogContent>
-        <InputFile />
+        <UploadFiles />
       </DialogContent>
     </Dialog>
   );

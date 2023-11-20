@@ -27,6 +27,8 @@ const config = {
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/require-await": "off",
+    "@typescript-eslint/prefer-for-of": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {
