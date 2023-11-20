@@ -20,7 +20,7 @@ async function getTasks() {
 
 export default async function Files() {
   const tasks = await getTasks();
-  console.log(tasks);
+
   return (
     <main className="">
       <Text className="ml-10 pt-5 text-3xl font-bold">My Files</Text>

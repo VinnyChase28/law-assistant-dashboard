@@ -17,7 +17,6 @@ import AuthButton from "./sign-in-out";
 
 export async function UserNav() {
   const session = await getServerAuthSession();
-  console.log(session);
   return (
     <>
       {session ? (
