@@ -1,9 +1,10 @@
 "use client";
 
-import { type PutBlobResult } from "@vercel/blob";
+
 import { upload } from "@vercel/blob/client";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { api } from "src/trpc/react";
+import { Input } from "@/components/ui/input";
 
 export default function UploadFiles() {
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -47,7 +48,7 @@ export default function UploadFiles() {
           }
         }}
       >
-        <input name="file" ref={inputFileRef} type="file" required multiple />
+        <Input name="file" ref={inputFileRef} type="file" required multiple />
         <button type="submit">Upload</button>
       </form>
     </>
