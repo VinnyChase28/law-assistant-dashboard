@@ -37,7 +37,7 @@ const costSavingsData = [
 const currencyFormatter = (number: Number) => `$${number.toLocaleString()}`;
 
 export const SideBarList = () => (
-  <Card className="max-w-lg">
+  <Card>
     <Title className="center">Cost Savings Estimation</Title>
     <BarList
       data={costSavingsData}
