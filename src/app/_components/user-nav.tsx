@@ -34,7 +34,7 @@ export async function UserNav() {
               <div className="flex flex-col space-y-1">
                 <p className="text-sm font-medium leading-none">Vince</p>
                 <p className="text-xs leading-none text-muted-foreground">
-                  {session.user.email || "add email in profile"}
+                  {session.user.email ?? "add email in profile"}
                 </p>
               </div>
             </DropdownMenuLabel>
