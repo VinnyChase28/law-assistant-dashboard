@@ -13,13 +13,13 @@ export const metadata: Metadata = {
 };
 
 // Simulate a database read for tasks.
-async function getTasks() {
+async function getFiles() {
   const files = await api.file.getUserFiles.query();
   return z.array(myFilesSchema).parse(files);
 }
 
 export default async function Files() {
-  const tasks = await getTasks();
+  const files = await getFiles();
 
   return (
     <main className="">
@@ -27,7 +27,7 @@ export default async function Files() {
       <div className="my-5 flex justify-center">
         <AddFiles />
       </div>
-      <DataTable data={tasks} columns={columns} />
+      <DataTable data={files} columns={columns} />
     </main>
   );
 }

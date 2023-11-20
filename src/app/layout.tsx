@@ -7,7 +7,6 @@ import { MainNavigation } from "@/components/main-navigation";
 import { TRPCReactProvider } from "src/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import AuthButton from "./_components/sign-in-out";
 import { UserNav } from "./_components/user-nav";
 
 const fontSans = FontSans({
