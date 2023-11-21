@@ -45,7 +45,6 @@ export const fileRouter = createTRPCRouter({
 
   // Fetch All Files for a User
   getUserFiles: protectedProcedure.query(async ({ ctx }) => {
-    console.debug("ctx.session.user", ctx.session.user);
     return ctx.db.file.findMany({
       where: { userId: ctx.session.user.id },
     });
