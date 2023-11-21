@@ -8,7 +8,7 @@ import DocumentAreaChart from "./area-chart";
 export default function Charts() {
   return (
     <main className="p-4">
-      <Grid numItemsMd={2} numItemsLg={3} className="mt-6 gap-6">
+      <Grid numItemsMd={3} numItemsLg={3} className="mt-6 gap-6">
         <ComplianceTrendChart />
         <SideBarList />
         <UsageCircle />

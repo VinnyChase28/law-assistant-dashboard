@@ -39,7 +39,6 @@ export function PromptForm({
     <form
       onSubmit={async (e) => {
         e.preventDefault();
-        console.log("Form submitted with input:", input); // Log the input
         if (!input?.trim()) {
           return;
         }
