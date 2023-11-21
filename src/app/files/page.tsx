@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   description: "An assistant for the legal industry.",
 };
 
-// Simulate a database read for tasks.
 async function getFiles() {
   const files = await api.file.getUserFiles.query();
   if (!files) {

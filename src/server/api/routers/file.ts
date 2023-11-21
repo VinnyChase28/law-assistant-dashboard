@@ -46,6 +46,9 @@ export const fileRouter = createTRPCRouter({
   // Fetch All Files for a User
   getUserFiles: protectedProcedure
     .query(async ({ ctx }) => {
+      if (!ctx.session.user) {
+        throw new Error("Not logged in");
+      }
       return ctx.db.file.findMany({
         where: { userId: ctx.session.user.id },
       });
