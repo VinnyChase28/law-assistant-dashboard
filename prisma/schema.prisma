@@ -8,6 +8,165 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+model Task {
+  id          String            @id @default(cuid())
+  title       String
+  status      String
+  label       Label
+  cost        String
+  category    String
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  userId      String?
+  fileHistory FileTaskHistory[]
+  user        User?             @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  companyId   String?
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  description String?
+  status      String?
+  createBy    String?
+  files       File[]
+
+  @@index([companyId])
+}
+
+model Favorite {
+  id     String @id @default(cuid())
+  fileId Int    @unique
+  userId String @unique
+  file   File   @relation(fields: [fileId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([fileId, userId])
+  @@index([userId])
+  @@index([fileId])
+}
+
+model File {
+  id                Int               @id @default(autoincrement())
+  name              String
+  blobUrl           String
+  fileType          String
+  fileSize          String
+  vectorId          String?
+  processingStatus  String
+  vectorProcessedAt DateTime?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  projectId         String
+  userId            String
+  access            FileAccess        @default(PRIVATE)
+  documentType      DocumentType?
+  favorites         Favorite?
+  project           Project           @relation(fields: [projectId], references: [id])
+  taskHistory       FileTaskHistory[]
+
+  @@index([userId, projectId])
+}
+
+model FileTaskHistory {
+  id     String   @id @default(cuid())
+  fileId Int
+  taskId String
+  userId String
+  usedAt DateTime @default(now())
+  file   File     @relation(fields: [fileId], references: [id])
+  task   Task     @relation(fields: [taskId], references: [id])
+  user   User     @relation(fields: [userId], references: [id])
+
+  @@index([fileId, taskId, userId])
+}
+
+model User {
+  id              String            @id @default(cuid())
+  name            String?
+  email           String?           @unique
+  emailVerified   DateTime?
+  image           String?
+  roleId          String
+  teamId          String?
+  companyId       String?
+  accounts        Account[]
+  Favorite        Favorite?
+  FileTaskHistory FileTaskHistory[]
+  sessions        Session[]
+  tasks           Task[]
+  company         Company?          @relation(fields: [companyId], references: [id])
+  role            Role              @relation(fields: [roleId], references: [id])
+  team            Team?             @relation(fields: [teamId], references: [id])
+  teams           Team[]            @relation("UserTeams")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerAccountId])
+}
+
+model Role {
+  id    String   @id @default(cuid())
+  name  UserRole
+  users User[]
+}
+
+model Team {
+  id        String  @id @default(cuid())
+  name      String
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
+  User      User[]
+  users     User[]  @relation("UserTeams")
+
+  @@index([companyId])
+}
+
+model Company {
+  id                String  @id @default(cuid())
+  name              String
+  pineconeIndexName String?
+  teams             Team[]
+  users             User[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
 enum FileAccess {
   PUBLIC
   PRIVATE
@@ -58,164 +217,4 @@ enum FileProcessingStatus {
   PROCESSING
   DONE
   FAILED
-}
-
-model Task {
-  id          String            @id @default(cuid())
-  title       String
-  status      String
-  label       Label
-  cost        String
-  category    String
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  userId      String?
-  user        User?             @relation(fields: [userId], references: [id])
-  fileHistory FileTaskHistory[]
-
-  @@index([userId])
-}
-
-model Project {
-  id          String   @id @default(cuid())
-  name        String
-  files       File[]
-  companyId   String?
-  userId      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  description String?
-  status      String?
-  createBy    String?
-
-  @@index([companyId])
-}
-
-model Favorite {
-  id     String @id @default(cuid())
-  fileId Int    @unique
-  userId String @unique
-  file   File   @relation(fields: [fileId], references: [id])
-  user   User   @relation(fields: [userId], references: [id])
-
-  @@unique([fileId, userId])
-  @@index([userId])
-  @@index([fileId])
-}
-
-model File {
-  id                Int               @id @default(autoincrement())
-  name              String
-  blobUrl           String
-  fileType          String
-  fileSize          String
-  vectorId          String?
-  processingStatus  String
-  vectorProcessedAt DateTime?
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
-  projectId         String
-  project           Project           @relation(fields: [projectId], references: [id])
-  userId            String
-  access            FileAccess        @default(PRIVATE)
-  documentType      DocumentType?
-  taskHistory       FileTaskHistory[]
-  favorites         Favorite[]
-
-  @@index([userId, projectId])
-}
-
-// Join table for File and Task
-model FileTaskHistory {
-  id     String   @id @default(cuid())
-  fileId Int // Corresponds to the 'id' in File model
-  taskId String // Corresponds to the 'id' in Task model
-  userId String // ID of the user who created this history record
-  usedAt DateTime @default(now()) // When the file was used in the task
-  file   File     @relation(fields: [fileId], references: [id])
-  task   Task     @relation(fields: [taskId], references: [id])
-  user   User     @relation(fields: [userId], references: [id])
-
-  @@index([fileId, taskId, userId])
-}
-
-model User {
-  id              String            @id @default(cuid())
-  name            String?
-  email           String?           @unique
-  emailVerified   DateTime?
-  image           String?
-  roleId          String
-  role            Role              @relation(fields: [roleId], references: [id])
-  accounts        Account[]
-  sessions        Session[]
-  teamId          String?
-  companyId       String?
-  teams           Team[]            @relation("UserTeams")
-  team            Team?             @relation(fields: [teamId], references: [id])
-  company         Company?          @relation(fields: [companyId], references: [id])
-  tasks           Task[]
-  FileTaskHistory FileTaskHistory[]
-  Favorite        Favorite?
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id])
-
-  @@index([userId])
-}
-
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id])
-
-  @@unique([provider, providerAccountId])
-}
-
-model Role {
-  id    String   @id @default(cuid())
-  name  UserRole
-  users User[]
-}
-
-model Team {
-  id        String  @id @default(cuid())
-  name      String
-  companyId String
-  users     User[]  @relation("UserTeams")
-  company   Company @relation(fields: [companyId], references: [id])
-  User      User[]
-
-  @@index([companyId])
-}
-
-model Company {
-  id                String  @id @default(cuid())
-  name              String
-  teams             Team[]
-  users             User[]
-  pineconeIndexName String?
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
 }
