@@ -12,16 +12,16 @@ export const metadata: Metadata = {
   description: "An assistant for the legal industry.",
 };
 
-async function getFiles() {
-  const files = await api.file.getUserFiles.query();
-  if (!files) {
-    return [];
-  }
-  return files;
-}
+// async function getFiles() {
+//   const files = await api.file.getUserFiles.query();
+//   if (!files) {
+//     return [];
+//   }
+//   return files;
+// }
 
 export default async function Files() {
-  const files = await getFiles();
+  // const files = await getFiles();
 
   return (
     <main className="">
@@ -29,7 +29,7 @@ export default async function Files() {
       <div className="my-5 flex justify-center">
         <AddFiles />
       </div>
-      <DataTable data={files} columns={columns} />
+      {/* <DataTable data={files} columns={columns} /> */}
     </main>
   );
 }
