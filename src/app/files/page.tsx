@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 };
 
 async function getFiles() {
-  // const files = await api.file.getUserFiles.query();
-  // if (!files) {
-  //   return [];
-  // }
-  return [];
+  const files = await api.file.getUserFiles.query();
+  if (!files) {
+    return [];
+  }
+  return files;
 }
 
 export default async function Files() {
