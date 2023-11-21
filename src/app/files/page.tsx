@@ -17,7 +17,7 @@ async function getFiles() {
   if (!files) {
     return [];
   }
-  return z.array(myFilesSchema).parse(files);
+  return files;
 }
 
 export default async function Files() {
