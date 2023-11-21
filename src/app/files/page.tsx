@@ -15,6 +15,9 @@ export const metadata: Metadata = {
 // Simulate a database read for tasks.
 async function getFiles() {
   const files = await api.file.getUserFiles.query();
+  if (!files) {
+    return [];
+  }
   return z.array(myFilesSchema).parse(files);
 }
 
