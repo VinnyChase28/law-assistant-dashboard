@@ -1,11 +1,16 @@
 // Function to call the process_document cloud function as a background task
-export const callProcessDocument = (blobUrl: string, fileId: number) => {
+export const callProcessDocument = (
+  blobUrl: string,
+  fileId: number,
+  userId: string,
+  pineconeIndexName: string,
+) => {
   const url = "http://127.0.0.1:8080"; // URL of your Flask server
   const data = {
     fileId: fileId,
     blobUrl: blobUrl,
-    pineconeIndexName: "your_pinecone_index_name",
-    userId: "your_user_id",
+    pineconeIndexName: pineconeIndexName,
+    userId: userId,
   };
 
   fetch(url, {
