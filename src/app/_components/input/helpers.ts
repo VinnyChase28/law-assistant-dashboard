@@ -5,6 +5,7 @@ export const callProcessDocument = (
   userId: string,
   pineconeIndexName: string,
 ) => {
+  console.log(blobUrl);
   const url = "http://127.0.0.1:8080"; // URL of your Flask server
   const data = {
     fileId: fileId,
