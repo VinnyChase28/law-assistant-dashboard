@@ -67,15 +67,16 @@ model File {
   favorites         Favorite[]
   project           Project        @relation(fields: [projectId], references: [id])
   taskHistory       FileTaskHistory[]
-  subsections       Subsection[]   // Relationship to Subsections
+  textSubsections   TextSubsection[]
+  dataSubsections   DataSubsection[]
 
   @@index([userId, projectId])
 }
 
-model Subsection {
+model TextSubsection {
   id                Int       @id @default(autoincrement())
   fileId            Int
-  text              String
+  text              String    //store pages of pdf's
   pineconeVectorId  String?   
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
@@ -84,6 +85,17 @@ model Subsection {
   @@index([fileId])
 }
 
+model DataSubsection {
+  id                Int       @id @default(autoincrement())
+  fileId            Int
+  dataContent       Json      // Store tabular data or specific cell information (csv)
+  pineconeVectorId  String?   
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  file              File      @relation(fields: [fileId], references: [id])
+
+  @@index([fileId])
+}
 
 model FileTaskHistory {
   id     String   @id @default(cuid())
