@@ -76,13 +76,14 @@ model Subsection {
   id                Int       @id @default(autoincrement())
   fileId            Int
   text              String
-  vectorRepresentation String?   
+  pineconeVectorId  String?   
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
   file              File      @relation(fields: [fileId], references: [id])
 
   @@index([fileId])
 }
+
 
 model FileTaskHistory {
   id     String   @id @default(cuid())
