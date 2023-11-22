@@ -52,25 +52,36 @@ model Favorite {
 }
 
 model File {
-  id                Int               @id @default(autoincrement())
+  id                Int            @id @default(autoincrement())
   name              String
   blobUrl           String
   fileType          String
   fileSize          String
-  vectorId          String?
   processingStatus  String
-  vectorProcessedAt DateTime?
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
   projectId         String
   userId            String
-  access            FileAccess        @default(PRIVATE)
+  access            FileAccess     @default(PRIVATE)
   documentType      DocumentType?
-  favorites         Favorite?
-  project           Project           @relation(fields: [projectId], references: [id])
+  favorites         Favorite[]
+  project           Project        @relation(fields: [projectId], references: [id])
   taskHistory       FileTaskHistory[]
+  subsections       Subsection[]   // Relationship to Subsections
 
   @@index([userId, projectId])
+}
+
+model Subsection {
+  id                Int       @id @default(autoincrement())
+  fileId            Int
+  text              String
+  vectorRepresentation String?   
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  file              File      @relation(fields: [fileId], references: [id])
+
+  @@index([fileId])
 }
 
 model FileTaskHistory {

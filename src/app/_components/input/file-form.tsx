@@ -24,6 +24,7 @@ export default function UploadFiles() {
             data.id,
             data.userId,
             `company-${companyId}-index`,
+            data.name,
           );
           console.log("successfully sent file to cloud function");
         } catch (error) {
