@@ -95,7 +95,7 @@ export const authOptions: NextAuthOptions = {
         const indexName = `company-${newCompany.id}-index`;
         await pinecone.createIndex({
           name: indexName,
-          dimension: 512,
+          dimension: 1536,
           metric: "cosine",
         });
 
