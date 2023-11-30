@@ -16,7 +16,16 @@ export default function UploadFiles() {
   const createFile = api.file.insertFileMetadata.useMutation({
     onSuccess: (data) => {
       console.log("Successful file upload to postgres");
-      setProcessedFiles((prev) => prev + 1);
+      setProcessedFiles((prev) => {
+        const newProcessedFiles = prev + 1;
+
+        // Check if all files have been processed
+        if (newProcessedFiles === totalFiles) {
+          window.location.reload(); // Reload the page
+        }
+
+        return newProcessedFiles;
+      });
       if (data) {
         try {
           callProcessDocument(
