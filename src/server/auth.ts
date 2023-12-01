@@ -9,7 +9,7 @@ import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 import { env } from "src/env.mjs";
 import { db } from "src/server/db";
-import { pinecone } from "src/utils/pinecone";
+
 
 declare module "next-auth" {
   interface User extends DefaultUser {
