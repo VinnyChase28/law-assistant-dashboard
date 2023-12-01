@@ -2,8 +2,8 @@ export const callProcessDocument = (
   blobUrl: string,
   fileId: number,
   userId: string,
-  pineconeIndexName: string,
   fileName: string,
+  companyId: string,
 ) => {
   console.log(blobUrl);
   const url = "http://127.0.0.1:8080"; // URL of your Flask server
@@ -11,9 +11,9 @@ export const callProcessDocument = (
   const data = {
     fileId: fileId,
     blobUrl: encodedBlobUrl,
-    pineconeIndexName: pineconeIndexName,
     userId: userId,
     fileName: fileName,
+    companyId: companyId,
   };
 
   fetch(url, {

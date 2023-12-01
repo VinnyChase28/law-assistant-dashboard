@@ -91,18 +91,6 @@ export const authOptions: NextAuthOptions = {
             type: account.type,
           },
         });
-
-        const indexName = `company-${newCompany.id}-index`;
-        await pinecone.createIndex({
-          name: indexName,
-          dimension: 1536,
-          metric: "cosine",
-        });
-
-        await db.company.update({
-          where: { id: newCompany.id },
-          data: { pineconeIndexName: indexName },
-        });
       }
 
       return true;
