@@ -52,25 +52,49 @@ model Favorite {
 }
 
 model File {
-  id                Int               @id @default(autoincrement())
+  id                Int            @id @default(autoincrement())
   name              String
   blobUrl           String
   fileType          String
   fileSize          String
-  vectorId          String?
   processingStatus  String
-  vectorProcessedAt DateTime?
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
   projectId         String
   userId            String
-  access            FileAccess        @default(PRIVATE)
+  access            FileAccess     @default(PRIVATE)
   documentType      DocumentType?
-  favorites         Favorite?
-  project           Project           @relation(fields: [projectId], references: [id])
+  favorites         Favorite[]
+  project           Project        @relation(fields: [projectId], references: [id])
   taskHistory       FileTaskHistory[]
+  textSubsections   TextSubsection[]
+  dataSubsections   DataSubsection[]
 
   @@index([userId, projectId])
+}
+
+model TextSubsection {
+  id                Int       @id @default(autoincrement())
+  fileId            Int
+  text              String    //store pages of pdf's
+  pineconeVectorId  String?   
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  file              File      @relation(fields: [fileId], references: [id])
+
+  @@index([fileId])
+}
+
+model DataSubsection {
+  id                Int       @id @default(autoincrement())
+  fileId            Int
+  dataContent       Json      // Store tabular data or specific cell information (csv)
+  pineconeVectorId  String?   
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  file              File      @relation(fields: [fileId], references: [id])
+
+  @@index([fileId])
 }
 
 model FileTaskHistory {
@@ -154,7 +178,6 @@ model Team {
 model Company {
   id                String  @id @default(cuid())
   name              String
-  pineconeIndexName String?
   teams             Team[]
   users             User[]
 }

@@ -5,15 +5,41 @@ import { api } from "src/trpc/react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { callProcessDocument } from "./helpers";
+
 
 export default function UploadFiles() {
   const [totalFiles, setTotalFiles] = useState(0);
   const [processedFiles, setProcessedFiles] = useState(0);
   const inputFileRef = useRef<HTMLInputElement>(null);
+  const companyId = api.company.getUserCompany.useQuery().data?.id;
   const createFile = api.file.insertFileMetadata.useMutation({
-    onSuccess: () => {
-      console.log("successful file upload to postgres");
-      setProcessedFiles(prev => prev + 1); // Increment the count of processed files
+    onSuccess: (data) => {
+      console.log("Successful file upload to postgres");
+      setProcessedFiles((prev) => {
+        const newProcessedFiles = prev + 1;
+
+        // Check if all files have been processed
+        if (newProcessedFiles === totalFiles) {
+          window.location.reload(); // Reload the page
+        }
+
+        return newProcessedFiles;
+      });
+      if (data) {
+        try {
+          callProcessDocument(
+            data.blobUrl,
+            data.id,
+            data.userId,
+            data.name,
+            companyId as string,
+          );
+          console.log("successfully sent file to cloud function");
+        } catch (error) {
+          console.log(error);
+        }
+      }
     },
   });
 
@@ -24,8 +50,8 @@ export default function UploadFiles() {
     }
 
     const files = inputFileRef.current.files;
-    setTotalFiles(files.length); // Set the total number of files
-    setProcessedFiles(0); // Reset processed files count for new upload
+    setTotalFiles(files.length);
+    setProcessedFiles(0);
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
@@ -42,17 +68,26 @@ export default function UploadFiles() {
         });
       }
     }
-    window.location.reload();
   };
 
-  const progressPercentage = totalFiles > 0 ? (processedFiles / totalFiles) * 100 : 0;
+  const progressPercentage =
+    totalFiles > 0 ? (processedFiles / totalFiles) * 100 : 0;
 
   return (
     <>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
-        <Input className="pt-2" name="file" ref={inputFileRef} type="file" required multiple />
+        <Input
+          className="pt-2"
+          name="file"
+          ref={inputFileRef}
+          type="file"
+          required
+          multiple
+        />
         <Button type="submit">Upload</Button>
-        {progressPercentage > 0 ? <Progress value={progressPercentage} />: null}
+        {progressPercentage > 0 ? (
+          <Progress value={progressPercentage} />
+        ) : null}
       </form>
     </>
   );
