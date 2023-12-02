@@ -76,13 +76,14 @@ model File {
 model TextSubsection {
   id                Int       @id @default(autoincrement())
   fileId            Int
+  pageNumber        Int
   text              String    //store pages of pdf's
   pineconeVectorId  String?   
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
   file              File      @relation(fields: [fileId], references: [id])
 
-  @@index([fileId])
+  @@unique([fileId, pageNumber])
 }
 
 model DataSubsection {
