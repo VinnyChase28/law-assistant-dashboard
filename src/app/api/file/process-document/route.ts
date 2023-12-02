@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import fetch from "node-fetch";
 import { PrismaClient } from "@prisma/client";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
@@ -72,7 +71,9 @@ export async function POST(request: Request) {
       const companyNamespace = index.namespace(companyId);
       const vectorId = `${fileId}-${pageNumber}`;
       await companyNamespace.upsert([{ id: vectorId, values: embedding }]);
-      console.log(`Upserted vector ${vectorId} for company ${companyId} and file ${fileId}`)
+      console.log(
+        `Upserted vector ${vectorId} for company ${companyId} and file ${fileId}`,
+      );
       await prisma.textSubsection.upsert({
         where: {
           fileId_pageNumber: { fileId: fileId, pageNumber: pageNumber },
