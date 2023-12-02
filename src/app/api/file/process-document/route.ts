@@ -21,7 +21,7 @@ const prisma = new PrismaClient();
 let fileId: number;
 
 function preprocessText(text: string) {
-  let doc = nlp(text);
+  const doc = nlp(text);
   doc.normalize({
     whitespace: true,
     case: true,
