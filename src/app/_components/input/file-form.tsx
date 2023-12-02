@@ -28,14 +28,8 @@ export default function UploadFiles() {
       });
       if (data) {
         try {
-          callProcessDocument(
-            data.blobUrl,
-            data.id,
-            data.userId,
-            data.name,
-            companyId as string,
-          );
-          console.log("successfully sent file to cloud function");
+          callProcessDocument(data.blobUrl, data.id, companyId as string);
+          console.log(`Successfully processed ${data.name}`);
         } catch (error) {
           console.log(error);
         }
@@ -60,11 +54,19 @@ export default function UploadFiles() {
           access: "public",
           handleUploadUrl: "/api/file/upload",
         });
-        createFile.mutate({
-          name: file.name,
-          fileSize: file.size.toString(),
-          fileType: file.type,
-          blobUrl: newBlob.url,
+        await new Promise((resolve, reject) => {
+          createFile.mutate(
+            {
+              name: file.name,
+              fileSize: file.size.toString(),
+              fileType: file.type,
+              blobUrl: newBlob.url,
+            },
+            {
+              onSuccess: () => resolve(true),
+              onError: (error) => reject(error),
+            },
+          );
         });
       }
     }
