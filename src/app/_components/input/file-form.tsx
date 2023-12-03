@@ -7,35 +7,65 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { callProcessDocument } from "./helpers";
 
-
 export default function UploadFiles() {
   const [totalFiles, setTotalFiles] = useState(0);
   const [processedFiles, setProcessedFiles] = useState(0);
+  const [progressPercentage, setProgressPercentage] = useState(0); // Updated
   const inputFileRef = useRef<HTMLInputElement>(null);
   const companyId = api.company.getUserCompany.useQuery().data?.id;
-  const createFile = api.file.insertFileMetadata.useMutation({
-    onSuccess: (data) => {
-      console.log("Successful file upload to postgres");
-      setProcessedFiles((prev) => {
-        const newProcessedFiles = prev + 1;
 
-        // Check if all files have been processed
-        if (newProcessedFiles === totalFiles) {
-          window.location.reload(); // Reload the page
-        }
+  const createFile = api.file.insertFileMetadata.useMutation();
 
-        return newProcessedFiles;
-      });
-      if (data) {
-        try {
-          callProcessDocument(data.blobUrl, data.id, companyId as string);
-          console.log(`Successfully processed ${data.name}`);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    },
-  });
+  const processFile = async (file, index, files) => {
+    const newBlob = await upload(file.name, file, {
+      access: "public",
+      handleUploadUrl: "/api/file/upload",
+    });
+
+    createFile.mutate(
+      {
+        name: file.name,
+        fileSize: file.size.toString(),
+        fileType: file.type,
+        blobUrl: newBlob.url,
+      },
+      {
+        onSuccess: async (data) => {
+          console.log("Successful file upload to postgres");
+
+          setProcessedFiles((prevProcessed) => {
+            const newProcessedCount = prevProcessed + 1;
+
+            // Update progress percentage
+            const newProgress = (newProcessedCount / totalFiles) * 100;
+            setProgressPercentage(newProgress);
+
+            return newProcessedCount;
+          });
+
+          if (data) {
+            try {
+              await callProcessDocument(
+                data.blobUrl,
+                data.id,
+                companyId as string,
+              );
+
+              // After successful processing of the current file, process the next file
+              if (index + 1 < files.length) {
+                await processFile(files[index + 1], index + 1, files);
+              } else {
+                // All files processed
+                console.log("All files have been processed");
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        },
+      },
+    );
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,26 +76,12 @@ export default function UploadFiles() {
     const files = inputFileRef.current.files;
     setTotalFiles(files.length);
     setProcessedFiles(0);
+    setProgressPercentage(0); // Reset progress when new upload starts
 
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      if (file) {
-        const newBlob = await upload(file.name, file, {
-          access: "public",
-          handleUploadUrl: "/api/file/upload",
-        });
-        createFile.mutate({
-          name: file.name,
-          fileSize: file.size.toString(),
-          fileType: file.type,
-          blobUrl: newBlob.url,
-        });
-      }
+    if (files.length > 0) {
+      processFile(files[0], 0, files); // Start processing the first file
     }
   };
-
-  const progressPercentage =
-    totalFiles > 0 ? (processedFiles / totalFiles) * 100 : 0;
 
   return (
     <>
@@ -79,9 +95,7 @@ export default function UploadFiles() {
           multiple
         />
         <Button type="submit">Upload</Button>
-        {progressPercentage > 0 ? (
-          <Progress value={progressPercentage} />
-        ) : null}
+        {progressPercentage > 0 && <Progress value={progressPercentage} />}
       </form>
     </>
   );
