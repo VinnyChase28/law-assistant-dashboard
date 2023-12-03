@@ -53,7 +53,6 @@ export default function UploadFiles() {
                 }
               } else {
                 console.log("All files have been processed");
-                setIsProcessing(false); // Stop showing the spinner
                 window.location.reload();
               }
             } catch (error) {
