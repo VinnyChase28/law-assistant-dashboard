@@ -13,7 +13,7 @@ interface ProcessDocumentRequest {
 
 const pinecone = new Pinecone({
   apiKey: process.env.PINECONE_API_KEY as string,
-  environment: process.env.PINECONE_ENVIRONMENT as string,
+  environment: "us-west1-gcp",
 });
 
 const prisma = new PrismaClient();
