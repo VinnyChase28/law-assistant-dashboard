@@ -16,7 +16,7 @@ export default function UploadFiles() {
 
   const createFile = api.file.insertFileMetadata.useMutation();
 
-  const processFile = async (file, index, files) => {
+  const processFile = async (file: File, index: number, files: FileList) => {
     const newBlob = await upload(file.name, file, {
       access: "public",
       handleUploadUrl: "/api/file/upload",
@@ -44,7 +44,13 @@ export default function UploadFiles() {
               );
 
               if (index + 1 < files.length) {
-                await processFile(files[index + 1], index + 1, files);
+                const nextFile = files.item(index + 1);
+                if (nextFile) {
+                  await processFile(nextFile, index + 1, files);
+                } else {
+                  console.log("No more files to process");
+                  // Additional logic for when there are no more files
+                }
               } else {
                 console.log("All files have been processed");
                 setIsProcessing(false); // Stop showing the spinner
@@ -68,10 +74,14 @@ export default function UploadFiles() {
     const files = inputFileRef.current.files;
     setTotalFiles(files.length);
     setProcessedFiles(0);
-    setIsProcessing(true); // Start showing the spinner
-
+    setIsProcessing(true);
     if (files.length > 0) {
-      processFile(files[0], 0, files);
+      const firstFile = files.item(0);
+      if (firstFile) {
+        processFile(firstFile, 0, files);
+      } else {
+        console.error("First file is not available");
+      }
     }
   };
 
