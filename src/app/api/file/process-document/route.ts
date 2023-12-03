@@ -5,6 +5,9 @@ import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { WebPDFLoader } from "langchain/document_loaders/web/pdf";
 import nlp from "compromise";
 
+
+let fileId: number;
+
 interface ProcessDocumentRequest {
   fileId: number;
   blobUrl: string;
@@ -18,32 +21,26 @@ const pinecone = new Pinecone({
 
 const prisma = new PrismaClient();
 
-let fileId: number;
-
 function preprocessText(text: string) {
   const doc = nlp(text);
   doc.normalize({
     whitespace: true,
-    case: true,
-    punctuation: true,
-    unicode: true,
-    contractions: true,
-    acronyms: true,
+    case: false,
+    punctuation: false,
+    unicode: false,
+    contractions: false,
+    acronyms: false,
   });
   return doc.text();
 }
 
 export async function POST(request: Request) {
-  console.log();
   try {
     const body = (await request.json()) as ProcessDocumentRequest;
-    console.log("Processing document:", body);
-    fileId = body.fileId;
-    console.log("File ID:", fileId);
+    const fileId = body.fileId;
     const { blobUrl, companyId } = body;
 
     const decodedBlobUrl = decodeURIComponent(blobUrl);
-
     const pdfResponse = await fetch(decodedBlobUrl);
     if (!pdfResponse.ok) {
       throw new Error(`Failed to fetch PDF: ${pdfResponse.statusText}`);
@@ -57,24 +54,24 @@ export async function POST(request: Request) {
       modelName: "text-embedding-ada-002",
     });
 
-    let pageNumber = 0;
-    for (const doc of docs) {
-      pageNumber++;
+    const index = pinecone.index("law-assistant-ai");
+    const companyNamespace = index.namespace(companyId);
+
+    const upsertPromises = docs.map(async (doc, i) => {
       if (typeof doc.pageContent !== "string") {
-        console.error("Page content is not a string:", doc.pageContent);
-        continue;
+        throw new Error("Page content is not a string");
       }
 
+      const pageNumber = i + 1;
       const processedText = preprocessText(doc.pageContent);
       const embedding = await embeddings.embedQuery(processedText);
-      const index = pinecone.index("law-assistant-ai");
-      const companyNamespace = index.namespace(companyId);
       const vectorId = `${fileId}-${pageNumber}`;
+
+      // Pinecone upsert
       await companyNamespace.upsert([{ id: vectorId, values: embedding }]);
-      console.log(
-        `Upserted vector ${vectorId} for company ${companyId} and file ${fileId}`,
-      );
-      await prisma.textSubsection.upsert({
+
+      // Database upsert operation
+      return prisma.textSubsection.upsert({
         where: {
           fileId_pageNumber: { fileId: fileId, pageNumber: pageNumber },
         },
@@ -86,7 +83,10 @@ export async function POST(request: Request) {
           pineconeVectorId: vectorId,
         },
       });
-    }
+    });
+
+    // Wait for all upserts to complete
+    await Promise.all(upsertPromises);
 
     // Update processing status to DONE after successful processing
     await prisma.file.update({
@@ -99,13 +99,10 @@ export async function POST(request: Request) {
       { status: 200 },
     );
   } catch (error) {
-    console.error("Error in processing:", error);
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error occurred";
 
-    let errorMessage = "Unknown error occurred";
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    }
-
+    // Update file status to FAILED
     await prisma.file.update({
       where: { id: fileId },
       data: { processingStatus: "FAILED" },
