@@ -4,13 +4,13 @@ import { upload } from "@vercel/blob/client";
 import { api } from "src/trpc/react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
+import { Icons } from "../spinner";
 import { callProcessDocument } from "./helpers";
 
 export default function UploadFiles() {
   const [totalFiles, setTotalFiles] = useState(0);
   const [processedFiles, setProcessedFiles] = useState(0);
-  const [progressPercentage, setProgressPercentage] = useState(0); // Updated
+  const [isProcessing, setIsProcessing] = useState(false); // New state to track processing
   const inputFileRef = useRef<HTMLInputElement>(null);
   const companyId = api.company.getUserCompany.useQuery().data?.id;
 
@@ -33,15 +33,7 @@ export default function UploadFiles() {
         onSuccess: async (data) => {
           console.log("Successful file upload to postgres");
 
-          setProcessedFiles((prevProcessed) => {
-            const newProcessedCount = prevProcessed + 1;
-
-            // Update progress percentage
-            const newProgress = (newProcessedCount / totalFiles) * 100;
-            setProgressPercentage(newProgress);
-
-            return newProcessedCount;
-          });
+          setProcessedFiles((prevProcessed) => prevProcessed + 1);
 
           if (data) {
             try {
@@ -51,12 +43,12 @@ export default function UploadFiles() {
                 companyId as string,
               );
 
-              // After successful processing of the current file, process the next file
               if (index + 1 < files.length) {
                 await processFile(files[index + 1], index + 1, files);
               } else {
-                // All files processed
                 console.log("All files have been processed");
+                setIsProcessing(false); // Stop showing the spinner
+                window.location.reload();
               }
             } catch (error) {
               console.log(error);
@@ -76,26 +68,34 @@ export default function UploadFiles() {
     const files = inputFileRef.current.files;
     setTotalFiles(files.length);
     setProcessedFiles(0);
-    setProgressPercentage(0); // Reset progress when new upload starts
+    setIsProcessing(true); // Start showing the spinner
 
     if (files.length > 0) {
-      processFile(files[0], 0, files); // Start processing the first file
+      processFile(files[0], 0, files);
     }
   };
 
   return (
     <>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
-        <Input
-          className="pt-2"
-          name="file"
-          ref={inputFileRef}
-          type="file"
-          required
-          multiple
-        />
-        <Button type="submit">Upload</Button>
-        {progressPercentage > 0 && <Progress value={progressPercentage} />}
+        {isProcessing ? (
+          <div className="flex flex-col items-center justify-center">
+            <Icons.spinner className="h-8 w-8 animate-spin" />
+            <p>Please wait. Memorizing your documents...</p>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4 p-4">
+            <Input
+              className="pt-2"
+              name="file"
+              ref={inputFileRef}
+              type="file"
+              required
+              multiple
+            />
+            <Button type="submit">Upload</Button>
+          </div>
+        )}
       </form>
     </>
   );
