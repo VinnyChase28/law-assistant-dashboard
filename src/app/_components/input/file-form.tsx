@@ -54,19 +54,11 @@ export default function UploadFiles() {
           access: "public",
           handleUploadUrl: "/api/file/upload",
         });
-        await new Promise((resolve, reject) => {
-          createFile.mutate(
-            {
-              name: file.name,
-              fileSize: file.size.toString(),
-              fileType: file.type,
-              blobUrl: newBlob.url,
-            },
-            {
-              onSuccess: () => resolve(true),
-              onError: (error) => reject(error),
-            },
-          );
+        createFile.mutate({
+          name: file.name,
+          fileSize: file.size.toString(),
+          fileType: file.type,
+          blobUrl: newBlob.url,
         });
       }
     }
