@@ -3,7 +3,7 @@ import {
   getServerSession,
   type DefaultSession,
   type NextAuthOptions,
-  DefaultUser,
+  type DefaultUser,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";

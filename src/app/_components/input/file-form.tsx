@@ -53,6 +53,7 @@ export default function UploadFiles() {
                 }
               } else {
                 console.log("All files have been processed");
+
                 window.location.reload();
               }
             } catch (error) {
