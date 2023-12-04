@@ -1,40 +1,45 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, Table, Row } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { File } from "../data/schema";
 import { DataTableColumnHeader } from "@/components/tables/data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { useCheckedRowsStore, CheckedRowsState } from "src/store/store";
 
+interface SelectAllCheckboxHeaderProps {
+  table: Table<File>; // Use the appropriate type for your table instance
+}
+
+const SelectAllCheckboxHeader = ({ table }: SelectAllCheckboxHeaderProps) => {
+  const checkedRows = useCheckedRowsStore(
+    (state) => (state as CheckedRowsState).checkedRows,
+  );
+
+  const allRows = table.getPrePaginationRowModel().rows as Row<File>[]; // Cast to the correct row type
+
+  const isAllSelected = allRows.every((row) => checkedRows[row.original.id]);
+
+  return (
+    <Checkbox
+      checked={isAllSelected}
+      onCheckedChange={(value) => {
+        allRows.forEach((row) => {
+          (useCheckedRowsStore.getState() as CheckedRowsState).toggleRow(
+            row.original.id,
+          );
+        });
+      }}
+      aria-label="Select all"
+      className="translate-y-[2px]"
+    />
+  );
+};
 
 export const columns: ColumnDef<File>[] = [
   {
     id: "select",
-    header: ({ table }) => {
-      const checkedRows = useCheckedRowsStore(
-        (state) => (state as CheckedRowsState).checkedRows,
-      );
-      const allRows = table.getPrePaginationRowModel().rows;
-      const isAllSelected = allRows.every(
-        (row) => checkedRows[row.original.id],
-      );
-
-      return (
-        <Checkbox
-          checked={isAllSelected}
-          onCheckedChange={(value) => {
-            allRows.forEach((row) => {
-              (useCheckedRowsStore.getState() as CheckedRowsState).toggleRow(
-                row.original.id,
-              );
-            });
-          }}
-          aria-label="Select all"
-          className="translate-y-[2px]"
-        />
-      );
-    },
+    header: SelectAllCheckboxHeader,
     cell: ({ row }) => {
       const { checkedRows, toggleRow } =
         useCheckedRowsStore() as CheckedRowsState;
