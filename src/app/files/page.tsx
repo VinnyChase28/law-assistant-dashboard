@@ -7,7 +7,7 @@ import AddFiles from "@/components/input/add-files-button";
 import { api } from "src/trpc/server";
 
 export const metadata: Metadata = {
-  title: "CaseyAI",
+  title: "Law Assistant AI",
   description: "Your own legal assistant",
 };
 

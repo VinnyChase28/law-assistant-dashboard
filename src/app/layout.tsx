@@ -8,7 +8,7 @@ import { TRPCReactProvider } from "src/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { UserNav } from "./_components/user-nav";
-
+import ChatBubble from "./_components/chat/chat-bubble";
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -44,6 +44,7 @@ export default function RootLayout({
 
               {/* Main content */}
               <main className="flex w-full flex-1 flex-col">{children}</main>
+              <ChatBubble />
             </TooltipProvider>
           </ThemeProvider>
         </TRPCReactProvider>

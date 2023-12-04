@@ -6,12 +6,12 @@ export interface CheckedRowsState {
   toggleRow: (id: number) => void;
 }
 
-export const useCheckedRowsStore = create(
+export const useCheckedRowsStore = create<CheckedRowsState>()(
   persist(
     (set) => ({
       checkedRows: {},
       toggleRow: (id: number) =>
-        set((state: CheckedRowsState) => {
+        set((state) => {
           const newCheckedRows = { ...state.checkedRows };
           if (newCheckedRows[id]) {
             delete newCheckedRows[id];
@@ -28,3 +28,4 @@ export const useCheckedRowsStore = create(
     },
   ),
 );
+
