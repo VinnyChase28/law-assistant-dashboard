@@ -1,28 +1,28 @@
-import { create, StateSelector } from "zustand";
+import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface CheckedRowsState {
-  checkedRows: Set<number>;
+  checkedRows: { [key: number]: boolean };
   toggleRow: (id: number) => void;
 }
 
 export const useCheckedRowsStore = create(
   persist(
     (set) => ({
-      checkedRows: new Set(),
+      checkedRows: {},
       toggleRow: (id: number) =>
         set((state: CheckedRowsState) => {
-          const newCheckedRows = new Set(state.checkedRows);
-          if (newCheckedRows.has(id)) {
-            newCheckedRows.delete(id);
+          const newCheckedRows = { ...state.checkedRows };
+          if (newCheckedRows[id]) {
+            delete newCheckedRows[id];
           } else {
-            newCheckedRows.add(id);
+            newCheckedRows[id] = true;
           }
           return { checkedRows: newCheckedRows };
         }),
     }),
     {
-      name: "checked-rows-storage", // unique name for the storage item
+      name: "checked-rows-storage",
       // Optionally, specify a different storage. By default, 'localStorage' is used.
       // storage: createJSONStorage(() => sessionStorage),
     },

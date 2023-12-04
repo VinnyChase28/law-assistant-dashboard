@@ -5,15 +5,17 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { File } from "../data/schema";
 import { DataTableColumnHeader } from "@/components/tables/data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
-import { useCheckedRowsStore } from "src/store/store";
+import { useCheckedRowsStore, CheckedRowsState } from "src/store/store";
 export const columns: ColumnDef<File>[] = [
   {
     id: "select",
     header: ({ table }) => {
-      const { checkedRows } = useCheckedRowsStore();
+      const checkedRows = useCheckedRowsStore(
+        (state) => (state as CheckedRowsState).checkedRows,
+      );
       const allRows = table.getPrePaginationRowModel().rows;
-      const isAllSelected = allRows.every((row) =>
-        checkedRows.has(row.original.id),
+      const isAllSelected = allRows.every(
+        (row) => checkedRows[row.original.id],
       );
 
       return (
@@ -21,7 +23,9 @@ export const columns: ColumnDef<File>[] = [
           checked={isAllSelected}
           onCheckedChange={(value) => {
             allRows.forEach((row) => {
-              useCheckedRowsStore.getState().toggleRow(row.original.id);
+              (useCheckedRowsStore.getState() as CheckedRowsState).toggleRow(
+                row.original.id,
+              );
             });
           }}
           aria-label="Select all"
@@ -30,10 +34,11 @@ export const columns: ColumnDef<File>[] = [
       );
     },
     cell: ({ row }) => {
-      const { checkedRows, toggleRow } = useCheckedRowsStore();
+      const { checkedRows, toggleRow } =
+        useCheckedRowsStore() as CheckedRowsState;
       return (
         <Checkbox
-          checked={checkedRows.has(row.original.id)}
+          checked={!!checkedRows[row.original.id]}
           onCheckedChange={() => toggleRow(row.original.id)}
           aria-label="Select row"
           className="translate-y-[2px]"

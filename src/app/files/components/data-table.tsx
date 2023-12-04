@@ -104,7 +104,7 @@ export function DataTable<TData extends { id: number }, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={
-                    checkedRows.has(row.original.id) ? "selected" : undefined
+                    checkedRows[row.original.id] ? "selected" : undefined
                   } // Use Zustand store to check if row is selected
                 >
                   {row.getVisibleCells().map((cell) => (
