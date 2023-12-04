@@ -8,16 +8,12 @@ import { DataTableRowActions } from "./data-table-row-actions";
 import { useCheckedRowsStore, CheckedRowsState } from "src/store/store";
 
 interface SelectAllCheckboxHeaderProps {
-  table: Table<File>; // Use the appropriate type for your table instance
+  table: Table<File>;
 }
 
 const SelectAllCheckboxHeader = ({ table }: SelectAllCheckboxHeaderProps) => {
-  const checkedRows = useCheckedRowsStore(
-    (state) => (state as CheckedRowsState).checkedRows,
-  );
-
-  const allRows = table.getPrePaginationRowModel().rows as Row<File>[]; // Cast to the correct row type
-
+  const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
+  const allRows = table.getPrePaginationRowModel().rows;
   const isAllSelected = allRows.every((row) => checkedRows[row.original.id]);
 
   return (
@@ -25,12 +21,23 @@ const SelectAllCheckboxHeader = ({ table }: SelectAllCheckboxHeaderProps) => {
       checked={isAllSelected}
       onCheckedChange={(value) => {
         allRows.forEach((row) => {
-          (useCheckedRowsStore.getState() as CheckedRowsState).toggleRow(
-            row.original.id,
-          );
+          useCheckedRowsStore.getState().toggleRow(row.original.id);
         });
       }}
       aria-label="Select all"
+      className="translate-y-[2px]"
+    />
+  );
+};
+
+// Custom Cell Component
+const CheckboxCell = ({ row }: { row: Row<File> }) => {
+  const { checkedRows, toggleRow } = useCheckedRowsStore();
+  return (
+    <Checkbox
+      checked={!!checkedRows[row.original.id]}
+      onCheckedChange={() => toggleRow(row.original.id)}
+      aria-label="Select row"
       className="translate-y-[2px]"
     />
   );
@@ -40,18 +47,7 @@ export const columns: ColumnDef<File>[] = [
   {
     id: "select",
     header: SelectAllCheckboxHeader,
-    cell: ({ row }) => {
-      const { checkedRows, toggleRow } =
-        useCheckedRowsStore() as CheckedRowsState;
-      return (
-        <Checkbox
-          checked={!!checkedRows[row.original.id]}
-          onCheckedChange={() => toggleRow(row.original.id)}
-          aria-label="Select row"
-          className="translate-y-[2px]"
-        />
-      );
-    },
+    cell: ({ row }) => <CheckboxCell row={row} />,
     enableSorting: false,
     enableHiding: false,
   },

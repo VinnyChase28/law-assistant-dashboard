@@ -45,9 +45,7 @@ export function DataTable<TData extends { id: number }, TValue>({
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   // Inside your component
-  const checkedRows = useCheckedRowsStore(
-    (state) => (state as CheckedRowsState).checkedRows,
-  );
+  const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
 
   console.log(checkedRows); // Check the actual value and type
 
