@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { AvatarFallback } from "../ui/avatar";
+
 const ChatBubble = () => {
   const el = useRef(null);
   const [dialogOpen, setDialogOpen] = useState(false);
