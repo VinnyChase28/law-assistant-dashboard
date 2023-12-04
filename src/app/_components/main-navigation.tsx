@@ -53,13 +53,6 @@ export function MainNavigation() {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/casey" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              CaseyAI
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
           <Link href="/files" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Files

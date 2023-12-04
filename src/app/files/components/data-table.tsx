@@ -27,17 +27,16 @@ import {
 
 import { DataTablePagination } from "@/components/tables/data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
+import { useCheckedRowsStore, CheckedRowsState } from "src/store/store";
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends { id: number }, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
-
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends { id: number }, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -45,17 +44,24 @@ export function DataTable<TData, TValue>({
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
+  // Inside your component
+  const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
+
+  console.log(checkedRows); // Check the actual value and type
+
+  React.useEffect(() => {
+    console.log("Current checked rows:", checkedRows);
+  }, [checkedRows]); // This will log the state whenever checkedRows changes
+
   const table = useReactTable({
     data,
     columns,
     state: {
       sorting,
       columnVisibility,
-      rowSelection,
       columnFilters,
     },
     enableRowSelection: true,
-    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
@@ -95,7 +101,9 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={
+                    checkedRows[row.original.id] ? "selected" : undefined
+                  } // Use Zustand store to check if row is selected
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

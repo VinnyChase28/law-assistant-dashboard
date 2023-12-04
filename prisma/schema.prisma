@@ -52,48 +52,48 @@ model Favorite {
 }
 
 model File {
-  id                Int            @id @default(autoincrement())
-  name              String
-  blobUrl           String
-  fileType          String
-  fileSize          String
-  processingStatus  String
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @updatedAt
-  projectId         String
-  userId            String
-  access            FileAccess     @default(PRIVATE)
-  documentType      DocumentType?
-  favorites         Favorite[]
-  project           Project        @relation(fields: [projectId], references: [id])
-  taskHistory       FileTaskHistory[]
-  textSubsections   TextSubsection[]
-  dataSubsections   DataSubsection[]
+  id               Int               @id @default(autoincrement())
+  name             String
+  blobUrl          String
+  fileType         String
+  fileSize         String
+  processingStatus String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  projectId        String
+  userId           String
+  access           FileAccess        @default(PRIVATE)
+  documentType     DocumentType?
+  dataSubsections  DataSubsection[]
+  favorites        Favorite?
+  project          Project           @relation(fields: [projectId], references: [id])
+  taskHistory      FileTaskHistory[]
+  textSubsections  TextSubsection[]
 
   @@index([userId, projectId])
 }
 
 model TextSubsection {
-  id                Int       @id @default(autoincrement())
-  fileId            Int
-  pageNumber        Int
-  text              String    //store pages of pdf's
-  pineconeVectorId  String?   
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  file              File      @relation(fields: [fileId], references: [id])
+  id               Int      @id @default(autoincrement())
+  fileId           Int
+  pageNumber       Int
+  text             String
+  pineconeVectorId String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  file             File     @relation(fields: [fileId], references: [id])
 
   @@unique([fileId, pageNumber])
 }
 
 model DataSubsection {
-  id                Int       @id @default(autoincrement())
-  fileId            Int
-  dataContent       Json      // Store tabular data or specific cell information (csv)
-  pineconeVectorId  String?   
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  file              File      @relation(fields: [fileId], references: [id])
+  id               Int      @id @default(autoincrement())
+  fileId           Int
+  dataContent      Json
+  pineconeVectorId String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  file             File     @relation(fields: [fileId], references: [id])
 
   @@index([fileId])
 }
@@ -177,10 +177,10 @@ model Team {
 }
 
 model Company {
-  id                String  @id @default(cuid())
-  name              String
-  teams             Team[]
-  users             User[]
+  id    String @id @default(cuid())
+  name  String
+  teams Team[]
+  users User[]
 }
 
 model VerificationToken {

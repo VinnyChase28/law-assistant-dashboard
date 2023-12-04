@@ -10,7 +10,7 @@ import Charts from "@/components/charts/charts";
 import { Text } from "@tremor/react";
 
 export const metadata: Metadata = {
-  title: "CaseyAI",
+  title: "Law Assistant AI",
   description: "An assistant for the legal industry.",
 };
 
