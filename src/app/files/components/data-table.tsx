@@ -27,7 +27,7 @@ import {
 
 import { DataTablePagination } from "@/components/tables/data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
-import { useCheckedRowsStore } from "src/store/store";
+import { useCheckedRowsStore, CheckedRowsState } from "src/store/store";
 
 interface DataTableProps<TData extends { id: number }, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -44,8 +44,13 @@ export function DataTable<TData extends { id: number }, TValue>({
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
-  //Zustand store
-  const { checkedRows } = useCheckedRowsStore(); // Use Zustand store
+  // Inside your component
+  const checkedRows = useCheckedRowsStore(
+    (state) => (state as CheckedRowsState).checkedRows,
+  );
+
+  console.log(checkedRows); // Check the actual value and type
+
   React.useEffect(() => {
     console.log("Current checked rows:", checkedRows);
   }, [checkedRows]); // This will log the state whenever checkedRows changes
