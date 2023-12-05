@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
+import { pinecone } from "src/utils/pinecone";
 
 export const fileRouter = createTRPCRouter({
   //insert file metadata
@@ -49,6 +50,48 @@ export const fileRouter = createTRPCRouter({
       where: { userId: ctx.session.user.id },
     });
   }),
+
+  // Vector Search Query Scoped by Company ID
+  vectorSearch: protectedProcedure
+    .input(
+      z.object({
+        queryVector: z.array(z.number()), // The vector to query
+        topK: z.number().optional(), // Number of top results to return
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      // Get user's company ID
+      const userCompanyId = ctx.session.user.companyId;
+      if (!userCompanyId) {
+        throw new Error("User's company ID is not available.");
+      }
+
+      const index = await pinecone.Index("law-assistnat-ai");
+      const companyNamespace = index.namespace(userCompanyId);
+      // Perform vector search within the namespace of the user's company ID
+      const queryResponse = await companyNamespace.query({
+        vector: input.queryVector,
+        topK: input.topK || 5,
+        includeMetadata: true,
+      });
+
+      // Map Pinecone results to Prisma queries to fetch full document details
+      const fileIds = queryResponse.matches.map((match) => parseInt(match.id));
+      return ctx.db.file.findMany({
+        where: {
+          AND: [
+            { id: { in: fileIds } },
+            { project: { companyId: userCompanyId } }, // Filter files by user's company ID
+          ],
+        },
+        include: {
+          textSubsections: true, // Include text subsections if needed
+          // Add other relations or fields if necessary
+        },
+      });
+    }),
+
+  //unused for now
 
   // Fetch Files by Project
   getProjectFiles: protectedProcedure

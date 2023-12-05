@@ -14,11 +14,13 @@ import { db } from "src/server/db";
 declare module "next-auth" {
   interface User extends DefaultUser {
     roleId?: string;
+    companyId?: string; // Add companyId here
   }
   interface Session extends DefaultSession {
     user: {
       id: string;
       roleId?: string;
+      companyId?: string; // Add companyId here
     } & DefaultSession["user"];
   }
 }
@@ -95,14 +97,17 @@ export const authOptions: NextAuthOptions = {
 
       return true;
     },
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-        roleId: user.roleId,
-      },
-    }),
+    session: async ({ session, user }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: user.id,
+          roleId: user.roleId,
+          companyId: user.companyId
+        },
+      };
+    },
   },
   adapter: PrismaAdapter(db),
   providers: [

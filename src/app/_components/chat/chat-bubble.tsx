@@ -10,8 +10,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import VectorSearchComponent from "./chat-docs";
 
 const ChatBubble = () => {
   const el = useRef(null);
@@ -53,11 +53,6 @@ const ChatBubble = () => {
           <Button variant="secondary">Chat with docs</Button>
           <Button variant="secondary">Create report</Button>
         </div>
-        <Input
-          type="text"
-          className="mt-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-          placeholder="Type a message..."
-        />
       </DialogContent>
     </Dialog>
   );
