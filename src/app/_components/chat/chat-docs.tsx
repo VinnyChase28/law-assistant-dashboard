@@ -5,6 +5,7 @@ import { api } from "src/trpc/react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "../ui/button";
 import Typed from "typed.js";
+import Markdown from "../markdown";
 
 const VectorSearchComponent = () => {
   const el = useRef(null);
@@ -72,7 +73,7 @@ const VectorSearchComponent = () => {
   useEffect(() => {
     const typedInstance = new Typed(el.current, {
       strings: [
-        "Enter text to search for relelvant information accross all the selected documents.",
+        "Enter text to search for relevant information accross all the selected documents.",
       ],
       typeSpeed: 25,
     });
@@ -116,12 +117,7 @@ const VectorSearchComponent = () => {
         </Button>
       </div>
       {isLoading && <p>Loading...</p>}
-      {completion && (
-        <div className="py-2">
-          <h3 className="font-bold">Completion Result:</h3>
-          <p>{completion}</p>
-        </div>
-      )}
+      {completion && <Markdown markdownText={completion} />}
     </div>
   );
 };
