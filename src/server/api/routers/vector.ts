@@ -23,7 +23,7 @@ export const vectorRouter = createTRPCRouter({
 
       const queryResponse = await companyNamespace.query({
         vector: input.queryVector,
-        topK: input.topK || 5,
+        topK: input.topK ?? 5,
         includeMetadata: true,
       });
 
