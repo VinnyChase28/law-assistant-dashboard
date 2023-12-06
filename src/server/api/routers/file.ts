@@ -24,11 +24,12 @@ export const fileRouter = createTRPCRouter({
             userId: ctx.session.user.id,
           },
         });
+
         if (!defaultProject) {
           throw new Error("Default Project not found.");
         }
         projectId = defaultProject.id;
-        // Insert file metadata into the database
+
         return ctx.db.file.create({
           data: {
             name: input.name,
@@ -49,6 +50,8 @@ export const fileRouter = createTRPCRouter({
       where: { userId: ctx.session.user.id },
     });
   }),
+
+  //unused for now
 
   // Fetch Files by Project
   getProjectFiles: protectedProcedure

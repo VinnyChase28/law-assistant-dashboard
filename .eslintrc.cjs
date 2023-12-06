@@ -39,6 +39,7 @@ const config = {
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     //turn this back on after getting rid of the jank
     "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/await-thenable": "off",
   },
 };
 
