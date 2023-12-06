@@ -1,13 +1,13 @@
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { z } from "zod";
-import Pezzo
+import { OpenAI } from "langchain/llms/openai";
+import { ChatOpenAI } from "langchain/chat_models/openai";
 
-const pezzo = new Pezzo({
-  apiKey: "pez_3412a0858c13b18eea9c7113dc0ed16e",
-  projectId: "clj0balve1845752xfpqlkg21f",
-  environment: "Production", // Your desired environment
+const llm = new OpenAI({
+  temperature: 0.4,
 });
 
+// TRPC router implementation
 export const llmRouter = createTRPCRouter({
   openAIQueryAnalysis: protectedProcedure
     .input(
@@ -23,25 +23,15 @@ export const llmRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
-      // Fetch the prompt from Pezzo
-      const prompt = await pezzo.getPrompt("ExtractInfo");
-
-      // Concatenate all pages textData into a single string
+      // Combine all pages textData into a single string
       const combinedTextData = input.pages
         .map((page) => page.textData)
         .join("\n");
+      const query = input.userQuery;
 
-      const openai = new PezzoOpenAI(pezzo);
-      const response = await openai.chat.completions.create(prompt, {
-        variables: {
-          query: input.userQuery,
-          text: combinedTextData,
-        },
-      });
+      const prompt = `Query: ${query}\n\nPages:\n${combinedTextData}\n\nAnswer:`;
 
-      if (!response.choices || !response.choices[0]) {
-        throw new Error("No response from OpenAI.");
-      }
-      return response.choices[0].message;
+      const llmResult = await llm.predict(prompt);
+      return llmResult;
     }),
 });

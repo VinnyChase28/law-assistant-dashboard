@@ -10,11 +10,13 @@ const VectorSearchComponent = () => {
   const el = useRef(null);
   const [queryText, setQueryText] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [completion, setCompletion] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
 
+  //mutations
   const convertTextToVector = api.vector.convertTextToVector.useMutation();
-
   const vectorSearch = api.vector.vectorSearch.useMutation();
+  const openAIQueryAnalysis = api.llm.openAIQueryAnalysis.useMutation();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setQueryText(e.target.value);
@@ -30,8 +32,27 @@ const VectorSearchComponent = () => {
             { queryVector: vector, topK: 5 },
             {
               onSuccess: (searchResults) => {
-                setSearchResults(searchResults);
-                setIsLoading(false);
+                // Call the new TRPC route here
+                openAIQueryAnalysis.mutate(
+                  {
+                    userQuery: queryText,
+                    pages: searchResults.map((result) => ({
+                      fileName: result.fileName,
+                      textData: result.textData,
+                      pageNumber: result.pageNumber,
+                    })),
+                  },
+                  {
+                    onSuccess: (llmResponse) => {
+                      setCompletion(llmResponse);
+                      setIsLoading(false);
+                    },
+                    onError: (error) => {
+                      console.error("Error in openAIQueryAnalysis:", error);
+                      setIsLoading(false);
+                    },
+                  },
+                );
               },
               onError: (error) => {
                 console.error("Error in vector search:", error);
@@ -95,12 +116,12 @@ const VectorSearchComponent = () => {
         </Button>
       </div>
       {isLoading && <p>Loading...</p>}
-      {searchResults &&
-        searchResults.map((file, index) => (
-          <div key={index} className="py-2">
-            {/* Display search result details */}
-          </div>
-        ))}
+      {completion && (
+        <div className="py-2">
+          <h3 className="font-bold">Completion Result:</h3>
+          <p>{completion}</p>
+        </div>
+      )}
     </div>
   );
 };
