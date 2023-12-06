@@ -1,6 +1,7 @@
 "use client";
+
 import React, { useState, useRef, useEffect } from "react";
-import { api } from "src/trpc/react"; // Ensure correct import path
+import { api } from "src/trpc/react"; 
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "../ui/button";
 import Typed from "typed.js";

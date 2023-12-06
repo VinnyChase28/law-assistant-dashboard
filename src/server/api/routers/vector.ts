@@ -8,12 +8,11 @@ export const vectorRouter = createTRPCRouter({
   vectorSearch: protectedProcedure
     .input(
       z.object({
-        queryVector: z.array(z.number()), // The vector to query
-        topK: z.number().optional(), // Number of top results to return
+        queryVector: z.array(z.number()),
+        topK: z.number().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      // Get user's company ID
       const userCompanyId = ctx.session.user.companyId;
       if (!userCompanyId) {
         throw new Error("User's company ID is not available.");
@@ -21,29 +20,36 @@ export const vectorRouter = createTRPCRouter({
 
       const index = await pinecone.Index("law-assistant-ai");
       const companyNamespace = index.namespace(userCompanyId);
-      // Perform vector search within the namespace of the user's company ID
+
       const queryResponse = await companyNamespace.query({
         vector: input.queryVector,
         topK: input.topK || 5,
         includeMetadata: true,
       });
 
-      // Map Pinecone results to Prisma queries to fetch full document details
-      const fileIds = queryResponse.matches.map((match) => parseInt(match.id));
-      return ctx.db.file.findMany({
+      const parsedIds = queryResponse.matches.map((match) => {
+        const [fileId, pageNumber] = match.id.split("-").map(Number);
+        return { fileId, pageNumber };
+      });
+
+      // Query the database for the corresponding TextSubsections and their related Files.
+      const textSubsections = await ctx.db.textSubsection.findMany({
         where: {
-          AND: [
-            { id: { in: fileIds } },
-            { project: { companyId: userCompanyId } },
-          ],
+          OR: parsedIds.map((id) => ({
+            fileId: id.fileId,
+            pageNumber: id.pageNumber,
+          })),
         },
         include: {
-          textSubsections: {
-            select: { pageNumber: true }, // Select only pageNumber
-          },
-          // ...other includes if necessary...
+          file: true, // Include all fields of the related File record
         },
       });
+
+      return textSubsections.map((subsection) => ({
+        fileName: subsection.file.name, // File name from the related File record
+        textData: subsection.text, // Text data from the TextSubsection record
+        pageNumber: subsection.pageNumber,
+      }));
     }),
 
   //convert text to vector
