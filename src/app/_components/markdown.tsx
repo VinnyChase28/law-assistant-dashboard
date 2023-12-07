@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown";
 import React from "react";
 
 type MarkdownProps = {
-  markdownText: string; // Defining the type of markdownText
+  markdownText: string;
 };
 
 const Markdown: React.FC<MarkdownProps> = ({ markdownText }) => {

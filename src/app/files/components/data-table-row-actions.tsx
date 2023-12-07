@@ -2,15 +2,12 @@
 
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
-
 import { Button } from "@/components/ui/button";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuSub,
@@ -18,18 +15,35 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { api } from "src/trpc/react";
+import { useState } from "react";
+import { useFilesStore } from "src/store/store";
+interface WithId {
+  id: number;
+}
 
-
-import { myFilesSchema } from "../data/schema";
-
-interface DataTableRowActionsProps<TData> {
+interface DataTableRowActionsProps<TData extends WithId> {
   row: Row<TData>;
 }
 
-export function DataTableRowActions<TData>({
+export function DataTableRowActions<TData extends WithId>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const file = myFilesSchema.parse(row.original);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const deleteFile = api.file.deleteFile.useMutation({
+    onSuccess: () => {
+      useFilesStore.getState().removeFile(row.original.id);
+    },
+    onError: (error) => {
+      console.error("Error deleting file:", error);
+    },
+  });
+
+  const handleDelete = () => {
+    setIsDeleting(true);
+    deleteFile.mutate(row.original.id); // Directly using row.original.id
+  };
 
   return (
     <DropdownMenu>
@@ -46,24 +60,16 @@ export function DataTableRowActions<TData>({
         <DropdownMenuItem>Edit</DropdownMenuItem>
         <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem>
-        {/* Additional actions based on your schema and requirements */}
         <DropdownMenuSeparator />
-        {/* Labels or other categorizations based on your file schema */}
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            {/* <DropdownMenuRadioGroup value={file.label}>
-              {labels.map((label) => (
-                <DropdownMenuRadioItem key={label.value} value={label.value}>
-                  {label.label}
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup> */}
+            {/* DropdownMenuRadioGroup and items based on your schema */}
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Delete
+        <DropdownMenuItem onSelect={handleDelete}>
+          {isDeleting ? "Deleting..." : "Delete"}
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>

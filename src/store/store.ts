@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { UserFile } from "src/app/files/page";
 
+//track table checked rows
 export interface CheckedRowsState {
   checkedRows: { [key: number]: boolean };
   toggleRow: (id: number) => void;
@@ -23,9 +25,29 @@ export const useCheckedRowsStore = create<CheckedRowsState>()(
     }),
     {
       name: "checked-rows-storage",
-      // Optionally, specify a different storage. By default, 'localStorage' is used.
-      // storage: createJSONStorage(() => sessionStorage),
     },
   ),
 );
 
+//track user uploaded files
+export interface FilesState {
+  files: UserFile[]; // Assuming UserFile is your file type
+  setFiles: (newFiles: UserFile[]) => void;
+  removeFile: (fileId: number) => void; // Add this line
+}
+
+export const useFilesStore = create<FilesState>()(
+  persist(
+    (set) => ({
+      files: [],
+      setFiles: (newFiles) => set({ files: newFiles }),
+      removeFile: (fileId) =>
+        set((state) => ({
+          files: state.files.filter((file) => file.id !== fileId),
+        })),
+    }),
+    {
+      name: "user-files-storage",
+    },
+  ),
+);

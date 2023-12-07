@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useState } from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -37,21 +37,11 @@ export function DataTable<TData extends { id: number }, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [sorting, setSorting] = useState<SortingState>([]);
 
-  // Inside your component
   const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
-
-  console.log(checkedRows); // Check the actual value and type
-
-  React.useEffect(() => {
-    console.log("Current checked rows:", checkedRows);
-  }, [checkedRows]); // This will log the state whenever checkedRows changes
 
   const table = useReactTable({
     data,
