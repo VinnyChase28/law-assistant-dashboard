@@ -17,14 +17,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { api } from "src/trpc/react";
 import { useState } from "react";
-
-// Define a type that includes an id property
+import { useFilesStore } from "src/store/store";
 interface WithId {
   id: number;
-  // Include other properties as needed
 }
 
-// Update the props interface to expect a type extending WithId
 interface DataTableRowActionsProps<TData extends WithId> {
   row: Row<TData>;
 }
@@ -36,7 +33,7 @@ export function DataTableRowActions<TData extends WithId>({
 
   const deleteFile = api.file.deleteFile.useMutation({
     onSuccess: () => {
-      // Handle success, e.g., refresh data or show a message
+      useFilesStore.getState().removeFile(row.original.id);
     },
     onError: (error) => {
       console.error("Error deleting file:", error);

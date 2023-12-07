@@ -22,9 +22,11 @@ export interface UserFile {
   updatedAt: Date;
   projectId: string;
   userId: string;
-  access: string;
+  access: "PRIVATE" | "PUBLIC" | "SHARED" | undefined;
   documentType: string | null;
+  // Add any other properties that are missing
 }
+
 async function getFiles() {
   const files = await api.file.getUserFiles.query();
   if (!files) {
@@ -35,7 +37,7 @@ async function getFiles() {
 
 export default async function Files() {
   const files: UserFile[] = await getFiles(); // Use the custom UserFile type
-  console.debug(files);
+  console.log("files", files);
   return (
     <main>
       <Text className="ml-10 pt-5 text-3xl font-bold">My Files</Text>

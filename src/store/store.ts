@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
+import { UserFile } from "src/app/files/page";
 
 //track table checked rows
 export interface CheckedRowsState {
@@ -31,21 +31,23 @@ export const useCheckedRowsStore = create<CheckedRowsState>()(
 
 //track user uploaded files
 export interface FilesState {
-  files: any[]; // Replace 'any' with the appropriate type for your files
-  setFiles: (newFiles: any[]) => void;
+  files: UserFile[]; // Assuming UserFile is your file type
+  setFiles: (newFiles: UserFile[]) => void;
+  removeFile: (fileId: number) => void; // Add this line
 }
-
 
 export const useFilesStore = create<FilesState>()(
   persist(
     (set) => ({
       files: [],
       setFiles: (newFiles) => set({ files: newFiles }),
+      removeFile: (fileId) =>
+        set((state) => ({
+          files: state.files.filter((file) => file.id !== fileId),
+        })),
     }),
     {
-      name: "user-files-storage", // Unique name for the local storage entry
-    }
-  )
+      name: "user-files-storage",
+    },
+  ),
 );
-
-
