@@ -54,7 +54,6 @@ export const fileRouter = createTRPCRouter({
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
       const fileId = input;
-      console.log("fileId", fileId);
       const fileSubsections = await ctx.db.textSubsection.findMany({
         where: { fileId: fileId },
       });

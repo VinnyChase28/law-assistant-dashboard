@@ -37,7 +37,6 @@ async function getFiles() {
 
 export default async function Files() {
   const files: UserFile[] = await getFiles(); // Use the custom UserFile type
-  console.log("files", files);
   return (
     <main>
       <Text className="ml-10 pt-5 text-3xl font-bold">My Files</Text>
