@@ -12,7 +12,6 @@ export default function FilesClientComponent({
   initialFiles,
 }: FilesClientComponentProps) {
   const { files, setFiles } = useFilesStore();
-  console.log("files", files);
   if (files.length === 0 && initialFiles.length > 0) {
     setFiles(initialFiles);
   }

@@ -8,8 +8,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuSub,
@@ -18,37 +16,38 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { api } from "src/trpc/react";
-import { useRouter } from "next/router";
 import { useState } from "react";
-// import { myFilesSchema } from "../data/schema";
 
-interface DataTableRowActionsProps<TData> {
+// Define a type that includes an id property
+interface WithId {
+  id: number;
+  // Include other properties as needed
+}
+
+// Update the props interface to expect a type extending WithId
+interface DataTableRowActionsProps<TData extends WithId> {
   row: Row<TData>;
 }
 
-export function DataTableRowActions<TData>({
+export function DataTableRowActions<TData extends WithId>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  // const file = myFilesSchema.parse(row.original);
   const [isDeleting, setIsDeleting] = useState(false);
-  const router = useRouter();
+
   const deleteFile = api.file.deleteFile.useMutation({
     onSuccess: () => {
-      // Refresh the page or update local state to reflect changes
-      router.reload();
+      // Handle success, e.g., refresh data or show a message
     },
     onError: (error) => {
-      // Handle error
       console.error("Error deleting file:", error);
     },
   });
 
-  const handleDelete = (fileId: number) => {
+  const handleDelete = () => {
     setIsDeleting(true);
-    deleteFile.mutate({ fileId: fileId });
+    deleteFile.mutate(row.original.id); // Directly using row.original.id
   };
 
-  const file = row.original;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -64,23 +63,15 @@ export function DataTableRowActions<TData>({
         <DropdownMenuItem>Edit</DropdownMenuItem>
         <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem>
-        {/* Additional actions based on your schema and requirements */}
         <DropdownMenuSeparator />
-        {/* Labels or other categorizations based on your file schema */}
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            {/* <DropdownMenuRadioGroup value={file.label}>
-              {labels.map((label) => (
-                <DropdownMenuRadioItem key={label.value} value={label.value}>
-                  {label.label}
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup> */}
+            {/* DropdownMenuRadioGroup and items based on your schema */}
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onSelect={() => handleDelete(row.original.id)}>
+        <DropdownMenuItem onSelect={handleDelete}>
           {isDeleting ? "Deleting..." : "Delete"}
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>

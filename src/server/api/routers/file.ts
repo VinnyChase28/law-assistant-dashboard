@@ -2,7 +2,6 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { pinecone } from "src/utils/pinecone";
 export const fileRouter = createTRPCRouter({
-  //insert file metadata
   insertFileMetadata: protectedProcedure
     .input(
       z.object({
@@ -45,7 +44,6 @@ export const fileRouter = createTRPCRouter({
       }
     }),
 
-  // Fetch All Files for a User
   getUserFiles: protectedProcedure.query(async ({ ctx }) => {
     return ctx.db.file.findMany({
       where: { userId: ctx.session.user.id },
@@ -53,10 +51,10 @@ export const fileRouter = createTRPCRouter({
   }),
 
   deleteFile: protectedProcedure
-    .input(z.number()) // File ID
+    .input(z.number())
     .mutation(async ({ ctx, input }) => {
       const fileId = input;
-
+      console.log("fileId", fileId);
       const fileSubsections = await ctx.db.textSubsection.findMany({
         where: { fileId: fileId },
       });

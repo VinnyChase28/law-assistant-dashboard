@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import VectorSearchComponent from "../input/chat-docs";
+import VectorSearchComponent from "./chat-docs";
 
 const ChatBubble = () => {
   const el = useRef(null);

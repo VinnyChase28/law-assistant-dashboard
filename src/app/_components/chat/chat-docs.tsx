@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { api } from "src/trpc/react"; 
+import { api } from "src/trpc/react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "../ui/button";
 import Typed from "typed.js";
@@ -33,7 +33,6 @@ const VectorSearchComponent = () => {
             { queryVector: vector, topK: 5 },
             {
               onSuccess: (searchResults) => {
-                // Call the new TRPC route here
                 openAIQueryAnalysis.mutate(
                   {
                     userQuery: queryText,
