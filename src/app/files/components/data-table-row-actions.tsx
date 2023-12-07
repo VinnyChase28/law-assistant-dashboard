@@ -2,7 +2,6 @@
 
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
-
 import { Button } from "@/components/ui/button";
 
 import {
@@ -18,9 +17,10 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-
-import { myFilesSchema } from "../data/schema";
+import { api } from "src/trpc/react";
+import { useRouter } from "next/router";
+import { useState } from "react";
+// import { myFilesSchema } from "../data/schema";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -29,8 +29,26 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const file = myFilesSchema.parse(row.original);
+  // const file = myFilesSchema.parse(row.original);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const router = useRouter();
+  const deleteFile = api.file.deleteFile.useMutation({
+    onSuccess: () => {
+      // Refresh the page or update local state to reflect changes
+      router.reload();
+    },
+    onError: (error) => {
+      // Handle error
+      console.error("Error deleting file:", error);
+    },
+  });
 
+  const handleDelete = (fileId: number) => {
+    setIsDeleting(true);
+    deleteFile.mutate({ fileId: fileId });
+  };
+
+  const file = row.original;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -62,8 +80,8 @@ export function DataTableRowActions<TData>({
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Delete
+        <DropdownMenuItem onSelect={() => handleDelete(row.original.id)}>
+          {isDeleting ? "Deleting..." : "Delete"}
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>

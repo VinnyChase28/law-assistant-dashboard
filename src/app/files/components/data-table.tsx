@@ -47,11 +47,7 @@ export function DataTable<TData extends { id: number }, TValue>({
   // Inside your component
   const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
 
-  console.log(checkedRows); // Check the actual value and type
-
-  React.useEffect(() => {
-    console.log("Current checked rows:", checkedRows);
-  }, [checkedRows]); // This will log the state whenever checkedRows changes
+  React.useEffect(() => {}, [checkedRows]); // This will log the state whenever checkedRows changes
 
   const table = useReactTable({
     data,

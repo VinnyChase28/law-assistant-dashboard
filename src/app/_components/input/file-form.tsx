@@ -31,7 +31,7 @@ export default function UploadFiles() {
       },
       {
         onSuccess: async (data) => {
-          console.log("Successful file upload to postgres");
+          console.log("Successful file metadata upload to postgres");
 
           setProcessedFiles((prevProcessed) => prevProcessed + 1);
 
@@ -49,7 +49,6 @@ export default function UploadFiles() {
                   await processFile(nextFile, index + 1, files);
                 } else {
                   console.log("No more files to process");
-                  // Additional logic for when there are no more files
                 }
               } else {
                 console.log("All files have been processed");

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
-
+import { pinecone } from "src/utils/pinecone";
 export const fileRouter = createTRPCRouter({
   //insert file metadata
   insertFileMetadata: protectedProcedure
@@ -10,7 +10,9 @@ export const fileRouter = createTRPCRouter({
         fileType: z.string(),
         fileSize: z.string(),
         blobUrl: z.string(),
-        //TODO: add projectid from list of selectable projects. we default to "Default Project" for now. files must be seperated by project
+        // TODO: add projectid from list of selectable projects.
+        // we default to "Default Project" for now.
+        // files must be seperated by project
         projectId: z.string().optional(),
       }),
     )
@@ -20,7 +22,6 @@ export const fileRouter = createTRPCRouter({
         const defaultProject = await ctx.db.project.findFirst({
           where: {
             name: "Default Project",
-            // Add additional conditions if necessary, like userId
             userId: ctx.session.user.id,
           },
         });
@@ -51,56 +52,25 @@ export const fileRouter = createTRPCRouter({
     });
   }),
 
-  //unused for now
-
-  // Fetch Files by Project
-  getProjectFiles: protectedProcedure
-    .input(z.string())
-    .query(async ({ ctx, input }) => {
-      return ctx.db.file.findMany({
-        where: { projectId: input },
-      });
-    }),
-
-  // Update File Metadata
-  updateFileMetadata: protectedProcedure
-    .input(
-      z.object({
-        fileId: z.number(),
-        name: z.string().optional(),
-        fileType: z.string().optional(),
-        fileSize: z.string().optional(),
-      }),
-    )
+  deleteFile: protectedProcedure
+    .input(z.number()) // File ID
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.file.update({
-        where: { id: input.fileId },
-        data: {
-          name: input.name,
-          fileType: input.fileType,
-          fileSize: input.fileSize,
-        },
-      });
-    }),
+      const fileId = input;
 
-  // Fetch Favorite Count for a File
-  getFavoriteCount: protectedProcedure
-    .input(z.number()) // fileId
-    .query(async ({ ctx, input }) => {
-      return ctx.db.favorite.count({
-        where: { fileId: input },
+      const fileSubsections = await ctx.db.textSubsection.findMany({
+        where: { fileId: fileId },
       });
-    }),
 
-  // Fetch Favorite Files for a User
-  getUserFavoriteFiles: protectedProcedure
-    .input(z.string()) // userId
-    .query(async ({ ctx, input }) => {
-      return ctx.db.favorite.findMany({
-        where: { userId: input },
-        include: {
-          file: true, // Include the file data
-        },
+      const index = pinecone.Index("law-assistant-ai");
+      fileSubsections.forEach(async (subsection) => {
+        await index.deleteOne(subsection.pineconeVectorId);
       });
+
+      await ctx.db.file.delete({ where: { id: fileId } });
+
+      return {
+        success: true,
+        message: "File and associated vectors deleted successfully.",
+      };
     }),
 });

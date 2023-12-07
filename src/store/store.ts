@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+
+//track table checked rows
 export interface CheckedRowsState {
   checkedRows: { [key: number]: boolean };
   toggleRow: (id: number) => void;
@@ -23,9 +25,27 @@ export const useCheckedRowsStore = create<CheckedRowsState>()(
     }),
     {
       name: "checked-rows-storage",
-      // Optionally, specify a different storage. By default, 'localStorage' is used.
-      // storage: createJSONStorage(() => sessionStorage),
     },
   ),
 );
+
+//track user uploaded files
+export interface FilesState {
+  files: any[]; // Replace 'any' with the appropriate type for your files
+  setFiles: (newFiles: any[]) => void;
+}
+
+
+export const useFilesStore = create<FilesState>()(
+  persist(
+    (set) => ({
+      files: [],
+      setFiles: (newFiles) => set({ files: newFiles }),
+    }),
+    {
+      name: "user-files-storage", // Unique name for the local storage entry
+    }
+  )
+);
+
 
