@@ -16,7 +16,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { api } from "src/trpc/react";
-import { useState } from "react";
 import { useFilesStore } from "src/store/store";
 interface WithId {
   id: number;
@@ -29,21 +28,25 @@ interface DataTableRowActionsProps<TData extends WithId> {
 export function DataTableRowActions<TData extends WithId>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const [isDeleting, setIsDeleting] = useState(false);
+  const { setFileDeleting, isFileDeleting, removeFile } = useFilesStore();
 
   const deleteFile = api.file.deleteFile.useMutation({
     onSuccess: () => {
-      useFilesStore.getState().removeFile(row.original.id);
+      setFileDeleting(row.original.id, false);
+      removeFile(row.original.id);
     },
     onError: (error) => {
       console.error("Error deleting file:", error);
+      setFileDeleting(row.original.id, false);
     },
   });
 
   const handleDelete = () => {
-    setIsDeleting(true);
-    deleteFile.mutate(row.original.id); // Directly using row.original.id
+    setFileDeleting(row.original.id, true);
+    deleteFile.mutate(row.original.id);
   };
+
+  const isDeleting = isFileDeleting(row.original.id);
 
   return (
     <DropdownMenu>
@@ -65,6 +68,7 @@ export function DataTableRowActions<TData extends WithId>({
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
             {/* DropdownMenuRadioGroup and items based on your schema */}
+            Test
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSeparator />
