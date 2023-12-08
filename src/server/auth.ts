@@ -21,18 +21,10 @@ declare module "next-auth" {
 
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    async signIn({ user, account }) {
-      if (!account) {
-        return false;
-      }
-      // Your logic to handle signIn, e.g., creating a user record in your database
+    async signIn({ user, account, profile, email, credentials }) {
       return true;
     },
     session: async ({ session }) => {
-      // Extract roles and company info from Auth0 token and add them to the session
-      // session.user.role = token["http://your-auth0-namespace/roles"][0]; // Replace with your actual namespace
-      // session.user.companyId = token["http://your-auth0-namespace/company"]; // Replace with your actual namespace
-
       return session;
     },
   },
@@ -41,7 +33,7 @@ export const authOptions: NextAuthOptions = {
     Auth0Provider({
       clientId: env.AUTH0_CLIENT_ID,
       clientSecret: env.AUTH0_CLIENT_SECRET,
-      issuer: env.AUTH0_ISSUER,
+      issuer: env.AUTH0_ISSUER_BASE_URL,
     }),
   ],
 };
