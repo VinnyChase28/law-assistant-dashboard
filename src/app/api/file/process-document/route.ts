@@ -11,7 +11,7 @@ let fileId: number;
 interface ProcessDocumentRequest {
   fileId: number;
   blobUrl: string;
-  companyId: string;
+  userId: string;
 }
 
 const pinecone = new Pinecone({
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as ProcessDocumentRequest;
     const fileId = body.fileId;
-    const { blobUrl, companyId } = body;
+    const { blobUrl, userId } = body;
 
     const decodedBlobUrl = decodeURIComponent(blobUrl);
     const pdfResponse = await fetch(decodedBlobUrl);
@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     });
 
     const index = pinecone.index("law-assistant-ai");
-    const companyNamespace = index.namespace(companyId);
+    const companyNamespace = index.namespace(userId);
 
     const upsertPromises = docs.map(async (doc, i) => {
       if (typeof doc.pageContent !== "string") {
