@@ -10,15 +10,11 @@ import { env } from "src/env.mjs";
 import { db } from "src/server/db";
 
 declare module "next-auth" {
-  interface User extends DefaultUser {
-    roleId?: string;
-    companyId?: string; // Add companyId here
-  }
+  interface User extends DefaultUser {}
   interface Session extends DefaultSession {
     user: {
       id: string;
-      roleId?: string;
-      companyId?: string; // Add companyId here
+      // roleId and companyId will be added from Auth0 token
     } & DefaultSession["user"];
   }
 }
@@ -29,90 +25,23 @@ export const authOptions: NextAuthOptions = {
       if (!account) {
         return false;
       }
-
-      const providerAccountId = account.providerAccountId;
-      let existingAccount = await db.account.findUnique({
-        where: {
-          provider_providerAccountId: {
-            provider: account.provider,
-            providerAccountId: providerAccountId,
-          },
-        },
-      });
-
-      if (!existingAccount) {
-        let adminRole = await db.role.findFirst({
-          where: { name: "ADMIN" },
-        });
-
-        if (!adminRole) {
-          adminRole = await db.role.create({
-            data: { name: "ADMIN" },
-          });
-        }
-
-        const newCompany = await db.company.create({
-          data: { name: "Default Company" },
-        });
-
-        const newUser = await db.user.create({
-          data: {
-            name: user.name,
-            image: user.image,
-            companyId: newCompany.id,
-            roleId: adminRole.id,
-          },
-        });
-
-        // Create a default team
-        await db.team.create({
-          data: {
-            name: "Default Team",
-            companyId: newCompany.id,
-            users: {
-              connect: { id: newUser.id },
-            },
-          },
-        });
-
-        // Create a default project
-        await db.project.create({
-          data: {
-            name: "Default Project",
-            userId: newUser.id,
-          },
-        });
-
-        existingAccount = await db.account.create({
-          data: {
-            providerAccountId: providerAccountId,
-            userId: newUser.id,
-            provider: account.provider,
-            type: account.type,
-          },
-        });
-      }
-
+      // Your logic to handle signIn, e.g., creating a user record in your database
       return true;
     },
-    session: async ({ session, user }) => {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: user.id,
-          roleId: user.roleId,
-          companyId: user.companyId,
-        },
-      };
+    session: async ({ session }) => {
+      // Extract roles and company info from Auth0 token and add them to the session
+      // session.user.role = token["http://your-auth0-namespace/roles"][0]; // Replace with your actual namespace
+      // session.user.companyId = token["http://your-auth0-namespace/company"]; // Replace with your actual namespace
+
+      return session;
     },
   },
   adapter: PrismaAdapter(db),
   providers: [
     Auth0Provider({
-      clientId: process.env.AUTH0_CLIENT_ID,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET,
-      issuer: process.env.AUTH0_ISSUER,
+      clientId: env.AUTH0_CLIENT_ID,
+      clientSecret: env.AUTH0_CLIENT_SECRET,
+      issuer: env.AUTH0_ISSUER,
     }),
   ],
 };
