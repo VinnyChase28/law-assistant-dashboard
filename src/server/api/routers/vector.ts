@@ -4,7 +4,7 @@ import { z } from "zod";
 import { pinecone } from "src/utils/pinecone";
 
 export const vectorRouter = createTRPCRouter({
-  // Vector Search Query Scoped by Company ID
+  // Vector Search Query Scoped by user ID
   vectorSearch: protectedProcedure
     .input(
       z.object({
@@ -13,15 +13,15 @@ export const vectorRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const userCompanyId = ctx.session.user.companyId;
-      if (!userCompanyId) {
-        throw new Error("User's company ID is not available.");
+      const userId = ctx.session.user.id;
+      if (!userId) {
+        throw new Error("User's user ID is not available.");
       }
 
       const index = await pinecone.Index("law-assistant-ai");
-      const companyNamespace = index.namespace(userCompanyId);
+      const userNamespace = index.namespace(userId);
 
-      const queryResponse = await companyNamespace.query({
+      const queryResponse = await userNamespace.query({
         vector: input.queryVector,
         topK: input.topK ?? 5,
         includeMetadata: true,

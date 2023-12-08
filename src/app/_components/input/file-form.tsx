@@ -12,7 +12,7 @@ export default function UploadFiles() {
   const [processedFiles, setProcessedFiles] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false); // New state to track processing
   const inputFileRef = useRef<HTMLInputElement>(null);
-  const companyId = api.company.getUserCompany.useQuery().data?.id;
+  const userId = api.company.getUserId.useQuery().data;
 
   const createFile = api.file.insertFileMetadata.useMutation();
 
@@ -40,7 +40,7 @@ export default function UploadFiles() {
               await callProcessDocument(
                 data.blobUrl,
                 data.id,
-                companyId as string,
+                userId as string,
               );
 
               if (index + 1 < files.length) {

@@ -1,7 +1,7 @@
 import { fileRouter } from "./routers/file";
 import { createTRPCRouter } from "src/server/api/trpc";
 import { projectRouter } from "./routers/project";
-import { companyRouter } from "./routers/company";
+import { userRouter } from "./routers/user";
 import { vectorRouter } from "./routers/vector";
 import { llmRouter } from "./routers/llm";
 /**
@@ -12,7 +12,7 @@ import { llmRouter } from "./routers/llm";
 export const appRouter = createTRPCRouter({
   file: fileRouter,
   project: projectRouter,
-  company: companyRouter,
+  company: userRouter,
   vector: vectorRouter,
   llm: llmRouter,
 });
