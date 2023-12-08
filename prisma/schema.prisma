@@ -27,7 +27,6 @@ model Task {
 model Project {
   id          String   @id @default(cuid())
   name        String
-  companyId   String?
   userId      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -36,7 +35,7 @@ model Project {
   createBy    String?
   files       File[]
 
-  @@index([companyId])
+  @@index([userId])
 }
 
 model Favorite {
@@ -69,7 +68,6 @@ model File {
   project          Project           @relation(fields: [projectId], references: [id])
   taskHistory      FileTaskHistory[]
   textSubsections  TextSubsection[]
-
 
   @@index([userId, projectId])
 }
@@ -118,18 +116,12 @@ model User {
   email           String?           @unique
   emailVerified   DateTime?
   image           String?
-  roleId          String
-  teamId          String?
-  companyId       String?
   accounts        Account[]
-  Favorite        Favorite?
-  FileTaskHistory FileTaskHistory[]
+  favorites       Favorite[]
+  fileTaskHistory FileTaskHistory[]
   sessions        Session[]
   tasks           Task[]
-  company         Company?          @relation(fields: [companyId], references: [id])
-  role            Role              @relation(fields: [roleId], references: [id])
-  team            Team?             @relation(fields: [teamId], references: [id])
-  teams           Team[]            @relation("UserTeams")
+  // Removed teamId and team fields as team data is managed in Auth0
 }
 
 model Session {
@@ -160,30 +152,6 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-model Role {
-  id    String   @id @default(cuid())
-  name  UserRole
-  users User[]
-}
-
-model Team {
-  id        String  @id @default(cuid())
-  name      String
-  companyId String
-  company   Company @relation(fields: [companyId], references: [id])
-  User      User[]
-  users     User[]  @relation("UserTeams")
-
-  @@index([companyId])
-}
-
-model Company {
-  id    String @id @default(cuid())
-  name  String
-  teams Team[]
-  users User[]
-}
-
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -196,11 +164,6 @@ enum FileAccess {
   PUBLIC
   PRIVATE
   SHARED
-}
-
-enum UserRole {
-  ADMIN
-  MEMBER
 }
 
 enum DocumentType {

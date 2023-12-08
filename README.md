@@ -4,7 +4,7 @@
 
 # Prisma
 
-- during dev, you can run ```npx prisma db push --force-reset``` and ```npx prisma generate``` as you modify the schema
+- during dev, you can run ```npx prisma db push --force-reset``` and ```npx prisma generate``` to do a hard db reset
 
 After updating the schema, ```npx prisma migrate dev``` to apply the changes and ```npx prisma generate``` to update the Prisma client.
 
