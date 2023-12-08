@@ -24,10 +24,14 @@ export const authOptions: NextAuthOptions = {
     async signIn({ user, account, profile, email, credentials }) {
       return true;
     },
-    session: async ({ session }) => {
+    session: async ({ session, user }) => {
+      if (user) {
+        session.user.id = user.id;
+      }
       return session;
     },
   },
+
   adapter: PrismaAdapter(db),
   providers: [
     Auth0Provider({
