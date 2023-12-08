@@ -53,7 +53,7 @@ export const useFilesStore = create<FilesState>()(
         set((state) => ({
           filesDeleting: { ...state.filesDeleting, [fileId]: isDeleting },
         })),
-      isFileDeleting: (fileId) => get().filesDeleting[fileId] || false,
+      isFileDeleting: (fileId) => get().filesDeleting[fileId] ?? false,
     }),
     {
       name: "user-files-storage",
