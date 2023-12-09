@@ -29,7 +29,7 @@ export const llmRouter = createTRPCRouter({
         .join("\n");
       const query = input.userQuery;
 
-      const prompt = `Query: ${query}\n\nText to query:\n${combinedTextData}\n\n respond in markdown. information and source should be clearly outlined and separated. add two newlines between each source.`;
+      const prompt = `Query: ${query}\n\nText to query:\n${combinedTextData}\n\n respond in markdown. information and source should be clearly outlined and separated. add two newlines between each source. The summary should be only relevant to the query, and contain no other information. Be Specific and consice. my life depends on it.`;
 
       const llmResult = await llm.predict(prompt);
       return llmResult;
