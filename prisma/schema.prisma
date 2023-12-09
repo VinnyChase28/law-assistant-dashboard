@@ -24,20 +24,6 @@ model Task {
   @@index([userId])
 }
 
-model Project {
-  id          String   @id @default(cuid())
-  name        String
-  userId      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  description String?
-  status      String?
-  createBy    String?
-  files       File[]
-
-  @@index([userId])
-}
-
 model Favorite {
   id     String @id @default(cuid())
   fileId Int    @unique
@@ -59,17 +45,15 @@ model File {
   processingStatus String
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
-  projectId        String
   userId           String
   access           FileAccess        @default(PRIVATE)
   documentType     DocumentType?
   dataSubsections  DataSubsection[]
   favorites        Favorite?
-  project          Project           @relation(fields: [projectId], references: [id])
   taskHistory      FileTaskHistory[]
   textSubsections  TextSubsection[]
 
-  @@index([userId, projectId])
+  @@index([userId])
 }
 
 model TextSubsection {

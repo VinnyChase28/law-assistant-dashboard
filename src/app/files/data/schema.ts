@@ -11,7 +11,6 @@ export const myFilesSchema = z.object({
   vectorProcessedAt: z.date().nullable().optional(), // Allow null and optional
   createdAt: z.date(),
   updatedAt: z.date(),
-  projectId: z.string(),
   userId: z.string(),
   access: z.enum(["PRIVATE", "PUBLIC", "SHARED"]).optional(), // Adjusted based on your file access types
   documentType: z.string().nullable().optional(), // Allow null and optional

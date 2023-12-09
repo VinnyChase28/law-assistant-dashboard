@@ -20,11 +20,9 @@ export interface UserFile {
   processingStatus: string;
   createdAt: Date;
   updatedAt: Date;
-  projectId: string;
   userId: string;
   access: "PRIVATE" | "PUBLIC" | "SHARED" | undefined;
   documentType: string | null;
-  // Add any other properties that are missing
 }
 
 async function getFiles() {
@@ -36,7 +34,7 @@ async function getFiles() {
 }
 
 export default async function Files() {
-  const files: UserFile[] = await getFiles(); // Use the custom UserFile type
+  const files: UserFile[] = await getFiles();
   return (
     <main>
       <Text className="ml-10 pt-5 text-3xl font-bold">My Files</Text>

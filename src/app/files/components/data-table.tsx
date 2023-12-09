@@ -27,12 +27,13 @@ import {
 
 import { DataTablePagination } from "@/components/tables/data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
-import { useCheckedRowsStore, CheckedRowsState } from "src/store/store";
+import { useCheckedRowsStore } from "src/store/store";
 
 interface DataTableProps<TData extends { id: number }, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
+
 export function DataTable<TData extends { id: number }, TValue>({
   columns,
   data,
