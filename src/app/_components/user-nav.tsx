@@ -13,7 +13,7 @@ import {
   DropdownMenuShortcut,
 } from "@/components/ui/dropdown-menu";
 import { getServerAuthSession } from "src/server/auth";
-import AuthButton from "./sign-in-out";
+import AuthButton from "./sign-in";
 
 export async function UserNav() {
   const session = await getServerAuthSession();

@@ -7,9 +7,9 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const nanoid = customAlphabet(
-  '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
-  7
-) // 7-character random string
+  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+  7,
+);
 
 export async function fetcher<JSON = any>(
   input: RequestInfo,

@@ -12,7 +12,7 @@ export default function UploadFiles() {
   const [processedFiles, setProcessedFiles] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false); // New state to track processing
   const inputFileRef = useRef<HTMLInputElement>(null);
-  const userId = api.company.getUserId.useQuery().data;
+  const userId = api.user.getUserId.useQuery().data;
 
   const createFile = api.file.insertFileMetadata.useMutation();
 

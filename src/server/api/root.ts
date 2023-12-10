@@ -10,7 +10,7 @@ import { llmRouter } from "./routers/llm";
  */
 export const appRouter = createTRPCRouter({
   file: fileRouter,
-  company: userRouter,
+  user: userRouter,
   vector: vectorRouter,
   llm: llmRouter,
 });

@@ -21,8 +21,7 @@ declare module "next-auth" {
 
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      
+    async signIn() {
       return true;
     },
     session: async ({ session, user }) => {
@@ -30,6 +29,14 @@ export const authOptions: NextAuthOptions = {
         session.user.id = user.id;
       }
       return session;
+    },
+    async redirect({ url, baseUrl }) {
+      // If the callback URL is the one you expect, return it
+      if (url.startsWith(baseUrl)) {
+        return url;
+      }
+      // Otherwise, return a default URL
+      return baseUrl;
     },
   },
 
