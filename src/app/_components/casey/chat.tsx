@@ -3,7 +3,7 @@ import { useChat } from "ai/react";
 import { Button } from "../ui/button";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw"; // To parse HTML within Markdown
-
+import remarkBreaks from "remark-breaks";
 export function Chat({ handler }: { handler: any }) {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: handler,
@@ -11,6 +11,7 @@ export function Chat({ handler }: { handler: any }) {
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    console.log(messages);
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -32,8 +33,12 @@ export function Chat({ handler }: { handler: any }) {
               </span>
               <div>
                 {/* Render Markdown content, allowing HTML via rehypeRaw */}
-                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                  {m.content}
+                <ReactMarkdown
+                  remarkPlugins={[remarkBreaks]}
+                  rehypePlugins={[rehypeRaw]}
+                  className="list-inside list-decimal"
+                >
+                  {m.content.replace(/\n/gi, "&nbsp; \n")}
                 </ReactMarkdown>
               </div>
             </li>

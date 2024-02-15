@@ -100,12 +100,13 @@
   word-wrap: break-word; /* Ensure long words do not overflow */
 }
 
-.message-input {
-  /* Styles for the input field */
+.chat-message ul, .chat-message ol {
+  list-style-type: disc; /* Use 'disc' for unordered lists, 'decimal' for ordered lists */
+  padding-left: 20px; /* Adjust as needed */
 }
 
-.action-buttons {
-  /* Styles for the action buttons */
+.chat-message ol {
+  list-style-type: decimal; /* Ensure numbers are shown for ordered lists */
 }
  
 @layer base {
