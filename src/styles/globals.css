@@ -65,6 +65,48 @@
     --ring: 212.7 26.8% 83.9%;
   }
 }
+
+.chat-app-container {
+  /* Additional container styles if needed */
+}
+
+.chat-container {
+  /* Styles for the chat message container */
+}
+
+.chat-message {
+  margin-bottom: 1rem;
+  padding: 10px;
+  line-height: 1.5;
+  max-width: 75%;
+}
+
+.user-message {
+  /* Styles specific to user messages */
+  text-align: right;
+}
+
+.casey-message {
+  /* Styles specific to Casey's messages */
+  background-color: rgba(200, 200, 200, 0.25); /* Light transparent gray */
+  text-align: left;
+}
+
+.sender-name {
+  margin-bottom: 0.25rem;
+}
+
+.message-text {
+  word-wrap: break-word; /* Ensure long words do not overflow */
+}
+
+.message-input {
+  /* Styles for the input field */
+}
+
+.action-buttons {
+  /* Styles for the action buttons */
+}
  
 @layer base {
   * {

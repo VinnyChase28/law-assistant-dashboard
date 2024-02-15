@@ -12,11 +12,13 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import VectorSearchComponent from "./chat-docs";
+import ChatComponent from "../casey/page";
 
 const ChatBubble = () => {
   const el = useRef(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [showVectorSearch, setShowVectorSearch] = useState(false);
+  const [showGeneralChat, setShowGeneralChat] = useState(false); // State to control General Chat visibility
   let typed: Typed;
 
   useEffect(() => {
@@ -33,12 +35,18 @@ const ChatBubble = () => {
       if (typed) {
         typed.destroy();
       }
+      // Reset both components when dialog closes or component unmounts
       setShowVectorSearch(false);
+      setShowGeneralChat(false);
     };
   }, [dialogOpen]);
 
+  const handleChat = () => {
+    setShowGeneralChat(true); // Open General Chat
+  };
+
   const handleChatWithDocs = () => {
-    setShowVectorSearch(true);
+    setShowVectorSearch(true); // Open Vector Search
   };
 
   return (
@@ -54,19 +62,24 @@ const ChatBubble = () => {
         </DialogHeader>
         <div className="overflow-y-auto">
           {showVectorSearch && <VectorSearchComponent />}
+          {showGeneralChat && <ChatComponent />}{" "}
+          {/* Render General Chat based on state */}
         </div>
-        {!showVectorSearch && (
-          <div className="p-2">
-            <span ref={el} />
-            <div className="my-4 flex justify-around">
-              <Button variant="secondary">General chat</Button>
-              <Button variant="secondary" onClick={handleChatWithDocs}>
-                Chat with docs
-              </Button>
-              <Button variant="secondary">Create report</Button>
+        {!showVectorSearch &&
+          !showGeneralChat && ( // Adjust condition to hide buttons when any component is shown
+            <div className="p-2">
+              <span ref={el} />
+              <div className="my-4 flex justify-around">
+                <Button variant="secondary" onClick={handleChat}>
+                  General chat
+                </Button>
+                <Button variant="secondary" onClick={handleChatWithDocs}>
+                  Chat with docs
+                </Button>
+                <Button variant="secondary">Create report</Button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </DialogContent>
     </Dialog>
   );
