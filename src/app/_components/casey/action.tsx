@@ -85,7 +85,9 @@ export async function handler({ messages }: { messages: Message[] }) {
           // generate image
           const response = await openai.images.generate({
             model: "dall-e-2",
-            prompt: `${description} in the style of an early 20th century expressionism painting`,
+            prompt: `${
+              description as string
+            } in the style of an early 20th century expressionism painting`,
             size: "256x256",
             response_format: "url",
           });

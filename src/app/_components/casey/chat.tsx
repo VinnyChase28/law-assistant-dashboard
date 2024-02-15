@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw"; // To parse HTML within Markdown
 import remarkBreaks from "remark-breaks";
+
 export function Chat({ handler }: { handler: any }) {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: handler,
@@ -11,7 +12,6 @@ export function Chat({ handler }: { handler: any }) {
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    console.log(messages);
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -58,7 +58,6 @@ export function Chat({ handler }: { handler: any }) {
           />
         </form>
         <div className="action-buttons flex justify-center gap-2 pt-4">
-          <Button variant="default">Search</Button>
           <Button variant="destructive">Reset</Button>
         </div>
       </div>
