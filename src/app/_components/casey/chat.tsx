@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw"; // To parse HTML within Markdown
 import remarkBreaks from "remark-breaks";
+import { ScrollArea } from "@/components/ui/scroll-area"; // Import ScrollArea
 
 export function Chat({ handler }: { handler: any }) {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
@@ -16,8 +17,9 @@ export function Chat({ handler }: { handler: any }) {
   }, [messages]);
 
   return (
-    <div className="chat-app-container relative mx-auto flex w-full max-w-md flex-col py-24">
-      <div className="chat-container max-h-[400px] overflow-y-auto p-4 pb-[100px]">
+    <div className="chat-app-container relative mx-auto flex w-full max-w-2xl flex-col py-24">
+      {/* Use ScrollArea instead of the default div for chat-container */}
+      <ScrollArea className="h-[600px] rounded-md p-4">
         <ul className="list-none">
           {messages.map((m, index) => (
             <li
@@ -45,7 +47,7 @@ export function Chat({ handler }: { handler: any }) {
           ))}
           <div ref={chatEndRef} />
         </ul>
-      </div>
+      </ScrollArea>
 
       <div className="input-container fixed bottom-0 left-1/2 w-full max-w-md -translate-x-1/2 transform px-4 pb-4">
         <form onSubmit={handleSubmit} className="w-full">
