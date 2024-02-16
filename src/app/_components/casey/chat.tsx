@@ -13,25 +13,6 @@ type ExtendedMessage = Message & {
 };
 
 export function Chat({ handler }: { handler: any }) {
-  let typed: Typed;
-  const el = useRef(null);
-  useEffect(() => {
-    if (el.current) {
-      typed = new Typed(el.current, {
-        strings: [
-          "Hi! I'm Casey. You can chat with me for general help, use my memory to chat with your selected docs, or create reports from the documents stored in your files table. What would you like to do?",
-        ],
-        typeSpeed: 25,
-      });
-    }
-
-    return () => {
-      if (typed) {
-        typed.destroy();
-      }
-    };
-  }, []);
-
   const [initialMessages] = useState<ExtendedMessage[]>([
     {
       id: "initial-1",
