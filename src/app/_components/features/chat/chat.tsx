@@ -1,10 +1,10 @@
 import React, { use, useEffect, useRef, useState } from "react";
 import { useChat, Message } from "ai/react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkBreaks from "remark-breaks";
-import { ScrollArea } from "@/components/ui/scroll-area"; 
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type ExtendedMessage = Message & {
   role: string;

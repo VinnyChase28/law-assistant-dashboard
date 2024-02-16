@@ -82,7 +82,6 @@ export const vectorRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const { fileId } = input;
-
       // Retrieve all TextSubsections for the given COMPLIANCE_SUBMISSION document
       const textSubsections = await ctx.db.textSubsection.findMany({
         where: { fileId, file: { documentType: "COMPLIANCE_SUBMISSION" } },
@@ -110,7 +109,7 @@ export const vectorRouter = createTRPCRouter({
           }
 
           // Retrieve the actual vector from Pinecone
-          const vectorResponse = await userNamespace.fetch([vectorId] );
+          const vectorResponse = await userNamespace.fetch([vectorId]);
           const vector = vectorResponse.records[vectorId]?.values;
 
           if (!vector) {
@@ -123,18 +122,18 @@ export const vectorRouter = createTRPCRouter({
           const queryResponse = await userNamespace.query({
             vector: vector,
             topK: 5,
-            filter: { documentType: ["REGULATORY_FRAMEWORK"] },
+            filter: { documentType: { $eq: "REGULATORY_FRAMEWORK" } },
             includeMetadata: true,
           });
 
           // Retrieve the corresponding TextSubsections for the top matches
-          const matchedIds = queryResponse.matches.map((match) =>
-            parseInt(match.id.split("-")[0] || ""),
-          );
+          const matchedIds = queryResponse.matches.map((match) => match.id);
+
+          console.log("Matched file IDs:", matchedIds);
           const regulatoryTextSubsections =
             await ctx.db.textSubsection.findMany({
               where: {
-                fileId: { in: matchedIds },
+                pineconeVectorId: { in: matchedIds },
                 file: { documentType: "REGULATORY_FRAMEWORK" },
               },
               include: { file: true },
