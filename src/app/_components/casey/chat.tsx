@@ -1,25 +1,61 @@
-import React, { useEffect, useRef } from "react";
-import { useChat } from "ai/react";
+import React, { use, useEffect, useRef, useState } from "react";
+import { useChat, Message } from "ai/react";
 import { Button } from "../ui/button";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw"; // To parse HTML within Markdown
 import remarkBreaks from "remark-breaks";
 import { ScrollArea } from "@/components/ui/scroll-area"; // Import ScrollArea
+import Typed from "typed.js";
+
+type ExtendedMessage = Message & {
+  role: string;
+  content: string;
+};
 
 export function Chat({ handler }: { handler: any }) {
+  let typed: Typed;
+  const el = useRef(null);
+  useEffect(() => {
+    if (el.current) {
+      typed = new Typed(el.current, {
+        strings: [
+          "Hi! I'm Casey. You can chat with me for general help, use my memory to chat with your selected docs, or create reports from the documents stored in your files table. What would you like to do?",
+        ],
+        typeSpeed: 25,
+      });
+    }
+
+    return () => {
+      if (typed) {
+        typed.destroy();
+      }
+    };
+  }, []);
+
+  const [initialMessages] = useState<ExtendedMessage[]>([
+    {
+      id: "initial-1",
+      role: "system", // or "casey" depending on how you distinguish Casey's messages
+      content:
+        "Welcome to Casey AI Chat! Type your message below to start chatting.",
+    },
+  ]);
+
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: handler,
+    initialMessages,
   });
+
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    console.log(messages);
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   return (
     <div className="chat-app-container relative mx-auto flex w-full max-w-2xl flex-col py-24">
-      {/* Use ScrollArea instead of the default div for chat-container */}
-      <ScrollArea className="h-[600px] rounded-md p-4">
+      <ScrollArea className="h-[600px] max-h-[800px] rounded-md p-4">
         <ul className="list-none">
           {messages.map((m, index) => (
             <li
@@ -34,7 +70,6 @@ export function Chat({ handler }: { handler: any }) {
                 {m.role === "user" ? "You" : "Casey"}
               </span>
               <div>
-                {/* Render Markdown content, allowing HTML via rehypeRaw */}
                 <ReactMarkdown
                   remarkPlugins={[remarkBreaks]}
                   rehypePlugins={[rehypeRaw]}

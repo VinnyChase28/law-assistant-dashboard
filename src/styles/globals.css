@@ -66,12 +66,13 @@
   }
 }
 
+/* Chat globals */
 
 .chat-message {
   margin-bottom: 1rem;
   padding: 10px;
   line-height: 1.5;
-  max-width: 75%;
+  max-width: 90%;
 }
 
 .user-message {
