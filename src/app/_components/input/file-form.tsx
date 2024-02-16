@@ -13,7 +13,7 @@ export default function UploadFiles() {
   const [isProcessing, setIsProcessing] = useState(false); // New state to track processing
   const inputFileRef = useRef<HTMLInputElement>(null);
   const userId = api.company.getUserId.useQuery().data;
-
+  console.log("userId", userId);
   const createFile = api.file.insertFileMetadata.useMutation();
 
   const processFile = async (file: File, index: number, files: FileList) => {

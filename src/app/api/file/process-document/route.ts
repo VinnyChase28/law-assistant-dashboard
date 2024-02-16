@@ -14,6 +14,7 @@ interface ProcessDocumentRequest {
   userId: string;
 }
 
+
 const pinecone = new Pinecone({
   apiKey: process.env.PINECONE_API_KEY as string,
   environment: "us-west1-gcp",
@@ -39,6 +40,13 @@ export async function POST(request: Request) {
     const body = (await request.json()) as ProcessDocumentRequest;
     const fileId = body.fileId;
     const { blobUrl, userId } = body;
+
+    // Example metadata
+    const metadata = {
+      documentType: "COMPLIANCE_SUBMISSION", // Or another type based on your logic
+      userId: userId, // Associate the vector with a specific user
+      // Add more metadata fields as needed
+    };
 
     const decodedBlobUrl = decodeURIComponent(blobUrl);
     const pdfResponse = await fetch(decodedBlobUrl);
@@ -68,7 +76,9 @@ export async function POST(request: Request) {
       const vectorId = `${fileId}-${pageNumber}`;
 
       // Pinecone upsert
-      await companyNamespace.upsert([{ id: vectorId, values: embedding }]);
+      await companyNamespace.upsert([
+        { id: vectorId, values: embedding, metadata: metadata },
+      ]);
 
       // Database upsert operation
       return prisma.textSubsection.upsert({

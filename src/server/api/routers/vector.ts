@@ -72,4 +72,91 @@ export const vectorRouter = createTRPCRouter({
         throw new Error("Failed to convert text to vector.");
       }
     }),
+
+  // New route to find similar REGULATORY_FRAMEWORK documents for a given COMPLIANCE_SUBMISSION
+  findSimilarRegulatoryDocuments: protectedProcedure
+    .input(
+      z.object({
+        fileId: z.number(), // ID of the COMPLIANCE_SUBMISSION document
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { fileId } = input;
+
+      // Retrieve all TextSubsections for the given COMPLIANCE_SUBMISSION document
+      const textSubsections = await ctx.db.textSubsection.findMany({
+        where: { fileId, file: { documentType: "COMPLIANCE_SUBMISSION" } },
+        include: { file: true },
+      });
+
+      if (
+        textSubsections.length === 0 ||
+        textSubsections[0]?.file.documentType !== "COMPLIANCE_SUBMISSION"
+      ) {
+        throw new Error(
+          "File is not a COMPLIANCE_SUBMISSION document or does not exist.",
+        );
+      }
+
+      const index = await pinecone.Index("law-assistant-ai");
+
+      const results = await Promise.all(
+        textSubsections.map(async (subsection) => {
+          const userNamespace = index.namespace(subsection.file.userId);
+          const vectorId = subsection.pineconeVectorId;
+
+          if (!vectorId) {
+            throw new Error("Vector ID not found for TextSubsection.");
+          }
+
+          // Retrieve the actual vector from Pinecone
+          const vectorResponse = await userNamespace.fetch([vectorId] );
+          const vector = vectorResponse.records[vectorId]?.values;
+
+          if (!vector) {
+            throw new Error(
+              "Vector not found in Pinecone for the given Vector ID.",
+            );
+          }
+
+          // Perform a Pinecone search for similar vectors within REGULATORY_FRAMEWORK documents
+          const queryResponse = await userNamespace.query({
+            vector: vector,
+            topK: 5,
+            filter: { documentType: ["REGULATORY_FRAMEWORK"] },
+            includeMetadata: true,
+          });
+
+          // Retrieve the corresponding TextSubsections for the top matches
+          const matchedIds = queryResponse.matches.map((match) =>
+            parseInt(match.id.split("-")[0] || ""),
+          );
+          const regulatoryTextSubsections =
+            await ctx.db.textSubsection.findMany({
+              where: {
+                fileId: { in: matchedIds },
+                file: { documentType: "REGULATORY_FRAMEWORK" },
+              },
+              include: { file: true },
+            });
+
+          return {
+            complianceSubmission: {
+              fileId: subsection.fileId,
+              textData: subsection.text,
+              pageNumber: subsection.pageNumber,
+            },
+            regulatoryFramework: regulatoryTextSubsections.map(
+              (regulatorySubsection) => ({
+                fileId: regulatorySubsection.fileId,
+                textData: regulatorySubsection.text,
+                pageNumber: regulatorySubsection.pageNumber,
+              }),
+            ),
+          };
+        }),
+      );
+
+      return results;
+    }),
 });
