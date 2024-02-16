@@ -12,7 +12,7 @@ model Task {
   id          String            @id @default(cuid())
   title       String
   status      String
-  label       Label
+  label       String
   cost        String
   category    String
   createdAt   DateTime          @default(now())
@@ -151,38 +151,10 @@ enum FileAccess {
 }
 
 enum DocumentType {
-  LEGAL_CONTRACTS
-  LITIGATION_DOCUMENTS
-  CORPORATE_GOVERNANCE
-  REGULATORY_COMPLIANCE
-  INTELLECTUAL_PROPERTY
-  CLIENT_CORRESPONDENCE
-  LEGAL_RESEARCH
-  TRANSACTIONAL_DOCUMENTS
-  ESTATE_PLANNING
-  EMPLOYMENT_LAW
-  REAL_ESTATE_LAW
-  CONSTRUCTION_PROPOSALS
-  DISCOVERY_DOCUMENTS
+  REGULATORY_FRAMEWORK
+  COMPLIANCE_SUBMISSION
 }
 
-enum Label {
-  RESEARCH
-  COMPLIANCE
-  SUMMARY
-  EXTRACTION
-  CONTRACT
-  DRAFTING
-  REVIEW
-  NEGOTIATION
-  LITIGATION_PREPARATION
-  DUE_DILIGENCE
-  CASE_ANALYSIS
-  CLIENT_CONSULTATION
-  REGULATORY_ANALYSIS
-  DOCUMENT_FILING
-  INTELLECTUAL_PROPERTY
-}
 
 enum FileProcessingStatus {
   IN_PROGRESS

@@ -2,10 +2,9 @@ import React, { use, useEffect, useRef, useState } from "react";
 import { useChat, Message } from "ai/react";
 import { Button } from "../ui/button";
 import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw"; // To parse HTML within Markdown
+import rehypeRaw from "rehype-raw";
 import remarkBreaks from "remark-breaks";
-import { ScrollArea } from "@/components/ui/scroll-area"; // Import ScrollArea
-import Typed from "typed.js";
+import { ScrollArea } from "@/components/ui/scroll-area"; 
 
 type ExtendedMessage = Message & {
   role: string;
@@ -16,7 +15,7 @@ export function Chat({ handler }: { handler: any }) {
   const [initialMessages] = useState<ExtendedMessage[]>([
     {
       id: "initial-1",
-      role: "system", // or "casey" depending on how you distinguish Casey's messages
+      role: "system",
       content:
         "Welcome to Casey AI Chat! Type your message below to start chatting.",
     },
