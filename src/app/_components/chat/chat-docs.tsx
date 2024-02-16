@@ -72,7 +72,7 @@ const VectorSearchComponent = () => {
   useEffect(() => {
     const typedInstance = new Typed(el.current, {
       strings: [
-        "Enter text to search for relevant information accross all the selected documents.",
+        "Enter text to search for relevant information accross all uploaded documents. I will then use the information to generate a summary for you.",
       ],
       typeSpeed: 25,
     });

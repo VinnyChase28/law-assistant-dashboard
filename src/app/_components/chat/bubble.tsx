@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import Typed from "typed.js";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
@@ -12,11 +11,14 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import VectorSearchComponent from "./chat-docs";
+import ChatComponent from "../casey/chat-component";
+import { ArrowLeft } from "lucide-react"; // Assuming ArrowLeft is the correct import
 
 const ChatBubble = () => {
   const el = useRef(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [showVectorSearch, setShowVectorSearch] = useState(false);
+  const [showGeneralChat, setShowGeneralChat] = useState(false);
   let typed: Typed;
 
   useEffect(() => {
@@ -34,8 +36,18 @@ const ChatBubble = () => {
         typed.destroy();
       }
       setShowVectorSearch(false);
+      setShowGeneralChat(false);
     };
   }, [dialogOpen]);
+
+  const handleBack = () => {
+    setShowVectorSearch(false);
+    setShowGeneralChat(false);
+  };
+
+  const handleChat = () => {
+    setShowGeneralChat(true);
+  };
 
   const handleChatWithDocs = () => {
     setShowVectorSearch(true);
@@ -50,16 +62,29 @@ const ChatBubble = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Casey AI</DialogTitle>
+          <div className="flex items-center">
+            {" "}
+            {/* Flex container for alignment */}
+            {(showVectorSearch || showGeneralChat) && (
+              <button onClick={handleBack} className="mr-2">
+                <ArrowLeft className="h-5 w-5" />{" "}
+                {/* Adjusted size for visibility */}
+              </button>
+            )}
+            <DialogTitle>Casey AI</DialogTitle>
+          </div>
         </DialogHeader>
         <div className="overflow-y-auto">
           {showVectorSearch && <VectorSearchComponent />}
+          {showGeneralChat && <ChatComponent />}
         </div>
-        {!showVectorSearch && (
+        {!showVectorSearch && !showGeneralChat && (
           <div className="p-2">
             <span ref={el} />
             <div className="my-4 flex justify-around">
-              <Button variant="secondary">General chat</Button>
+              <Button variant="secondary" onClick={handleChat}>
+                General chat
+              </Button>
               <Button variant="secondary" onClick={handleChatWithDocs}>
                 Chat with docs
               </Button>
