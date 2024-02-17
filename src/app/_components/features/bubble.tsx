@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import VectorSearchComponent from "./chat-docs";
-import ChatComponent from "./chat/chat-component";
+import ChatComponent from "./chat-component";
 import CreateReportComponent from "./generate-report";
 import { ArrowLeft } from "lucide-react"; // Assuming ArrowLeft is the correct import
 

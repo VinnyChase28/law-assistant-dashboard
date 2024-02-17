@@ -88,6 +88,7 @@ export const vectorRouter = createTRPCRouter({
         include: { file: true },
       });
 
+
       if (
         textSubsections.length === 0 ||
         textSubsections[0]?.file.documentType !== "COMPLIANCE_SUBMISSION"
@@ -125,6 +126,8 @@ export const vectorRouter = createTRPCRouter({
             filter: { documentType: { $eq: "REGULATORY_FRAMEWORK" } },
             includeMetadata: true,
           });
+
+          console.log
 
           // Retrieve the corresponding TextSubsections for the top matches
           const matchedIds = queryResponse.matches.map((match) => match.id);

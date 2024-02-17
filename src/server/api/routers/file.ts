@@ -10,9 +10,12 @@ export const fileRouter = createTRPCRouter({
         fileType: z.string(),
         fileSize: z.string(),
         blobUrl: z.string(),
+        // Add documentType to the input validation schema
+        documentType: z.enum(["REGULATORY_FRAMEWORK", "COMPLIANCE_SUBMISSION"]),
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      // Include documentType in the database creation logic
       return ctx.db.file.create({
         data: {
           name: input.name,
@@ -21,6 +24,7 @@ export const fileRouter = createTRPCRouter({
           fileSize: input.fileSize,
           userId: ctx.session.user.id,
           processingStatus: "IN_PROGRESS",
+          documentType: input.documentType,
         },
       });
     }),
