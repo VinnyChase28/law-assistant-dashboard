@@ -50,8 +50,8 @@ export default function UploadFiles() {
                 data.blobUrl,
                 data.id,
                 userId as string,
+                documentType, // Pass documentType here
               );
-
               if (index + 1 < files.length) {
                 const nextFile = files.item(index + 1);
                 if (nextFile) {

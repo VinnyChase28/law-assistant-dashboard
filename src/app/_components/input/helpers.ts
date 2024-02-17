@@ -2,6 +2,7 @@ export const callProcessDocument = (
   blobUrl: string,
   fileId: number,
   userId: string,
+  documentType: string, // Add this parameter
 ) => {
   return new Promise((resolve, reject) => {
     const url = "/api/file/process-document";
@@ -10,6 +11,7 @@ export const callProcessDocument = (
       fileId: fileId,
       blobUrl: encodedBlobUrl,
       userId: userId,
+      documentType: documentType, // Include documentType in the data payload
     };
 
     fetch(url, {

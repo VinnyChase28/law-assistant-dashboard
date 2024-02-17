@@ -38,10 +38,8 @@ function preprocessText(text: string) {
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as ProcessDocumentRequest;
-    const fileId = body.fileId;
-    const { blobUrl, userId, documentType } = body;
+    const { blobUrl, userId, documentType, fileId } = body;
 
-    // Example metadata
     const metadata = {
       documentType: documentType,
       userId: userId,
