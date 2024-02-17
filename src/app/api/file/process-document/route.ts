@@ -12,8 +12,8 @@ interface ProcessDocumentRequest {
   fileId: number;
   blobUrl: string;
   userId: string;
+  documentType: string;
 }
-
 
 const pinecone = new Pinecone({
   apiKey: process.env.PINECONE_API_KEY as string,
@@ -39,13 +39,12 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as ProcessDocumentRequest;
     const fileId = body.fileId;
-    const { blobUrl, userId } = body;
+    const { blobUrl, userId, documentType } = body;
 
     // Example metadata
     const metadata = {
-      documentType: "COMPLIANCE_SUBMISSION", // Or another type based on your logic
-      userId: userId, // Associate the vector with a specific user
-      // Add more metadata fields as needed
+      documentType: documentType,
+      userId: userId,
     };
 
     const decodedBlobUrl = decodeURIComponent(blobUrl);
