@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { pinecone } from "src/utils/pinecone";
+
+
 export const fileRouter = createTRPCRouter({
   //insert file metadata
   insertFileMetadata: protectedProcedure

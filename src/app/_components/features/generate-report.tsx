@@ -7,12 +7,13 @@ import { Button } from "../ui/button";
 const CreateReportComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  // Mutation
-  const createReport = api.vector.findSimilarRegulatoryDocuments.useMutation();
+  // Mutations
+  const findSimilarRegulatoryDocuments =
+    api.vector.findSimilarRegulatoryDocuments.useMutation();
 
   const handleCreateReportClick = () => {
     setIsLoading(true);
-    createReport.mutate(
+    findSimilarRegulatoryDocuments.mutate(
       { fileId: 3 },
       {
         onSuccess: (result) => {

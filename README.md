@@ -11,6 +11,10 @@ After updating the schema, ```npx prisma migrate dev``` to apply the changes and
 
 run ```vercel env pull``` to grab all environment variables after yoouve been added to vercel
 
+# Run Inngest Dev Server
+```npx inngest-cli@latest dev```
+
+
 
 # Documents
 

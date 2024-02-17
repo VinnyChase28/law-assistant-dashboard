@@ -142,20 +142,22 @@ export const vectorRouter = createTRPCRouter({
               include: { file: true },
             });
 
-          return {
-            complianceSubmission: {
-              fileId: subsection.fileId,
-              textData: subsection.text,
-              pageNumber: subsection.pageNumber,
-            },
-            regulatoryFramework: regulatoryTextSubsections.map(
-              (regulatorySubsection) => ({
-                fileId: regulatorySubsection.fileId,
-                textData: regulatorySubsection.text,
-                pageNumber: regulatorySubsection.pageNumber,
-              }),
-            ),
-          };
+            return {
+              complianceSubmission: {
+                fileId: subsection.fileId,
+                documentName: subsection.file.name,
+                textData: subsection.text,
+                pageNumber: subsection.pageNumber,
+              },
+              regulatoryFramework: regulatoryTextSubsections.map(
+                (regulatorySubsection) => ({
+                  fileId: regulatorySubsection.fileId,
+                  documentName: regulatorySubsection.file.name, // Include the document name
+                  textData: regulatorySubsection.text,
+                  pageNumber: regulatorySubsection.pageNumber,
+                }),
+              ),
+            };
         }),
       );
 
