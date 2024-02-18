@@ -55,7 +55,6 @@
     "next": "^14.0.3",
     "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
-    "openai": "^4.16.1",
     "openai-edge": "^1.2.2",
     "pdf-parse": "^1.1.1",
     "react": "18.2.0",

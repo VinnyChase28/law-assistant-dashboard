@@ -13,14 +13,14 @@ import { Button } from "@/components/ui/button";
 import VectorSearchComponent from "./chat-docs";
 import ChatComponent from "./chat-component";
 import CreateReportComponent from "./generate-report";
-import { ArrowLeft } from "lucide-react"; // Assuming ArrowLeft is the correct import
+import { ArrowLeft } from "lucide-react";
 
 const ChatBubble = () => {
   const el = useRef(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [showVectorSearch, setShowVectorSearch] = useState(false);
   const [showGeneralChat, setShowGeneralChat] = useState(false);
-  const [showCreateReport, setShowCreateReport] = useState(false); // State for showing Create Report
+  const [showCreateReport, setShowCreateReport] = useState(false);
   let typed: Typed;
 
   useEffect(() => {
@@ -39,14 +39,14 @@ const ChatBubble = () => {
       }
       setShowVectorSearch(false);
       setShowGeneralChat(false);
-      setShowCreateReport(false); // Reset Create Report view when dialog closes
+      setShowCreateReport(false);
     };
   }, [dialogOpen]);
 
   const handleBack = () => {
     setShowVectorSearch(false);
     setShowGeneralChat(false);
-    setShowCreateReport(false); // Allow going back from Create Report view
+    setShowCreateReport(false);
   };
 
   const handleChat = () => {
@@ -82,8 +82,7 @@ const ChatBubble = () => {
         <div className="overflow-y-auto">
           {showVectorSearch && <VectorSearchComponent />}
           {showGeneralChat && <ChatComponent />}
-          {showCreateReport && <CreateReportComponent />}{" "}
-          {/* Render the Create Report component */}
+          {showCreateReport && <CreateReportComponent />}
         </div>
         {!showVectorSearch && !showGeneralChat && !showCreateReport && (
           <div className="p-2">
@@ -96,8 +95,6 @@ const ChatBubble = () => {
                 Chat with docs
               </Button>
               <Button variant="secondary" onClick={handleCreateReport}>
-                {" "}
-                {/* Add onClick handler */}
                 Create report
               </Button>
             </div>

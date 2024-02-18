@@ -14,10 +14,11 @@ const CreateReportComponent = () => {
   const handleCreateReportClick = () => {
     setIsLoading(true);
     findSimilarRegulatoryDocuments.mutate(
-      { fileId: 3 },
+      { fileId: 5 },
       {
         onSuccess: (result) => {
           console.log("Report creation success:", result);
+          //1. create a new file in the files table that will be a 
           setIsLoading(false);
         },
         onError: (error) => {
