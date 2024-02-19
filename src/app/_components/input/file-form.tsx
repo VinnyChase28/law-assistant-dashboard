@@ -47,7 +47,7 @@ export default function UploadFiles() {
           if (data) {
             try {
               await callProcessDocument(
-                data.blobUrl,
+                data.blobUrl ?? "",
                 data.id,
                 userId as string,
                 documentType, // Pass documentType here
