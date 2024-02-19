@@ -94,7 +94,7 @@ async function findViolations(
     const answers =
       response.choices[0]?.message
         .content!.split("\n")
-        .filter((line) => line.trim() !== "") || [];
+        .filter((line) => line.trim() !== "") ?? [];
     if (answers.length === 0 || answers[0] === "Compliant") {
       return [];
     } else {

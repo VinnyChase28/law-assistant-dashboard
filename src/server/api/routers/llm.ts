@@ -50,7 +50,7 @@ export const llmRouter = createTRPCRouter({
 
       // Construct the event payload
       const eventPayload = {
-        name: "demo/event.sent" as "demo/event.sent", // Ensuring the event name matches exactly
+        name: "demo/event.sent" as const, // Ensuring the event name matches exactly
         data: {
           reportName, // Including report name in the event data for reference
           ...complianceReportData, // Spreading complianceReportData into the payload
