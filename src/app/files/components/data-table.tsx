@@ -98,10 +98,12 @@ export function DataTable<TData extends { id: number }, TValue>({
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
+                      {cell.getValue() !== null && cell.getValue() !== undefined
+                        ? flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )
+                        : "-"}
                     </TableCell>
                   ))}
                 </TableRow>

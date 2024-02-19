@@ -2,16 +2,11 @@
 import { useFilesStore } from "src/store/store";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
-import { UserFile } from "../page";
+
 import { useEffect } from "react";
 
-interface FilesClientComponentProps {
-  initialFiles: UserFile[];
-}
 
-export default function FilesClientComponent({
-  initialFiles,
-}: FilesClientComponentProps) {
+export default function FilesClientComponent({ initialFiles }: any) {
   const { files, setFiles } = useFilesStore();
 
   useEffect(() => {
