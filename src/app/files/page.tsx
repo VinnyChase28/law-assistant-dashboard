@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 export interface UserFile {
   id: number;
   name: string;
-  blobUrl: string;
-  fileType: string;
-  fileSize: string;
+  blobUrl: string | null;
+  fileType: string | null;
+  fileSize: string | null;
   processingStatus: string;
   createdAt: Date;
   updatedAt: Date;
