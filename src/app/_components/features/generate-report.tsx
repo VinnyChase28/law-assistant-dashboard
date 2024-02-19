@@ -23,7 +23,6 @@ const CreateReportComponent = () => {
       { fileId: 3 }, // Change this fileId as needed
       {
         onSuccess: (complianceReportData) => {
-          console.log("complianceReportData: ", complianceReportData);
 
           createComplianceReportMetadata.mutate(
             {
@@ -31,10 +30,7 @@ const CreateReportComponent = () => {
             },
             {
               onSuccess: (complianceReportMetadata) => {
-                console.log(
-                  "complianceReportMetadata: ",
-                  complianceReportMetadata,
-                );
+
 
                 // Call the TRPC procedure to send the report data to Inngest
                 sendComplianceReport.mutate(
@@ -46,9 +42,7 @@ const CreateReportComponent = () => {
                   },
                   {
                     onSuccess: () => {
-                      console.log(
-                        "Compliance report data sent to Inngest successfully.",
-                      );
+
                       setIsLoading(false);
                     },
                     onError: (error) => {

@@ -17,7 +17,7 @@ export function Chat({ handler }: { handler: any }) {
       id: "initial-1",
       role: "system",
       content:
-        "Welcome to Casey AI Chat! Type your message below to start chatting.",
+        "Welcome to Casey! Type your message below to start chatting.",
     },
   ]);
 

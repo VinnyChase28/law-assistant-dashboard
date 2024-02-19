@@ -16,74 +16,49 @@ interface RegulatoryFramework {
   pageNumber: number;
 }
 
-export interface Violation {
-  regulatoryFramework?: {
+interface DetailedViolation {
+  complianceDocument: {
     fileId: number;
     documentName: string;
-    pageNumber: string;
+    pageNumber: number;
+    textSnippet: string;
   };
-  brokenRules?: Array<{
-    rule: string;
-    complianceSubmission: {
-      fileId: number;
-      documentName: string;
-      pageNumber: string;
-    };
-  }>;
+  brokenRule: {
+    violation: string;
+    description: string;
+  };
+  regulatoryDocument: {
+    fileId: number;
+    documentName: string;
+    pageNumber: number;
+    textSnippet: string;
+  };
 }
 
 export default inngest.createFunction(
   { id: "compliance-check" },
   { event: "demo/event.sent" },
   async ({ event }) => {
-    const allViolations: Violation[] = [];
+    const allViolations: DetailedViolation[] = [];
     const fileId = event.data.id;
 
     for (const item of event.data.data) {
       const { complianceSubmission, regulatoryFramework } = item;
       for (const regulation of regulatoryFramework) {
-        const violation = await findViolations(
+        const violations = await findViolations(
           complianceSubmission,
           regulation,
         );
-        if (violation !== "Compliant") {
-          allViolations.push(violation);
-        }
+        allViolations.push(...violations);
       }
     }
-    let aggregatedViolation = allViolations.reduce(
-      (acc, curr) => {
-        // Ensure regulatoryFramework is set if it's not already
-        if (!acc.regulatoryFramework && curr.regulatoryFramework) {
-          acc.regulatoryFramework = curr.regulatoryFramework;
-        }
 
-        // Ensure acc.brokenRules is an array before concatenating
-        acc.brokenRules = (acc.brokenRules || []).concat(
-          curr.brokenRules || [],
-        );
-
-        return acc;
-      },
-      { brokenRules: [] } as Violation,
-    ); // Cast the initial value as Violation to match the expected type
-
-    if (
-      aggregatedViolation.brokenRules &&
-      aggregatedViolation.brokenRules.length > 0
-    ) {
-      await api.file.updateComplianceReport.mutate({
-        id: fileId,
-        reportData: aggregatedViolation,
-      });
-    } else {
-      // Handle the case where there are no violations
-    }
-
-    await api.file.updateComplianceReport.mutate({
+    const response = await api.file.updateComplianceReport.mutate({
       id: fileId,
-      reportData: aggregatedViolation,
+      reportData: allViolations,
     });
+
+    console.log("Compliance Report Updated: ", response);
 
     return {
       message: allViolations.length > 0 ? allViolations : ["Compliant"],
@@ -94,7 +69,7 @@ export default inngest.createFunction(
 async function findViolations(
   complianceSubmission: ComplianceSubmission,
   regulation: RegulatoryFramework,
-): Promise<Violation | "Compliant"> {
+): Promise<DetailedViolation[]> {
   const prompt = `
   Review the compliance text below and compare it against the provided regulations. Identify any discrepancies or violations based on specific criteria such as safety standards, material requirements, and legal guidelines pertinent to building, zoning, and other municipal real estate and construction regulations. List each violation found with a brief explanation. If a the violation is related to a measurement, please indicate the wrong measurement and provide the correct measurement . A lack of or missing information, in addition to not addressing certain regulations is not considered a violation or something you should comment on at all. 
 
@@ -102,9 +77,9 @@ async function findViolations(
   
   Regulation Text: ${regulation.textData}
   
-  Note: Consider aspects such as safety measures, material specifications, procedural adherence, measurements and any explicit regulatory mandates. Do not give advice or rules outside of the comparison between the Compliance Text and the Regulation Text. Provide a clear and concise analysis. 
+  
 
-  Most importantly, and my life depends on this, ff the compliance text aligns with the regulations or if the section is not relevant to the given regulations, simply respond with "Compliant", and nothing more.
+  Most importantly, and my life depends on this, if the compliance text aligns with the regulations or if the section is not relevant to the given regulations, simply respond with "Compliant", and nothing more.
   
     `;
 
@@ -116,30 +91,34 @@ async function findViolations(
       max_tokens: 300,
     });
 
-    const answer = response.choices[0]?.message.content || "";
-    if (answer === "Compliant") {
-      return "Compliant";
+    const answers =
+      response.choices[0]?.message
+        .content!.split("\n")
+        .filter((line) => line.trim() !== "") || [];
+    if (answers.length === 0 || answers[0] === "Compliant") {
+      return [];
     } else {
-      return {
-        regulatoryFramework: {
+      return answers.map((answer) => ({
+        complianceDocument: {
+          fileId: complianceSubmission.fileId,
+          documentName: complianceSubmission.documentName,
+          pageNumber: complianceSubmission.pageNumber,
+          textSnippet: complianceSubmission.textData, 
+        },
+        brokenRule: {
+          violation: answer,
+          description: `Violation found in text: ${complianceSubmission.documentName}. The violation was found on page ${complianceSubmission.pageNumber}.`,
+        },
+        regulatoryDocument: {
           fileId: regulation.fileId,
           documentName: regulation.documentName,
-          pageNumber: regulation.pageNumber.toString(),
+          pageNumber: regulation.pageNumber,
+          textSnippet: regulation.textData,
         },
-        brokenRules: [
-          {
-            rule: answer,
-            complianceSubmission: {
-              fileId: complianceSubmission.fileId,
-              documentName: complianceSubmission.documentName,
-              pageNumber: complianceSubmission.pageNumber.toString(),
-            },
-          },
-        ],
-      };
+      }));
     }
   } catch (error) {
     console.error("Error calling OpenAI API:", error);
-    return "Compliant";
+    return [];
   }
 }
