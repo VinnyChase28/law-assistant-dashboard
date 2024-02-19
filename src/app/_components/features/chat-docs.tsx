@@ -30,7 +30,7 @@ const VectorSearchComponent = () => {
       {
         onSuccess: (vector) => {
           vectorSearch.mutate(
-            { queryVector: vector, topK: 5 },
+            { queryVector: vector, topK: 3 },
             {
               onSuccess: (searchResults) => {
                 openAIQueryAnalysis.mutate(

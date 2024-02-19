@@ -15,7 +15,7 @@ const SelectAllCheckboxHeader = ({ table }: SelectAllCheckboxHeaderProps) => {
   const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
   const allRows = table.getPrePaginationRowModel().rows;
   const isAllSelected = allRows.every((row) => checkedRows[row.original.id]);
-
+  console.log("checkedRows", checkedRows);
   return (
     <Checkbox
       checked={isAllSelected}

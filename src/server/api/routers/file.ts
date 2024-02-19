@@ -105,8 +105,8 @@ export const fileRouter = createTRPCRouter({
       return ctx.db.file.update({
         where: { id: input.id },
         data: {
-          processingStatus: "COMPLETED",
-          reportData: input.reportData, // Now correctly typed as an array of Violations
+          processingStatus: "DONE",
+          reportData: input.reportData,
         },
       });
     }),
