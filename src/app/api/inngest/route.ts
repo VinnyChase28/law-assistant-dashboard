@@ -5,4 +5,5 @@ import helloWorld from "src/inngest/functions/compliance-reports";
 export const { GET, POST, PUT } = serve({
   client: inngest,
   functions: [helloWorld],
+  streaming: "allow",
 });
