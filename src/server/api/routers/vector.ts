@@ -73,7 +73,7 @@ export const vectorRouter = createTRPCRouter({
       }
     }),
 
-  // New route to find similar REGULATORY_FRAMEWORK documents for a given COMPLIANCE_SUBMISSION
+  // find 5 most relevant COMPLIANCE_SUBMISSION documents for a given COMPLIANCE_SUBMISSION
   findSimilarRegulatoryDocuments: protectedProcedure
     .input(
       z.object({
@@ -87,7 +87,6 @@ export const vectorRouter = createTRPCRouter({
         where: { fileId, file: { documentType: "COMPLIANCE_SUBMISSION" } },
         include: { file: true },
       });
-
 
       if (
         textSubsections.length === 0 ||
@@ -109,7 +108,7 @@ export const vectorRouter = createTRPCRouter({
             throw new Error("Vector ID not found for TextSubsection.");
           }
 
-          // Retrieve the actual vector from Pinecone
+          // Retrieve the COMPLIANCE_SUBMISSION vectors from Pinecone
           const vectorResponse = await userNamespace.fetch([vectorId]);
           const vector = vectorResponse.records[vectorId]?.values;
 
@@ -127,12 +126,9 @@ export const vectorRouter = createTRPCRouter({
             includeMetadata: true,
           });
 
-          console.log
-
           // Retrieve the corresponding TextSubsections for the top matches
           const matchedIds = queryResponse.matches.map((match) => match.id);
 
-          console.log("Matched file IDs:", matchedIds);
           const regulatoryTextSubsections =
             await ctx.db.textSubsection.findMany({
               where: {
@@ -142,25 +138,25 @@ export const vectorRouter = createTRPCRouter({
               include: { file: true },
             });
 
-            return {
-              complianceSubmission: {
-                fileId: subsection.fileId,
-                documentName: subsection.file.name,
-                textData: subsection.text,
-                pageNumber: subsection.pageNumber,
-              },
-              regulatoryFramework: regulatoryTextSubsections.map(
-                (regulatorySubsection) => ({
-                  fileId: regulatorySubsection.fileId,
-                  documentName: regulatorySubsection.file.name, // Include the document name
-                  textData: regulatorySubsection.text,
-                  pageNumber: regulatorySubsection.pageNumber,
-                }),
-              ),
-            };
+          return {
+            complianceSubmission: {
+              fileId: subsection.fileId,
+              documentName: subsection.file.name,
+              textData: subsection.text,
+              pageNumber: subsection.pageNumber,
+            },
+            regulatoryFramework: regulatoryTextSubsections.map(
+              (regulatorySubsection) => ({
+                fileId: regulatorySubsection.fileId,
+                documentName: regulatorySubsection.file.name,
+                textData: regulatorySubsection.text,
+                pageNumber: regulatorySubsection.pageNumber,
+              }),
+            ),
+          };
         }),
       );
 
-      return results;
+      return { data: results };
     }),
 });

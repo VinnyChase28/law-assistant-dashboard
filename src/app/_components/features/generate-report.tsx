@@ -11,15 +11,62 @@ const CreateReportComponent = () => {
   const findSimilarRegulatoryDocuments =
     api.vector.findSimilarRegulatoryDocuments.useMutation();
 
+  const createComplianceReportMetadata =
+    api.file.createComplianceReportMetadata.useMutation();
+
+  const sendComplianceReport =
+    api.llm.sendComplianceReportToInngest.useMutation();
+
   const handleCreateReportClick = () => {
     setIsLoading(true);
     findSimilarRegulatoryDocuments.mutate(
-      { fileId: 5 },
+      { fileId: 3 }, // Change this fileId as needed
       {
-        onSuccess: (result) => {
-          console.log("Report creation success:", result);
-          //1. create a new file in the files table that will be a 
-          setIsLoading(false);
+        onSuccess: (complianceReportData) => {
+          console.log("complianceReportData: ", complianceReportData);
+
+          createComplianceReportMetadata.mutate(
+            {
+              name: `${new Date().toISOString()} Compliance Report`,
+            },
+            {
+              onSuccess: (complianceReportMetadata) => {
+                console.log(
+                  "complianceReportMetadata: ",
+                  complianceReportMetadata,
+                );
+
+                // Call the TRPC procedure to send the report data to Inngest
+                sendComplianceReport.mutate(
+                  {
+                    complianceReportData, // The data you retrieved earlier
+                    userId: complianceReportMetadata.userId, // Assuming userId is part of the metadata
+                    reportName: complianceReportMetadata.name, // The name of the report
+                    id: complianceReportMetadata.id, // The ID of the report
+                  },
+                  {
+                    onSuccess: () => {
+                      console.log(
+                        "Compliance report data sent to Inngest successfully.",
+                      );
+                      setIsLoading(false);
+                    },
+                    onError: (error) => {
+                      console.error(
+                        "Error sending compliance report data to Inngest:",
+                        error,
+                      );
+                      setIsLoading(false);
+                    },
+                  },
+                );
+              },
+              onError: (error) => {
+                console.error("Error creating report metadata:", error);
+                setIsLoading(false);
+              },
+            },
+          );
         },
         onError: (error) => {
           console.error("Error creating report:", error);

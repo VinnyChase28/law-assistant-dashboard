@@ -16,89 +16,80 @@ interface RegulatoryFramework {
   pageNumber: number;
 }
 
-interface Violation {
-  regulatoryFramework: {
-    fileId: string;
+export interface Violation {
+  regulatoryFramework?: {
+    fileId: number;
     documentName: string;
     pageNumber: string;
   };
-  brokenRules: Array<{
+  brokenRules?: Array<{
     rule: string;
     complianceSubmission: {
-      fileId: string;
+      fileId: number;
       documentName: string;
       pageNumber: string;
     };
   }>;
 }
 
-interface EventData {
-  data: Array<{
-    complianceSubmission: ComplianceSubmission;
-    regulatoryFramework: RegulatoryFramework[];
-  }>;
-}
-
-interface InngestEvent {
-  name: "demo/event.sent" | "inngest/function.invoked";
-  ts?: number;
-  id?: string;
-  data: EventData;
-  user?: any;
-  v?: string;
-}
-
 export default inngest.createFunction(
   { id: "compliance-check" },
   { event: "demo/event.sent" },
-  async ({ event }: { event: InngestEvent }) => {
+  async ({ event }) => {
     const allViolations: Violation[] = [];
+    const fileId = event.data.id;
 
     for (const item of event.data.data) {
       const { complianceSubmission, regulatoryFramework } = item;
-
-      // Remove duplicates based on fileId and pageNumber
-      const uniqueRegulations = regulatoryFramework.reduce<RegulatoryFramework[]>((acc, current) => {
-        const duplicate = acc.find(
-          (item) =>
-            item.fileId === current.fileId &&
-            item.pageNumber === current.pageNumber,
+      for (const regulation of regulatoryFramework) {
+        const violation = await findViolations(
+          complianceSubmission,
+          regulation,
         );
-        if (!duplicate) {
-          acc.push(current);
+        if (violation !== "Compliant") {
+          allViolations.push(violation);
         }
-        return acc;
-      }, []);
-
-      // Join the textData of all unique regulatory frameworks
-      const joinedRegulationText = uniqueRegulations
-        .map((reg) => reg.textData)
-        .join("\n\n");
-
-      // Create a single regulatoryFramework object with the joined text
-      const combinedRegulation = {
-        fileId: 0, // You might need a placeholder or a new logic for fileId and documentName since they could vary
-        documentName: "Combined Regulations",
-        textData: joinedRegulationText,
-        pageNumber: 0, // Placeholder, since this is a combined text of possibly different pages
-      };
-
-      // Check for violations using the combined regulations text
-      const violation = await findViolations(
-        complianceSubmission,
-        combinedRegulation,
-      );
-      if (violation !== "Compliant") {
-        allViolations.push(violation);
       }
     }
+    let aggregatedViolation = allViolations.reduce(
+      (acc, curr) => {
+        // Ensure regulatoryFramework is set if it's not already
+        if (!acc.regulatoryFramework && curr.regulatoryFramework) {
+          acc.regulatoryFramework = curr.regulatoryFramework;
+        }
+
+        // Ensure acc.brokenRules is an array before concatenating
+        acc.brokenRules = (acc.brokenRules || []).concat(
+          curr.brokenRules || [],
+        );
+
+        return acc;
+      },
+      { brokenRules: [] } as Violation,
+    ); // Cast the initial value as Violation to match the expected type
+
+    if (
+      aggregatedViolation.brokenRules &&
+      aggregatedViolation.brokenRules.length > 0
+    ) {
+      await api.file.updateComplianceReport.mutate({
+        id: fileId,
+        reportData: aggregatedViolation,
+      });
+    } else {
+      // Handle the case where there are no violations
+    }
+
+    await api.file.updateComplianceReport.mutate({
+      id: fileId,
+      reportData: aggregatedViolation,
+    });
 
     return {
       message: allViolations.length > 0 ? allViolations : ["Compliant"],
     };
   },
 );
-
 
 async function findViolations(
   complianceSubmission: ComplianceSubmission,
@@ -119,7 +110,7 @@ async function findViolations(
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4-0125-preview",
+      model: "gpt-3.5-turbo-0125",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.1,
       max_tokens: 300,
@@ -131,7 +122,7 @@ async function findViolations(
     } else {
       return {
         regulatoryFramework: {
-          fileId: regulation.fileId.toString(),
+          fileId: regulation.fileId,
           documentName: regulation.documentName,
           pageNumber: regulation.pageNumber.toString(),
         },
@@ -139,7 +130,7 @@ async function findViolations(
           {
             rule: answer,
             complianceSubmission: {
-              fileId: complianceSubmission.fileId.toString(),
+              fileId: complianceSubmission.fileId,
               documentName: complianceSubmission.documentName,
               pageNumber: complianceSubmission.pageNumber.toString(),
             },

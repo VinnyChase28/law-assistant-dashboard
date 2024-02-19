@@ -26,7 +26,7 @@ export interface UserFile {
 }
 
 async function getFiles() {
-  const files = await api.file.getUserFiles.query();
+  const files = await api.file.getMyFiles.query();
   if (!files) {
     return [];
   }
