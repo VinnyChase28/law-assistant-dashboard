@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { UserFile } from "src/app/files/page";
 
 //track table checked rows
 export interface CheckedRowsState {
@@ -31,8 +30,8 @@ export const useCheckedRowsStore = create<CheckedRowsState>()(
 
 //track user uploaded files
 export interface FilesState {
-  files: UserFile[]; // Assuming UserFile is your file type
-  setFiles: (newFiles: UserFile[]) => void;
+  files: any; // Assuming UserFile is your file type
+  setFiles: (newFiles: any) => void;
   removeFile: (fileId: number) => void;
   filesDeleting: { [key: number]: boolean }; // New state to track deleting status
   setFileDeleting: (fileId: number, isDeleting: boolean) => void; // Function to update deleting status
@@ -46,7 +45,7 @@ export const useFilesStore = create<FilesState>()(
       setFiles: (newFiles) => set({ files: newFiles }),
       removeFile: (fileId) =>
         set((state) => ({
-          files: state.files.filter((file) => file.id !== fileId),
+          files: state.files.filter((file: any) => file.id !== fileId),
         })),
       filesDeleting: {}, // Initialize the deleting status object
       setFileDeleting: (fileId, isDeleting) =>
