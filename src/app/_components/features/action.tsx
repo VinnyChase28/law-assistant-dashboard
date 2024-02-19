@@ -9,6 +9,7 @@ import {
 import { experimental_buildOpenAIMessages } from "ai/prompts";
 import OpenAI from "openai";
 import { ChatCompletionCreateParams } from "openai/resources/index.mjs";
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 
 const functions: ChatCompletionCreateParams.Function[] = [
   {
@@ -55,10 +56,14 @@ export async function handler({ messages }: { messages: Message[] }) {
   });
 
   // Request the OpenAI API for the response based on the prompt
+
+
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     stream: true,
-    messages: experimental_buildOpenAIMessages(messages),
+    messages: experimental_buildOpenAIMessages(
+      messages,
+    ) as ChatCompletionMessageParam[],
     functions,
   });
 
