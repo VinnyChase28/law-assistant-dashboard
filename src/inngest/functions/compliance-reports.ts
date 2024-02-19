@@ -39,22 +39,27 @@ export default inngest.createFunction(
   { id: "compliance-check" },
   { event: "demo/event.sent" },
   async ({ event }) => {
-    const allViolations: DetailedViolation[] = [];
-    const fileId = event.data.id;
-
-    for (const item of event.data.data) {
+    // Process each compliance submission in parallel
+    const allViolationsPromises = event.data.data.map(async (item) => {
       const { complianceSubmission, regulatoryFramework } = item;
-      for (const regulation of regulatoryFramework) {
-        const violations = await findViolations(
-          complianceSubmission,
-          regulation,
-        );
-        allViolations.push(...violations);
-      }
-    }
 
+      // Process each regulation in parallel for the current compliance submission
+      const violationsPromises = regulatoryFramework.map((regulation) =>
+        findViolations(complianceSubmission, regulation),
+      );
+
+      // Wait for all regulatory checks to complete for the current compliance submission
+      const violations = await Promise.all(violationsPromises);
+      return violations.flat(); // Flatten the results, as each promise resolves to an array
+    });
+
+    // Wait for all compliance submissions to be processed
+    const allViolationsNested = await Promise.all(allViolationsPromises);
+    const allViolations = allViolationsNested.flat(); // Flatten the results
+
+    // Update the compliance report with the collected violations
     const response = await api.file.updateComplianceReport.mutate({
-      id: fileId,
+      id: event.data.id,
       reportData: allViolations,
     });
 
@@ -71,7 +76,7 @@ async function findViolations(
   regulation: RegulatoryFramework,
 ): Promise<DetailedViolation[]> {
   const prompt = `
-  Review the compliance text below and compare it against the provided regulations. Identify any discrepancies or violations based on specific criteria such as safety standards, material requirements, and legal guidelines pertinent to building, zoning, and other municipal real estate and construction regulations. List each violation found with a brief explanation. If a the violation is related to a measurement, please indicate the wrong measurement and provide the correct measurement . A lack of or missing information, in addition to not addressing certain regulations is not considered a violation or something you should comment on at all. 
+  Review the compliance text below and compare it against the provided regulations. Identify any discrepancies or violations based on specific criteria such as safety standards, material requirements, and legal guidelines pertinent to building, zoning, and other municipal real estate and construction regulations. List each violation found with a brief explanation. If a the violation is related to a measurement, please indicate the wrong measurement and provide the correct measurement. A lack of or missing information, in addition to not addressing certain regulations is not considered a violation or something you should comment on at all.
 
   Compliance Text: ${complianceSubmission.textData}
   
@@ -93,8 +98,9 @@ async function findViolations(
 
     const answers =
       response.choices[0]?.message
-        .content!.split("\n")
-        .filter((line) => line.trim() !== "") ?? [];
+        .content!.trim()
+        .split("\n")
+        .filter((line: any) => line.trim() !== "") ?? [];
     if (answers.length === 0 || answers[0] === "Compliant") {
       return [];
     } else {
@@ -103,7 +109,7 @@ async function findViolations(
           fileId: complianceSubmission.fileId,
           documentName: complianceSubmission.documentName,
           pageNumber: complianceSubmission.pageNumber,
-          textSnippet: complianceSubmission.textData, 
+          textSnippet: complianceSubmission.textData,
         },
         brokenRule: {
           violation: answer,
