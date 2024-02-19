@@ -8,7 +8,7 @@ import { TRPCReactProvider } from "src/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { UserNav } from "./_components/user-nav";
-import ChatBubble from "./_components/chat/bubble";
+import ChatBubble from "./_components/features/bubble";
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",

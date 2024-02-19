@@ -12,6 +12,7 @@ interface ProcessDocumentRequest {
   fileId: number;
   blobUrl: string;
   userId: string;
+  documentType: string;
 }
 
 const pinecone = new Pinecone({
@@ -37,8 +38,12 @@ function preprocessText(text: string) {
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as ProcessDocumentRequest;
-    const fileId = body.fileId;
-    const { blobUrl, userId } = body;
+    const { blobUrl, userId, documentType, fileId } = body;
+
+    const metadata = {
+      documentType: documentType,
+      userId: userId,
+    };
 
     const decodedBlobUrl = decodeURIComponent(blobUrl);
     const pdfResponse = await fetch(decodedBlobUrl);
@@ -68,7 +73,9 @@ export async function POST(request: Request) {
       const vectorId = `${fileId}-${pageNumber}`;
 
       // Pinecone upsert
-      await companyNamespace.upsert([{ id: vectorId, values: embedding }]);
+      await companyNamespace.upsert([
+        { id: vectorId, values: embedding, metadata: metadata },
+      ]);
 
       // Database upsert operation
       return prisma.textSubsection.upsert({

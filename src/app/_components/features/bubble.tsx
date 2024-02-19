@@ -11,14 +11,16 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import VectorSearchComponent from "./chat-docs";
-import ChatComponent from "../casey/chat-component";
-import { ArrowLeft } from "lucide-react"; // Assuming ArrowLeft is the correct import
+import ChatComponent from "./chat-component";
+import CreateReportComponent from "./generate-report";
+import { ArrowLeft } from "lucide-react";
 
 const ChatBubble = () => {
   const el = useRef(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [showVectorSearch, setShowVectorSearch] = useState(false);
   const [showGeneralChat, setShowGeneralChat] = useState(false);
+  const [showCreateReport, setShowCreateReport] = useState(false);
   let typed: Typed;
 
   useEffect(() => {
@@ -37,12 +39,14 @@ const ChatBubble = () => {
       }
       setShowVectorSearch(false);
       setShowGeneralChat(false);
+      setShowCreateReport(false);
     };
   }, [dialogOpen]);
 
   const handleBack = () => {
     setShowVectorSearch(false);
     setShowGeneralChat(false);
+    setShowCreateReport(false);
   };
 
   const handleChat = () => {
@@ -51,6 +55,10 @@ const ChatBubble = () => {
 
   const handleChatWithDocs = () => {
     setShowVectorSearch(true);
+  };
+
+  const handleCreateReport = () => {
+    setShowCreateReport(true); // Show Create Report component
   };
 
   return (
@@ -63,12 +71,9 @@ const ChatBubble = () => {
       <DialogContent>
         <DialogHeader>
           <div className="flex items-center">
-            {" "}
-            {/* Flex container for alignment */}
-            {(showVectorSearch || showGeneralChat) && (
+            {(showVectorSearch || showGeneralChat || showCreateReport) && (
               <button onClick={handleBack} className="mr-2">
-                <ArrowLeft className="h-5 w-5" />{" "}
-                {/* Adjusted size for visibility */}
+                <ArrowLeft className="h-5 w-5" />
               </button>
             )}
             <DialogTitle>Casey AI</DialogTitle>
@@ -77,8 +82,9 @@ const ChatBubble = () => {
         <div className="overflow-y-auto">
           {showVectorSearch && <VectorSearchComponent />}
           {showGeneralChat && <ChatComponent />}
+          {showCreateReport && <CreateReportComponent />}
         </div>
-        {!showVectorSearch && !showGeneralChat && (
+        {!showVectorSearch && !showGeneralChat && !showCreateReport && (
           <div className="p-2">
             <span ref={el} />
             <div className="my-4 flex justify-around">
@@ -88,7 +94,9 @@ const ChatBubble = () => {
               <Button variant="secondary" onClick={handleChatWithDocs}>
                 Chat with docs
               </Button>
-              <Button variant="secondary">Create report</Button>
+              <Button variant="secondary" onClick={handleCreateReport}>
+                Create report
+              </Button>
             </div>
           </div>
         )}

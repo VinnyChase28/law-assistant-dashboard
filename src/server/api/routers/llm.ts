@@ -1,7 +1,7 @@
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { z } from "zod";
 import { OpenAI } from "langchain/llms/openai";
-
+import { inngest } from "src/inngest";
 const llm = new OpenAI({
   temperature: 0.1,
   modelName: "gpt-4-1106-preview",
@@ -33,5 +33,42 @@ export const llmRouter = createTRPCRouter({
 
       const llmResult = await llm.predict(prompt);
       return llmResult;
+    }),
+
+  // Add a new procedure for sending data to Inngest
+  sendComplianceReportToInngest: protectedProcedure
+    .input(
+      z.object({
+        complianceReportData: z.any(), // Adjust the type according to your actual data structure
+        userId: z.string(), // Assuming you need the userId for the Inngest event
+        reportName: z.string(), // Name of the report for metadata purposes
+        id: z.number(), // ID of the report for metadata purposes
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { complianceReportData, userId, reportName, id } = input;
+
+      // Construct the event payload
+      const eventPayload = {
+        name: "demo/event.sent" as const, // Ensuring the event name matches exactly
+        data: {
+          reportName, // Including report name in the event data for reference
+          ...complianceReportData, // Spreading complianceReportData into the payload
+          userId, // Including userId in the event data if needed
+          id, // Including report ID in the event data if needed
+        },
+      };
+
+      try {
+        // Send the event to Inngest
+        await inngest.send(eventPayload);
+        return {
+          success: true,
+          message: "Event sent successfully to Inngest.",
+        };
+      } catch (error) {
+        console.error("Error sending event to Inngest:", error);
+        throw new Error("Failed to send event to Inngest.");
+      }
     }),
 });

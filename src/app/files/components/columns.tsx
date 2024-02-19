@@ -66,6 +66,13 @@ export const columns: ColumnDef<File>[] = [
     cell: ({ row }) => <div>{row.getValue("fileType")}</div>,
   },
   {
+    accessorKey: "documentType",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Document Type" />
+    ),
+    cell: ({ row }) => <div>{row.getValue("documentType")}</div>,
+  },
+  {
     accessorKey: "fileSize",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="File Size" />

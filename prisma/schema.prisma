@@ -39,15 +39,17 @@ model Favorite {
 model File {
   id               Int               @id @default(autoincrement())
   name             String
-  blobUrl          String
-  fileType         String
-  fileSize         String
+  blobUrl          String?
+  fileType         String?
+  fileSize         String?
   processingStatus String
+  label            String?
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   userId           String
   access           FileAccess        @default(PRIVATE)
   documentType     DocumentType?
+  reportData       Json?
   dataSubsections  DataSubsection[]
   favorites        Favorite?
   taskHistory      FileTaskHistory[]
@@ -62,6 +64,7 @@ model TextSubsection {
   pageNumber       Int
   text             String
   pineconeVectorId String?
+  pineconeMetadata Json?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
   file             File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
@@ -101,11 +104,10 @@ model User {
   emailVerified   DateTime?
   image           String?
   accounts        Account[]
-  favorites       Favorite[]
+  favorites       Favorite?
   fileTaskHistory FileTaskHistory[]
   sessions        Session[]
   tasks           Task[]
-  // Removed teamId and team fields as team data is managed in Auth0
 }
 
 model Session {
@@ -153,8 +155,8 @@ enum FileAccess {
 enum DocumentType {
   REGULATORY_FRAMEWORK
   COMPLIANCE_SUBMISSION
+  COMPLIANCE_REPORT
 }
-
 
 enum FileProcessingStatus {
   IN_PROGRESS

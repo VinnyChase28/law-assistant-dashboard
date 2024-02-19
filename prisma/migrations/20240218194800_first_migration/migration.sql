@@ -2,13 +2,7 @@
 CREATE TYPE "FileAccess" AS ENUM ('PUBLIC', 'PRIVATE', 'SHARED');
 
 -- CreateEnum
-CREATE TYPE "UserRole" AS ENUM ('ADMIN', 'MEMBER');
-
--- CreateEnum
-CREATE TYPE "DocumentType" AS ENUM ('LEGAL_CONTRACTS', 'LITIGATION_DOCUMENTS', 'CORPORATE_GOVERNANCE', 'REGULATORY_COMPLIANCE', 'INTELLECTUAL_PROPERTY', 'CLIENT_CORRESPONDENCE', 'LEGAL_RESEARCH', 'TRANSACTIONAL_DOCUMENTS', 'ESTATE_PLANNING', 'EMPLOYMENT_LAW', 'REAL_ESTATE_LAW', 'CONSTRUCTION_PROPOSALS', 'DISCOVERY_DOCUMENTS');
-
--- CreateEnum
-CREATE TYPE "Label" AS ENUM ('RESEARCH', 'COMPLIANCE', 'SUMMARY', 'EXTRACTION', 'CONTRACT', 'DRAFTING', 'REVIEW', 'NEGOTIATION', 'LITIGATION_PREPARATION', 'DUE_DILIGENCE', 'CASE_ANALYSIS', 'CLIENT_CONSULTATION', 'REGULATORY_ANALYSIS', 'DOCUMENT_FILING', 'INTELLECTUAL_PROPERTY');
+CREATE TYPE "DocumentType" AS ENUM ('REGULATORY_FRAMEWORK', 'COMPLIANCE_SUBMISSION', 'COMPLIANCE_REPORT');
 
 -- CreateEnum
 CREATE TYPE "FileProcessingStatus" AS ENUM ('IN_PROGRESS', 'PROCESSING', 'DONE', 'FAILED');
@@ -18,7 +12,7 @@ CREATE TABLE "Task" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "status" TEXT NOT NULL,
-    "label" "Label" NOT NULL,
+    "label" TEXT NOT NULL,
     "cost" TEXT NOT NULL,
     "category" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -26,21 +20,6 @@ CREATE TABLE "Task" (
     "userId" TEXT,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Project" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "companyId" TEXT,
-    "userId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "description" TEXT,
-    "status" TEXT,
-    "createBy" TEXT,
-
-    CONSTRAINT "Project_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -56,20 +35,45 @@ CREATE TABLE "Favorite" (
 CREATE TABLE "File" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "blobUrl" TEXT NOT NULL,
-    "fileType" TEXT NOT NULL,
-    "fileSize" TEXT NOT NULL,
-    "vectorId" TEXT,
+    "blobUrl" TEXT,
+    "fileType" TEXT,
+    "fileSize" TEXT,
     "processingStatus" TEXT NOT NULL,
-    "vectorProcessedAt" TIMESTAMP(3),
+    "label" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "projectId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "access" "FileAccess" NOT NULL DEFAULT 'PRIVATE',
     "documentType" "DocumentType",
+    "reportText" TEXT,
 
     CONSTRAINT "File_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "TextSubsection" (
+    "id" SERIAL NOT NULL,
+    "fileId" INTEGER NOT NULL,
+    "pageNumber" INTEGER NOT NULL,
+    "text" TEXT NOT NULL,
+    "pineconeVectorId" TEXT,
+    "pineconeMetadata" JSONB,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "TextSubsection_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "DataSubsection" (
+    "id" SERIAL NOT NULL,
+    "fileId" INTEGER NOT NULL,
+    "dataContent" JSONB NOT NULL,
+    "pineconeVectorId" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "DataSubsection_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -90,9 +94,6 @@ CREATE TABLE "User" (
     "email" TEXT,
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
-    "roleId" TEXT NOT NULL,
-    "teamId" TEXT,
-    "companyId" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -126,49 +127,14 @@ CREATE TABLE "Account" (
 );
 
 -- CreateTable
-CREATE TABLE "Role" (
-    "id" TEXT NOT NULL,
-    "name" "UserRole" NOT NULL,
-
-    CONSTRAINT "Role_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Team" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "companyId" TEXT NOT NULL,
-
-    CONSTRAINT "Team_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Company" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "pineconeIndexName" TEXT,
-
-    CONSTRAINT "Company_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "VerificationToken" (
     "identifier" TEXT NOT NULL,
     "token" TEXT NOT NULL,
     "expires" TIMESTAMP(3) NOT NULL
 );
 
--- CreateTable
-CREATE TABLE "_UserTeams" (
-    "A" TEXT NOT NULL,
-    "B" TEXT NOT NULL
-);
-
 -- CreateIndex
 CREATE INDEX "Task_userId_idx" ON "Task"("userId");
-
--- CreateIndex
-CREATE INDEX "Project_companyId_idx" ON "Project"("companyId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Favorite_fileId_key" ON "Favorite"("fileId");
@@ -186,7 +152,13 @@ CREATE INDEX "Favorite_fileId_idx" ON "Favorite"("fileId");
 CREATE UNIQUE INDEX "Favorite_fileId_userId_key" ON "Favorite"("fileId", "userId");
 
 -- CreateIndex
-CREATE INDEX "File_userId_projectId_idx" ON "File"("userId", "projectId");
+CREATE INDEX "File_userId_idx" ON "File"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "TextSubsection_fileId_pageNumber_key" ON "TextSubsection"("fileId", "pageNumber");
+
+-- CreateIndex
+CREATE INDEX "DataSubsection_fileId_idx" ON "DataSubsection"("fileId");
 
 -- CreateIndex
 CREATE INDEX "FileTaskHistory_fileId_taskId_userId_idx" ON "FileTaskHistory"("fileId", "taskId", "userId");
@@ -204,19 +176,10 @@ CREATE INDEX "Session_userId_idx" ON "Session"("userId");
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
 -- CreateIndex
-CREATE INDEX "Team_companyId_idx" ON "Team"("companyId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationToken"("identifier", "token");
-
--- CreateIndex
-CREATE UNIQUE INDEX "_UserTeams_AB_unique" ON "_UserTeams"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_UserTeams_B_index" ON "_UserTeams"("B");
 
 -- AddForeignKey
 ALTER TABLE "Task" ADD CONSTRAINT "Task_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -228,7 +191,10 @@ ALTER TABLE "Favorite" ADD CONSTRAINT "Favorite_fileId_fkey" FOREIGN KEY ("fileI
 ALTER TABLE "Favorite" ADD CONSTRAINT "Favorite_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "File" ADD CONSTRAINT "File_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES "Project"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "TextSubsection" ADD CONSTRAINT "TextSubsection_fileId_fkey" FOREIGN KEY ("fileId") REFERENCES "File"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "DataSubsection" ADD CONSTRAINT "DataSubsection_fileId_fkey" FOREIGN KEY ("fileId") REFERENCES "File"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "FileTaskHistory" ADD CONSTRAINT "FileTaskHistory_fileId_fkey" FOREIGN KEY ("fileId") REFERENCES "File"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -240,25 +206,7 @@ ALTER TABLE "FileTaskHistory" ADD CONSTRAINT "FileTaskHistory_taskId_fkey" FOREI
 ALTER TABLE "FileTaskHistory" ADD CONSTRAINT "FileTaskHistory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "Team"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "Company"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Team" ADD CONSTRAINT "Team_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "Company"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_UserTeams" ADD CONSTRAINT "_UserTeams_A_fkey" FOREIGN KEY ("A") REFERENCES "Team"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_UserTeams" ADD CONSTRAINT "_UserTeams_B_fkey" FOREIGN KEY ("B") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

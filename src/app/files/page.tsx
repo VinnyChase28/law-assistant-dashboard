@@ -11,22 +11,10 @@ export const metadata: Metadata = {
   description: "Add files to your account",
 };
 
-export interface UserFile {
-  id: number;
-  name: string;
-  blobUrl: string;
-  fileType: string;
-  fileSize: string;
-  processingStatus: string;
-  createdAt: Date;
-  updatedAt: Date;
-  userId: string;
-  access: "PRIVATE" | "PUBLIC" | "SHARED" | undefined;
-  documentType: string | null;
-}
+
 
 async function getFiles() {
-  const files = await api.file.getUserFiles.query();
+  const files = await api.file.getMyFiles.query();
   if (!files) {
     return [];
   }
@@ -34,7 +22,7 @@ async function getFiles() {
 }
 
 export default async function Files() {
-  const files: UserFile[] = await getFiles();
+  const files = await getFiles();
   return (
     <main>
       <Text className="ml-10 pt-5 text-3xl font-bold">My Files</Text>

@@ -11,6 +11,12 @@ After updating the schema, ```npx prisma migrate dev``` to apply the changes and
 
 run ```vercel env pull``` to grab all environment variables after yoouve been added to vercel
 
+# Run Inngest Dev Server
+
+Inngest is the primary way to trigger background tasks for the application. To get it running, run 
+
+```npx inngest-cli@latest dev```
+
 
 # Documents
 
