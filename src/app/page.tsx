@@ -1,32 +1,34 @@
+"use client";
+import { useEffect } from "react";
+import { useComplianceReportsStore } from "src/store/store";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { promises as fs } from "fs";
-import path from "path";
-import { Metadata } from "next";
-import { z } from "zod";
-import { columns } from "./dashboard/components/columns";
-import { DataTable } from "./dashboard/components/data-table";
-import { taskSchema } from "./dashboard/schema";
+import { DataTable } from "./files/components/data-table";
+import { columns } from "./files/components/columns";
 import Charts from "@/components/charts/charts";
 import { Text } from "@tremor/react";
+import { api } from "src/trpc/react"; // Ensure this is the correct path
 
-export const metadata: Metadata = {
-  title: "Law Assistant AI",
-  description: "An assistant for the legal industry.",
-};
+const DashboardPage = () => {
+  const { setReports } = useComplianceReportsStore();
 
-// Simulate a database read for tasks.
-async function getTasks() {
-  const data = await fs.readFile(
-    path.join(process.cwd(), "src/app/dashboard/tasks.json"),
-  );
+  // Fetch compliance reports using the useQuery hook
+  const {
+    data: complianceReports,
+    isLoading,
+    error,
+  } = api.file.getMyFiles.useQuery({
+    documentTypes: ["COMPLIANCE_REPORT"],
+  });
 
-  const tasks = JSON.parse(data.toString());
+  // Update the Zustand store with the fetched data when it's available
+  useEffect(() => {
+    if (complianceReports) {
+      setReports(complianceReports);
+    }
+  }, [complianceReports, setReports]);
 
-  return z.array(taskSchema).parse(tasks);
-}
-
-export default async function DashboardPage() {
-  const tasks = await getTasks();
+  // Access the reports from the Zustand store for rendering
+  const { reports } = useComplianceReportsStore();
   return (
     <>
       <Text className="ml-10 pt-5 text-3xl font-bold">Dashboard</Text>
@@ -41,9 +43,11 @@ export default async function DashboardPage() {
         </TabsContent>
 
         <TabsContent value="genaiDocs">
-          <DataTable data={tasks} columns={columns} />
+          <DataTable data={reports} columns={columns} />
         </TabsContent>
       </Tabs>
     </>
   );
-}
+};
+
+export default DashboardPage;

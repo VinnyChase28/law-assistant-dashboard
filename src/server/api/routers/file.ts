@@ -6,8 +6,8 @@ import {
 } from "src/server/api/trpc";
 import { pinecone } from "src/utils/pinecone";
 
+
 export const fileRouter = createTRPCRouter({
- 
   //insert file metadata on upload to my files
   insertFileMetadata: protectedProcedure
     .input(
@@ -34,14 +34,33 @@ export const fileRouter = createTRPCRouter({
     }),
 
   // fetch my own uploaded files
-  getMyFiles: protectedProcedure.query(async ({ ctx }) => {
-    return ctx.db.file.findMany({
-      where: {
-        userId: ctx.session.user.id,
-        documentType: { in: ["REGULATORY_FRAMEWORK", "COMPLIANCE_SUBMISSION"] },
-      },
-    });
-  }),
+  getMyFiles: protectedProcedure
+    .input(
+      z.object({
+        documentTypes: z
+          .array(
+            z.enum([
+              "REGULATORY_FRAMEWORK",
+              "COMPLIANCE_SUBMISSION",
+              "COMPLIANCE_REPORT",
+            ]),
+          )
+          .optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { documentTypes } = input;
+      return ctx.db.file.findMany({
+        where: {
+          userId: ctx.session.user.id,
+          // Use the documentTypes array if provided, otherwise default to fetching all types
+          documentType: documentTypes ? { in: documentTypes } : undefined,
+        },
+        orderBy: {
+          createdAt: "desc", // Order by the createdAt field in descending order
+        },
+      });
+    }),
 
   // fetch generated compliance reports
   getMyComplianceReports: protectedProcedure.query(async ({ ctx }) => {
@@ -77,7 +96,6 @@ export const fileRouter = createTRPCRouter({
     }),
 
   // create a new route that will create a new file in the files table and that will be a COMPLIANCE_REPORT and set it to IN_PROGRESS.
-
   createComplianceReportMetadata: protectedProcedure
     .input(
       z.object({
