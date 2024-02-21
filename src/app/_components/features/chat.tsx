@@ -29,7 +29,6 @@ export function Chat({ handler }: { handler: any }) {
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    console.log(messages);
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 

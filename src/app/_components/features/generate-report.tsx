@@ -5,10 +5,10 @@ import { api } from "src/trpc/react";
 import { Button } from "../ui/button";
 import { useCheckedRowsStore, useFilesStore } from "src/store/store";
 import { File } from "@prisma/client";
-
+import { useRouter } from "next/navigation"; // Step 1: Import useRouter
 const CreateReportComponent = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-
   const { checkedRows } = useCheckedRowsStore();
   const { files } = useFilesStore();
 
@@ -68,7 +68,7 @@ const CreateReportComponent = () => {
         reportName: reportMetadata.name,
         id: reportMetadata.id,
       });
-
+      router.push("/?tab=genaiDocs");
       console.log("Compliance report sent to Inngest successfully.");
     } catch (error) {
       console.error(

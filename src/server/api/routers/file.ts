@@ -53,11 +53,10 @@ export const fileRouter = createTRPCRouter({
       return ctx.db.file.findMany({
         where: {
           userId: ctx.session.user.id,
-          // Use the documentTypes array if provided, otherwise default to fetching all types
           documentType: documentTypes ? { in: documentTypes } : undefined,
         },
         orderBy: {
-          createdAt: "desc", // Order by the createdAt field in descending order
+          createdAt: "desc",
         },
       });
     }),
@@ -117,7 +116,7 @@ export const fileRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.number(),
-        reportData: z.any(), // Expect an array of Violation objects
+        reportData: z.any(), // TODO: adjust with a real type
       }),
     )
     .mutation(async ({ ctx, input }) => {
