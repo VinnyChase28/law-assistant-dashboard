@@ -144,11 +144,12 @@ const VectorSearchComponent: React.FC = () => {
               </span>
               <div>
                 <ReactMarkdown
-                  children={msg.content.replace(/\n/gi, "&nbsp; \n")}
                   remarkPlugins={[remarkBreaks]}
                   rehypePlugins={[rehypeRaw]}
                   className="markdown-content list-inside list-decimal"
-                />
+                >
+                  {msg.content.replace(/\n/gi, "&nbsp; \n")}
+                </ReactMarkdown>
               </div>
             </li>
           ))}
