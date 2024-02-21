@@ -7,6 +7,7 @@ import {
 import { pinecone } from "src/utils/pinecone";
 
 export const fileRouter = createTRPCRouter({
+ 
   //insert file metadata on upload to my files
   insertFileMetadata: protectedProcedure
     .input(
