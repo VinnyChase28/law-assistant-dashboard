@@ -18,13 +18,29 @@ export const llmRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
-      // Combine all pages textData into a single string
-      const combinedTextData = input.pages
-        .map((page) => page.textData)
-        .join("\n");
+      // Structure the combined text data to include rule numbers and sources
+      const structuredTextData = input.pages
+        .map(
+          (page, index) =>
+            `Rule ${index + 1} from ${page.fileName} (Page ${
+              page.pageNumber
+            }):\n${page.textData}`,
+        )
+        .join("\n\n");
+
       const query = input.userQuery;
 
-      const prompt = `Query: ${query}\n\nText to query:\n${combinedTextData}\n\n respond in markdown. information and source should be clearly outlined and separated. add two newlines between each source. The summary should be only relevant to the query, and contain no other information. Be Specific and consice. my life depends on it.`;
+      const prompt = `
+      I will give you a rules question and the associated rules text. 
+
+      Rules question: ${query}
+      
+      Rules text:
+      ${structuredTextData}
+      
+      Your goal is to answer the rules question using the provided rules text as a reference. Please provide proper sources for each rule you reference. The summary should be directly relevant to the query, concise, and specific. My life depends on it.
+      `;
+
       return prompt;
     }),
 

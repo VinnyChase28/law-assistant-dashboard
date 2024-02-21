@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkBreaks from "remark-breaks";
 import { ScrollArea } from "@/components/ui/scroll-area"; // Ensure this component is correctly imported
+import { api } from "src/trpc/react";
 
 type ChatMessage = {
   role: "user" | "system";
@@ -16,12 +17,35 @@ const VectorSearchComponent: React.FC = () => {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
+  //mutations
+  const convertTextToVector = api.vector.convertTextToVector.useMutation();
+  const vectorSearch = api.vector.vectorSearch.useMutation();
+  const generateDocumentPrompt = api.llm.generateDocumentPrompt.useMutation();
+
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages]);
 
   const sendMessage = async () => {
     if (!inputMessage.trim()) return;
+
+    const vector = await convertTextToVector.mutateAsync({
+      text: inputMessage,
+    });
+
+    const searchResults = await vectorSearch.mutateAsync({
+      queryVector: vector,
+      topK: 3,
+    });
+
+    const prompt = await generateDocumentPrompt.mutateAsync({
+      userQuery: inputMessage,
+      pages: searchResults.map((result) => ({
+        fileName: result.fileName,
+        textData: result.textData,
+        pageNumber: result.pageNumber,
+      })),
+    });
 
     setChatMessages((prevMessages) => [
       ...prevMessages,
@@ -35,7 +59,7 @@ const VectorSearchComponent: React.FC = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          messages: [{ role: "user", content: inputMessage }],
+          messages: [{ role: "user", content: prompt }],
         }),
       });
 
