@@ -1,103 +1,173 @@
 "use client";
-
 import React, { useState, useRef, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkBreaks from "remark-breaks";
+import { ScrollArea } from "@/components/ui/scroll-area"; // Ensure this component is correctly imported
 import { api } from "src/trpc/react";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "../ui/button";
-import Typed from "typed.js";
-import Markdown from "../markdown";
 
-const VectorSearchComponent = () => {
-  const el = useRef(null);
-  const [queryText, setQueryText] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [completion, setCompletion] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(false);
+type ChatMessage = {
+  role: "Me" | "Casey";
+  content: string;
+  isFinal?: boolean;
+};
+
+const VectorSearchComponent: React.FC = () => {
+  const [inputMessage, setInputMessage] = useState<string>("");
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
+    {
+      role: "Casey",
+      content:
+        "Welcome! Type your message below to start chatting with your regulatory documents.",
+    },
+  ]);
+  const [isStreaming, setIsStreaming] = useState<boolean>(false); // New state variable
+
+  const chatEndRef = useRef<HTMLDivElement | null>(null);
 
   //mutations
   const convertTextToVector = api.vector.convertTextToVector.useMutation();
   const vectorSearch = api.vector.vectorSearch.useMutation();
-  const openAIQueryAnalysis = api.llm.openAIQueryAnalysis.useMutation();
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setQueryText(e.target.value);
-  };
-
-  const handleSearchClick = async () => {
-    setIsLoading(true);
-    try {
-      const vector = await convertTextToVector.mutateAsync({ text: queryText });
-
-      const searchResults = await vectorSearch.mutateAsync({
-        queryVector: vector,
-        topK: 3,
-      });
-
-      const llmResponse = await openAIQueryAnalysis.mutateAsync({
-        userQuery: queryText,
-        pages: searchResults.map((result) => ({
-          fileName: result.fileName,
-          textData: result.textData,
-          pageNumber: result.pageNumber,
-        })),
-      });
-
-      setCompletion(llmResponse);
-    } catch (error) {
-      console.error("Error during vector search operations:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const generateDocumentPrompt = api.llm.generateDocumentPrompt.useMutation();
 
   useEffect(() => {
-    const typedInstance = new Typed(el.current, {
-      strings: [
-        "Enter text to search for relevant information accross all uploaded documents. I will then use the information to generate a summary for you.",
-      ],
-      typeSpeed: 25,
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatMessages]);
+
+  const sendMessage = async () => {
+    if (!inputMessage.trim() || isStreaming) return;
+    setIsStreaming(true);
+    setChatMessages((prevMessages) => [
+      ...prevMessages,
+      { role: "Me", content: inputMessage, isFinal: true },
+    ]);
+
+    const vector = await convertTextToVector.mutateAsync({
+      text: inputMessage,
     });
 
-    return () => typedInstance.destroy();
-  }, []);
+    const searchResults = await vectorSearch.mutateAsync({
+      queryVector: vector,
+      topK: 3,
+    });
 
-  const resetSearch = () => {
-    setQueryText("");
-    setSearchResults([]);
-    setIsLoading(false);
+    const prompt = await generateDocumentPrompt.mutateAsync({
+      userQuery: inputMessage,
+      pages: searchResults.map((result) => ({
+        fileName: result.fileName,
+        textData: result.textData,
+        pageNumber: result.pageNumber,
+      })),
+    });
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messages: [{ role: "user", content: prompt }],
+        }),
+      });
+
+      if (response.body) {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let systemResponse = "";
+
+        setChatMessages((prevMessages) => [
+          ...prevMessages,
+          { role: "Casey", content: "", isFinal: false },
+        ]);
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const textChunk = decoder.decode(value, { stream: true });
+          systemResponse += textChunk;
+
+          setChatMessages((prevMessages) => {
+            const lastMessageIndex = prevMessages.length - 1;
+            const lastMessage = prevMessages[lastMessageIndex];
+            if (lastMessage?.role === "Casey" && !lastMessage.isFinal) {
+              const updatedMessage = {
+                ...lastMessage,
+                content: systemResponse,
+              };
+              return [
+                ...prevMessages.slice(0, lastMessageIndex),
+                updatedMessage,
+              ];
+            }
+            return prevMessages;
+          });
+        }
+
+        setChatMessages((prevMessages) => {
+          const lastMessageIndex = prevMessages.length - 1;
+          const lastMessage = prevMessages[lastMessageIndex];
+          if (lastMessage?.role === "Casey" && !lastMessage.isFinal) {
+            const finalizedMessage = { ...lastMessage, isFinal: true };
+            return [
+              ...prevMessages.slice(0, lastMessageIndex),
+              finalizedMessage,
+            ];
+          }
+          return prevMessages;
+        });
+      }
+
+      setIsStreaming(false);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setIsStreaming(false);
+    }
+
+    setInputMessage("");
   };
 
   return (
-    <div className="p-5">
-      <div className="mb-4">
-        <span ref={el} />
-      </div>
-      <div className="mb-4">
-        <Textarea
-          className="w-full rounded border border-gray-300 p-2"
-          value={queryText}
-          onChange={handleInputChange}
-          aria-label="Search Query"
+    <div className="chat-app-container relative mx-auto flex w-full max-w-2xl flex-col py-24">
+      <ScrollArea className="h-[600px] max-h-[800px] rounded-md p-4">
+        <ul className="list-none">
+          {chatMessages.map((msg, index) => (
+            <li
+              key={index}
+              className={`chat-message rounded-lg shadow ${
+                msg.role === "Me"
+                  ? "user-message ml-auto bg-blue-200 bg-opacity-25"
+                  : "system-message mr-auto bg-gray-200 bg-opacity-25"
+              }`}
+            >
+              <span className="sender-name block text-sm font-bold">
+                {msg.role === "Me" ? "You" : "Casey"}
+              </span>
+              <div>
+                <ReactMarkdown
+                  remarkPlugins={[remarkBreaks]}
+                  rehypePlugins={[rehypeRaw]}
+                  className="markdown-content list-inside list-decimal"
+                >
+                  {msg.content.replace(/\n/gi, "&nbsp; \n")}
+                </ReactMarkdown>
+              </div>
+            </li>
+          ))}
+          <div ref={chatEndRef} />
+        </ul>
+      </ScrollArea>
+
+      <div className="input-container fixed bottom-0 left-1/2 w-full max-w-md -translate-x-1/2 transform px-4 pb-4">
+        <input
+          className="message-input w-full rounded p-2 shadow"
+          placeholder="Type your message here..."
+          value={inputMessage}
+          onChange={(e) => setInputMessage(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          autoFocus
         />
       </div>
-      <div className="mb-4 flex gap-2">
-        <Button
-          onClick={handleSearchClick}
-          variant="default"
-          disabled={isLoading}
-        >
-          Search
-        </Button>
-        <Button
-          onClick={resetSearch}
-          disabled={isLoading}
-          variant="destructive"
-        >
-          Reset
-        </Button>
-      </div>
-      {isLoading && <p>Loading...</p>}
-      {completion && <Markdown markdownText={completion} />}
     </div>
   );
 };

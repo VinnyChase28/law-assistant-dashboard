@@ -58,13 +58,13 @@ export const columns: ColumnDef<File>[] = [
     ),
     cell: ({ row }) => <div className="truncate">{row.getValue("name")}</div>,
   },
-  {
-    accessorKey: "fileType",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="File Type" />
-    ),
-    cell: ({ row }) => <div>{row.getValue("fileType")}</div>,
-  },
+  // {
+  //   accessorKey: "fileType",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="File Type" />
+  //   ),
+  //   cell: ({ row }) => <div>{row.getValue("fileType")}</div>,
+  // },
   {
     accessorKey: "documentType",
     header: ({ column }) => (
@@ -72,13 +72,13 @@ export const columns: ColumnDef<File>[] = [
     ),
     cell: ({ row }) => <div>{row.getValue("documentType")}</div>,
   },
-  {
-    accessorKey: "fileSize",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="File Size" />
-    ),
-    cell: ({ row }) => <div>{row.getValue("fileSize")}</div>,
-  },
+  // {
+  //   accessorKey: "fileSize",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="File Size" />
+  //   ),
+  //   cell: ({ row }) => <div>{row.getValue("fileSize")}</div>,
+  // },
   {
     accessorKey: "processingStatus",
     header: ({ column }) => (

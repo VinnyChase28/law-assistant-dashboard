@@ -1,3 +1,5 @@
+'use client'
+
 import React, { use, useEffect, useRef, useState } from "react";
 import { useChat, Message } from "ai/react";
 import { Button } from "../ui/button";
@@ -16,8 +18,7 @@ export function Chat({ handler }: { handler: any }) {
     {
       id: "initial-1",
       role: "system",
-      content:
-        "Welcome to Casey! Type your message below to start chatting.",
+      content: "Welcome to Casey! Type your message below to start chatting.",
     },
   ]);
 
