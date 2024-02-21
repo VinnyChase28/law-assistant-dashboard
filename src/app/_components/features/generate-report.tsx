@@ -5,10 +5,12 @@ import { api } from "src/trpc/react";
 import { Button } from "../ui/button";
 import { useCheckedRowsStore, useFilesStore } from "src/store/store";
 import { File } from "@prisma/client";
-
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 const CreateReportComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
-
+  const { toast } = useToast(); // Initialize useToast
+  const router = useRouter();
   const { checkedRows } = useCheckedRowsStore();
   const { files } = useFilesStore();
 
@@ -31,14 +33,12 @@ const CreateReportComponent = () => {
           "COMPLIANCE_SUBMISSION",
     ).length === 1;
 
-  //Mutations
+  // Mutations
   const findSimilarRegulatoryDocuments =
     api.vector.findSimilarRegulatoryDocuments.useMutation();
-
   const createComplianceReportMetadata =
     api.file.createComplianceReportMetadata.useMutation();
-
-  const sendComplianceReport =
+  const sendComplianceReportToInngest =
     api.llm.sendComplianceReportToInngest.useMutation();
 
   const handleCreateReportClick = async () => {
@@ -50,31 +50,47 @@ const CreateReportComponent = () => {
     setIsLoading(true);
 
     try {
-      // Find similar regulatory documents for the selected compliance submission
       const similarDocsData = await findSimilarRegulatoryDocuments.mutateAsync({
         fileId: selectedComplianceSubmission.id,
       });
 
-      // Create compliance report metadata
       const reportMetadata = await createComplianceReportMetadata.mutateAsync({
         name: `${new Date().toISOString()} Compliance Report`,
       });
 
-      // Assuming reportMetadata includes the necessary fields like id, userId, etc.
-      // Send the compliance report data to Inngest
-      await sendComplianceReport.mutateAsync({
+      await sendComplianceReportToInngest.mutateAsync({
         complianceReportData: similarDocsData,
-        userId: reportMetadata.userId, // Adjust according to actual structure
+        userId: reportMetadata.userId,
         reportName: reportMetadata.name,
         id: reportMetadata.id,
       });
 
-      console.log("Compliance report sent to Inngest successfully.");
+      //we need to go to home page ('/') if we click View
+
+      toast({
+        title: "Compliance Report Started",
+        description: `The compliance data has been sent to Casey. A new report will be available in the "GenAI docs" section soon.`,
+        action: (
+          <Button
+            onClick={() => router.push("/?tab=genaiDocs")}
+            variant="default"
+          >
+            View
+          </Button>
+        ),
+      });
     } catch (error) {
       console.error(
         "Error in creating or sending the compliance report:",
         error,
       );
+
+      toast({
+        title: "Compliance Report Failed to Start",
+        description:
+          "There was an error starting the compliance report. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }
