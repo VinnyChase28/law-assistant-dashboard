@@ -17,7 +17,8 @@ const VectorSearchComponent: React.FC = () => {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     {
       role: "Casey",
-      content: "Welcome to Casey! Type your message below to start chatting.",
+      content:
+        "Welcome! Type your message below to start chatting with your regulatory documents.",
     },
   ]);
   const [isStreaming, setIsStreaming] = useState<boolean>(false); // New state variable
