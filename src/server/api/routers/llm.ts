@@ -38,7 +38,7 @@ export const llmRouter = createTRPCRouter({
       Rules text:
       ${structuredTextData}
       
-      Your goal is to answer the rules question using the provided rules text as a reference. Please provide proper sources for each rule you reference. The summary should be directly relevant to the query, concise, and specific. My life depends on it.
+      Your goal is to answer the rules question using the provided rules text as a reference. Please provide proper sources for each rule you reference. The summary should be directly relevant to the query, concise, and specific. My life depends on it. The sources should be at the end of your response.
       `;
 
       return prompt;

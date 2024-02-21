@@ -15,6 +15,8 @@ type ChatMessage = {
 const VectorSearchComponent: React.FC = () => {
   const [inputMessage, setInputMessage] = useState<string>("");
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [isStreaming, setIsStreaming] = useState<boolean>(false); // New state variable
+
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
   //mutations
@@ -27,7 +29,12 @@ const VectorSearchComponent: React.FC = () => {
   }, [chatMessages]);
 
   const sendMessage = async () => {
-    if (!inputMessage.trim()) return;
+    if (!inputMessage.trim() || isStreaming) return;
+    setIsStreaming(true);
+    setChatMessages((prevMessages) => [
+      ...prevMessages,
+      { role: "user", content: inputMessage, isFinal: true },
+    ]);
 
     const vector = await convertTextToVector.mutateAsync({
       text: inputMessage,
@@ -46,11 +53,6 @@ const VectorSearchComponent: React.FC = () => {
         pageNumber: result.pageNumber,
       })),
     });
-
-    setChatMessages((prevMessages) => [
-      ...prevMessages,
-      { role: "user", content: inputMessage, isFinal: true },
-    ]);
 
     try {
       const response = await fetch("/api/chat", {
@@ -109,8 +111,11 @@ const VectorSearchComponent: React.FC = () => {
           return prevMessages;
         });
       }
+
+      setIsStreaming(false);
     } catch (error) {
       console.error("Error sending message:", error);
+      setIsStreaming(false);
     }
 
     setInputMessage("");
