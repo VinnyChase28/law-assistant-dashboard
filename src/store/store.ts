@@ -38,6 +38,12 @@ export interface FilesState {
   isFileDeleting: (fileId: number) => boolean; // Function to check if a file is being deleted
 }
 
+export interface ComplianceReportsState {
+  reports: any[]; // It's better to define a more specific type if possible
+  addReport: (report: any) => void; // Adjust the type as necessary
+  removeReport: (reportId: number) => void;
+  setReports: (newReports: any[]) => void; // Function to set the entire reports array
+}
 export const useFilesStore = create<FilesState>()(
   persist(
     (set, get) => ({
@@ -56,6 +62,24 @@ export const useFilesStore = create<FilesState>()(
     }),
     {
       name: "user-files-storage",
+    },
+  ),
+);
+
+export const useComplianceReportsStore = create<ComplianceReportsState>()(
+  persist(
+    (set) => ({
+      reports: [],
+      addReport: (report) =>
+        set((state) => ({ reports: [...state.reports, report] })),
+      removeReport: (reportId) =>
+        set((state) => ({
+          reports: state.reports.filter((report) => report.id !== reportId),
+        })),
+      setReports: (newReports) => set(() => ({ reports: newReports })), // Set the entire reports array
+    }),
+    {
+      name: "compliance-reports-storage",
     },
   ),
 );

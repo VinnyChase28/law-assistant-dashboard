@@ -58,7 +58,7 @@ const ChatBubble = () => {
   };
 
   const handleCreateReport = () => {
-    setShowCreateReport(true); // Show Create Report component
+    setShowCreateReport(true); 
   };
 
   return (

@@ -14,7 +14,9 @@ export const metadata: Metadata = {
 
 
 async function getFiles() {
-  const files = await api.file.getMyFiles.query();
+  const files = await api.file.getMyFiles.query({
+    documentTypes: ["REGULATORY_FRAMEWORK", "COMPLIANCE_SUBMISSION"],
+  });
   if (!files) {
     return [];
   }

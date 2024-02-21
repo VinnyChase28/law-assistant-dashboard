@@ -1,36 +1,34 @@
+"use client";
+import { useEffect } from "react";
+import { useComplianceReportsStore } from "src/store/store";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { promises as fs } from "fs";
-import path from "path";
-import { Metadata } from "next";
-import { z } from "zod";
-import { columns } from "./dashboard/components/columns";
-import { DataTable } from "./dashboard/components/data-table";
-import { taskSchema } from "./dashboard/schema";
+import { DataTable } from "./files/components/data-table";
+import { columns } from "./files/components/columns";
 import Charts from "@/components/charts/charts";
 import { Text } from "@tremor/react";
+import { api } from "src/trpc/react";
+import { useSearchParams } from "next/navigation"; // Import useParams from next/navigation
 
-export const metadata: Metadata = {
-  title: "Law Assistant AI",
-  description: "An assistant for the legal industry.",
-};
+const DashboardPage = () => {
+  const searchParams = useSearchParams();
+  const tab = searchParams.get("tab");
+  const { setReports } = useComplianceReportsStore();
+  const { data: complianceReports } = api.file.getMyFiles.useQuery({
+    documentTypes: ["COMPLIANCE_REPORT"],
+  });
 
-// Simulate a database read for tasks.
-async function getTasks() {
-  const data = await fs.readFile(
-    path.join(process.cwd(), "src/app/dashboard/tasks.json"),
-  );
+  useEffect(() => {
+    if (complianceReports) {
+      setReports(complianceReports);
+    }
+  }, [complianceReports, setReports]);
 
-  const tasks = JSON.parse(data.toString());
+  const { reports } = useComplianceReportsStore();
 
-  return z.array(taskSchema).parse(tasks);
-}
-
-export default async function DashboardPage() {
-  const tasks = await getTasks();
   return (
     <>
       <Text className="ml-10 pt-5 text-3xl font-bold">Dashboard</Text>
-      <Tabs defaultValue="overview" className="w-full p-5">
+      <Tabs defaultValue={tab ?? "overview"} className="w-full p-5">
         <TabsList className="ml-8 border-b-2 border-gray-300">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="genaiDocs">GenAi Docs</TabsTrigger>
@@ -41,9 +39,11 @@ export default async function DashboardPage() {
         </TabsContent>
 
         <TabsContent value="genaiDocs">
-          <DataTable data={tasks} columns={columns} />
+          <DataTable data={reports} columns={columns} />
         </TabsContent>
       </Tabs>
     </>
   );
-}
+};
+
+export default DashboardPage;

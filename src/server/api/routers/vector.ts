@@ -23,8 +23,9 @@ export const vectorRouter = createTRPCRouter({
 
       const queryResponse = await userNamespace.query({
         vector: input.queryVector,
-        topK: input.topK ?? 5,
+        topK: input.topK ?? 3,
         includeMetadata: true,
+        filter: { documentType: { $eq: "REGULATORY_FRAMEWORK" } },
       });
 
       const parsedIds = queryResponse.matches.map((match) => {
@@ -74,6 +75,7 @@ export const vectorRouter = createTRPCRouter({
     }),
 
   // find 5 most relevant COMPLIANCE_SUBMISSION documents for a given COMPLIANCE_SUBMISSION
+  //TODO: make sure you use the correct namespace for the user
   findSimilarRegulatoryDocuments: protectedProcedure
     .input(
       z.object({
@@ -121,7 +123,7 @@ export const vectorRouter = createTRPCRouter({
           // Perform a Pinecone search for similar vectors within REGULATORY_FRAMEWORK documents
           const queryResponse = await userNamespace.query({
             vector: vector,
-            topK: 5,
+            topK: 3, //TODO: this will need to be adjusted based on number of docs and pages
             filter: { documentType: { $eq: "REGULATORY_FRAMEWORK" } },
             includeMetadata: true,
           });

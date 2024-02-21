@@ -6,6 +6,7 @@ import {
 } from "src/server/api/trpc";
 import { pinecone } from "src/utils/pinecone";
 
+
 export const fileRouter = createTRPCRouter({
   //insert file metadata on upload to my files
   insertFileMetadata: protectedProcedure
@@ -33,14 +34,32 @@ export const fileRouter = createTRPCRouter({
     }),
 
   // fetch my own uploaded files
-  getMyFiles: protectedProcedure.query(async ({ ctx }) => {
-    return ctx.db.file.findMany({
-      where: {
-        userId: ctx.session.user.id,
-        documentType: { in: ["REGULATORY_FRAMEWORK", "COMPLIANCE_SUBMISSION"] },
-      },
-    });
-  }),
+  getMyFiles: protectedProcedure
+    .input(
+      z.object({
+        documentTypes: z
+          .array(
+            z.enum([
+              "REGULATORY_FRAMEWORK",
+              "COMPLIANCE_SUBMISSION",
+              "COMPLIANCE_REPORT",
+            ]),
+          )
+          .optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { documentTypes } = input;
+      return ctx.db.file.findMany({
+        where: {
+          userId: ctx.session.user.id,
+          documentType: documentTypes ? { in: documentTypes } : undefined,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    }),
 
   // fetch generated compliance reports
   getMyComplianceReports: protectedProcedure.query(async ({ ctx }) => {
@@ -76,7 +95,6 @@ export const fileRouter = createTRPCRouter({
     }),
 
   // create a new route that will create a new file in the files table and that will be a COMPLIANCE_REPORT and set it to IN_PROGRESS.
-
   createComplianceReportMetadata: protectedProcedure
     .input(
       z.object({
@@ -98,15 +116,15 @@ export const fileRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.number(),
-        reportData: z.any(), // Expect an array of Violation objects
+        reportData: z.any(), // TODO: adjust with a real type
       }),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.db.file.update({
         where: { id: input.id },
         data: {
-          processingStatus: "COMPLETED",
-          reportData: input.reportData, // Now correctly typed as an array of Violations
+          processingStatus: "DONE",
+          reportData: input.reportData,
         },
       });
     }),

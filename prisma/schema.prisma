@@ -42,7 +42,7 @@ model File {
   blobUrl          String?
   fileType         String?
   fileSize         String?
-  processingStatus String
+  processingStatus processingStatus
   label            String?
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
@@ -158,9 +158,8 @@ enum DocumentType {
   COMPLIANCE_REPORT
 }
 
-enum FileProcessingStatus {
+enum processingStatus {
   IN_PROGRESS
-  PROCESSING
   DONE
   FAILED
 }
