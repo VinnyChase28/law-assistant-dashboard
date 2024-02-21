@@ -1,15 +1,10 @@
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { z } from "zod";
-import { OpenAI } from "langchain/llms/openai";
 import { inngest } from "src/inngest";
-const llm = new OpenAI({
-  temperature: 0.1,
-  modelName: "gpt-4-1106-preview",
-});
 
 // TRPC router implementation
 export const llmRouter = createTRPCRouter({
-  openAIQueryAnalysis: protectedProcedure
+  generateDocumentPrompt: protectedProcedure
     .input(
       z.object({
         userQuery: z.string(),
@@ -30,9 +25,7 @@ export const llmRouter = createTRPCRouter({
       const query = input.userQuery;
 
       const prompt = `Query: ${query}\n\nText to query:\n${combinedTextData}\n\n respond in markdown. information and source should be clearly outlined and separated. add two newlines between each source. The summary should be only relevant to the query, and contain no other information. Be Specific and consice. my life depends on it.`;
-
-      const llmResult = await llm.predict(prompt);
-      return llmResult;
+      return prompt;
     }),
 
   // Add a new procedure for sending data to Inngest
