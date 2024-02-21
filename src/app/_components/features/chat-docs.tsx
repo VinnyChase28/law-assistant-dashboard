@@ -23,50 +23,31 @@ const VectorSearchComponent = () => {
     setQueryText(e.target.value);
   };
 
-  const handleSearchClick = () => {
+  const handleSearchClick = async () => {
     setIsLoading(true);
-    convertTextToVector.mutate(
-      { text: queryText },
-      {
-        onSuccess: (vector) => {
-          vectorSearch.mutate(
-            { queryVector: vector, topK: 3 },
-            {
-              onSuccess: (searchResults) => {
-                openAIQueryAnalysis.mutate(
-                  {
-                    userQuery: queryText,
-                    pages: searchResults.map((result) => ({
-                      fileName: result.fileName,
-                      textData: result.textData,
-                      pageNumber: result.pageNumber,
-                    })),
-                  },
-                  {
-                    onSuccess: (llmResponse) => {
-                      setCompletion(llmResponse);
-                      setIsLoading(false);
-                    },
-                    onError: (error) => {
-                      console.error("Error in openAIQueryAnalysis:", error);
-                      setIsLoading(false);
-                    },
-                  },
-                );
-              },
-              onError: (error) => {
-                console.error("Error in vector search:", error);
-                setIsLoading(false);
-              },
-            },
-          );
-        },
-        onError: (error) => {
-          console.error("Error converting text to vector:", error);
-          setIsLoading(false);
-        },
-      },
-    );
+    try {
+      const vector = await convertTextToVector.mutateAsync({ text: queryText });
+
+      const searchResults = await vectorSearch.mutateAsync({
+        queryVector: vector,
+        topK: 3,
+      });
+
+      const llmResponse = await openAIQueryAnalysis.mutateAsync({
+        userQuery: queryText,
+        pages: searchResults.map((result) => ({
+          fileName: result.fileName,
+          textData: result.textData,
+          pageNumber: result.pageNumber,
+        })),
+      });
+
+      setCompletion(llmResponse);
+    } catch (error) {
+      console.error("Error during vector search operations:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
