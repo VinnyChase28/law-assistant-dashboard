@@ -7,14 +7,19 @@ import { ScrollArea } from "@/components/ui/scroll-area"; // Ensure this compone
 import { api } from "src/trpc/react";
 
 type ChatMessage = {
-  role: "user" | "system";
+  role: "Me" | "Casey";
   content: string;
   isFinal?: boolean;
 };
 
 const VectorSearchComponent: React.FC = () => {
   const [inputMessage, setInputMessage] = useState<string>("");
-  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
+    {
+      role: "Casey",
+      content: "Welcome to Casey! Type your message below to start chatting.",
+    },
+  ]);
   const [isStreaming, setIsStreaming] = useState<boolean>(false); // New state variable
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
@@ -33,7 +38,7 @@ const VectorSearchComponent: React.FC = () => {
     setIsStreaming(true);
     setChatMessages((prevMessages) => [
       ...prevMessages,
-      { role: "user", content: inputMessage, isFinal: true },
+      { role: "Me", content: inputMessage, isFinal: true },
     ]);
 
     const vector = await convertTextToVector.mutateAsync({
@@ -72,7 +77,7 @@ const VectorSearchComponent: React.FC = () => {
 
         setChatMessages((prevMessages) => [
           ...prevMessages,
-          { role: "system", content: "", isFinal: false },
+          { role: "Casey", content: "", isFinal: false },
         ]);
 
         while (true) {
@@ -84,7 +89,7 @@ const VectorSearchComponent: React.FC = () => {
           setChatMessages((prevMessages) => {
             const lastMessageIndex = prevMessages.length - 1;
             const lastMessage = prevMessages[lastMessageIndex];
-            if (lastMessage?.role === "system" && !lastMessage.isFinal) {
+            if (lastMessage?.role === "Casey" && !lastMessage.isFinal) {
               const updatedMessage = {
                 ...lastMessage,
                 content: systemResponse,
@@ -101,7 +106,7 @@ const VectorSearchComponent: React.FC = () => {
         setChatMessages((prevMessages) => {
           const lastMessageIndex = prevMessages.length - 1;
           const lastMessage = prevMessages[lastMessageIndex];
-          if (lastMessage?.role === "system" && !lastMessage.isFinal) {
+          if (lastMessage?.role === "Casey" && !lastMessage.isFinal) {
             const finalizedMessage = { ...lastMessage, isFinal: true };
             return [
               ...prevMessages.slice(0, lastMessageIndex),
@@ -129,13 +134,13 @@ const VectorSearchComponent: React.FC = () => {
             <li
               key={index}
               className={`chat-message rounded-lg shadow ${
-                msg.role === "user"
+                msg.role === "Me"
                   ? "user-message ml-auto bg-blue-200 bg-opacity-25"
                   : "system-message mr-auto bg-gray-200 bg-opacity-25"
               }`}
             >
               <span className="sender-name block text-sm font-bold">
-                {msg.role === "user" ? "You" : "System"}
+                {msg.role === "Me" ? "You" : "Casey"}
               </span>
               <div>
                 <ReactMarkdown
