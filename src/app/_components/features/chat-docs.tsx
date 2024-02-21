@@ -82,7 +82,7 @@ const VectorSearchComponent: React.FC = () => {
           setChatMessages((prevMessages) => {
             const lastMessageIndex = prevMessages.length - 1;
             const lastMessage = prevMessages[lastMessageIndex];
-            if (lastMessage.role === "system" && !lastMessage.isFinal) {
+            if (lastMessage?.role === "system" && !lastMessage.isFinal) {
               const updatedMessage = {
                 ...lastMessage,
                 content: systemResponse,
@@ -99,7 +99,7 @@ const VectorSearchComponent: React.FC = () => {
         setChatMessages((prevMessages) => {
           const lastMessageIndex = prevMessages.length - 1;
           const lastMessage = prevMessages[lastMessageIndex];
-          if (lastMessage.role === "system" && !lastMessage.isFinal) {
+          if (lastMessage?.role === "system" && !lastMessage.isFinal) {
             const finalizedMessage = { ...lastMessage, isFinal: true };
             return [
               ...prevMessages.slice(0, lastMessageIndex),
