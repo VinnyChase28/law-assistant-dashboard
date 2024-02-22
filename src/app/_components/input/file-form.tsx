@@ -16,6 +16,8 @@ import {
   SelectLabel,
 } from "../ui/select"; // Adjust the import path as needed
 
+
+
 export default function UploadFiles() {
   const [totalFiles, setTotalFiles] = useState(0);
   const [processedFiles, setProcessedFiles] = useState(0);
@@ -107,15 +109,15 @@ export default function UploadFiles() {
                 <SelectValue placeholder="Select Document Type" />
               </SelectTrigger>
               <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Document Type</SelectLabel>
-                    <SelectItem value="REGULATORY_FRAMEWORK">
-                      Regulatory Framework
-                    </SelectItem>
-                    <SelectItem value="COMPLIANCE_SUBMISSION">
-                      Compliance Submission
-                    </SelectItem>
-                  </SelectGroup>
+                <SelectGroup>
+                  <SelectLabel>Document Type</SelectLabel>
+                  <SelectItem value="REGULATORY_FRAMEWORK">
+                    Regulatory Framework
+                  </SelectItem>
+                  <SelectItem value="COMPLIANCE_SUBMISSION">
+                    Compliance Submission
+                  </SelectItem>
+                </SelectGroup>
               </SelectContent>
             </Select>
             <input
@@ -126,7 +128,12 @@ export default function UploadFiles() {
               required
               multiple
             />
-            <Button type="submit">Upload</Button>
+            {!documentType && (
+              <p>Please select a document type before uploading</p>
+            )}
+            <Button type="submit" disabled={!documentType}>
+              Upload
+            </Button>
           </div>
         )}
       </form>
