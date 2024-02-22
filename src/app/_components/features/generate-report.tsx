@@ -4,9 +4,10 @@ import React, { useState } from "react";
 import { api } from "src/trpc/react";
 import { Button } from "../ui/button";
 import { useCheckedRowsStore, useFilesStore } from "src/store/store";
-import { File } from "@prisma/client";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+
+
 const CreateReportComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast(); // Initialize useToast
@@ -29,7 +30,7 @@ const CreateReportComponent = () => {
     Object.keys(checkedRows).filter(
       (id: any) =>
         checkedRows[id] &&
-        files.find((file: File) => file.id === parseInt(id)).documentType ===
+        files.find((file: any) => file.id === parseInt(id)).documentType ===
           "COMPLIANCE_SUBMISSION",
     ).length === 1;
 
