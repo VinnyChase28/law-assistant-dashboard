@@ -127,9 +127,9 @@ export default function UploadFiles() {
                   <strong>Regulatory Framework</strong> documents represent
                   rules text. It is what you are running compliance checks
                   against for compliance submisisons.{" "}
-                  <strong>Compliance submissions</strong> are documents that
-                  need to be verified for compliance. You can only verify one of
-                  these documents at a time.
+                  <strong>Compliance Submissions</strong> are documents that
+                  need to be verified for compliance. Only upload one document
+                  type at a time.
                 </p>
               </AlertDescription>
             </Alert>

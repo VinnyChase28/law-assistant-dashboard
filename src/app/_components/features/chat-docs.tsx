@@ -6,6 +6,7 @@ import remarkBreaks from "remark-breaks";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { api } from "src/trpc/react";
 import { Toggle } from "@/components/ui/toggle";
+import { useChatWithDocsStore } from "src/store/store";
 
 type ChatMessage = {
   role: "Me" | "Casy";
@@ -18,15 +19,25 @@ interface ToggleWithTextProps {
   isChecked: boolean;
 }
 
+const TypingIndicator = () => {
+  return (
+    <div className="typing-indicator flex items-center space-x-1">
+      <span className="dot h-2 w-2 animate-bounce rounded-full bg-gray-300"></span>
+      <span className="dot animate-bounce200 h-2 w-2 rounded-full bg-gray-300"></span>
+      <span className="dot animate-bounce400 h-2 w-2 rounded-full bg-gray-300"></span>
+    </div>
+  );
+};
+
 function ToggleWithText({ onChange, isChecked }: ToggleWithTextProps) {
   return (
     <div className="flex items-center justify-start">
       <Toggle
         aria-label="Toggle chat with docs feature"
-        pressed={isChecked} // Using the 'pressed' prop to indicate the toggle state
-        className="mr-2 max-w-xs" // Adjusted the max-width and added margin
-        size="lg" // Setting the size of the toggle
-        onClick={onChange} // Using onClick as the handler
+        pressed={isChecked}
+        className="mr-2 max-w-xs"
+        size="lg"
+        onClick={onChange}
       >
         Chat with Docs
       </Toggle>
@@ -44,9 +55,8 @@ const VectorSearchComponent: React.FC = () => {
     },
   ]);
   const [isStreaming, setIsStreaming] = useState<boolean>(false);
-  const [isDocsFeatureEnabled, setIsDocsFeatureEnabled] = useState(false);
-
-  console.log("isDocsFeatureEnabled", isDocsFeatureEnabled);
+  const [isAIResponding, setIsAIResponding] = useState(false);
+  const { isChatWithDocsEnabled, toggleChatWithDocs } = useChatWithDocsStore();
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -61,7 +71,7 @@ const VectorSearchComponent: React.FC = () => {
 
   // Function to handle toggle change
   const handleToggleChange = () => {
-    setIsDocsFeatureEnabled(!isDocsFeatureEnabled);
+    toggleChatWithDocs(); // This will now toggle the state in the global store
   };
 
   const sendMessage = async () => {
@@ -76,7 +86,7 @@ const VectorSearchComponent: React.FC = () => {
     let messageToSend = inputMessage;
 
     // Only proceed with TRPC procedures if isDocsFeatureEnabled is true
-    if (isDocsFeatureEnabled) {
+    if (isChatWithDocsEnabled) {
       const vector = await convertTextToVector.mutateAsync({
         text: inputMessage,
       });
@@ -128,6 +138,9 @@ const VectorSearchComponent: React.FC = () => {
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
+
+          setIsAIResponding(false);
+
           const textChunk = decoder.decode(value, { stream: true });
           systemResponse += textChunk;
 
@@ -175,7 +188,7 @@ const VectorSearchComponent: React.FC = () => {
     <div className="chat-app-container relative mx-auto flex w-full max-w-2xl flex-col py-24">
       <ToggleWithText
         onChange={handleToggleChange}
-        isChecked={isDocsFeatureEnabled}
+        isChecked={isChatWithDocsEnabled}
       />
 
       <ScrollArea className="h-[600px] max-h-[800px] rounded-md p-4">
@@ -203,6 +216,8 @@ const VectorSearchComponent: React.FC = () => {
               </div>
             </li>
           ))}
+          {/* Conditionally render the TypingIndicator here */}
+          {isAIResponding && <TypingIndicator />}
           <div ref={chatEndRef} />
         </ul>
       </ScrollArea>
@@ -215,7 +230,8 @@ const VectorSearchComponent: React.FC = () => {
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               sendMessage();
-              setInputMessage(""); // Move this line here to clear the input immediately
+              setInputMessage("");
+              setIsAIResponding(true);
             }
           }}
           autoFocus
