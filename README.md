@@ -1,22 +1,22 @@
-# Notes
+# Getting started
 
-- sometimes, after doing a prisma migration, kill server and restart vscode. dont ask.
+## Pull Env Vars
 
-# Prisma
+run ```vercel env pull``` to grab all environment variables after yoouve been added to vercel. You can then copy the env vars in the .vercel folder to the root
 
-- during dev, you can run ```npx prisma db push --force-reset``` and ```npx prisma generate``` to do a hard db reset
+## Run server
 
-After updating the schema, ```npx prisma migrate dev``` to apply the changes and ```npx prisma generate``` to update the Prisma client.
+run ```npm run dev``` to launch the project
 
-
-run ```vercel env pull``` to grab all environment variables after yoouve been added to vercel
-
-# Run Inngest Dev Server
+## Run Inngest Dev Server
 
 Inngest is the primary way to trigger background tasks for the application. To get it running, run 
 
 ```npx inngest-cli@latest dev```
 
+## Prisma
+
+- If making db changes, you can run ```npx prisma migrate dev```and then  ```npx prisma generate``` to generate the prisma client. As this is still an alpha stage project, hard db resets may be needed. In that case, you can run ```npx prisma db push --force-reset``` and then ```npx prisma generate``` to do a hard db reset.
 
 # Documents
 
