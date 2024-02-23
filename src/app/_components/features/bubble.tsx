@@ -10,8 +10,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator"; // Import Separator
 import VectorSearchComponent from "./chat-docs";
-import ChatComponent from "./chat-component";
 import CreateReportComponent from "./generate-report";
 import { ArrowLeft } from "lucide-react";
 
@@ -19,7 +19,6 @@ const ChatBubble = () => {
   const el = useRef(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [showVectorSearch, setShowVectorSearch] = useState(false);
-  const [showGeneralChat, setShowGeneralChat] = useState(false);
   const [showCreateReport, setShowCreateReport] = useState(false);
   let typed: Typed;
 
@@ -38,19 +37,13 @@ const ChatBubble = () => {
         typed.destroy();
       }
       setShowVectorSearch(false);
-      setShowGeneralChat(false);
       setShowCreateReport(false);
     };
   }, [dialogOpen]);
 
   const handleBack = () => {
     setShowVectorSearch(false);
-    setShowGeneralChat(false);
     setShowCreateReport(false);
-  };
-
-  const handleChat = () => {
-    setShowGeneralChat(true);
   };
 
   const handleChatWithDocs = () => {
@@ -58,7 +51,7 @@ const ChatBubble = () => {
   };
 
   const handleCreateReport = () => {
-    setShowCreateReport(true); 
+    setShowCreateReport(true);
   };
 
   return (
@@ -71,7 +64,7 @@ const ChatBubble = () => {
       <DialogContent>
         <DialogHeader>
           <div className="flex items-center">
-            {(showVectorSearch || showGeneralChat || showCreateReport) && (
+            {(showVectorSearch || showCreateReport) && (
               <button onClick={handleBack} className="mr-2">
                 <ArrowLeft className="h-5 w-5" />
               </button>
@@ -81,21 +74,20 @@ const ChatBubble = () => {
         </DialogHeader>
         <div className="overflow-y-auto">
           {showVectorSearch && <VectorSearchComponent />}
-          {showGeneralChat && <ChatComponent />}
           {showCreateReport && <CreateReportComponent />}
         </div>
-        {!showVectorSearch && !showGeneralChat && !showCreateReport && (
+        {!showVectorSearch && !showCreateReport && (
           <div className="p-2">
             <span ref={el} />
-            <div className="my-4 flex justify-around">
-              <Button variant="secondary" onClick={handleChat}>
-                General chat
-              </Button>
+            <Separator className="my-4" /> {/* Separator above buttons */}
+            <div className="my-4 flex items-center justify-around">
               <Button variant="secondary" onClick={handleChatWithDocs}>
-                Chat with docs
+                Chat
               </Button>
+              <Separator orientation="vertical" className="h-6" />{" "}
+              {/* Vertical separator */}
               <Button variant="secondary" onClick={handleCreateReport}>
-                Create report
+                Report
               </Button>
             </div>
           </div>

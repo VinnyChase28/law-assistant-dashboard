@@ -7,6 +7,9 @@ import { useCheckedRowsStore, useFilesStore } from "src/store/store";
 import { File } from "@prisma/client";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Info } from "lucide-react";
+
 const CreateReportComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast(); // Initialize useToast
@@ -132,6 +135,15 @@ const CreateReportComponent = () => {
           </p>
         )}
       </div>
+
+      <Alert>
+        <Info className="h-4 w-4" />
+        <AlertTitle>Heads up!</AlertTitle>
+        <AlertDescription>
+          You can only verify one <strong>Compliance Submission</strong>{" "}
+          document at a time.
+        </AlertDescription>
+      </Alert>
 
       <Button
         onClick={handleCreateReportClick}

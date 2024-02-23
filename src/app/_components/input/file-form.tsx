@@ -5,7 +5,8 @@ import { api } from "src/trpc/react";
 import { Button } from "@/components/ui/button";
 import { Icons } from "../spinner";
 import { callProcessDocument } from "./helpers";
-
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Info } from "lucide-react";
 import {
   Select,
   SelectTrigger,
@@ -15,8 +16,6 @@ import {
   SelectGroup,
   SelectLabel,
 } from "../ui/select"; // Adjust the import path as needed
-
-
 
 export default function UploadFiles() {
   const [totalFiles, setTotalFiles] = useState(0);
@@ -120,6 +119,20 @@ export default function UploadFiles() {
                 </SelectGroup>
               </SelectContent>
             </Select>
+            <Alert>
+              <Info className="h-4 w-4" />
+              <AlertTitle>Heads up!</AlertTitle>
+              <AlertDescription>
+                <p>
+                  <strong>Regulatory Framework</strong> documents represent
+                  rules text. It is what you are running compliance checks
+                  against for compliance submisisons.{" "}
+                  <strong>Compliance submissions</strong> are documents that
+                  need to be verified for compliance. You can only verify one of
+                  these documents at a time.
+                </p>
+              </AlertDescription>
+            </Alert>
             <input
               className="pt-2"
               name="file"
