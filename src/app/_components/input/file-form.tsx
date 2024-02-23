@@ -121,15 +121,17 @@ export default function UploadFiles() {
             </Select>
             <Alert>
               <Info className="h-4 w-4" />
-              <AlertTitle>Heads up!</AlertTitle>
+              <AlertTitle>Note</AlertTitle>
               <AlertDescription>
                 <p>
-                  <strong>Regulatory Framework</strong> documents represent
-                  rules text. It is what you are running compliance checks
-                  against for compliance submisisons.{" "}
-                  <strong>Compliance Submissions</strong> are documents that
-                  need to be verified for compliance. Only upload one document
-                  type at a time.
+                  <strong>Regulatory Framework</strong> documents, such as
+                  zoning bylaws and building codes, set the rules for
+                  compliance. <strong>Compliance Submissions</strong> like
+                  project proposals, are documents submitted to demonstrate
+                  adherence to these regulatory documents.{" "}
+                  <strong>
+                    Please only upload one type of document at a time.
+                  </strong>
                 </p>
               </AlertDescription>
             </Alert>
