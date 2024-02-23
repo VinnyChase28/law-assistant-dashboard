@@ -33,12 +33,16 @@ export const llmRouter = createTRPCRouter({
       const prompt = `
       I will give you a rules question and the associated rules text. 
 
-      Rules question: ${query}
+      Question: ${query}
       
       Rules text:
       ${structuredTextData}
       
-      Your goal is to answer the rules question using the provided rules text as a reference. Please provide proper sources for each rule you reference. The summary should be directly relevant to the query, concise, and specific. My life depends on it. The sources should be at the end of your response.
+      Your goal is to answer the rules question using the provided rules text as a reference. Please provide proper sources for each rule you reference. 
+      The summary should be directly relevant to the query, concise, and specific. do not provide any peripheral information with respect to the question asked. Give me only the information 
+      that directly pertains to the restrictions or prescribed requirements for the rules. question my life depends on it. 
+
+      The sources should be at the end of your response.
       `;
 
       return prompt;
@@ -48,28 +52,25 @@ export const llmRouter = createTRPCRouter({
   sendComplianceReportToInngest: protectedProcedure
     .input(
       z.object({
-        complianceReportData: z.any(), // Adjust the type according to your actual data structure
-        userId: z.string(), // Assuming you need the userId for the Inngest event
-        reportName: z.string(), // Name of the report for metadata purposes
-        id: z.number(), // ID of the report for metadata purposes
+        complianceReportData: z.any(),
+        userId: z.string(),
+        reportName: z.string(), 
+        id: z.number(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const { complianceReportData, userId, reportName, id } = input;
-
-      // Construct the event payload
       const eventPayload = {
-        name: "demo/event.sent" as const, // Ensuring the event name matches exactly
+        name: "demo/event.sent" as const, 
         data: {
-          reportName, // Including report name in the event data for reference
-          ...complianceReportData, // Spreading complianceReportData into the payload
-          userId, // Including userId in the event data if needed
-          id, // Including report ID in the event data if needed
+          reportName, 
+          ...complianceReportData,
+          userId, 
+          id, 
         },
       };
 
       try {
-        // Send the event to Inngest
         await inngest.send(eventPayload);
         return {
           success: true,
