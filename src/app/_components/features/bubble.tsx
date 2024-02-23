@@ -27,7 +27,7 @@ const ChatBubble = () => {
     if (dialogOpen && el.current) {
       typed = new Typed(el.current, {
         strings: [
-          "Hi! I'm Casey. You can chat with me for general help, use my memory to chat with your selected docs, or create reports from the documents stored in your files table. What would you like to do?",
+          "Hi! I'm Casy. You can chat with me for general help, use my memory to chat with your selected docs, or create reports from the documents stored in your files table. What would you like to do?",
         ],
         typeSpeed: 25,
       });
@@ -76,7 +76,7 @@ const ChatBubble = () => {
                 <ArrowLeft className="h-5 w-5" />
               </button>
             )}
-            <DialogTitle>Casey AI</DialogTitle>
+            <DialogTitle>Casy AI</DialogTitle>
           </div>
         </DialogHeader>
         <div className="overflow-y-auto">

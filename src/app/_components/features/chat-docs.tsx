@@ -7,7 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"; // Ensure this compone
 import { api } from "src/trpc/react";
 
 type ChatMessage = {
-  role: "Me" | "Casey";
+  role: "Me" | "Casy";
   content: string;
   isFinal?: boolean;
 };
@@ -16,7 +16,7 @@ const VectorSearchComponent: React.FC = () => {
   const [inputMessage, setInputMessage] = useState<string>("");
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     {
-      role: "Casey",
+      role: "Casy",
       content:
         "Welcome! Type your message below to start chatting with your regulatory documents.",
     },
@@ -78,7 +78,7 @@ const VectorSearchComponent: React.FC = () => {
 
         setChatMessages((prevMessages) => [
           ...prevMessages,
-          { role: "Casey", content: "", isFinal: false },
+          { role: "Casy", content: "", isFinal: false },
         ]);
 
         while (true) {
@@ -90,7 +90,7 @@ const VectorSearchComponent: React.FC = () => {
           setChatMessages((prevMessages) => {
             const lastMessageIndex = prevMessages.length - 1;
             const lastMessage = prevMessages[lastMessageIndex];
-            if (lastMessage?.role === "Casey" && !lastMessage.isFinal) {
+            if (lastMessage?.role === "Casy" && !lastMessage.isFinal) {
               const updatedMessage = {
                 ...lastMessage,
                 content: systemResponse,
@@ -107,7 +107,7 @@ const VectorSearchComponent: React.FC = () => {
         setChatMessages((prevMessages) => {
           const lastMessageIndex = prevMessages.length - 1;
           const lastMessage = prevMessages[lastMessageIndex];
-          if (lastMessage?.role === "Casey" && !lastMessage.isFinal) {
+          if (lastMessage?.role === "Casy" && !lastMessage.isFinal) {
             const finalizedMessage = { ...lastMessage, isFinal: true };
             return [
               ...prevMessages.slice(0, lastMessageIndex),
@@ -141,7 +141,7 @@ const VectorSearchComponent: React.FC = () => {
               }`}
             >
               <span className="sender-name block text-sm font-bold">
-                {msg.role === "Me" ? "You" : "Casey"}
+                {msg.role === "Me" ? "You" : "Casy"}
               </span>
               <div>
                 <ReactMarkdown

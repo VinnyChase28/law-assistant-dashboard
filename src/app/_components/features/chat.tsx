@@ -18,7 +18,7 @@ export function Chat({ handler }: { handler: any }) {
     {
       id: "initial-1",
       role: "system",
-      content: "Welcome to Casey! Type your message below to start chatting.",
+      content: "Welcome to Casy! Type your message below to start chatting.",
     },
   ]);
 
@@ -47,7 +47,7 @@ export function Chat({ handler }: { handler: any }) {
               }`}
             >
               <span className="sender-name block text-sm font-bold">
-                {m.role === "user" ? "You" : "Casey"}
+                {m.role === "user" ? "You" : "Casy"}
               </span>
               <div>
                 <ReactMarkdown
