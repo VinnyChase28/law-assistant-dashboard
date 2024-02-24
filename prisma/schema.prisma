@@ -97,6 +97,31 @@ model FileTaskHistory {
   @@index([fileId, taskId, userId])
 }
 
+model ChatSession {
+  id         String        @id @default(cuid())
+  userId     String
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  isWithDocs Boolean       @default(false)
+  user       User          @relation(fields: [userId], references: [id])
+  messages   ChatMessage[]
+
+  @@index([userId])
+}
+
+model ChatMessage {
+  id            String      @id @default(cuid())
+  chatSessionId String
+  content       String
+  role          MessageRole // Using an enum to differentiate between user and AI messages
+  isFinal       Boolean     @default(false)
+  prompt        String? // The prompt is now a simple string, optional to accommodate messages without prompts
+  createdAt     DateTime    @default(now())
+  chatSession   ChatSession @relation(fields: [chatSessionId], references: [id])
+
+  @@index([chatSessionId])
+}
+
 model User {
   id              String            @id @default(cuid())
   name            String?
@@ -108,6 +133,7 @@ model User {
   fileTaskHistory FileTaskHistory[]
   sessions        Session[]
   tasks           Task[]
+  ChatSession     ChatSession[]
 }
 
 model Session {
@@ -162,4 +188,9 @@ enum processingStatus {
   IN_PROGRESS
   DONE
   FAILED
+}
+
+enum MessageRole {
+  USER
+  AI
 }
