@@ -38,12 +38,6 @@ export interface FilesState {
   isFileDeleting: (fileId: number) => boolean; // Function to check if a file is being deleted
 }
 
-export interface ComplianceReportsState {
-  reports: any[]; // It's better to define a more specific type if possible
-  addReport: (report: any) => void; // Adjust the type as necessary
-  removeReport: (reportId: number) => void;
-  setReports: (newReports: any[]) => void; // Function to set the entire reports array
-}
 export const useFilesStore = create<FilesState>()(
   persist(
     (set, get) => ({
@@ -66,6 +60,13 @@ export const useFilesStore = create<FilesState>()(
   ),
 );
 
+export interface ComplianceReportsState {
+  reports: any[]; // It's better to define a more specific type if possible
+  addReport: (report: any) => void; // Adjust the type as necessary
+  removeReport: (reportId: number) => void;
+  setReports: (newReports: any[]) => void; // Function to set the entire reports array
+}
+
 export const useComplianceReportsStore = create<ComplianceReportsState>()(
   persist(
     (set) => ({
@@ -80,6 +81,28 @@ export const useComplianceReportsStore = create<ComplianceReportsState>()(
     }),
     {
       name: "compliance-reports-storage",
+    },
+  ),
+);
+
+// Define the interface for your store's state and actions
+interface ChatWithDocsState {
+  isChatWithDocsEnabled: boolean; // Tracks whether the Chat with Docs feature is enabled
+  toggleChatWithDocs: () => void; // Method to toggle the state
+}
+
+// Create the store using Zustand
+export const useChatWithDocsStore = create<ChatWithDocsState>()(
+  persist(
+    (set) => ({
+      isChatWithDocsEnabled: false, // Default state
+      toggleChatWithDocs: () =>
+        set((state) => ({
+          isChatWithDocsEnabled: !state.isChatWithDocsEnabled, // Toggle the state
+        })),
+    }),
+    {
+      name: "chat-with-docs-feature-storage", // Unique name for localStorage key
     },
   ),
 );
