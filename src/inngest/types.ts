@@ -29,4 +29,10 @@ type ComplianceEventSent = {
   };
 };
 
-export const schemas = new EventSchemas().fromUnion<ComplianceEventSent>();
+interface UsageReportEventSent {
+  name: "usage-report/event.sent";
+}
+
+type EventSent = ComplianceEventSent | UsageReportEventSent;
+
+export const schemas = new EventSchemas().fromUnion<EventSent>();

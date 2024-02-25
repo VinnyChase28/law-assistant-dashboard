@@ -3,7 +3,7 @@ import { prisma } from "src/utils/prisma";
 
 export default inngest.createFunction(
   { id: "calculate-daily-usage" },
-  { cron: "0 0 * * *" }, // Runs at midnight every day
+  { event: "usage-report/event.sent" }, // Runs at midnight every day
   async () => {
     // Fetch chat messages from the last day
     const messages = await prisma.chatMessage.findMany({
@@ -23,7 +23,7 @@ export default inngest.createFunction(
     messages.forEach((message) => {
       // Calculate tokens for content and prompt
       const contentTokens = Math.ceil(message.content.length / 4);
-      const promptTokens = Math.ceil((message.prompt?.length || 0) / 4);
+      const promptTokens = Math.ceil((message.prompt?.length ?? 0) / 4);
 
       // Determine cost per token based on the message role
       const costPerTokenInput = 0.015 / 1000; // $0.015 per 1K tokens for input
@@ -44,8 +44,6 @@ export default inngest.createFunction(
     });
 
     // Update the database or generate a report with the total cost
-     
-
 
     return `Calculated daily usage cost: ${totalCost.toFixed(2)}`;
   },
