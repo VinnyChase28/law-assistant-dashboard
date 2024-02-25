@@ -20,7 +20,7 @@ const VectorSearchComponent: React.FC = () => {
 
   const { data: messages, isLoading } =
     api.chat.getAllMessagesForSession.useQuery(
-      { chatSessionId: chatSessionId || "" },
+      { chatSessionId: chatSessionId ?? "" },
       { enabled: !!chatSessionId },
     );
 
@@ -52,7 +52,7 @@ const VectorSearchComponent: React.FC = () => {
   };
 
   const sendMessage = async () => {
-    if (!inputMessage.trim() || isStreaming || !chatSessionId) return;
+    if (!inputMessage.trim() ?? isStreaming ?? !chatSessionId) return;
     setIsStreaming(true);
     setChatMessages((prevMessages) => [
       ...prevMessages,
