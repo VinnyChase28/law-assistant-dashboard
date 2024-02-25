@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkBreaks from "remark-breaks";
@@ -70,19 +70,36 @@ const VectorSearchComponent: React.FC = () => {
   const createChatSessionMutation = api.chat.createChatSession.useMutation();
   const createChatMessage = api.chat.createChatMessage.useMutation();
 
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chatMessages]);
+  // Use `useLayoutEffect` to adjust scroll after fetching and rendering messages
+  useLayoutEffect(() => {
+    const scrollToBottom = () => {
+      chatEndRef.current?.scrollIntoView({ behavior: "instant" });
+    };
+
+    // Scroll to bottom after messages have been fetched and rendered
+    scrollToBottom();
+  }, [chatMessages]); // Dependency on chatMessages ensures scroll adjustment after updates
 
   useEffect(() => {
     const startChatSession = async () => {
-      // Logic to determine if a new session needs to be created
-      const session = await createChatSessionMutation.mutateAsync();
-      useChatSessionStore.setState({ chatSessionId: session.id });
+      // Attempt to retrieve an existing session ID from localStorage
+      const storedSessionId = localStorage.getItem("chatSessionId");
+
+      if (storedSessionId) {
+        // If an existing session ID is found, use it and set the state accordingly
+        useChatSessionStore.setState({ chatSessionId: storedSessionId });
+      } else {
+        // If no session ID is found in localStorage, create a new session
+        const session = await createChatSessionMutation.mutateAsync();
+        useChatSessionStore.setState({ chatSessionId: session.id });
+
+        // Store the new session ID in localStorage for future visits
+        localStorage.setItem("chatSessionId", session.id);
+      }
     };
 
     startChatSession();
-  }, []);
+  }, [createChatSessionMutation]);
 
   useEffect(() => {
     const loadChatMessages = async () => {
@@ -140,7 +157,7 @@ const VectorSearchComponent: React.FC = () => {
           pageNumber: result.pageNumber,
         })),
       });
-      
+
       await createChatMessage.mutateAsync({
         chatSessionId,
         content: inputMessage,
