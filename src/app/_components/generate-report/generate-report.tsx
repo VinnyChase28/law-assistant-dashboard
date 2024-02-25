@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import { api } from "src/trpc/react";
 import { Button } from "../ui/button";
 import { useCheckedRowsStore, useFilesStore } from "src/store/store";
-import { File } from "@prisma/client";
+import { type File } from "@prisma/client";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Info } from "lucide-react";
 import { IconSpinner } from "../ui/icons";
+import AlertComponent from "../alert";
+
 const CreateReportComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast(); // Initialize useToast
@@ -136,14 +136,11 @@ const CreateReportComponent = () => {
         )}
       </div>
 
-      <Alert>
-        <Info className="h-4 w-4" />
-        <AlertTitle>Heads up!</AlertTitle>
-        <AlertDescription>
-          You can only verify one <strong>Compliance Submission</strong>{" "}
-          document at a time.
-        </AlertDescription>
-      </Alert>
+      <AlertComponent
+        title="Heads up!"
+        description=" You can only verify one Compliance Submission document at a time."
+        iconType="info"
+      />
 
       <Button
         onClick={handleCreateReportClick}

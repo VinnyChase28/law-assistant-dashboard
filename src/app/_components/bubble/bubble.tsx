@@ -1,6 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import Typed from "typed.js";
+import React, { useRef, useState } from "react";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
 import {
   Dialog,
@@ -14,32 +13,10 @@ import { Separator } from "@/components/ui/separator"; // Import Separator
 import VectorSearchComponent from "../chat/chat-docs";
 import CreateReportComponent from "../generate-report/generate-report";
 import { ArrowLeft } from "lucide-react";
-
+import AlertComponent from "../alert";
 const ChatBubble = () => {
-  const el = useRef(null);
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [showVectorSearch, setShowVectorSearch] = useState(false);
   const [showCreateReport, setShowCreateReport] = useState(false);
-  let typed: Typed;
-
-  useEffect(() => {
-    if (dialogOpen && el.current) {
-      typed = new Typed(el.current, {
-        strings: [
-          "Hi! I'm Casy. You can chat with me for general help, use my memory to chat with your selected docs, or create reports from the documents stored in your files table. What would you like to do?",
-        ],
-        typeSpeed: 25,
-      });
-    }
-
-    return () => {
-      if (typed) {
-        typed.destroy();
-      }
-      setShowVectorSearch(false);
-      setShowCreateReport(false);
-    };
-  }, [dialogOpen]);
 
   const handleBack = () => {
     setShowVectorSearch(false);
@@ -55,7 +32,7 @@ const ChatBubble = () => {
   };
 
   return (
-    <Dialog onOpenChange={(isOpen) => setDialogOpen(isOpen)}>
+    <Dialog>
       <DialogTrigger asChild>
         <button className="fixed bottom-10 right-10 z-20 rounded-full">
           <ChatBubbleIcon />
@@ -78,7 +55,11 @@ const ChatBubble = () => {
         </div>
         {!showVectorSearch && !showCreateReport && (
           <div className="p-2">
-            <span ref={el} />
+            <AlertComponent
+              description="Hi! I'm Casy. You can chat with me for general help, use my memory to chat with your selected docs, or create reports from the documents stored in your files table. What would you like to do?"
+              title="Casy AI"
+              iconType="info"
+            />
             <Separator className="my-4" /> {/* Separator above buttons */}
             <div className="my-4 flex items-center justify-around">
               <Button variant="secondary" onClick={handleChatWithDocs}>

@@ -17,7 +17,10 @@ export const llmRouter = createTRPCRouter({
         ),
       }),
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user) {
+        throw new Error("UNAUTHORIZED");
+      }
       // Structure the combined text data to include rule numbers and sources
       const structuredTextData = input.pages
         .map(
@@ -59,6 +62,9 @@ export const llmRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user) {
+        throw new Error("UNAUTHORIZED");
+      }
       const { complianceReportData, userId, reportName, id } = input;
       const eventPayload = {
         name: "compliance-report/event.sent" as const,

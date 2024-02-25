@@ -1,4 +1,4 @@
-import { ToggleWithTextProps } from "./types";
+import { type ToggleWithTextProps } from "./types";
 import { Toggle } from "../ui/toggle";
 
 export const TypingIndicator = () => {

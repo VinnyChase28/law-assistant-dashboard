@@ -5,8 +5,6 @@ import { api } from "src/trpc/react";
 import { Button } from "@/components/ui/button";
 import { Icons } from "../spinner";
 import { callProcessDocument } from "./helpers";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Info } from "lucide-react";
 import {
   Select,
   SelectTrigger,
@@ -16,7 +14,7 @@ import {
   SelectGroup,
   SelectLabel,
 } from "../ui/select"; // Adjust the import path as needed
-
+import AlertComponent from "../alert";
 export default function UploadFiles() {
   const [totalFiles, setTotalFiles] = useState(0);
   const [processedFiles, setProcessedFiles] = useState(0);
@@ -115,22 +113,11 @@ export default function UploadFiles() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <Alert>
-              <Info className="h-4 w-4" />
-              <AlertTitle>Note</AlertTitle>
-              <AlertDescription>
-                <p>
-                  <strong>Regulatory Framework</strong> documents, such as
-                  zoning bylaws and building codes, set the rules for
-                  compliance. <strong>Compliance Submissions</strong> like
-                  project proposals, are documents submitted to demonstrate
-                  adherence to these regulatory documents.{" "}
-                  <strong>
-                    Please only upload one type of document at a time.
-                  </strong>
-                </p>
-              </AlertDescription>
-            </Alert>
+            <AlertComponent
+              title="Note"
+              description="Regulatory Framework documents, such as zoning bylaws and building codes, set the rules for compliance. Compliance Submissions like project proposals, are documents submitted to demonstrate adherence to these regulatory documents. Please only upload one type of document at a time."
+              iconType="info"
+            />
             <input
               className="pt-2"
               name="file"
