@@ -15,6 +15,7 @@ export const appRouter = createTRPCRouter({
   vector: vectorRouter,
   llm: llmRouter,
   chat: chatRouter,
+  user: userRouter,
 });
 
 // export type definition of API

@@ -9,7 +9,6 @@ import Auth0Provider from "next-auth/providers/auth0";
 import { env } from "src/env.mjs";
 import { db } from "src/server/db";
 
-
 declare module "next-auth" {
   interface User extends DefaultUser {}
   interface Session extends DefaultSession {
@@ -23,7 +22,6 @@ declare module "next-auth" {
 export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      
       return true;
     },
     session: async ({ session, user }) => {
@@ -33,8 +31,6 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  
-
   adapter: PrismaAdapter(db),
   providers: [
     Auth0Provider({
