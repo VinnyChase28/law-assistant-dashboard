@@ -36,8 +36,8 @@ interface DetailedViolation {
 }
 
 export default inngest.createFunction(
-  { id: "compliance-check" },
-  { event: "demo/event.sent" },
+  { id: "compliance-report" },
+  { event: "compliance-report/event.sent" },
   async ({ event }) => {
     // Process each compliance submission in parallel
     const allViolationsPromises = event.data.data.map(async (item) => {
@@ -58,16 +58,15 @@ export default inngest.createFunction(
     const allViolations = allViolationsNested.flat(); // Flatten the results
 
     //instead use prisma client to update the compliance report
-    const response = await prisma.file.update({
+    await prisma.file.update({
       where: {
         id: event.data.id,
       },
       data: {
         reportData: JSON.stringify(allViolations),
+        processingStatus: "DONE",
       },
     });
-
-    console.log("Compliance Report Updated: ", response);
 
     return {
       message: allViolations.length > 0 ? allViolations : ["Compliant"],
