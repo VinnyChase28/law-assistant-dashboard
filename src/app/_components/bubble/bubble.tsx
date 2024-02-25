@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator"; // Import Separator
-import VectorSearchComponent from "./chat-docs";
-import CreateReportComponent from "./generate-report";
+import VectorSearchComponent from "../chat/chat-docs";
+import CreateReportComponent from "../generate-report/generate-report";
 import { ArrowLeft } from "lucide-react";
 
 const ChatBubble = () => {

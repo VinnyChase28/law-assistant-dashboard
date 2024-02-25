@@ -8,7 +8,7 @@ import { TRPCReactProvider } from "src/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { UserNav } from "@/components/user-nav";
-import ChatBubble from "@/components/features/bubble";
+import ChatBubble from "src/app/_components/bubble/bubble";
 import { Toaster } from "@/components/ui/toaster";
 
 const fontSans = FontSans({
