@@ -8,7 +8,7 @@ import { api } from "src/trpc/react";
 import { useChatWithDocsStore, useChatSessionStore } from "src/store/store";
 import { ChatMessage } from "./types";
 import { TypingIndicator, ToggleWithText } from "./helpers";
-import { IconSpinner } from "../ui/icons";
+import { IconSpinner } from "@/components/ui/icons";
 
 const VectorSearchComponent: React.FC = () => {
   const [inputMessage, setInputMessage] = useState("");
