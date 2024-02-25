@@ -1,50 +1,69 @@
 import { inngest } from "../client";
 import { prisma } from "src/utils/prisma";
 
-export default inngest.createFunction(
+export const calculateDailyUsage = inngest.createFunction(
   { id: "calculate-daily-usage" },
-  { event: "usage-report/event.sent" }, // Runs at midnight every day
+  { cron: "0 0 * * *" }, // Runs at midnight every day
   async () => {
-    // Fetch chat messages from the last day
-    const messages = await prisma.chatMessage.findMany({
-      where: {
-        createdAt: {
-          gte: new Date(new Date().setDate(new Date().getDate() - 1)),
+    // Calculate the start of the previous day in UTC
+    const startOfPreviousDay = new Date(new Date().setUTCHours(0, 0, 0, 0));
+    startOfPreviousDay.setUTCDate(startOfPreviousDay.getUTCDate() - 1);
+
+    // Fetch all users
+    const users = await prisma.user.findMany();
+
+    // Loop through each user and calculate their usage
+    for (const user of users) {
+      // Fetch chat messages from the previous day for the current user
+      const messages = await prisma.chatMessage.findMany({
+        where: {
+          createdAt: {
+            gte: startOfPreviousDay,
+          },
+          chatSession: {
+            userId: user.id,
+          },
         },
-      },
-      include: {
-        chatSession: true, // Assuming chatSession includes the user
-      },
-    });
+      });
 
-    // Initialize total cost
-    let totalCost = 0;
+      // Initialize total cost for the current user
+      let totalCost = 0;
 
-    messages.forEach((message) => {
-      // Calculate tokens for content and prompt
-      const contentTokens = Math.ceil(message.content.length / 4);
-      const promptTokens = Math.ceil((message.prompt?.length ?? 0) / 4);
+      // Calculate cost for each message
+      messages.forEach((message) => {
+        const contentTokens = Math.ceil(message.content.length / 4);
+        const promptTokens = Math.ceil((message.prompt?.length ?? 0) / 4);
 
-      // Determine cost per token based on the message role
-      const costPerTokenInput = 0.015 / 1000; // $0.015 per 1K tokens for input
-      const costPerTokenOutput = 0.045 / 1000; // $0.045 per 1K tokens for output
+        const costPerTokenInput = 0.015 / 1000; // $0.015 per 1K tokens for input
+        const costPerTokenOutput = 0.045 / 1000; // $0.045 per 1K tokens for output
 
-      // Calculate cost based on role
-      let messageCost = 0;
-      if (message.role === "USER") {
-        // User input or prompt
-        messageCost = (contentTokens + promptTokens) * costPerTokenInput;
-      } else if (message.role === "AI") {
-        // AI output
-        messageCost = contentTokens * costPerTokenOutput;
-      }
+        let messageCost = 0;
+        if (message.role === "USER") {
+          messageCost = promptTokens * costPerTokenInput;
+        } else if (message.role === "AI") {
+          messageCost = contentTokens * costPerTokenOutput;
+        }
 
-      // Accumulate total cost
-      totalCost += messageCost;
-    });
+        totalCost += messageCost;
+      });
 
-    // Update the database or generate a report with the total cost
+      // Log the calculated cost for auditing or debugging purposes
+      console.log(
+        `Calculated daily usage cost for user ${user.id}: ${totalCost.toFixed(
+          2,
+        )}`,
+      );
 
-    return `Calculated daily usage cost: ${totalCost.toFixed(2)}`;
+      // Update the database with the total cost for the current user
+      await prisma.usageCost.create({
+        data: {
+          totalCost: totalCost,
+          date: startOfPreviousDay,
+          userId: user.id,
+        },
+      });
+    }
+
+    return `Daily usage costs calculated and updated for all users.`;
   },
 );

@@ -35,7 +35,7 @@ interface DetailedViolation {
   };
 }
 
-export default inngest.createFunction(
+export const complianceReport =  inngest.createFunction(
   { id: "compliance-report" },
   { event: "compliance-report/event.sent" },
   async ({ event }) => {
