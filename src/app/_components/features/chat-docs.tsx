@@ -16,8 +16,8 @@ const VectorSearchComponent: React.FC = () => {
   const [isStreaming, setIsStreaming] = useState(false);
   const [isAIResponding, setIsAIResponding] = useState(false);
   const { isChatWithDocsEnabled, toggleChatWithDocs } = useChatWithDocsStore();
-  let { chatSessionId, setChatSessionId } = useChatSessionStore();
-
+  let { chatSessionId } = useChatSessionStore();
+  const { setChatSessionId } = useChatSessionStore();
   const { data: messages, isLoading } =
     api.chat.getAllMessagesForSession.useQuery(
       { chatSessionId: chatSessionId ?? "" },
@@ -56,7 +56,7 @@ const VectorSearchComponent: React.FC = () => {
           const recentSession = await getMostRecentSessionForUser.mutateAsync();
           if (recentSession) {
             setChatSessionId(recentSession.id);
-            chatSessionId = recentSession.id; 
+            chatSessionId = recentSession.id;
           }
         } catch (error) {
           console.error("Error fetching recent chat session:", error);
