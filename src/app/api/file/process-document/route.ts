@@ -3,8 +3,8 @@ import { PrismaClient } from "@prisma/client";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { WebPDFLoader } from "langchain/document_loaders/web/pdf";
+import { getServerAuthSession } from "src/server/auth";
 import nlp from "compromise";
-
 
 let fileId: number;
 
@@ -36,6 +36,10 @@ function preprocessText(text: string) {
 }
 
 export async function POST(request: Request) {
+  const session = await getServerAuthSession();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
     const body = (await request.json()) as ProcessDocumentRequest;
     const { blobUrl, userId, documentType, fileId } = body;

@@ -1,102 +1,76 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkBreaks from "remark-breaks";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { api } from "src/trpc/react";
-import { Toggle } from "@/components/ui/toggle";
-import { useChatWithDocsStore } from "src/store/store";
-
-type ChatMessage = {
-  role: "Me" | "Casy";
-  content: string;
-  isFinal?: boolean;
-};
-
-interface ToggleWithTextProps {
-  onChange: () => void;
-  isChecked: boolean;
-}
-
-const TypingIndicator = () => {
-  return (
-    <div className="typing-indicator flex items-center space-x-1">
-      <span className="dot h-2 w-2 animate-bounce rounded-full bg-gray-300"></span>
-      <span className="dot animate-bounce200 h-2 w-2 rounded-full bg-gray-300"></span>
-      <span className="dot animate-bounce400 h-2 w-2 rounded-full bg-gray-300"></span>
-    </div>
-  );
-};
-
-function ToggleWithText({ onChange, isChecked }: ToggleWithTextProps) {
-  return (
-    <div className="flex items-center justify-start">
-      <Toggle
-        aria-label="Toggle chat with docs feature"
-        pressed={isChecked}
-        className="mr-2 max-w-xs"
-        size="lg"
-        onClick={onChange}
-      >
-        Chat with Docs
-      </Toggle>
-    </div>
-  );
-}
+import { useChatWithDocsStore, useChatSessionStore } from "src/store/store";
+import { ChatMessage } from "./types";
+import { TypingIndicator, ToggleWithText } from "./helpers";
+import { IconSpinner } from "@/components/ui/icons";
 
 const VectorSearchComponent: React.FC = () => {
-  const [inputMessage, setInputMessage] = useState<string>("");
-  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
-    {
-      role: "Casy",
-      content:
-        "Welcome! Type your message below to start chatting with your regulatory documents.",
-    },
-  ]);
-  const [isStreaming, setIsStreaming] = useState<boolean>(false);
+  const [inputMessage, setInputMessage] = useState("");
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [isStreaming, setIsStreaming] = useState(false);
   const [isAIResponding, setIsAIResponding] = useState(false);
   const { isChatWithDocsEnabled, toggleChatWithDocs } = useChatWithDocsStore();
+  const chatSessionId = useChatSessionStore((state) => state.chatSessionId);
+
+  const { data: messages, isLoading } =
+    api.chat.getAllMessagesForSession.useQuery(
+      { chatSessionId: chatSessionId ?? "" },
+      { enabled: !!chatSessionId },
+    );
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
-  //mutations
   const convertTextToVector = api.vector.convertTextToVector.useMutation();
   const vectorSearch = api.vector.vectorSearch.useMutation();
   const generateDocumentPrompt = api.llm.generateDocumentPrompt.useMutation();
+  const createChatMessage = api.chat.createChatMessage.useMutation();
 
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  useLayoutEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "instant" });
   }, [chatMessages]);
 
-  // Function to handle toggle change
+  useEffect(() => {
+    if (messages) {
+      setChatMessages(
+        messages.map((msg) => ({
+          role: msg.role === "USER" ? "Me" : "Casy",
+          content: msg.content,
+          isFinal: true,
+        })),
+      );
+    }
+  }, [messages]);
+
   const handleToggleChange = () => {
-    toggleChatWithDocs(); // This will now toggle the state in the global store
+    toggleChatWithDocs();
   };
 
   const sendMessage = async () => {
-    if (!inputMessage.trim() || isStreaming) return;
+    setInputMessage("");
+    if (!inputMessage.trim() ?? isStreaming ?? !chatSessionId) return;
     setIsStreaming(true);
     setChatMessages((prevMessages) => [
       ...prevMessages,
       { role: "Me", content: inputMessage, isFinal: true },
     ]);
 
-    // Define a variable to hold the message that will be sent to the API
-    let messageToSend = inputMessage;
+    let prompt = inputMessage;
 
-    // Only proceed with TRPC procedures if isDocsFeatureEnabled is true
     if (isChatWithDocsEnabled) {
       const vector = await convertTextToVector.mutateAsync({
         text: inputMessage,
       });
-
       const searchResults = await vectorSearch.mutateAsync({
         queryVector: vector,
         topK: 4,
       });
-
-      const prompt = await generateDocumentPrompt.mutateAsync({
+      prompt = await generateDocumentPrompt.mutateAsync({
         userQuery: inputMessage,
         pages: searchResults.map((result) => ({
           fileName: result.fileName,
@@ -104,84 +78,94 @@ const VectorSearchComponent: React.FC = () => {
           pageNumber: result.pageNumber,
         })),
       });
-
-      // Update the message to send to the API based on the TRPC procedures
-      messageToSend = prompt;
     }
+
+    await createChatMessage.mutateAsync({
+      chatSessionId,
+      content: inputMessage,
+      prompt,
+      role: "USER",
+    });
 
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          messages: [
-            {
-              role: "user",
-              content: messageToSend,
-            },
-          ],
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: [{ role: "user", content: prompt }] }),
       });
 
       if (response.body) {
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let systemResponse = "";
-
-        setChatMessages((prevMessages) => [
-          ...prevMessages,
-          { role: "Casy", content: "", isFinal: false },
-        ]);
+        let isFirstChunk = true;
+        setIsAIResponding(true);
 
         while (true) {
           const { done, value } = await reader.read();
-          if (done) break;
-
-          setIsAIResponding(false);
-
-          const textChunk = decoder.decode(value, { stream: true });
-          systemResponse += textChunk;
-
-          setChatMessages((prevMessages) => {
-            const lastMessageIndex = prevMessages.length - 1;
-            const lastMessage = prevMessages[lastMessageIndex];
-            if (lastMessage?.role === "Casy" && !lastMessage.isFinal) {
-              const updatedMessage = {
-                ...lastMessage,
-                content: systemResponse,
-              };
-              return [
-                ...prevMessages.slice(0, lastMessageIndex),
-                updatedMessage,
-              ];
-            }
-            return prevMessages;
-          });
-        }
-
-        setChatMessages((prevMessages) => {
-          const lastMessageIndex = prevMessages.length - 1;
-          const lastMessage = prevMessages[lastMessageIndex];
-          if (lastMessage?.role === "Casy" && !lastMessage.isFinal) {
-            const finalizedMessage = { ...lastMessage, isFinal: true };
-            return [
-              ...prevMessages.slice(0, lastMessageIndex),
-              finalizedMessage,
-            ];
+          if (done) {
+            updateChatMessagesFinal(systemResponse);
+            break;
           }
-          return prevMessages;
+          systemResponse += decoder.decode(value, { stream: true });
+          updateChatMessagesOngoing(systemResponse, isFirstChunk);
+          isFirstChunk = false;
+        }
+      }
+    } catch (error) {
+      console.error("Error sending message or receiving response:", error);
+    } finally {
+      resetMessage();
+    }
+  };
+
+  const updateChatMessagesFinal = async (systemResponse: string) => {
+    setChatMessages((prevMessages) => {
+      const lastMessage = prevMessages[prevMessages.length - 1];
+      if (lastMessage && lastMessage.role === "Casy") {
+        lastMessage.content = systemResponse;
+        lastMessage.isFinal = true;
+      }
+      return [...prevMessages];
+    });
+    setIsAIResponding(false);
+
+    // Save AI response to the database
+    try {
+      await createChatMessage.mutateAsync({
+        chatSessionId: chatSessionId ?? "",
+        content: systemResponse,
+        role: "AI",
+      });
+    } catch (error) {
+      console.error("Error saving AI response to the database:", error);
+    }
+  };
+
+  const updateChatMessagesOngoing = (
+    systemResponse: string,
+    isFirstChunk: boolean,
+  ) => {
+    setChatMessages((prevMessages) => {
+      const messagesCopy = [...prevMessages];
+      if (isFirstChunk) setIsAIResponding(false);
+      const lastMessage = messagesCopy[messagesCopy.length - 1];
+      if (lastMessage && lastMessage.role === "Casy" && !lastMessage.isFinal) {
+        lastMessage.content = systemResponse;
+      } else {
+        messagesCopy.push({
+          role: "Casy",
+          content: systemResponse,
+          isFinal: false,
         });
       }
+      return messagesCopy;
+    });
+  };
 
-      setIsStreaming(false);
-    } catch (error) {
-      console.error("Error sending message:", error);
-      setIsStreaming(false);
-    } finally {
-      setIsStreaming(false);
-    }
+  const resetMessage = () => {
+    setInputMessage("");
+    setIsStreaming(false);
   };
 
   return (
@@ -190,22 +174,23 @@ const VectorSearchComponent: React.FC = () => {
         onChange={handleToggleChange}
         isChecked={isChatWithDocsEnabled}
       />
-
       <ScrollArea className="h-[600px] max-h-[800px] rounded-md p-4">
         <ul className="list-none">
-          {chatMessages.map((msg, index) => (
-            <li
-              key={index}
-              className={`chat-message rounded-lg shadow ${
-                msg.role === "Me"
-                  ? "user-message ml-auto bg-blue-200 bg-opacity-25"
-                  : "system-message mr-auto bg-gray-200 bg-opacity-25"
-              }`}
-            >
-              <span className="sender-name block text-sm font-bold">
-                {msg.role === "Me" ? "You" : "Casy"}
-              </span>
-              <div>
+          {isLoading ? (
+            <IconSpinner />
+          ) : (
+            chatMessages.map((msg, index) => (
+              <li
+                key={index}
+                className={`chat-message rounded-lg shadow ${
+                  msg.role === "Me"
+                    ? "user-message ml-auto bg-blue-200 bg-opacity-25"
+                    : "system-message mr-auto bg-gray-200 bg-opacity-25"
+                }`}
+              >
+                <span className="sender-name block text-sm font-bold">
+                  {msg.role === "Me" ? "You" : "Casy"}
+                </span>
                 <ReactMarkdown
                   remarkPlugins={[remarkBreaks]}
                   rehypePlugins={[rehypeRaw]}
@@ -213,10 +198,9 @@ const VectorSearchComponent: React.FC = () => {
                 >
                   {msg.content.replace(/\n/gi, "&nbsp; \n")}
                 </ReactMarkdown>
-              </div>
-            </li>
-          ))}
-          {/* Conditionally render the TypingIndicator here */}
+              </li>
+            ))
+          )}
           {isAIResponding && <TypingIndicator />}
           <div ref={chatEndRef} />
         </ul>
@@ -228,11 +212,7 @@ const VectorSearchComponent: React.FC = () => {
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              sendMessage();
-              setInputMessage("");
-              setIsAIResponding(true);
-            }
+            e.key === "Enter" && sendMessage();
           }}
           autoFocus
         />

@@ -1,6 +1,6 @@
 import { inngest } from "../client";
 import { openai } from "src/utils/openai";
-import { api } from "src/trpc/server";
+import { prisma } from "src/utils/prisma";
 
 interface ComplianceSubmission {
   fileId: number;
@@ -35,9 +35,9 @@ interface DetailedViolation {
   };
 }
 
-export default inngest.createFunction(
-  { id: "compliance-check" },
-  { event: "demo/event.sent" },
+export const complianceReport =  inngest.createFunction(
+  { id: "compliance-report" },
+  { event: "compliance-report/event.sent" },
   async ({ event }) => {
     // Process each compliance submission in parallel
     const allViolationsPromises = event.data.data.map(async (item) => {
@@ -57,13 +57,16 @@ export default inngest.createFunction(
     const allViolationsNested = await Promise.all(allViolationsPromises);
     const allViolations = allViolationsNested.flat(); // Flatten the results
 
-    // Update the compliance report with the collected violations
-    const response = await api.file.updateComplianceReport.mutate({
-      id: event.data.id,
-      reportData: allViolations,
+    //instead use prisma client to update the compliance report
+    await prisma.file.update({
+      where: {
+        id: event.data.id,
+      },
+      data: {
+        reportData: JSON.stringify(allViolations),
+        processingStatus: "DONE",
+      },
     });
-
-    console.log("Compliance Report Updated: ", response);
 
     return {
       message: allViolations.length > 0 ? allViolations : ["Compliant"],

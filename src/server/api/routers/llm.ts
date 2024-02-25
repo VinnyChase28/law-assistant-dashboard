@@ -54,19 +54,19 @@ export const llmRouter = createTRPCRouter({
       z.object({
         complianceReportData: z.any(),
         userId: z.string(),
-        reportName: z.string(), 
+        reportName: z.string(),
         id: z.number(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const { complianceReportData, userId, reportName, id } = input;
       const eventPayload = {
-        name: "demo/event.sent" as const, 
+        name: "compliance-report/event.sent" as const,
         data: {
-          reportName, 
+          reportName,
           ...complianceReportData,
-          userId, 
-          id, 
+          userId,
+          id,
         },
       };
 

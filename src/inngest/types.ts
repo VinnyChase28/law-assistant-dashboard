@@ -19,8 +19,8 @@ interface ComplianceData {
   regulatoryFramework: RegulatoryFramework[];
 }
 
-type DemoEventSent = {
-  name: "demo/event.sent";
+type ComplianceEventSent = {
+  name: "compliance-report/event.sent";
   data: {
     data: ComplianceData[];
     id: number;
@@ -29,4 +29,10 @@ type DemoEventSent = {
   };
 };
 
-export const schemas = new EventSchemas().fromUnion<DemoEventSent>();
+interface UsageReportEventSent {
+  name: "usage-report/event.sent";
+}
+
+type EventSent = ComplianceEventSent | UsageReportEventSent;
+
+export const schemas = new EventSchemas().fromUnion<EventSent>();

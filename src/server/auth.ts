@@ -9,6 +9,7 @@ import Auth0Provider from "next-auth/providers/auth0";
 import { env } from "src/env.mjs";
 import { db } from "src/server/db";
 
+
 declare module "next-auth" {
   interface User extends DefaultUser {}
   interface Session extends DefaultSession {
@@ -32,6 +33,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
+  
 
   adapter: PrismaAdapter(db),
   providers: [

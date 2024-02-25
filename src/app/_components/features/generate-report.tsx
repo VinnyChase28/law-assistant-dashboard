@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Info } from "lucide-react";
-
+import { IconSpinner } from "../ui/icons";
 const CreateReportComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast(); // Initialize useToast
@@ -153,7 +153,7 @@ const CreateReportComponent = () => {
       >
         Create Report
       </Button>
-      {isLoading && <p className="mt-4">Loading...</p>}
+      {isLoading && <IconSpinner className="h-6 w-6 animate-spin" />}
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import { serve } from "inngest/next";
 import { inngest } from "../../../inngest/client";
-import complianceReports from "src/inngest/functions/compliance-reports";
+import { complianceReport } from "src/inngest/functions/compliance-reports";
+import { calculateDailyUsage } from "src/inngest/functions/usage";
 
 export const { GET, POST, PUT } = serve({
   client: inngest,
-  functions: [complianceReports],
+  functions: [complianceReport, calculateDailyUsage],
   streaming: "allow",
 });
-
