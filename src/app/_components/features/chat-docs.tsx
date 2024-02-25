@@ -67,7 +67,7 @@ const VectorSearchComponent: React.FC = () => {
   const convertTextToVector = api.vector.convertTextToVector.useMutation();
   const vectorSearch = api.vector.vectorSearch.useMutation();
   const generateDocumentPrompt = api.llm.generateDocumentPrompt.useMutation();
-  const createChatSessionMutation = api.chat.createChatSession.useMutation();
+  const createChatSession = api.chat.createChatSession.useMutation();
   const createChatMessage = api.chat.createChatMessage.useMutation();
 
   // Use `useLayoutEffect` to adjust scroll after fetching and rendering messages
@@ -80,33 +80,27 @@ const VectorSearchComponent: React.FC = () => {
     scrollToBottom();
   }, [chatMessages]); // Dependency on chatMessages ensures scroll adjustment after updates
 
+  // Use `useEffect` for starting chat session without including createChatSessionMutation in deps
   useEffect(() => {
     const startChatSession = async () => {
-      // Attempt to retrieve an existing session ID from localStorage
       const storedSessionId = localStorage.getItem("chatSessionId");
-
-      if (storedSessionId) {
-        // If an existing session ID is found, use it and set the state accordingly
-        useChatSessionStore.setState({ chatSessionId: storedSessionId });
-      } else {
-        // If no session ID is found in localStorage, create a new session
-        const session = await createChatSessionMutation.mutateAsync();
+      if (!storedSessionId) {
+        const session = await createChatSession.mutateAsync();
         useChatSessionStore.setState({ chatSessionId: session.id });
-
-        // Store the new session ID in localStorage for future visits
         localStorage.setItem("chatSessionId", session.id);
+      } else {
+        useChatSessionStore.setState({ chatSessionId: storedSessionId });
       }
     };
 
     startChatSession();
-  }, [createChatSessionMutation]);
+  }, []);
 
   useEffect(() => {
     const loadChatMessages = async () => {
       if (chatSessionId) {
         // Fetch chat messages for the current session
         const messages = await getAllMessagesForSession.data;
-        console.log("messages", messages);
         // Update local state with fetched messages
         if (messages)
           setChatMessages(
