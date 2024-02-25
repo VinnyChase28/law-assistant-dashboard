@@ -1,16 +1,16 @@
 import { NextResponse, NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  // Exclude the signin and callback routes from the middleware to prevent infinite redirects
-  if (
-    request.nextUrl.pathname.startsWith("/api/auth/signin") ||
-    request.nextUrl.pathname.startsWith("/api/auth/callback/auth0")
-  ) {
+  // Exclude all routes under /api/auth/ to prevent interference with the authentication process
+  if (request.nextUrl.pathname.startsWith("/api/auth/")) {
     return NextResponse.next();
   }
 
   // Attempt to get the session token directly from the cookie
-  const sessionToken = request.cookies.get("next-auth.session-token");
+  // Check for both the secure and non-secure cookie names
+  const sessionToken =
+    request.cookies.get("next-auth.session-token") ||
+    request.cookies.get("__Secure-next-auth.session-token");
 
   // If session token is not present and the request is not targeting the excluded paths, redirect to signin
   if (!sessionToken) {
