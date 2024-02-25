@@ -6,7 +6,7 @@ import remarkBreaks from "remark-breaks";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { api } from "src/trpc/react";
 import { Toggle } from "@/components/ui/toggle";
-import { useChatWithDocsStore } from "src/store/store";
+import { useChatWithDocsStore, useChatSessionStore } from "src/store/store";
 
 type ChatMessage = {
   role: "Me" | "Casy";
@@ -57,17 +57,53 @@ const VectorSearchComponent: React.FC = () => {
   const [isStreaming, setIsStreaming] = useState<boolean>(false);
   const [isAIResponding, setIsAIResponding] = useState(false);
   const { isChatWithDocsEnabled, toggleChatWithDocs } = useChatWithDocsStore();
-
+  const chatSessionId = useChatSessionStore((state) => state.chatSessionId);
+  const getAllMessagesForSession = api.chat.getAllMessagesForSession.useQuery({
+    chatSessionId: chatSessionId || "",
+  });
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
   //mutations
   const convertTextToVector = api.vector.convertTextToVector.useMutation();
   const vectorSearch = api.vector.vectorSearch.useMutation();
   const generateDocumentPrompt = api.llm.generateDocumentPrompt.useMutation();
+  const createChatSessionMutation = api.chat.createChatSession.useMutation();
+  const createChatMessage = api.chat.createChatMessage.useMutation();
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages]);
+
+  useEffect(() => {
+    const startChatSession = async () => {
+      // Logic to determine if a new session needs to be created
+      const session = await createChatSessionMutation.mutateAsync();
+      useChatSessionStore.setState({ chatSessionId: session.id });
+    };
+
+    startChatSession();
+  }, []);
+
+  useEffect(() => {
+    const loadChatMessages = async () => {
+      if (chatSessionId) {
+        // Fetch chat messages for the current session
+        const messages = await getAllMessagesForSession.data;
+        console.log("messages", messages);
+        // Update local state with fetched messages
+        if (messages)
+          setChatMessages(
+            messages.map((msg) => ({
+              role: msg.role === "USER" ? "Me" : "Casy",
+              content: msg.content,
+              isFinal: true,
+            })),
+          );
+      }
+    };
+
+    loadChatMessages();
+  }, [chatSessionId]); // Re-run this effect if the chatSessionId changes
 
   // Function to handle toggle change
   const handleToggleChange = () => {
@@ -75,28 +111,28 @@ const VectorSearchComponent: React.FC = () => {
   };
 
   const sendMessage = async () => {
-    if (!inputMessage.trim() || isStreaming) return;
+    if (!inputMessage.trim() || isStreaming || !chatSessionId) return;
     setIsStreaming(true);
+
+    // Add the user's message to the local state for immediate feedback
     setChatMessages((prevMessages) => [
       ...prevMessages,
       { role: "Me", content: inputMessage, isFinal: true },
     ]);
 
-    // Define a variable to hold the message that will be sent to the API
-    let messageToSend = inputMessage;
+    let prompt = inputMessage; // Default to user input for cases where chat with docs is not enabled
 
-    // Only proceed with TRPC procedures if isDocsFeatureEnabled is true
+    // Handle chat with docs logic
     if (isChatWithDocsEnabled) {
       const vector = await convertTextToVector.mutateAsync({
         text: inputMessage,
       });
-
       const searchResults = await vectorSearch.mutateAsync({
         queryVector: vector,
         topK: 4,
       });
 
-      const prompt = await generateDocumentPrompt.mutateAsync({
+      prompt = await generateDocumentPrompt.mutateAsync({
         userQuery: inputMessage,
         pages: searchResults.map((result) => ({
           fileName: result.fileName,
@@ -104,9 +140,19 @@ const VectorSearchComponent: React.FC = () => {
           pageNumber: result.pageNumber,
         })),
       });
-
-      // Update the message to send to the API based on the TRPC procedures
-      messageToSend = prompt;
+      
+      await createChatMessage.mutateAsync({
+        chatSessionId,
+        content: inputMessage,
+        prompt: prompt,
+        role: "USER",
+      });
+    } else {
+      await createChatMessage.mutateAsync({
+        chatSessionId,
+        content: inputMessage,
+        role: "USER",
+      });
     }
 
     try {
@@ -119,7 +165,7 @@ const VectorSearchComponent: React.FC = () => {
           messages: [
             {
               role: "user",
-              content: messageToSend,
+              content: prompt, // Send the full prompt including user message
             },
           ],
         }),
@@ -129,58 +175,71 @@ const VectorSearchComponent: React.FC = () => {
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let systemResponse = "";
-
-        setChatMessages((prevMessages) => [
-          ...prevMessages,
-          { role: "Casy", content: "", isFinal: false },
-        ]);
+        let isFirstChunk = true; // Flag to track the first chunk
+        setIsAIResponding(true); // Start showing the typing indicator
 
         while (true) {
           const { done, value } = await reader.read();
-          if (done) break;
-
-          setIsAIResponding(false);
-
           const textChunk = decoder.decode(value, { stream: true });
           systemResponse += textChunk;
+          if (isFirstChunk) {
+            setIsAIResponding(false); // Stop the typing indicator after receiving the first chunk
+            isFirstChunk = false; // Ensure this block only runs once
+          }
 
+          // Update local state with the ongoing response
           setChatMessages((prevMessages) => {
-            const lastMessageIndex = prevMessages.length - 1;
-            const lastMessage = prevMessages[lastMessageIndex];
-            if (lastMessage?.role === "Casy" && !lastMessage.isFinal) {
-              const updatedMessage = {
-                ...lastMessage,
+            const messagesCopy = [...prevMessages];
+            const lastMessage = messagesCopy[messagesCopy.length - 1];
+
+            // If the last message is from the AI and is not final, update it
+            if (
+              lastMessage &&
+              lastMessage.role === "Casy" &&
+              !lastMessage.isFinal
+            ) {
+              lastMessage.content = systemResponse;
+            } else {
+              // Otherwise, add a new message for the AI's ongoing response
+              messagesCopy.push({
+                role: "Casy",
                 content: systemResponse,
-              };
-              return [
-                ...prevMessages.slice(0, lastMessageIndex),
-                updatedMessage,
-              ];
+                isFinal: false,
+              });
             }
-            return prevMessages;
+
+            return messagesCopy;
           });
+
+          if (done) {
+            // Once the final chunk is received, update the last message to mark it as final
+            setChatMessages((prevMessages) => {
+              const messagesCopy = [...prevMessages];
+              const lastMessage = messagesCopy[messagesCopy.length - 1];
+              if (lastMessage && lastMessage.role === "Casy") {
+                lastMessage.isFinal = true;
+              }
+              return messagesCopy;
+            });
+
+            setIsAIResponding(false); // Stop the typing indicator
+            break;
+          }
         }
 
-        setChatMessages((prevMessages) => {
-          const lastMessageIndex = prevMessages.length - 1;
-          const lastMessage = prevMessages[lastMessageIndex];
-          if (lastMessage?.role === "Casy" && !lastMessage.isFinal) {
-            const finalizedMessage = { ...lastMessage, isFinal: true };
-            return [
-              ...prevMessages.slice(0, lastMessageIndex),
-              finalizedMessage,
-            ];
-          }
-          return prevMessages;
+        // Save the AI's complete response to the database
+        await createChatMessage.mutateAsync({
+          chatSessionId,
+          content: systemResponse,
+          role: "AI",
         });
       }
-
-      setIsStreaming(false);
     } catch (error) {
-      console.error("Error sending message:", error);
-      setIsStreaming(false);
+      console.error("Error sending message or receiving response:", error);
+      setIsAIResponding(false); // Ensure the typing indicator is stopped in case of an error
     } finally {
-      setIsStreaming(false);
+      setInputMessage(""); // Clear the input field after sending the message
+      setIsStreaming(false); // Reset streaming state
     }
   };
 

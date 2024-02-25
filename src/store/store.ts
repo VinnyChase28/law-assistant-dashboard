@@ -106,3 +106,22 @@ export const useChatWithDocsStore = create<ChatWithDocsState>()(
     },
   ),
 );
+
+interface ChatSessionState {
+  chatSessionId: string | null; // Holds the current chat session ID
+  setChatSessionId: (id: string | null) => void; // Method to update the chat session ID
+  clearChatSession: () => void; // Method to clear the current chat session
+}
+
+export const useChatSessionStore = create<ChatSessionState>()(
+  persist(
+    (set) => ({
+      chatSessionId: null, // Default state is no active session
+      setChatSessionId: (id: string | null) => set({ chatSessionId: id }),
+      clearChatSession: () => set({ chatSessionId: null }),
+    }),
+    {
+      name: "chat-session-storage", // Unique name for localStorage key
+    },
+  ),
+);

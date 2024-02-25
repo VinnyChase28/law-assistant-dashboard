@@ -102,7 +102,6 @@ model ChatSession {
   userId     String
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
-  isWithDocs Boolean       @default(false)
   user       User          @relation(fields: [userId], references: [id])
   messages   ChatMessage[]
 
@@ -112,15 +111,15 @@ model ChatSession {
 model ChatMessage {
   id            String      @id @default(cuid())
   chatSessionId String
-  content       String
-  role          MessageRole // Using an enum to differentiate between user and AI messages
-  isFinal       Boolean     @default(false)
-  prompt        String? // The prompt is now a simple string, optional to accommodate messages without prompts
+  content       String      
+  prompt        String?    
+  role          MessageRole
   createdAt     DateTime    @default(now())
   chatSession   ChatSession @relation(fields: [chatSessionId], references: [id])
 
   @@index([chatSessionId])
 }
+
 
 model User {
   id              String            @id @default(cuid())
