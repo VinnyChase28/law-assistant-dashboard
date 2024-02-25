@@ -1,7 +1,6 @@
 import { inngest } from "../client";
 import { openai } from "src/utils/openai";
-import { api } from "src/trpc/server";
-
+import { prisma } from "src/utils/prisma";
 
 interface ComplianceSubmission {
   fileId: number;
@@ -58,10 +57,14 @@ export default inngest.createFunction(
     const allViolationsNested = await Promise.all(allViolationsPromises);
     const allViolations = allViolationsNested.flat(); // Flatten the results
 
-    // Update the compliance report with the collected violations
-    const response = await api.file.updateComplianceReport.mutate({
-      id: event.data.id,
-      reportData: allViolations,
+    //instead use prisma client to update the compliance report
+    const response = await prisma.file.update({
+      where: {
+        id: event.data.id,
+      },
+      data: {
+        reportData: JSON.stringify(allViolations),
+      },
     });
 
     console.log("Compliance Report Updated: ", response);
