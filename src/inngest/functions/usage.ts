@@ -47,13 +47,6 @@ export const calculateDailyUsage = inngest.createFunction(
         totalCost += messageCost;
       });
 
-      // Log the calculated cost for auditing or debugging purposes
-      console.log(
-        `Calculated daily usage cost for user ${user.id}: ${totalCost.toFixed(
-          2,
-        )}`,
-      );
-
       // Update the database with the total cost for the current user
       await prisma.usageCost.create({
         data: {

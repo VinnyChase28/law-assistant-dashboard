@@ -44,4 +44,24 @@ export const chatRouter = createTRPCRouter({
       });
       return messages;
     }),
+
+  // Modified mutation to get the most recent chat session for the current user or create a new one if none exists
+  getMostRecentSessionForUser: protectedProcedure.mutation(async ({ ctx }) => {
+    // Try to find the most recent chat session for the current user
+    let recentSession = await ctx.db.chatSession.findFirst({
+      where: { userId: ctx.session.user.id },
+      orderBy: { createdAt: "desc" }, // Order by creation date in descending order
+    });
+
+    // If no session is found, create a new one
+    if (!recentSession) {
+      recentSession = await ctx.db.chatSession.create({
+        data: {
+          userId: ctx.session.user.id,
+        },
+      });
+    }
+
+    return recentSession;
+  }),
 });
