@@ -5,62 +5,30 @@ import rehypeRaw from "rehype-raw";
 import remarkBreaks from "remark-breaks";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { api } from "src/trpc/react";
-import { Toggle } from "@/components/ui/toggle";
 import { useChatWithDocsStore, useChatSessionStore } from "src/store/store";
-
-type ChatMessage = {
-  role: "Me" | "Casy";
-  content: string;
-  isFinal?: boolean;
-};
-
-interface ToggleWithTextProps {
-  onChange: () => void;
-  isChecked: boolean;
-}
-
-const TypingIndicator = () => {
-  return (
-    <div className="typing-indicator flex items-center space-x-1">
-      <span className="dot h-2 w-2 animate-bounce rounded-full bg-gray-300"></span>
-      <span className="dot animate-bounce200 h-2 w-2 rounded-full bg-gray-300"></span>
-      <span className="dot animate-bounce400 h-2 w-2 rounded-full bg-gray-300"></span>
-    </div>
-  );
-};
-
-function ToggleWithText({ onChange, isChecked }: ToggleWithTextProps) {
-  return (
-    <div className="flex items-center justify-start">
-      <Toggle
-        aria-label="Toggle chat with docs feature"
-        pressed={isChecked}
-        className="mr-2 max-w-xs"
-        size="lg"
-        onClick={onChange}
-      >
-        Chat with Docs
-      </Toggle>
-    </div>
-  );
-}
-
+import { ChatMessage } from "./types";
+import { TypingIndicator, ToggleWithText } from "./helpers";
+import { IconSpinner } from "../ui/icons";
 const VectorSearchComponent: React.FC = () => {
   const [inputMessage, setInputMessage] = useState<string>("");
-  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
-    {
-      role: "Casy",
-      content:
-        "Welcome! Type your message below to start chatting with your regulatory documents.",
-    },
-  ]);
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState<boolean>(false);
   const [isAIResponding, setIsAIResponding] = useState(false);
   const { isChatWithDocsEnabled, toggleChatWithDocs } = useChatWithDocsStore();
   const chatSessionId = useChatSessionStore((state) => state.chatSessionId);
-  const getAllMessagesForSession = api.chat.getAllMessagesForSession.useQuery({
-    chatSessionId: chatSessionId || "",
-  });
+  const {
+    data: messages,
+    isLoading,
+    isError,
+  } = api.chat.getAllMessagesForSession.useQuery(
+    {
+      chatSessionId: chatSessionId || "",
+    },
+    {
+      // This option ensures the query does not run until chatSessionId is available
+      enabled: !!chatSessionId,
+    },
+  );
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
   //mutations
@@ -80,41 +48,17 @@ const VectorSearchComponent: React.FC = () => {
     scrollToBottom();
   }, [chatMessages]); // Dependency on chatMessages ensures scroll adjustment after updates
 
-  // Use `useEffect` for starting chat session without including createChatSessionMutation in deps
   useEffect(() => {
-    const startChatSession = async () => {
-      const storedSessionId = localStorage.getItem("chatSessionId");
-      if (!storedSessionId) {
-        const session = await createChatSession.mutateAsync();
-        useChatSessionStore.setState({ chatSessionId: session.id });
-        localStorage.setItem("chatSessionId", session.id);
-      } else {
-        useChatSessionStore.setState({ chatSessionId: storedSessionId });
-      }
-    };
-
-    startChatSession();
-  }, []);
-
-  useEffect(() => {
-    const loadChatMessages = async () => {
-      if (chatSessionId) {
-        // Fetch chat messages for the current session
-        const messages = await getAllMessagesForSession.data;
-        // Update local state with fetched messages
-        if (messages)
-          setChatMessages(
-            messages.map((msg) => ({
-              role: msg.role === "USER" ? "Me" : "Casy",
-              content: msg.content,
-              isFinal: true,
-            })),
-          );
-      }
-    };
-
-    loadChatMessages();
-  }, [chatSessionId]); // Re-run this effect if the chatSessionId changes
+    if (messages) {
+      setChatMessages(
+        messages.map((msg) => ({
+          role: msg.role === "USER" ? "Me" : "Casy",
+          content: msg.content,
+          isFinal: true,
+        })),
+      );
+    }
+  }, [messages]); // Depend on messages directly from the useQuery hook
 
   // Function to handle toggle change
   const handleToggleChange = () => {
@@ -263,29 +207,33 @@ const VectorSearchComponent: React.FC = () => {
 
       <ScrollArea className="h-[600px] max-h-[800px] rounded-md p-4">
         <ul className="list-none">
-          {chatMessages.map((msg, index) => (
-            <li
-              key={index}
-              className={`chat-message rounded-lg shadow ${
-                msg.role === "Me"
-                  ? "user-message ml-auto bg-blue-200 bg-opacity-25"
-                  : "system-message mr-auto bg-gray-200 bg-opacity-25"
-              }`}
-            >
-              <span className="sender-name block text-sm font-bold">
-                {msg.role === "Me" ? "You" : "Casy"}
-              </span>
-              <div>
-                <ReactMarkdown
-                  remarkPlugins={[remarkBreaks]}
-                  rehypePlugins={[rehypeRaw]}
-                  className="markdown-content list-inside list-decimal"
-                >
-                  {msg.content.replace(/\n/gi, "&nbsp; \n")}
-                </ReactMarkdown>
-              </div>
-            </li>
-          ))}
+          {isLoading ? (
+            <IconSpinner />
+          ) : (
+            chatMessages.map((msg, index) => (
+              <li
+                key={index}
+                className={`chat-message rounded-lg shadow ${
+                  msg.role === "Me"
+                    ? "user-message ml-auto bg-blue-200 bg-opacity-25"
+                    : "system-message mr-auto bg-gray-200 bg-opacity-25"
+                }`}
+              >
+                <span className="sender-name block text-sm font-bold">
+                  {msg.role === "Me" ? "You" : "Casy"}
+                </span>
+                <div>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkBreaks]}
+                    rehypePlugins={[rehypeRaw]}
+                    className="markdown-content list-inside list-decimal"
+                  >
+                    {msg.content.replace(/\n/gi, "&nbsp; \n")}
+                  </ReactMarkdown>
+                </div>
+              </li>
+            ))
+          )}
           {/* Conditionally render the TypingIndicator here */}
           {isAIResponding && <TypingIndicator />}
           <div ref={chatEndRef} />
