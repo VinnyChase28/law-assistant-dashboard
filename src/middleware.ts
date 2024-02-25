@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   // Attempt to get the session token directly from the cookie
   // Check for both the secure and non-secure cookie names
   const sessionToken =
-    request.cookies.get("next-auth.session-token") ||
+    request.cookies.get("next-auth.session-token") ??
     request.cookies.get("__Secure-next-auth.session-token");
 
   // If session token is not present and the request is not targeting the excluded paths, redirect to signin
