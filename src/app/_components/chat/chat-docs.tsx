@@ -7,8 +7,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { api } from "src/trpc/react";
 import { useChatWithDocsStore, useChatSessionStore } from "src/store/store";
 import { type ChatMessage } from "./types";
-import { TypingIndicator, ToggleWithText } from "./helpers";
+import { TypingIndicator } from "./helpers";
 import { IconSpinner } from "@/components/ui/icons";
+import { DropdownMenuCheckboxes } from "./checkbox-drowndown";
 
 const VectorSearchComponent: React.FC = () => {
   const [inputMessage, setInputMessage] = useState("");
@@ -30,6 +31,7 @@ const VectorSearchComponent: React.FC = () => {
   const vectorSearch = api.vector.vectorSearch.useMutation();
   const generateDocumentPrompt = api.llm.generateDocumentPrompt.useMutation();
   const createChatMessage = api.chat.createChatMessage.useMutation();
+  const createChatSession = api.chat.createChatSession.useMutation();
   const getMostRecentSessionForUser =
     api.chat.getMostRecentSessionForUser.useMutation();
   useLayoutEffect(() => {
@@ -183,6 +185,18 @@ const VectorSearchComponent: React.FC = () => {
     });
   };
 
+  const startNewChat = async () => {
+    try {
+      const newSession = await createChatSession.mutateAsync();
+      if (newSession) {
+        setChatSessionId(newSession.id); // Update your chat session state with the new ID
+        setChatMessages([]); // Clear existing chat messages for the new session
+      }
+    } catch (error) {
+      console.error("Error creating new chat session:", error);
+    }
+  };
+
   const resetMessage = () => {
     setInputMessage("");
     setIsStreaming(false);
@@ -190,11 +204,12 @@ const VectorSearchComponent: React.FC = () => {
 
   return (
     <div className="chat-app-container relative mx-auto flex w-full max-w-2xl flex-col py-24">
-      <ToggleWithText
-        onChange={handleToggleChange}
-        isChecked={isChatWithDocsEnabled}
+      <DropdownMenuCheckboxes
+        onStartNewChat={startNewChat}
+        isChatWithDocsEnabled={isChatWithDocsEnabled}
+        toggleChatWithDocs={toggleChatWithDocs}
       />
-      <ScrollArea className="h-[600px] max-h-[800px] rounded-md p-4">
+      <ScrollArea className="h-[600px] max-h-[900px] rounded-md p-4">
         <ul className="list-none">
           {isLoading ? (
             <IconSpinner />

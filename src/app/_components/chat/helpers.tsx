@@ -10,22 +10,3 @@ export const TypingIndicator = () => {
     </div>
   );
 };
-
-export const ToggleWithText = ({
-  onChange,
-  isChecked,
-}: ToggleWithTextProps) => {
-  return (
-    <div className="flex items-center justify-start">
-      <Toggle
-        aria-label="Toggle chat with docs feature"
-        pressed={isChecked}
-        className="mr-2 max-w-xs"
-        size="lg"
-        onClick={onChange}
-      >
-        Chat with Docs
-      </Toggle>
-    </div>
-  );
-};
