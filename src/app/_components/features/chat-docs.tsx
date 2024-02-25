@@ -52,6 +52,7 @@ const VectorSearchComponent: React.FC = () => {
   };
 
   const sendMessage = async () => {
+    setInputMessage("");
     if (!inputMessage.trim() ?? isStreaming ?? !chatSessionId) return;
     setIsStreaming(true);
     setChatMessages((prevMessages) => [
@@ -118,7 +119,7 @@ const VectorSearchComponent: React.FC = () => {
     }
   };
 
-  const updateChatMessagesFinal = (systemResponse: string) => {
+  const updateChatMessagesFinal = async (systemResponse: string) => {
     setChatMessages((prevMessages) => {
       const lastMessage = prevMessages[prevMessages.length - 1];
       if (lastMessage && lastMessage.role === "Casy") {
@@ -128,6 +129,17 @@ const VectorSearchComponent: React.FC = () => {
       return [...prevMessages];
     });
     setIsAIResponding(false);
+
+    // Save AI response to the database
+    try {
+      await createChatMessage.mutateAsync({
+        chatSessionId: chatSessionId ?? "",
+        content: systemResponse,
+        role: "AI",
+      });
+    } catch (error) {
+      console.error("Error saving AI response to the database:", error);
+    }
   };
 
   const updateChatMessagesOngoing = (
@@ -184,7 +196,7 @@ const VectorSearchComponent: React.FC = () => {
                   rehypePlugins={[rehypeRaw]}
                   className="markdown-content list-inside list-decimal"
                 >
-                  {msg.content}
+                  {msg.content.replace(/\n/gi, "&nbsp; \n")}
                 </ReactMarkdown>
               </li>
             ))
@@ -199,7 +211,9 @@ const VectorSearchComponent: React.FC = () => {
           placeholder="Type your message here..."
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          onKeyDown={(e) => {
+            e.key === "Enter" && sendMessage();
+          }}
           autoFocus
         />
       </div>
