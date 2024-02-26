@@ -97,6 +97,8 @@ export function ProfileForm() {
         <SkeletonAbstract />
         <SkeletonAbstract />
         <SkeletonAbstract />
+        <SkeletonAbstract />
+        <SkeletonAbstract />
       </div>
     );
   }
@@ -168,16 +170,16 @@ export function ProfileForm() {
             name="bio"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Bio</FormLabel>
+                <FormLabel>Role & Bio</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Tell us a little bit about yourself"
+                    placeholder="Share your role, company and experience. This will eventually be shown to other team members."
                     className="resize-none"
                     {...field}
                   />
                 </FormControl>
                 <FormDescription>
-                  You can <span>@mention</span> other users and organizations to
+                  You can eventually <span>@mention</span> other team members to
                   link to them.
                 </FormDescription>
                 <FormMessage />
