@@ -27,7 +27,7 @@
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
+    --background: 224 71.4% 0%;
     --foreground: 210 20% 98%;
     --card: 224 71.4% 4.1%;
     --card-foreground: 210 20% 98%;
@@ -43,7 +43,7 @@
     --accent-foreground: 210 20% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 20% 98%;
-    --border: 215 27.9% 16.9%;
+    --border: 215 27.9% 20%;
     --input: 215 27.9% 16.9%;
     --ring: 238.7 83.5% 66.7%;
   }
@@ -107,6 +107,14 @@
 
 .animate-bounce400 {
   animation: bounce 0.6s infinite alternate 0.4s;
+}
+
+/* hover all buttons */
+
+.button:hover {
+  cursor: pointer;
+  /* Add other hover styles here, like background color change, border, etc. */
+  background-color: #f0f0f0; /* Light grey background on hover */
 }
 
 @layer base {
