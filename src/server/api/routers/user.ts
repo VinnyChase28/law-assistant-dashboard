@@ -159,4 +159,14 @@ export const userRouter = createTRPCRouter({
 
       return deletedLink;
     }),
+
+  //delete all social links for a user
+
+  deleteAllSocialLinks: protectedProcedure.mutation(async ({ ctx }) => {
+    const deletedLinks = await ctx.db.socialLink.deleteMany({
+      where: { userId: ctx.session.user.id },
+    });
+
+    return deletedLinks;
+  }),
 });

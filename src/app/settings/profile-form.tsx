@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -20,6 +20,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "../_components/ui/use-toast";
 import { Label } from "../_components/ui/label";
+import { Trash2 } from "lucide-react";
+import { SkeletonAbstract } from "@/components/skeleton-abstract";
 
 const profileFormSchema = z.object({
   name: z
@@ -44,7 +46,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export function ProfileForm() {
   const { toast } = useToast();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   // Fetch user details
   const { data: userData, isLoading: isUserDataLoading } =
     api.user.getUserDetails.useQuery();
@@ -62,6 +64,10 @@ export function ProfileForm() {
     mode: "onChange",
   });
 
+  const {
+    formState: { isDirty },
+  } = form;
+
   // useEffect to update form values once userData and socialLinks are loaded
   useEffect(() => {
     if (!isUserDataLoading && userData) {
@@ -74,7 +80,7 @@ export function ProfileForm() {
     }
   }, [userData, socialLinks, isUserDataLoading, form.reset]);
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: "urls",
     control: form.control,
   });
@@ -83,13 +89,21 @@ export function ProfileForm() {
   const updateName = api.user.updateName.useMutation();
   const updateBio = api.user.updateBio.useMutation();
   const addSocialLink = api.user.addSocialLink.useMutation();
+  const deleteAllSocialLinks = api.user.deleteAllSocialLinks.useMutation();
 
   if (isUserDataLoading || !userData) {
-    return <div>Loading...</div>; // or any other loading indicator
+    return (
+      <div>
+        <SkeletonAbstract />
+        <SkeletonAbstract />
+        <SkeletonAbstract />
+      </div>
+    );
   }
 
   async function onSubmit(data: ProfileFormValues) {
-    console.log(data, "data send to onSubmit");
+    //disable submit button
+    setIsSubmitting(true);
     try {
       // Update user's name
       await updateName.mutateAsync({ name: data.name });
@@ -97,6 +111,10 @@ export function ProfileForm() {
       // Update user's bio
       await updateBio.mutateAsync({ bio: data.bio });
 
+      // Delete all existing links for the user
+      await deleteAllSocialLinks.mutateAsync();
+
+      // Add the new links from the form data
       if (data.urls) {
         for (const link of data.urls) {
           await addSocialLink.mutateAsync({ url: link.value });
@@ -116,12 +134,14 @@ export function ProfileForm() {
           error instanceof Error ? error.message : "An error occurred",
       });
     }
+    setIsSubmitting(false);
+    form.reset(data);
   }
 
   return (
     <div>
       <Label>Email</Label>
-      <p className="pb-6">{userData?.email ?? "Loading..."}</p>
+      <p className="pb-6">{userData?.email}</p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -164,27 +184,35 @@ export function ProfileForm() {
               </FormItem>
             )}
           />
-          <div>
+          <div className="pt-6">
+            <FormLabel className="pb-5">URLs</FormLabel>
             {fields.map((field, index) => (
-              <FormField
-                control={form.control}
+              <div
                 key={field.id}
-                name={`urls.${index}.value`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className={cn(index !== 0 && "sr-only")}>
-                      URLs
-                    </FormLabel>
-                    <FormDescription className={cn(index !== 0 && "sr-only")}>
-                      Add links to your website, blog, or social media profiles.
-                    </FormDescription>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                className="flex items-center space-x-2"
+                style={{ width: "100%" }}
+              >
+                <FormField
+                  control={form.control}
+                  key={field.id}
+                  name={`urls.${index}.value`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <button
+                  type="button"
+                  onClick={() => remove(index)}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  <Trash2 size={20} />
+                </button>
+              </div>
             ))}
             <Button
               type="button"
@@ -196,7 +224,13 @@ export function ProfileForm() {
               Add URL
             </Button>
           </div>
-          <Button type="submit">Update profile</Button>
+          <Button
+            variant={isDirty ? "default" : "ghost"}
+            disabled={!isDirty || isSubmitting}
+            type="submit"
+          >
+            Update profile
+          </Button>
         </form>
       </Form>
     </div>
