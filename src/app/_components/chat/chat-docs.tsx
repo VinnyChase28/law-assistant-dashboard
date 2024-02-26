@@ -203,13 +203,13 @@ const VectorSearchComponent: React.FC = () => {
   };
 
   return (
-    <div className="chat-app-container relative mx-auto flex w-full max-w-2xl flex-col py-24">
+    <div className="chat-app-container relative mx-auto flex w-full flex-col py-6 sm:py-12 md:max-w-2xl lg:max-w-4xl">
       <DropdownMenuCheckboxes
         onStartNewChat={startNewChat}
         isChatWithDocsEnabled={isChatWithDocsEnabled}
         toggleChatWithDocs={toggleChatWithDocs}
       />
-      <ScrollArea className="h-[600px] max-h-[900px] rounded-md p-4">
+      <ScrollArea className="mt-4 h-[50vh] max-h-[600px] rounded-md p-4 sm:h-[60vh] md:h-[70vh]">
         <ul className="list-none">
           {isLoading ? (
             <IconSpinner />

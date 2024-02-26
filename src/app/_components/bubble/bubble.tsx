@@ -43,7 +43,7 @@ const ChatBubble = () => {
           <div className="flex items-center">
             {(showVectorSearch || showCreateReport) && (
               <button onClick={handleBack} className="mr-2">
-                <ArrowLeft className="h-5 w-5" />
+                <ArrowLeft className="h-6 w-6 opacity-50" />
               </button>
             )}
             <DialogTitle>Casy AI</DialogTitle>
@@ -60,13 +60,12 @@ const ChatBubble = () => {
               title="Casy AI"
               iconType="info"
             />
-            <Separator className="my-4" /> {/* Separator above buttons */}
+
             <div className="my-4 flex items-center justify-around">
               <Button variant="secondary" onClick={handleChatWithDocs}>
                 Chat
               </Button>
               <Separator orientation="vertical" className="h-6" />{" "}
-              {/* Vertical separator */}
               <Button variant="secondary" onClick={handleCreateReport}>
                 Report
               </Button>

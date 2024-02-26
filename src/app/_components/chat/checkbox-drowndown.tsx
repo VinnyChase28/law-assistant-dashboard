@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { MoreHorizontal } from "lucide-react";
+import { ChevronDownCircle, PlusSquare } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -27,7 +27,7 @@ export function DropdownMenuCheckboxes({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <MoreHorizontal className="h-5 w-5" />
+        <ChevronDownCircle className="h-6 w-6 opacity-50" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Chat Options</DropdownMenuLabel>
@@ -40,7 +40,8 @@ export function DropdownMenuCheckboxes({
         </DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={onStartNewChat}>
-          Start New Chat
+          <PlusSquare className="h-4 w-4" />
+          <p className="pl-2">Start New Chat</p>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
