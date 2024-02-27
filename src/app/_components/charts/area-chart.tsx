@@ -2,14 +2,14 @@ import { AreaChart, Card, Title } from "@tremor/react";
 
 const chartData = [
   {
-    date: "Q1 2023",
+    date: "Q1 2024",
     Summaries: 50,
     Compliance: 1500,
     Research: 950,
     Contracts: 900,
   },
   {
-    date: "Q2 2023",
+    date: "Q2 2024",
     Summaries: 1400,
     Compliance: 1200,
     Research: 1900,

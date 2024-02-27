@@ -1,6 +1,11 @@
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { z } from "zod";
 export const userRouter = createTRPCRouter({
+  //get user id
+  getUserId: protectedProcedure.query(async ({ ctx }) => {
+    return ctx.session.user.id;
+  }),
+
   // Get Stripe Customer
   getStripeCustomer: protectedProcedure.query(async ({ ctx }) => {
     const stripeCustomer = await ctx.db.stripeCustomer.findUnique({

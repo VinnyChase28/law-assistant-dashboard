@@ -13,7 +13,7 @@ export const UsageCircle = () => (
       <h3 className="text-xl font-medium text-gray-700">
         $43/$50 ({(43 / 50) * 100}%)
       </h3>
-      <Text>API Usage</Text>
+      <Text>Monthly API Limit</Text>
     </Flex>
   </Card>
 );
