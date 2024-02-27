@@ -13,7 +13,13 @@ const costSavingsData = [
     description:
       "Time and resources saved by using AI to conduct municipal, provincial and national real estate research.",
   },
-  
+
+  {
+    name: "Risk Management and Avoidance",
+    value: 3995, // This is an example value in dollars
+    description:
+      "AI-driven compliance checks significantly reduce the risk of costly legal mistakes and regulatory oversights.",
+  },
 ];
 
 const currencyFormatter = (number: Number) => `$${number.toLocaleString()}`;
