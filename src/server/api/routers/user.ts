@@ -1,5 +1,6 @@
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { z } from "zod";
+
 export const userRouter = createTRPCRouter({
   //get user id
   getUserId: protectedProcedure.query(async ({ ctx }) => {

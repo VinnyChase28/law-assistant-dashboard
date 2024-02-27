@@ -108,7 +108,7 @@ export function NotificationsForm() {
                   <div className="space-y-0.5">
                     <FormLabel className="text-base">Security emails</FormLabel>
                     <FormDescription>
-                      Receive emails about your account activity and security.
+                      Receive emails about sign in activity and security
                     </FormDescription>
                   </div>
                   <FormControl>

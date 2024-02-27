@@ -1,5 +1,5 @@
-import { Separator } from "@/components/ui/separator"
-import { AppearanceForm } from "./appearance-form"
+import { Separator } from "@/components/ui/separator";
+import { ThemeSelector } from "./appearance-form";
 
 export default function SettingsAppearancePage() {
   return (
@@ -12,7 +12,7 @@ export default function SettingsAppearancePage() {
         </p>
       </div>
       <Separator />
-      <AppearanceForm />
+      <ThemeSelector />
     </div>
-  )
+  );
 }
