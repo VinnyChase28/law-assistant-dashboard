@@ -23,5 +23,5 @@ export async function middleware(request: NextRequest) {
 
 // Optional: Use `matcher` to specify which paths the middleware applies to
 export const config = {
-  matcher: "/:path*", // Apply middleware to all routes except for the ones specified to be excluded
+  matcher: ["/((?!api).*)"], // Apply middleware to all routes except for the ones specified to be excluded
 };

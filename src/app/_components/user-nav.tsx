@@ -31,7 +31,9 @@ export async function UserNav() {
           <DropdownMenuContent className="w-56" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">{session.user.name ?? 'add name in profile'}</p>
+                <p className="text-sm font-medium leading-none">
+                  {session.user.name ?? "add name in profile"}
+                </p>
                 <p className="text-xs leading-none text-muted-foreground">
                   {session.user.email ?? "add email in profile"}
                 </p>
@@ -40,15 +42,19 @@ export async function UserNav() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                Profile
+                <Link href={"/settings/"}>Profile</Link>
                 <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                Billing
+                <Link href="/settings/billing">Billing</Link>
                 <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                Settings
+                <Link href="/settings/appearance">Appearance</Link>
+                <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/settings/notifications">Notifications</Link>
                 <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
               </DropdownMenuItem>
             </DropdownMenuGroup>

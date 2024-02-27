@@ -138,6 +138,7 @@ model User {
   email           String?           @unique
   emailVerified   DateTime?
   image           String?
+  bio             String?
   accounts        Account[]
   favorites       Favorite?
   fileTaskHistory FileTaskHistory[]
@@ -145,6 +146,17 @@ model User {
   tasks           Task[]
   ChatSession     ChatSession[]
   UsageCost       UsageCost[]
+  StripeCustomer  StripeCustomer[]
+  SocialLink      SocialLink[]
+}
+
+model SocialLink {
+  id     Int    @id @default(autoincrement())
+  userId String
+  url    String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 model Session {
@@ -173,6 +185,29 @@ model Account {
   user              User    @relation(fields: [userId], references: [id])
 
   @@unique([provider, providerAccountId])
+}
+
+model StripeCustomer {
+  id               String         @id @default(cuid())
+  stripeCustomerId String         @unique
+  userId           String
+  user             User           @relation(fields: [userId], references: [id])
+  Subscription     Subscription[]
+
+  @@index([userId])
+}
+
+model Subscription {
+  id                   String         @id @default(cuid())
+  stripeSubscriptionId String         @unique
+  customerId           String
+  status               String
+  priceId              String
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+  stripeCustomer       StripeCustomer @relation(fields: [customerId], references: [id])
+
+  @@index([customerId])
 }
 
 model VerificationToken {

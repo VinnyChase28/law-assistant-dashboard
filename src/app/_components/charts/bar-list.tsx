@@ -2,36 +2,18 @@ import { BarList, Bold, Card, Flex, Text, Title } from "@tremor/react";
 
 const costSavingsData = [
   {
-    name: "Automated Document Review",
-    value: 15000, // Example value in dollars
+    name: "Compliance reports",
+    value: 2304, // Example value in dollars
     description:
-      "Cost savings from using AI for document review versus manual review.",
-  },
-  {
-    name: "Contract Analysis Automation",
-    value: 8000, // Example value in dollars
-    description:
-      "Savings achieved by automating the analysis of contract terms.",
-  },
-  {
-    name: "Litigation Prediction",
-    value: 12000, // Example value in dollars
-    description:
-      "Amount saved by anticipating case outcomes and optimizing strategies.",
-  },
-  {
-    name: "Regulatory Compliance Updates",
-    value: 5000, // Example value in dollars
-    description:
-      "Reduced costs by staying updated on regulatory changes with automated alerts.",
+      "Cost savings from using AI for compliance reports versus manual review.",
   },
   {
     name: "Automated Legal Research",
-    value: 7000, // Example value in dollars
+    value: 1298, // Example value in dollars
     description:
-      "Time and resources saved by using AI to conduct legal research.",
+      "Time and resources saved by using AI to conduct municipal, provincial and national real estate research.",
   },
-  //... add additional data points as necessary
+  
 ];
 
 const currencyFormatter = (number: Number) => `$${number.toLocaleString()}`;
