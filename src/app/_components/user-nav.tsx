@@ -41,28 +41,43 @@ export async function UserNav() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Link href={"/settings/"}>Profile</Link>
-                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/settings/billing">Billing</Link>
-                <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/settings/appearance">Appearance</Link>
-                <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/settings/notifications">Notifications</Link>
-                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-              </DropdownMenuItem>
+              <Link href={"/settings/"} passHref>
+                <DropdownMenuItem asChild>
+                  <a>
+                    Profile<DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                  </a>
+                </DropdownMenuItem>
+              </Link>
+              <Link href="/settings/billing" passHref>
+                <DropdownMenuItem asChild>
+                  <a>
+                    Billing<DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                  </a>
+                </DropdownMenuItem>
+              </Link>
+              <Link href="/settings/appearance" passHref>
+                <DropdownMenuItem asChild>
+                  <a>
+                    Appearance<DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                  </a>
+                </DropdownMenuItem>
+              </Link>
+              <Link href="/settings/notifications" passHref>
+                <DropdownMenuItem asChild>
+                  <a>
+                    Notifications<DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                  </a>
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link href={"/api/auth/signout"}>Sign Out</Link>
-              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-            </DropdownMenuItem>
+            <Link href={"/api/auth/signout"} passHref>
+              <DropdownMenuItem asChild>
+                <a>
+                  Sign Out<DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                </a>
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
