@@ -69,14 +69,11 @@ const VectorSearchComponent: React.FC = () => {
     fetchRecentSession();
   }, [chatSessionId, setChatSessionId]);
 
-  const handleToggleChange = () => {
-    toggleChatWithDocs();
-  };
-
   const sendMessage = async () => {
     setInputMessage("");
     if (!inputMessage.trim() ?? isStreaming ?? !chatSessionId) return;
     setIsStreaming(true);
+    setIsAIResponding(true);
     setChatMessages((prevMessages) => [
       ...prevMessages,
       { role: "Me", content: inputMessage, isFinal: true },
