@@ -13,8 +13,6 @@ interface ProcessDocumentRequest {
   documentType: string;
 }
 
-let fileId: number = 0;
-
 function preprocessText(text: string) {
   const doc = nlp(text);
   doc.normalize({
@@ -27,6 +25,8 @@ function preprocessText(text: string) {
   });
   return doc.text();
 }
+
+let fileId: number;
 
 export async function POST(request: Request) {
   const session = await getServerAuthSession();
@@ -108,13 +108,11 @@ export async function POST(request: Request) {
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error occurred";
 
-    // // Update file status to FAILED
-    // await prisma.file.update({
-    //   where: { id: fileId },
-    //   data: { processingStatus: "FAILED" },
-    // });
-
-    console.log("Error processing document:", errorMessage);
+    // Update file status to FAILED
+    await prisma.file.update({
+      where: { id: fileId },
+      data: { processingStatus: "FAILED" },
+    });
 
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
