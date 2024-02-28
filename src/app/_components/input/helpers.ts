@@ -23,6 +23,7 @@ export const callProcessDocument = (
     })
       .then((response) => {
         if (!response.ok) {
+          console.error("Error calling process_document:", response);
           throw new Error(`Error: ${response.status}`);
         }
         return response.text();

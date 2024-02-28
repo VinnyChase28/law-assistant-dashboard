@@ -6,7 +6,6 @@ import {
 } from "src/server/api/trpc";
 import { pinecone } from "src/utils/pinecone";
 
-
 export const fileRouter = createTRPCRouter({
   //insert file metadata on upload to my files
   insertFileMetadata: protectedProcedure
@@ -81,7 +80,8 @@ export const fileRouter = createTRPCRouter({
         where: { fileId: fileId },
       });
 
-      const index = pinecone.Index("law-assistant-ai");
+      const index = pinecone.Index(process.env.PINECONE_INDEX ?? "");
+  
       fileSubsections.forEach(async (subsection) => {
         await index.deleteOne(subsection.pineconeVectorId);
       });

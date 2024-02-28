@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-import { Pinecone } from "@pinecone-database/pinecone";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { WebPDFLoader } from "langchain/document_loaders/web/pdf";
 import { getServerAuthSession } from "src/server/auth";
 import nlp from "compromise";
-
-let fileId: number;
+import { pinecone } from "src/utils/pinecone";
+import { prisma } from "src/utils/prisma";
 
 interface ProcessDocumentRequest {
   fileId: number;
@@ -15,12 +13,7 @@ interface ProcessDocumentRequest {
   documentType: string;
 }
 
-const pinecone = new Pinecone({
-  apiKey: process.env.PINECONE_API_KEY as string,
-  environment: "us-west1-gcp",
-});
-
-const prisma = new PrismaClient();
+let fileId: number = 0;
 
 function preprocessText(text: string) {
   const doc = nlp(text);
@@ -40,9 +33,11 @@ export async function POST(request: Request) {
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
   try {
     const body = (await request.json()) as ProcessDocumentRequest;
-    const { blobUrl, userId, documentType, fileId } = body;
+    const { blobUrl, userId, documentType, fileId: incomingFileId } = body;
+    fileId = incomingFileId;
 
     const metadata = {
       documentType: documentType,
@@ -63,7 +58,7 @@ export async function POST(request: Request) {
       modelName: "text-embedding-ada-002",
     });
 
-    const index = pinecone.index("law-assistant-ai");
+    const index = pinecone.index(process.env.PINECONE_INDEX ?? "");
     const companyNamespace = index.namespace(userId);
 
     const upsertPromises = docs.map(async (doc, i) => {
@@ -113,11 +108,13 @@ export async function POST(request: Request) {
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error occurred";
 
-    // Update file status to FAILED
-    await prisma.file.update({
-      where: { id: fileId },
-      data: { processingStatus: "FAILED" },
-    });
+    // // Update file status to FAILED
+    // await prisma.file.update({
+    //   where: { id: fileId },
+    //   data: { processingStatus: "FAILED" },
+    // });
+
+    console.log("Error processing document:", errorMessage);
 
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
