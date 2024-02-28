@@ -4,5 +4,3 @@ export const pinecone = new Pinecone({
   apiKey: process.env.PINECONE_API_KEY ?? "",
   environment: process.env.PINECONE_ENVIRONMENT ?? "",
 });
-
-console.log("Pinecone client", pinecone);
