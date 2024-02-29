@@ -18,7 +18,7 @@ export default function FilesClientComponent() {
       refetchOnReconnect: true,
       refetchOnMount: true,
       refetchOnWindowFocus: true,
-      refetchInterval: 30000,
+      refetchInterval: 10000,
     },
   );
 
