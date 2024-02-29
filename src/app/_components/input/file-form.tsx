@@ -3,8 +3,6 @@ import React, { useState, useRef } from "react";
 import { upload } from "@vercel/blob/client";
 import { api } from "src/trpc/react";
 import { Button } from "@/components/ui/button";
-import { Icons } from "../spinner";
-import { callProcessDocument } from "./helpers";
 import {
   Select,
   SelectTrigger,
@@ -15,89 +13,69 @@ import {
   SelectLabel,
 } from "../ui/select"; // Adjust the import path as needed
 import AlertComponent from "../alert";
+
+type DocumentType = "REGULATORY_FRAMEWORK" | "COMPLIANCE_SUBMISSION";
+
 export default function UploadFiles() {
-  const [totalFiles, setTotalFiles] = useState(0);
-  const [processedFiles, setProcessedFiles] = useState(0);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [documentType, setDocumentType] = useState<any>("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [documentType, setDocumentType] = useState<DocumentType>(
+    "COMPLIANCE_SUBMISSION",
+  );
   const inputFileRef = useRef<HTMLInputElement>(null);
-  const userId = api.company.getUserId.useQuery().data;
-  const createFile = api.file.insertFileMetadata.useMutation();
+  const insertFileMetadata = api.file.insertFileMetadata.useMutation();
 
-  const processFile = async (file: File, index: number, files: FileList) => {
-    const newBlob = await upload(file.name, file, {
-      access: "public",
-      handleUploadUrl: "/api/file/upload",
-    });
+  const uploadFiles = async (files: FileList) => {
+    const uploadPromises = Array.from(files).map(async (file) => {
+      const newBlob = await upload(file.name, file, {
+        access: "public",
+        handleUploadUrl: "/api/file/upload",
+      });
 
-    createFile.mutate(
-      {
+      // Insert file metadata for each file
+      return insertFileMetadata.mutateAsync({
         name: file.name,
         fileSize: file.size.toString(),
         fileType: file.type,
         blobUrl: newBlob.url,
         documentType,
-      },
-      {
-        onSuccess: async (data) => {
-          setProcessedFiles((prevProcessed) => prevProcessed + 1);
+      });
+    });
 
-          if (data) {
-            try {
-              await callProcessDocument(
-                data.blobUrl ?? "",
-                data.id,
-                userId as string,
-                documentType, // Pass documentType here
-              );
-              if (index + 1 < files.length) {
-                const nextFile = files.item(index + 1);
-                if (nextFile) {
-                  await processFile(nextFile, index + 1, files);
-                }
-              } else {
-                window.location.reload();
-              }
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        },
-      },
-    );
+    return Promise.all(uploadPromises);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!inputFileRef.current || !inputFileRef.current.files || !documentType) {
-      throw new Error("No file selected or document type not specified");
+
+    if (!inputFileRef.current?.files?.length || !documentType) {
+      alert("No files selected or document type not specified");
+      return;
     }
 
-    const files = inputFileRef.current.files;
-    setTotalFiles(files.length);
-    setProcessedFiles(0);
-    setIsProcessing(true);
+    setIsUploading(true);
 
-    if (files.length > 0) {
-      const firstFile = files.item(0);
-      if (firstFile) {
-        processFile(firstFile, 0, files);
-      } else {
-        console.error("First file is not available");
-      }
+    try {
+      await uploadFiles(inputFileRef.current.files);
+      alert("All files uploaded successfully");
+    } catch (error) {
+      console.error("Error uploading files:", error);
+      alert("Error uploading one or more files");
+    } finally {
+      setIsUploading(false);
     }
   };
+
   return (
     <>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
-        {isProcessing ? (
-          <div className="flex flex-col items-center justify-center">
-            <Icons.spinner className="h-8 w-8 animate-spin" />
-            <p>Please wait. Memorizing your documents...</p>
-          </div>
+        {isUploading ? (
+          <p>Uploading...</p>
         ) : (
-          <div className="flex flex-col gap-4 p-4">
-            <Select onValueChange={setDocumentType} value={documentType}>
+          <>
+            <Select
+              onValueChange={(value) => setDocumentType(value as DocumentType)}
+              value={documentType}
+            >
               <SelectTrigger aria-label="Document type">
                 <SelectValue placeholder="Select Document Type" />
               </SelectTrigger>
@@ -115,7 +93,7 @@ export default function UploadFiles() {
             </Select>
             <AlertComponent
               title="Note"
-              description="Regulatory Framework documents, such as zoning bylaws and building codes, set the rules for compliance. Compliance Submissions like project proposals, are documents submitted to demonstrate adherence to these regulatory documents. Please only upload one type of document at a time."
+              description="Please only upload documents of the same type at a time."
               iconType="info"
             />
             <input
@@ -126,13 +104,10 @@ export default function UploadFiles() {
               required
               multiple
             />
-            {!documentType && (
-              <p>Please select a document type before uploading</p>
-            )}
-            <Button type="submit" disabled={!documentType}>
-              Upload
+            <Button type="submit" disabled={!documentType || isUploading}>
+              Upload Files
             </Button>
-          </div>
+          </>
         )}
       </form>
     </>

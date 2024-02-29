@@ -71,6 +71,7 @@ export const fileRouter = createTRPCRouter({
   }),
 
   // delete a specific file, and its associated vectors
+  //TODO: change this to delete all subsections and vectors at once
   deleteFile: protectedProcedure
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
@@ -81,7 +82,7 @@ export const fileRouter = createTRPCRouter({
       });
 
       const index = pinecone.Index(process.env.PINECONE_INDEX ?? "");
-  
+
       fileSubsections.forEach(async (subsection) => {
         await index.deleteOne(subsection.pineconeVectorId);
       });
@@ -94,7 +95,7 @@ export const fileRouter = createTRPCRouter({
       };
     }),
 
-  // create a new route that will create a new file in the files table and that will be a COMPLIANCE_REPORT and set it to IN_PROGRESS.
+  // create the compliance report metadata
   createComplianceReportMetadata: protectedProcedure
     .input(
       z.object({
@@ -112,6 +113,7 @@ export const fileRouter = createTRPCRouter({
       });
     }),
 
+  // update compliance report with the generated report dat set status to done
   updateComplianceReport: publicProcedure
     .input(
       z.object({

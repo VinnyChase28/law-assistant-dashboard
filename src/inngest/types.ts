@@ -33,6 +33,13 @@ interface UsageReportEventSent {
   name: "usage-report/event.sent";
 }
 
-type EventSent = ComplianceEventSent | UsageReportEventSent;
+interface SubectionsEmbeddings {
+  name: "document/uploaded";
+}
+
+type EventSent =
+  | ComplianceEventSent
+  | UsageReportEventSent
+  | SubectionsEmbeddings;
 
 export const schemas = new EventSchemas().fromUnion<EventSent>();
