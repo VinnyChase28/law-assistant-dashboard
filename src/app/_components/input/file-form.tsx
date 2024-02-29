@@ -18,11 +18,16 @@ import { useToast } from "../ui/use-toast";
 
 type DocumentType = "REGULATORY_FRAMEWORK" | "COMPLIANCE_SUBMISSION";
 
-export default function UploadFiles() {
+interface UploadFilesProps {
+  setIsDialogOpen: (isOpen: boolean) => void;
+}
+
+export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
   const { toast } = useToast();
   const [isUploading, setIsUploading] = useState(false);
+
   const [documentType, setDocumentType] = useState<DocumentType>(
-    "COMPLIANCE_SUBMISSION",
+    "REGULATORY_FRAMEWORK",
   );
   const inputFileRef = useRef<HTMLInputElement>(null);
   const insertFileMetadata = api.file.insertFileMetadata.useMutation();
@@ -74,8 +79,8 @@ export default function UploadFiles() {
         });
       });
       toast({
-        title: "Files uploaded",
-        description: "All files uploaded successfully",
+        title: "Files sent for processing",
+        description: "Please wait while your files are memorized and processed",
       });
     } catch (error) {
       console.error("Error uploading files:", error);
@@ -86,6 +91,7 @@ export default function UploadFiles() {
       });
     } finally {
       setIsUploading(false);
+      setIsDialogOpen(false);
     }
   };
 

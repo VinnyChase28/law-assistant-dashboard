@@ -1,8 +1,7 @@
 import { type Metadata } from "next";
 
-
 import { Text } from "@tremor/react";
-import AddFiles from "@/components/input/add-files-button";
+import AddFiles from "src/app/_components/input/add-files";
 import { api } from "src/trpc/server";
 import FilesClientComponent from "./components/files";
 
@@ -10,8 +9,6 @@ export const metadata: Metadata = {
   title: "Add Files",
   description: "Add files to your account",
 };
-
-
 
 async function getFiles() {
   const files = await api.file.getMyFiles.query({
