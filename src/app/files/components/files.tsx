@@ -9,7 +9,7 @@ import { api } from "src/trpc/react";
 export default function FilesClientComponent() {
   const { setFiles } = useFilesStore();
 
-  // TODO: move retching to websockets when we scale
+  // TODO: move retching to websockets when we scalead
   const { data: files } = api.file.getMyFiles.useQuery(
     {
       documentTypes: ["REGULATORY_FRAMEWORK", "COMPLIANCE_SUBMISSION"],
