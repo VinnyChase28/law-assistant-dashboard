@@ -63,13 +63,6 @@ export const processDocument = inngest.createFunction(
   async ({ event }: { event: { data: ProcessDocumentEventData } }) => {
     const { fileId, blobUrl, userId, documentType } = event.data;
 
-    // Fetch the document from blob storage
-    const pdfResponse = await fetch(decodeURIComponent(blobUrl));
-    if (!pdfResponse.ok) {
-      throw new Error(`Failed to fetch PDF: ${pdfResponse.statusText}`);
-    }
-    const blob = await pdfResponse.blob();
-
     // Load the document content
     const pages = await api.llm.getPagesFromBlobUrl.mutate({ blobUrl });
 
