@@ -13,9 +13,16 @@ const DashboardPage = () => {
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab");
   const { setReports } = useComplianceReportsStore();
-  const { data: complianceReports } = api.file.getMyFiles.useQuery({
-    documentTypes: ["COMPLIANCE_REPORT"],
-  });
+  const { data: complianceReports } = api.file.getMyFiles.useQuery(
+    {
+      documentTypes: ["COMPLIANCE_REPORT"],
+    },
+    {
+      refetchOnReconnect: true,
+      refetchOnMount: true,
+      refetchOnWindowFocus: true,
+    },
+  );
 
   useEffect(() => {
     if (complianceReports) {

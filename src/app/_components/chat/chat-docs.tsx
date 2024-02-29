@@ -9,7 +9,7 @@ import { useChatWithDocsStore, useChatSessionStore } from "src/store/store";
 import { type ChatMessage } from "./types";
 import { TypingIndicator } from "./helpers";
 import { IconSpinner } from "@/components/ui/icons";
-import { DropdownMenuCheckboxes } from "./checkbox-drowndown";
+import { DropdownMenuCheckboxes } from "./dropdown-menu";
 
 const VectorSearchComponent: React.FC = () => {
   const [inputMessage, setInputMessage] = useState("");
