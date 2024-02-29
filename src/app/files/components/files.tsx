@@ -1,17 +1,34 @@
 "use client";
+
+import { useEffect } from "react";
 import { useFilesStore } from "src/store/store";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
+import { api } from "src/trpc/react";
 
-import { useEffect } from "react";
+export default function FilesClientComponent() {
+  const { setFiles } = useFilesStore();
 
-
-export default function FilesClientComponent({ initialFiles }: any) {
-  const { files, setFiles } = useFilesStore();
+  // Use the useQuery hook to fetch files. Assuming 'api.file.getMyFiles' is your tRPC query.
+  const { data: files } = api.file.getMyFiles.useQuery(
+    {
+      documentTypes: ["REGULATORY_FRAMEWORK", "COMPLIANCE_SUBMISSION"],
+    },
+    {
+      refetchOnReconnect: true,
+      refetchOnMount: true,
+      refetchOnWindowFocus: true,
+      refetchInterval: 30000,
+    },
+  );
 
   useEffect(() => {
-    setFiles(initialFiles);
-  }, [initialFiles, setFiles]);
+    if (files) {
+      setFiles(files);
+    }
+  }, [files, setFiles]);
 
-  return <DataTable data={files} columns={columns} />;
+  return (
+    <DataTable data={useFilesStore((state) => state.files)} columns={columns} />
+  );
 }
