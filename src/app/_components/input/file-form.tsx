@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useRef } from "react";
 import { upload } from "@vercel/blob/client";
 import { api } from "src/trpc/react";
@@ -13,6 +14,7 @@ import {
   SelectLabel,
 } from "../ui/select"; // Adjust the import path as needed
 import AlertComponent from "../alert";
+import { inngest } from "src/inngest";
 
 type DocumentType = "REGULATORY_FRAMEWORK" | "COMPLIANCE_SUBMISSION";
 
@@ -23,6 +25,8 @@ export default function UploadFiles() {
   );
   const inputFileRef = useRef<HTMLInputElement>(null);
   const insertFileMetadata = api.file.insertFileMetadata.useMutation();
+  const sendDocumentDataForProcessingToInngest =
+    api.llm.sendDocumentDataForProcessingToInngest.useMutation();
 
   const uploadFiles = async (files: FileList) => {
     const uploadPromises = Array.from(files).map(async (file) => {
@@ -55,7 +59,16 @@ export default function UploadFiles() {
     setIsUploading(true);
 
     try {
-      await uploadFiles(inputFileRef.current.files);
+      const uploadedFiles = await uploadFiles(inputFileRef.current.files);
+      uploadedFiles.forEach(async (fileMetadata) => {
+        sendDocumentDataForProcessingToInngest.mutateAsync({
+          fileId: fileMetadata.id,
+          blobUrl: fileMetadata.blobUrl!,
+          userId: fileMetadata.userId,
+          documentType,
+        });
+      });
+
       alert("All files uploaded successfully");
     } catch (error) {
       console.error("Error uploading files:", error);

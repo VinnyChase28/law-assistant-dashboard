@@ -57,7 +57,7 @@ export const vectorRouter = createTRPCRouter({
   convertTextToVector: protectedProcedure
     .input(
       z.object({
-        text: z.string(), // Input text to convert
+        text: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -161,4 +161,6 @@ export const vectorRouter = createTRPCRouter({
 
       return { data: results };
     }),
+
+    
 });

@@ -1,10 +1,9 @@
 import { inngest } from "../client";
 import nlp from "compromise";
-import { WebPDFLoader } from "langchain/document_loaders/web/pdf";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
-import { PrismaClient, File, TextSubsection } from "@prisma/client";
 import { prisma } from "src/utils/prisma";
 import { pinecone } from "src/utils/pinecone";
+import { api } from "src/trpc/server";
 
 interface ProcessDocumentEventData {
   fileId: number;
@@ -43,7 +42,6 @@ async function pineconeUpsert(
   embedding: number[],
   metadata: PineconeMetadata,
 ) {
-
   const recordMetadata: Record<string, any> = {
     documentType: metadata.documentType.toString(),
     pageNumber: metadata.pageNumber.toString(),
@@ -73,17 +71,16 @@ export const processDocument = inngest.createFunction(
     const blob = await pdfResponse.blob();
 
     // Load the document content
-    const loader = new WebPDFLoader(blob);
-    const docs = await loader.load();
+    const pages = await api.llm.getPagesFromBlobUrl.mutate({ blobUrl });
 
     // Process each page
-    for (const [i, doc] of docs.entries()) {
-      if (typeof doc.pageContent !== "string") {
+    for (const [i, page] of pages.entries()) {
+      if (typeof page.pageContent !== "string") {
         throw new Error("Page content is not a string");
       }
 
       const pageNumber = i + 1;
-      const processedText = preprocessText(doc.pageContent);
+      const processedText = preprocessText(page.pageContent);
 
       // Generate embedding
       const embeddings = new OpenAIEmbeddings({
