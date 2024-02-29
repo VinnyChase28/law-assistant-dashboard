@@ -142,15 +142,19 @@ const CreateReportComponent = () => {
         iconType="info"
       />
 
-      <Button
-        onClick={handleCreateReportClick}
-        variant={hasSingleComplianceSubmission ? "default" : "ghost"}
-        disabled={isLoading || !hasSingleComplianceSubmission}
-        className="mt-4"
-      >
-        Create Report
-      </Button>
-      {isLoading && <IconSpinner className="h-6 w-6 animate-spin" />}
+      <div className="mt-4 flex items-center">
+        {" "}
+        {/* Flex container for the button and spinner */}
+        <Button
+          onClick={handleCreateReportClick}
+          variant={hasSingleComplianceSubmission ? "default" : "ghost"}
+          disabled={isLoading || !hasSingleComplianceSubmission}
+        >
+          Create Report
+        </Button>
+        {isLoading && <IconSpinner className="ml-2 h-6 w-6 animate-spin" />}{" "}
+        {/* Spinner with margin-left */}
+      </div>
     </div>
   );
 };
