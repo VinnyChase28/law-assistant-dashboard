@@ -12,9 +12,8 @@ import {
   SelectItem,
   SelectGroup,
   SelectLabel,
-} from "../ui/select"; // Adjust the import path as needed
+} from "../ui/select";
 import AlertComponent from "../alert";
-import { inngest } from "src/inngest";
 
 type DocumentType = "REGULATORY_FRAMEWORK" | "COMPLIANCE_SUBMISSION";
 
