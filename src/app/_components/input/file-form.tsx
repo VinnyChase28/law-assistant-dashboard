@@ -15,7 +15,8 @@ import {
 } from "../ui/select";
 import AlertComponent from "../alert";
 import { useToast } from "../ui/use-toast";
-
+import { IconSpinner } from "../ui/icons";
+import { z } from "zod";
 type DocumentType = "REGULATORY_FRAMEWORK" | "COMPLIANCE_SUBMISSION";
 
 interface UploadFilesProps {
@@ -25,7 +26,7 @@ interface UploadFilesProps {
 export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
   const { toast } = useToast();
   const [isUploading, setIsUploading] = useState(false);
-
+  const [filesSelected, setFilesSelected] = useState(false); // New state to track file selection
   const [documentType, setDocumentType] = useState<DocumentType>(
     "REGULATORY_FRAMEWORK",
   );
@@ -54,6 +55,11 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
     return Promise.all(uploadPromises);
   };
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    setFilesSelected(!!files && files.length > 0); // Update state based on file selection
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -80,7 +86,8 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
       });
       toast({
         title: "Files sent for processing",
-        description: "Please wait while your files are memorized and processed",
+        description:
+          "Once your files are finished processing, they will be marked as DONE",
       });
     } catch (error) {
       console.error("Error uploading files:", error);
@@ -90,8 +97,8 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
         variant: "destructive",
       });
     } finally {
-      setIsUploading(false);
       setIsDialogOpen(false);
+      setTimeout(() => setIsUploading(false), 1000);
     }
   };
 
@@ -99,7 +106,10 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
     <>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
         {isUploading ? (
-          <p>Uploading...</p>
+          <div className="flex h-full w-full items-center justify-center">
+            <p>Please wait...</p>
+            <IconSpinner />
+          </div>
         ) : (
           <>
             <Select
@@ -133,8 +143,12 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
               type="file"
               required
               multiple
+              onChange={handleFileChange}
             />
-            <Button type="submit" disabled={!documentType || isUploading}>
+            <Button
+              type="submit"
+              disabled={!documentType || isUploading || !filesSelected}
+            >
               Upload Files
             </Button>
           </>
