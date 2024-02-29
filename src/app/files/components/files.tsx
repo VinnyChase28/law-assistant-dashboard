@@ -9,7 +9,7 @@ import { api } from "src/trpc/react";
 export default function FilesClientComponent() {
   const { setFiles } = useFilesStore();
 
-  // Use the useQuery hook to fetch files. Assuming 'api.file.getMyFiles' is your tRPC query.
+  // TODO: move retching to websockets when we scale
   const { data: files } = api.file.getMyFiles.useQuery(
     {
       documentTypes: ["REGULATORY_FRAMEWORK", "COMPLIANCE_SUBMISSION"],
