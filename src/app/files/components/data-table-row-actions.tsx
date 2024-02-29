@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { api } from "src/trpc/react";
 import { useFilesStore } from "src/store/store";
+import { useRouter } from "next/navigation";
+
 interface WithId {
   id: number;
 }
@@ -28,8 +30,8 @@ interface DataTableRowActionsProps<TData extends WithId> {
 export function DataTableRowActions<TData extends WithId>({
   row,
 }: DataTableRowActionsProps<TData>) {
+  const router = useRouter();
   const { setFileDeleting, isFileDeleting, removeFile } = useFilesStore();
-
   const deleteFile = api.file.deleteFile.useMutation({
     onSuccess: () => {
       setFileDeleting(row.original.id, false);
@@ -41,9 +43,13 @@ export function DataTableRowActions<TData extends WithId>({
     },
   });
 
-  const handleDelete = () => {
+  const viewFile = () => {
+    router.push(`/pdf-viewer?fileId=${row.original.id}`);
+  };
+
+  const handleDelete = async () => {
     setFileDeleting(row.original.id, true);
-    deleteFile.mutate(row.original.id);
+    deleteFile.mutateAsync(row.original.id);
   };
 
   const isDeleting = isFileDeleting(row.original.id);
@@ -60,7 +66,7 @@ export function DataTableRowActions<TData extends WithId>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
+        <DropdownMenuItem onSelect={viewFile}>View</DropdownMenuItem>
         <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem>
         <DropdownMenuSeparator />
