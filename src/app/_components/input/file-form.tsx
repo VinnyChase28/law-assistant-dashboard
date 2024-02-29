@@ -14,10 +14,12 @@ import {
   SelectLabel,
 } from "../ui/select";
 import AlertComponent from "../alert";
+import { useToast } from "../ui/use-toast";
 
 type DocumentType = "REGULATORY_FRAMEWORK" | "COMPLIANCE_SUBMISSION";
 
 export default function UploadFiles() {
+  const { toast } = useToast();
   const [isUploading, setIsUploading] = useState(false);
   const [documentType, setDocumentType] = useState<DocumentType>(
     "COMPLIANCE_SUBMISSION",
@@ -51,7 +53,11 @@ export default function UploadFiles() {
     e.preventDefault();
 
     if (!inputFileRef.current?.files?.length || !documentType) {
-      alert("No files selected or document type not specified");
+      toast({
+        title: "No files selected",
+        description: `No files selected or document type not specified`,
+        variant: "destructive",
+      });
       return;
     }
 
@@ -67,11 +73,17 @@ export default function UploadFiles() {
           documentType,
         });
       });
-
-      alert("All files uploaded successfully");
+      toast({
+        title: "Files uploaded",
+        description: "All files uploaded successfully",
+      });
     } catch (error) {
       console.error("Error uploading files:", error);
-      alert("Error uploading one or more files");
+      toast({
+        title: "Error",
+        description: "Error uploading one or more files",
+        variant: "destructive",
+      });
     } finally {
       setIsUploading(false);
     }
