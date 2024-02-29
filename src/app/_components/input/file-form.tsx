@@ -33,7 +33,7 @@ export default function UploadFiles() {
     const uploadPromises = Array.from(files).map(async (file) => {
       const newBlob = await upload(file.name, file, {
         access: "public",
-        handleUploadUrl: "/api/file/upload",
+        handleUploadUrl: "/api/upload-file",
       });
 
       // Insert file metadata for each file
