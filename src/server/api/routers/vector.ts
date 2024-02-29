@@ -18,7 +18,7 @@ export const vectorRouter = createTRPCRouter({
         throw new Error("User's user ID is not available.");
       }
 
-      const index = await pinecone.Index("law-assistant-ai");
+      const index = await pinecone.Index(process.env.PINECONE_INDEX ?? "");
       const userNamespace = index.namespace(userId);
 
       const queryResponse = await userNamespace.query({
@@ -57,7 +57,7 @@ export const vectorRouter = createTRPCRouter({
   convertTextToVector: protectedProcedure
     .input(
       z.object({
-        text: z.string(), // Input text to convert
+        text: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -99,7 +99,7 @@ export const vectorRouter = createTRPCRouter({
         );
       }
 
-      const index = await pinecone.Index("law-assistant-ai");
+      const index = await pinecone.Index(process.env.PINECONE_INDEX ?? "");
 
       const results = await Promise.all(
         textSubsections.map(async (subsection) => {
@@ -161,4 +161,6 @@ export const vectorRouter = createTRPCRouter({
 
       return { data: results };
     }),
+
+    
 });

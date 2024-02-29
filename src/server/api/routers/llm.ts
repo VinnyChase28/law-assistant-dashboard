@@ -1,6 +1,11 @@
-import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "src/server/api/trpc";
 import { z } from "zod";
 import { inngest } from "src/inngest";
+import { WebPDFLoader } from "langchain/document_loaders/web/pdf";
 
 // TRPC router implementation
 export const llmRouter = createTRPCRouter({
@@ -73,6 +78,63 @@ export const llmRouter = createTRPCRouter({
           ...complianceReportData,
           userId,
           id,
+        },
+      };
+
+      try {
+        await inngest.send(eventPayload);
+        return {
+          success: true,
+          message: "Event sent successfully to Inngest.",
+        };
+      } catch (error) {
+        console.error("Error sending event to Inngest:", error);
+        throw new Error("Failed to send event to Inngest.");
+      }
+    }),
+
+  // load a pdf from a blob url and return the pages.
+  getPagesFromBlobUrl: publicProcedure
+    .input(
+      z.object({
+        blobUrl: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const { blobUrl } = input;
+      const decodedBlobUrl = decodeURIComponent(blobUrl);
+      const pdfResponse = await fetch(decodedBlobUrl);
+      if (!pdfResponse.ok) {
+        throw new Error(`Failed to fetch PDF: ${pdfResponse.statusText}`);
+      }
+      const blob = await pdfResponse.blob();
+      const loader = new WebPDFLoader(blob);
+      const pages = await loader.load();
+      return pages;
+    }),
+
+  //trigger inngest function to process document
+  sendDocumentDataForProcessingToInngest: protectedProcedure
+    .input(
+      z.object({
+        fileId: z.number(),
+        blobUrl: z.string(),
+        userId: z.string(),
+        documentType: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user) {
+        throw new Error("UNAUTHORIZED");
+      }
+      const { fileId, blobUrl, userId, documentType } = input;
+      const eventPayload = {
+        name: "document/uploaded" as const,
+        data: {
+          fileId,
+          blobUrl,
+          userId,
+          documentType,
         },
       };
 

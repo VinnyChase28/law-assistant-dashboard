@@ -5,4 +5,5 @@ export const openai = new OpenAI({
   organization: "org-GH4CsWFtvXYPCa030fJ3hSFk",
   timeout: 30000,
   maxRetries: 3,
+  dangerouslyAllowBrowser: true,
 });
