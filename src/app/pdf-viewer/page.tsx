@@ -1,30 +1,33 @@
-import { useRouter } from "next/router";
+"use client";
+
+import { useSearchParams } from "next/navigation";
 import PDFViewer from "../_components/pdf-viewer";
 import { useEffect, useState } from "react";
+import { api } from "src/trpc/react";
 
 export default function PDFViewerPage() {
-  const router = useRouter();
-  const { fileId } = router.query;
+  const searchParams = useSearchParams();
+  const fileId = searchParams.get("fileId");
   const [blobUrl, setBlobUrl] = useState("");
 
+  // Initialize the TRPC hook outside of any function
+  const { data, isLoading, error } = api.file.getBlobUrl.useQuery(
+    Number(fileId),
+    {
+      enabled: !!fileId, // This ensures the query runs only if fileId is available
+    },
+  );
+
   useEffect(() => {
-    if (!fileId) return;
+    if (data) {
+      // Assuming the data returned directly contains the blob URL or the logic to derive it
+      setBlobUrl(data);
+    }
+  }, [data]);
 
-    // Function to fetch the PDF and create a blob URL
-    const fetchPDF = async () => {
-      const response = await fetch(`/api/pdf/${fileId}`);
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      setBlobUrl(url);
-    };
-
-    fetchPDF();
-
-    return () => {
-      // Cleanup the blob URL when the component unmounts or fileId changes
-      URL.revokeObjectURL(blobUrl);
-    };
-  }, [fileId, blobUrl]);
+  // Optional: Handle loading and error states
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>An error occurred: {error.message}</div>;
 
   return <PDFViewer blobUrl={blobUrl} />;
 }

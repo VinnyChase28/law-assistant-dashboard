@@ -122,6 +122,9 @@ export const fileRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      if (!ctx?.session?.user) {
+        throw new Error("Unauthorized");
+      }
       return ctx.db.file.update({
         where: { id: input.id },
         data: {
@@ -130,5 +133,17 @@ export const fileRouter = createTRPCRouter({
         },
       });
     }),
-    //fetch 
+  //fetch blob url based on file id
+  getBlobUrl: protectedProcedure
+    .input(z.number())
+    .query(async ({ ctx, input }) => {
+      if (!ctx.session.user) {
+        throw new Error("Unauthorized");
+      }
+      const fileId = input;
+      const file = await ctx.db.file.findUnique({
+        where: { id: fileId },
+      });
+      return file?.blobUrl;
+    }),
 });

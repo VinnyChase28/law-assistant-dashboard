@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { api } from "src/trpc/react";
 import { useFilesStore } from "src/store/store";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface WithId {
   id: number;
