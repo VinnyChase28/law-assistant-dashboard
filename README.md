@@ -59,11 +59,17 @@ In your Next.js project, update your .env file or the respective environment con
 `"DATABASE_URL="postgresql://postgres:your_password@localhost:5432/local_lawassistant"`
 
 POSTGRES_DATABASE="local_lawassistant"
+
 POSTGRES_HOST="localhost"
+
 POSTGRES_PASSWORD="your_local_db_password"
+
 VERCEL_POSTGRES_PRISMA_URL="postgresql://default:your_local_db_password@localhost/local_lawassistant"
+
 POSTGRES_URL="postgresql://default:your_local_db_password@localhost/local_lawassistant"
+
 VERCEL_POSTGRES_URL_NON_POOLING="postgresql://default:your_local_db_password@localhost/local_lawassistant"
+
 POSTGRES_USER="postgres"
 
 ## Pinecone
@@ -71,7 +77,9 @@ POSTGRES_USER="postgres"
 We have a starter pinecone index for local testing.
 
 PINECONE_API_KEY=
+
 PINECONE_INDEX=
+
 PINECONE_ENVIRONMENT=
 
 These vars can be found in the pinecone dashboard.
