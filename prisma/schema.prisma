@@ -60,7 +60,7 @@ model File {
 
 model TextSubsection {
   id               Int      @id @default(autoincrement())
-  fileId           Int
+  fileId            Int
   pageNumber       Int
   text             String
   pineconeVectorId String?
@@ -74,23 +74,23 @@ model TextSubsection {
 
 model DataSubsection {
   id               Int      @id @default(autoincrement())
-  fileId           Int
+  fileId            Int
   dataContent      Json
   pineconeVectorId String?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
-  file             File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  file              File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
 
   @@index([fileId])
 }
 
 model FileTaskHistory {
   id     String   @id @default(cuid())
-  fileId Int
+  fileId  Int
   taskId String
   userId String
   usedAt DateTime @default(now())
-  file   File     @relation(fields: [fileId], references: [id])
+  file    File     @relation(fields: [fileId], references: [id])
   task   Task     @relation(fields: [taskId], references: [id])
   user   User     @relation(fields: [userId], references: [id])
 
@@ -141,7 +141,7 @@ model User {
   bio             String?
   accounts        Account[]
   favorites       Favorite?
-  fileTaskHistory FileTaskHistory[]
+  fileTaskHistory  FileTaskHistory[]
   sessions        Session[]
   tasks           Task[]
   ChatSession     ChatSession[]
@@ -211,7 +211,7 @@ model Subscription {
 }
 
 model VerificationToken {
-  identifier String
+  identifier  String
   token      String   @unique
   expires    DateTime
 
