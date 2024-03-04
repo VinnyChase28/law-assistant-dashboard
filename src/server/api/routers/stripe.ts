@@ -9,7 +9,7 @@ export const stripeRouter = createTRPCRouter({
       apiVersion: "2023-10-16",
     });
 
-    const url = process.env.URL;
+    const url = process.env.URL ?? "http://localhost:3000";
 
     const checkoutSession = await stripe.checkout.sessions.create({
       mode: "subscription",
@@ -20,8 +20,8 @@ export const stripeRouter = createTRPCRouter({
         },
       ],
 
-      success_url: `${url}/checkout/success/?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${url}/packages`,
+      success_url: `${url}/?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${url}/`,
       subscription_data: {
         metadata: {
           userId: ctx.session.user.id,
@@ -29,6 +29,8 @@ export const stripeRouter = createTRPCRouter({
         trial_period_days: 7,
       },
     });
+
+    console.log(checkoutSession, "checkoutSession");
 
     if (!checkoutSession.url) {
       throw new TRPCError({

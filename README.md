@@ -86,6 +86,10 @@ These vars can be found in the pinecone dashboard.
 
 ## Stripe
 
+To get stripe running locally, use the following commands:
+
 ```brew install stripe/stripe-cli/stripe```
 
 ```stripe login```
+
+```stripe listen --forward-to localhost:3000/api/webhooks/stripe```

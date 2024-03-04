@@ -1,5 +1,5 @@
 import { Separator } from "src/app/_components/ui/separator";
-import { AccountForm } from "./account-form";
+import Subscriptions from "src/app/stripe/subscriptions";
 
 export default function SettingsAccountPage() {
   return (
@@ -9,7 +9,7 @@ export default function SettingsAccountPage() {
         <p className="text-sm text-muted-foreground">Coming soon!</p>
       </div>
       <Separator />
-      <AccountForm />
+      <Subscriptions />
     </div>
   );
 }
