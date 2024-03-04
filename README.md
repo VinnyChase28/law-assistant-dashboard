@@ -83,3 +83,9 @@ PINECONE_INDEX=
 PINECONE_ENVIRONMENT=
 
 These vars can be found in the pinecone dashboard.
+
+## Stripe
+
+```brew install stripe/stripe-cli/stripe```
+
+```stripe login```
