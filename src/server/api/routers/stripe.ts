@@ -4,6 +4,7 @@ import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const stripeRouter = createTRPCRouter({
+  
   getSubscriptionCheckoutURL: protectedProcedure.query(async ({ ctx }) => {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
       apiVersion: "2023-10-16",
@@ -62,6 +63,7 @@ export const stripeRouter = createTRPCRouter({
 
       return { message: "Membership Cancelled" };
     }),
+
   resumeSubscription: protectedProcedure
     .input(z.object({ stripeCustomerId: z.string() }))
     .mutation(async ({ input }) => {

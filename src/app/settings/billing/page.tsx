@@ -1,5 +1,5 @@
 import { Separator } from "src/app/_components/ui/separator";
-import Subscriptions from "src/app/stripe/subscriptions";
+import Subscriptions from "src/app/_components/stripe/subscriptions";
 
 export default function SettingsAccountPage() {
   return (
