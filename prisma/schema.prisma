@@ -199,7 +199,6 @@ model Subscription {
   id                   String          @id @default(cuid())
   stripeSubscriptionId String          @unique
   customerId           String
-  name                 String
   status               SubscriptionStatus
   priceId              String
   createdAt            DateTime        @default(now())
