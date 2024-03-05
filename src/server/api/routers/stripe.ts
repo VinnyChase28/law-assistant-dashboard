@@ -33,8 +33,6 @@ export const stripeRouter = createTRPCRouter({
       },
     });
 
-    console.log(checkoutSession, "checkoutSession");
-
     if (!checkoutSession.url) {
       throw new TRPCError({
         code: "BAD_REQUEST",
