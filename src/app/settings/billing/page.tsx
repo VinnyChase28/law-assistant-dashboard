@@ -1,7 +1,10 @@
 import { Separator } from "src/app/_components/ui/separator";
 import Subscriptions from "src/app/_components/stripe/subscriptions";
+import { ActiveSubscription } from "src/app/_components/stripe/active-subscription";
+import { api } from "src/trpc/server";
 
-export default function SettingsAccountPage() {
+export default async function SettingsAccountPage() {
+  const subscription = await api.stripe.getUserSubscriptions.query();
   return (
     <div className="space-y-6">
       <div>
@@ -9,7 +12,11 @@ export default function SettingsAccountPage() {
         <p className="text-sm text-muted-foreground">Coming soon!</p>
       </div>
       <Separator />
-      <Subscriptions />
+      {subscription ? (
+        <ActiveSubscription subscription={subscription} />
+      ) : (
+        <Subscriptions />
+      )}
     </div>
   );
 }

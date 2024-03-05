@@ -2,16 +2,13 @@ import { z } from "zod";
 import Stripe from "stripe";
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { stripe } from "src/utils/stripe";
+import { prisma } from "src/utils/prisma";
+
+const url = process.env.URL ?? "http://localhost:3000";
 
 export const stripeRouter = createTRPCRouter({
-  
   getSubscriptionCheckoutURL: protectedProcedure.query(async ({ ctx }) => {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
-      apiVersion: "2023-10-16",
-    });
-
-    const url = process.env.URL ?? "http://localhost:3000";
-
     const checkoutSession = await stripe.checkout.sessions.create({
       mode: "subscription",
       line_items: [
@@ -69,19 +66,55 @@ export const stripeRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       const { stripeCustomerId } = input;
 
-      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
-        apiVersion: "2023-10-16",
-      });
-
       const subscription = await stripe.subscriptions.list({
         customer: stripeCustomerId,
       });
-      const subscriptionId = subscription.data[0]!.id;
 
+      const subscriptionId = subscription.data[0]!.id;
       await stripe.subscriptions.update(subscriptionId, {
         cancel_at_period_end: false,
       });
 
       return { message: "Membership Resumed" };
     }),
+
+  //create a new mutation to get the user'd stripe customer id
+  getStripeCustomerId: protectedProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ ctx }) => {
+      const userId = ctx.session.user.id;
+      const customer = await stripe.customers.list({
+        email: userId,
+      });
+
+      return customer.data[0]!.id;
+    }),
+
+  getUserSubscriptions: protectedProcedure.query(async ({ ctx }) => {
+    const stripeCustomer = await prisma.stripeCustomer.findFirst({
+      where: { userId: ctx.session.user.id },
+    });
+
+    const subscriptions = await stripe.subscriptions.list({
+      customer: stripeCustomer?.stripeCustomerId,
+    });
+
+    if (subscriptions.data.length === 0) {
+      return null; // No subscription found
+    }
+
+    // Directly use the first subscription in the array
+    const subscription = subscriptions?.data[0];
+
+    return {
+      id: subscription?.id,
+      status: subscription?.status,
+      renewalDate: subscription?.current_period_end, // Rename this field
+      items: subscription?.items.data.map((item) => ({
+        id: item.id,
+        price: item.price.unit_amount,
+        currency: item.price.currency,
+      })),
+    };
+  }),
 });
