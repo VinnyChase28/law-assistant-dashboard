@@ -1,7 +1,7 @@
 "use client";
 
 import { api } from "src/trpc/react";
-
+import { Button } from "../ui/button";
 const Subscriptions = () => {
   const userId = api.user.getUserId.useQuery().data !== null;
 
@@ -31,12 +31,9 @@ const Subscriptions = () => {
             $19 a Month
           </h2>
           <p className="text-center">and $0.06 per 1000 tokens</p>
-          <button
-            onClick={() => handleGoToSubscriptionCheckoutSession()}
-            className="border border-indigo-950 bg-indigo-700 py-3 text-xl font-extrabold text-neutral-100"
-          >
+          <Button onClick={() => handleGoToSubscriptionCheckoutSession()}>
             Subscribe
-          </button>
+          </Button>
         </div>
       </div>
     </section>
