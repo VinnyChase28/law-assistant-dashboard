@@ -59,7 +59,7 @@ export async function POST(req: Request) {
     switch (event.type) {
       case "checkout.session.completed": {
         console.log("Checkout session completed");
-        const session = event.data.object as Stripe.Checkout.Session;
+        const session = event.data.object;
         const userId = session.metadata?.userId;
         const customerStripeId = session.customer as string;
 
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
 
       case "invoice.payment_succeeded": {
         console.log("Invoice payment succeeded");
-        const invoice = event.data.object as Stripe.Invoice;
+        const invoice = event.data.object;
         const subscription = await stripe.subscriptions.retrieve(
           invoice.subscription as string,
         );
@@ -92,7 +92,9 @@ export async function POST(req: Request) {
 
         if (!stripeCustomer) {
           console.error(
-            `StripeCustomer not found for Stripe Customer ID: ${subscription.customer}`,
+            `StripeCustomer not found for Stripe Customer ID: ${JSON.stringify(
+              subscription.customer,
+            )}`,
           );
           return new Response("StripeCustomer record not found", {
             status: 400,
@@ -105,7 +107,7 @@ export async function POST(req: Request) {
 
       case "customer.deleted": {
         console.log("Customer deleted");
-        const customer = event.data.object as Stripe.Customer;
+        const customer = event.data.object;
         await prisma.stripeCustomer.delete({
           where: { stripeCustomerId: customer.id },
         });
@@ -113,16 +115,16 @@ export async function POST(req: Request) {
       }
 
       case "customer.subscription.updated": {
-        console.log("Customer subscription updated");
-        const subscription = event.data.object as Stripe.Subscription;
-        console.log("🚀 ~ POST ~ subscription:", subscription);
+        const subscription = event.data.object;
         const stripeCustomer = await prisma.stripeCustomer.findUnique({
           where: { stripeCustomerId: subscription.customer as string },
         });
 
         if (!stripeCustomer) {
           console.error(
-            `StripeCustomer not found for Stripe Customer ID: ${subscription.customer}`,
+            `StripeCustomer not found for Stripe Customer ID: ${
+              subscription.customer as string
+            }`,
           );
           return new Response("StripeCustomer record not found", {
             status: 400,

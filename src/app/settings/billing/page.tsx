@@ -49,7 +49,7 @@ export default function SettingsAccountPage() {
       {hasSessionId && (
         <Alert variant="default" title="Subscription Created">
           <AlertDescription>
-            Thanks for signing up! We're happy you're here.
+            Thanks for signing up! We&apos;re happy you&apos;re here.
           </AlertDescription>
         </Alert>
       )}
