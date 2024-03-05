@@ -2,19 +2,11 @@ import { headers } from "next/headers";
 import Stripe from "stripe";
 import { stripe } from "src/utils/stripe"; // Ensure this path is correct
 import { prisma } from "src/utils/prisma"; // Ensure this path is correct
-import { getServerAuthSession } from "src/server/auth";
 import { SubscriptionStatus } from "@prisma/client";
 
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = headers().get("Stripe-Signature") as string;
-  const userId = await getServerAuthSession().then(
-    (session) => session?.user.id,
-  );
-  if (!userId) {
-    return new Response("Unauthorized", { status: 401 });
-  }
-
   let event: Stripe.Event;
 
   try {
@@ -43,10 +35,10 @@ export async function POST(req: Request) {
       // Ensure StripeCustomer exists or create it
       let stripeCustomer = await prisma.stripeCustomer.upsert({
         where: {
-          userId: userId,
+          userId: session.metadata?.userId,
         },
         create: {
-          userId: userId,
+          userId: session.metadata?.userId,
           stripeCustomerId: subscription.customer as string,
         },
         update: {},
