@@ -1,4 +1,4 @@
-import { ChevronDownIcon, CircleIcon, StarIcon } from "@radix-ui/react-icons";
+import { CircleIcon, StarIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -8,13 +8,6 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 
 //TODO - Add proper props here when we force
