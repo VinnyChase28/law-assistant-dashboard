@@ -24,8 +24,12 @@ import { api } from "src/trpc/react";
 //TODO - Add proper props here when we force
 //to the user to sign up for a subscription or a free trial
 export function ActiveSubscription({ subscription }: any) {
+  const [subscriptionVersion, setSubscriptionVersion] = useState(0);
   const { status, renewalDate, cancelAtPeriodEnd, trialEndDate } = subscription;
-  const formattedRenewalDate = new Date(renewalDate * 1000).toLocaleDateString(
+  const isTrial = status === "trialing";
+  const endDate = isTrial ? trialEndDate : renewalDate;
+
+  const formattedEndDate = new Date(trialEndDate * 1000).toLocaleDateString(
     "en-US",
     {
       month: "long",
@@ -34,17 +38,10 @@ export function ActiveSubscription({ subscription }: any) {
     },
   );
 
-  const formattedTrialEndDate = new Date(
-    trialEndDate * 1000,
-  ).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-
   const cancelSubscription = api.stripe.cancelSubscription.useMutation();
   const cancel = async () => {
     await cancelSubscription.mutateAsync();
+    setSubscriptionVersion((prevVersion) => prevVersion + 1);
   };
 
   return (
@@ -89,11 +86,13 @@ export function ActiveSubscription({ subscription }: any) {
             <StarIcon className="mr-1 h-3 w-3" />
             Premium Features
           </div>
-          {cancelAtPeriodEnd ? (
-            <div>Your account will expire on {formattedTrialEndDate}</div>
-          ) : (
-            <div>Renews on {formattedRenewalDate}</div>
-          )}
+          <p>
+            {isTrial
+              ? `Your trial will expire on ${formattedEndDate}.`
+              : `Your subscription will ${
+                  cancelAtPeriodEnd ? "expire" : "renew"
+                } on ${formattedEndDate}.`}
+          </p>
         </div>
       </CardContent>
     </Card>
