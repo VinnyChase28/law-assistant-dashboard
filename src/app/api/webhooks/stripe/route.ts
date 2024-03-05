@@ -109,7 +109,25 @@ export async function POST(req: Request) {
         });
         break;
       }
-      // Add more cases as needed
+      case "customer.subscription.updated": {
+        const subscription = event.data.object as Stripe.Subscription;
+        const stripeCustomer = await prisma.stripeCustomer.findUnique({
+          where: { stripeCustomerId: subscription.customer as string },
+        });
+
+        if (!stripeCustomer) {
+          console.error(
+            `StripeCustomer not found for Stripe Customer ID: ${subscription.customer}`,
+          );
+          return new Response("StripeCustomer record not found", {
+            status: 400,
+          });
+        }
+
+        await upsertSubscription(subscription, stripeCustomer.id);
+        break;
+      }
+
       default:
         console.log(`Unhandled event type ${event.type}`);
     }

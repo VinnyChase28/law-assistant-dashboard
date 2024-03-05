@@ -11,7 +11,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-export function AlertDialogComponent() {
+//define props for continue
+
+interface AlertDialogComponentProps {
+  continue: () => void;
+}
+
+export function AlertDialogComponent({ continue: onContinue }: AlertDialogComponentProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -27,7 +33,7 @@ export function AlertDialogComponent() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={onContinue}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

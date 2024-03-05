@@ -15,17 +15,16 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { AlertDialogComponent } from "../alert-dialogue";
+import { api } from "src/trpc/react";
 
 //TODO - Add proper props here when we force
 //to the user to sign up for a subscription or a free trial
 export function ActiveSubscription({ subscription }: any) {
   const { status, renewalDate } = subscription;
-  const [open, setOpen] = useState(false);
   const formattedRenewalDate = new Date(renewalDate * 1000).toLocaleDateString(
     "en-US",
     {
@@ -35,7 +34,10 @@ export function ActiveSubscription({ subscription }: any) {
     },
   );
 
-  //render dialog if user wants to cancel subscription
+  const cancelSubscription = api.stripe.cancelSubscription.useMutation();
+  const cancel = async () => {
+    await cancelSubscription.mutateAsync();
+  };
 
   return (
     <Card>
@@ -68,7 +70,7 @@ export function ActiveSubscription({ subscription }: any) {
               className="h-[50px] w-[25px] border-none shadow-none"
               forceMount
             >
-              <AlertDialogComponent />
+              <AlertDialogComponent continue={cancel} />
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
