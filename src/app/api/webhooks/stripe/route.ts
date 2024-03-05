@@ -22,27 +22,30 @@ export async function POST(req: Request) {
   switch (event.type) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
-
+    
       if (!session.metadata?.userId) {
         return new Response("User ID not found in session metadata", {
           status: 400,
         });
       }
-      const subscription = await stripe.subscriptions.retrieve(
-        session.subscription as string,
-      );
 
-      // Ensure StripeCustomer exists or create it
+      const userId = session.metadata.userId;
+      const customerStripeId = session.customer as string;
+
+      // Preemptively ensure the StripeCustomer exists
       let stripeCustomer = await prisma.stripeCustomer.upsert({
-        where: {
-          userId: session.metadata?.userId,
-        },
+        where: { stripeCustomerId: customerStripeId },
         create: {
-          userId: session.metadata?.userId,
-          stripeCustomerId: subscription.customer as string,
+          userId: userId,
+          stripeCustomerId: customerStripeId,
         },
         update: {},
       });
+
+      const subscription = await stripe.subscriptions.retrieve(
+        session.subscription as string,
+      );
+    
 
       // Upsert Subscription
       await prisma.subscription.upsert({
