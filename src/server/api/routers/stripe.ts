@@ -23,10 +23,12 @@ export const stripeRouter = createTRPCRouter({
 
       success_url: `${url}/?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${url}/`,
+      metadata: { userId: ctx.session.user.id },
       subscription_data: {
         metadata: {
           userId: ctx.session.user.id,
         },
+
         trial_period_days: 7,
       },
     });

@@ -21,8 +21,9 @@ export async function POST(req: Request) {
 
   switch (event.type) {
     case "checkout.session.completed": {
+      console.log("checkout.session.completed");
       const session = event.data.object as Stripe.Checkout.Session;
-    
+      console.log(session, "LALALALA");
       if (!session.metadata?.userId) {
         return new Response("User ID not found in session metadata", {
           status: 400,
@@ -45,7 +46,8 @@ export async function POST(req: Request) {
       const subscription = await stripe.subscriptions.retrieve(
         session.subscription as string,
       );
-    
+
+      console.log(subscription.status.toUpperCase(), "subscription status");
 
       // Upsert Subscription
       await prisma.subscription.upsert({
@@ -55,11 +57,11 @@ export async function POST(req: Request) {
         create: {
           stripeSubscriptionId: subscription.id,
           customerId: stripeCustomer.id,
-          status: subscription.status.toUpperCase() as SubscriptionStatus,
+          status: subscription.status as SubscriptionStatus,
           priceId: subscription?.items?.data[0]?.price.id ?? "",
         },
         update: {
-          status: subscription.status.toUpperCase() as SubscriptionStatus,
+          status: subscription.status as SubscriptionStatus,
           priceId: subscription?.items?.data[0]?.price.id,
         },
       });
@@ -67,13 +69,38 @@ export async function POST(req: Request) {
       break;
     }
     case "invoice.payment_succeeded": {
+      console.log("invoice.payment_succeeded");
       const invoice = event.data.object as Stripe.Invoice;
+      console.log(event.data.object, "payment_succeeded metadata");
       const subscription = await stripe.subscriptions.retrieve(
         invoice.subscription as string,
       );
 
       // Fetch the corresponding StripeCustomer based on Stripe's customer ID
-      const stripeCustomer = await prisma.stripeCustomer.findFirst({
+      let stripeCustomer = await prisma.stripeCustomer.findFirst({
+        where: {
+          stripeCustomerId: subscription.customer as string,
+        },
+      });
+
+      console.log(
+        stripeCustomer,
+        "stripeCustomer in invoice.payment_succeeded",
+      );
+
+      //if no stripe customer, create one
+      if (!stripeCustomer) {
+        await prisma.stripeCustomer.create({
+          data: {
+            userId: event?.data?.object?.subscription_details?.metadata
+              ?.userId as string,
+            stripeCustomerId: subscription.customer as string,
+          },
+        });
+      }
+
+      // Fetch the corresponding StripeCustomer based on Stripe's customer ID
+      stripeCustomer = await prisma.stripeCustomer.findFirst({
         where: {
           stripeCustomerId: subscription.customer as string,
         },
@@ -83,7 +110,10 @@ export async function POST(req: Request) {
         console.error(
           `StripeCustomer not found for Stripe Customer ID: ${subscription.customer}`,
         );
-        return new Response("StripeCustomer record not found", { status: 400 });
+        return new Response(
+          "StripeCustomer record not found within invoice.payment_succeeded",
+          { status: 400 },
+        );
       }
 
       // Upsert Subscription with the correct customerId
@@ -94,11 +124,11 @@ export async function POST(req: Request) {
         create: {
           stripeSubscriptionId: subscription.id,
           customerId: stripeCustomer.id,
-          status: subscription.status.toUpperCase() as SubscriptionStatus,
+          status: subscription.status as SubscriptionStatus,
           priceId: subscription?.items?.data[0]?.price.id ?? "",
         },
         update: {
-          status: subscription.status.toUpperCase() as SubscriptionStatus,
+          status: subscription.status as SubscriptionStatus,
           priceId: subscription?.items?.data[0]?.price.id,
         },
       });
@@ -106,6 +136,7 @@ export async function POST(req: Request) {
       break;
     }
     case "customer.deleted": {
+      console.log("customer.deleted");
       const customer = event.data.object as Stripe.Customer;
 
       // Delete StripeCustomer and related Subscriptions
@@ -114,7 +145,6 @@ export async function POST(req: Request) {
           stripeCustomerId: customer.id,
         },
       });
-
       break;
     }
     // Add more cases as needed
