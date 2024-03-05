@@ -106,11 +106,18 @@ export const stripeRouter = createTRPCRouter({
 
     // Directly use the first subscription in the array
     const subscription = subscriptions?.data[0];
+    console.log(
+      "🚀 ~ getUserSubscriptions:protectedProcedure.query ~ subscription:",
+      subscription,
+    );
 
     return {
       id: subscription?.id,
       status: subscription?.status,
-      renewalDate: subscription?.current_period_end, // Rename this field
+      renewalDate: subscription?.current_period_end,
+      trialEndDate: subscription?.trial_end,
+      cancelAtPeriodEnd: subscription?.cancel_at_period_end,
+      cancelledAt: subscription?.canceled_at,
       items: subscription?.items.data.map((item) => ({
         id: item.id,
         price: item.price.unit_amount,

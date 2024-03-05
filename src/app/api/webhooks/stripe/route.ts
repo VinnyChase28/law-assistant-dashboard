@@ -79,6 +79,7 @@ export async function POST(req: Request) {
         await upsertSubscription(subscription, stripeCustomer.id);
         break;
       }
+
       case "invoice.payment_succeeded": {
         console.log("Invoice payment succeeded");
         const invoice = event.data.object as Stripe.Invoice;
@@ -101,6 +102,7 @@ export async function POST(req: Request) {
         await upsertSubscription(subscription, stripeCustomer.id);
         break;
       }
+
       case "customer.deleted": {
         console.log("Customer deleted");
         const customer = event.data.object as Stripe.Customer;
@@ -109,8 +111,11 @@ export async function POST(req: Request) {
         });
         break;
       }
+
       case "customer.subscription.updated": {
+        console.log("Customer subscription updated");
         const subscription = event.data.object as Stripe.Subscription;
+        console.log("🚀 ~ POST ~ subscription:", subscription);
         const stripeCustomer = await prisma.stripeCustomer.findUnique({
           where: { stripeCustomerId: subscription.customer as string },
         });

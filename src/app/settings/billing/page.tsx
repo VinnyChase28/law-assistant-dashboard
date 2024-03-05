@@ -7,21 +7,29 @@ import { api } from "src/trpc/react";
 import { useSearchParams } from "next/navigation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { SkeletonAbstract } from "src/app/_components/skeleton-abstract";
+import { useEffect } from "react";
 
 export default function SettingsAccountPage() {
   const searchParams = useSearchParams();
-  console.log("🚀 ~ SettingsAccountPage ~ searchParams:", searchParams);
   const hasSessionId: boolean = searchParams?.has("session_id");
-  console.log("🚀 ~ SettingsAccountPage ~ hasSessionId:", hasSessionId);
   const { data: subscription, isLoading } =
     api.stripe.getUserSubscriptions.useQuery();
+
+  //need useEffect when subscription data changes.
+  useEffect(() => {
+    if (subscription) {
+      console.log(subscription, "subscriptio changed");
+    }
+  }, [subscription]);
 
   if (isLoading) {
     return (
       <div className="space-y-6">
         <div>
           <h3 className="text-lg font-medium">Billing</h3>
-          <p className="text-sm text-muted-foreground">Coming soon!</p>
+          <p className="text-sm text-muted-foreground">
+            Manage your subscription
+          </p>
         </div>
         <Separator />
         <SkeletonAbstract />
@@ -33,7 +41,9 @@ export default function SettingsAccountPage() {
     <div className="space-y-6">
       <div>
         <h3 className="text-lg font-medium">Billing</h3>
-        <p className="text-sm text-muted-foreground">Coming soon!</p>
+        <p className="text-sm text-muted-foreground">
+          Manage your subscription
+        </p>
       </div>
       <Separator />
       {hasSessionId && (

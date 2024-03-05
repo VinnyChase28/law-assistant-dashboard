@@ -24,7 +24,7 @@ import { api } from "src/trpc/react";
 //TODO - Add proper props here when we force
 //to the user to sign up for a subscription or a free trial
 export function ActiveSubscription({ subscription }: any) {
-  const { status, renewalDate } = subscription;
+  const { status, renewalDate, cancelAtPeriodEnd, trialEndDate } = subscription;
   const formattedRenewalDate = new Date(renewalDate * 1000).toLocaleDateString(
     "en-US",
     {
@@ -33,6 +33,14 @@ export function ActiveSubscription({ subscription }: any) {
       year: "numeric",
     },
   );
+
+  const formattedTrialEndDate = new Date(
+    trialEndDate * 1000,
+  ).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
   const cancelSubscription = api.stripe.cancelSubscription.useMutation();
   const cancel = async () => {
@@ -81,7 +89,11 @@ export function ActiveSubscription({ subscription }: any) {
             <StarIcon className="mr-1 h-3 w-3" />
             Premium Features
           </div>
-          <div>Renews on {formattedRenewalDate}</div>
+          {cancelAtPeriodEnd ? (
+            <div>Your account will expire on {formattedTrialEndDate}</div>
+          ) : (
+            <div>Renews on {formattedRenewalDate}</div>
+          )}
         </div>
       </CardContent>
     </Card>
