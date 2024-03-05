@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDownIcon, CircleIcon, StarIcon } from "@radix-ui/react-icons";
+import { ChevronDownIcon, TimerIcon, StarIcon } from "@radix-ui/react-icons";
 
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -12,12 +11,6 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
 import { AlertDialogComponent } from "../alert-dialogue";
 import { api } from "src/trpc/react";
 
@@ -94,13 +87,15 @@ export function SubscriptionManager({ subscription }: any) {
             <StarIcon className="mr-1 h-3 w-3" />
             Premium Features
           </div>
-          <p>
-            {isTrial
-              ? `Your trial will expire on ${formattedEndDate}.`
-              : `Your subscription will ${
-                  cancelAtPeriodEnd ? "expire" : "renew"
-                } on ${formattedEndDate}.`}
-          </p>
+
+          <div className="flex items-center">
+            <TimerIcon className="mr-1 h-3 w-3" />
+          </div>
+          {isTrial
+            ? `Your trial will expire on ${formattedEndDate}.`
+            : `Your subscription will ${
+                cancelAtPeriodEnd ? "expire" : "renew"
+              } on ${formattedEndDate}.`}
         </div>
       </CardContent>
     </Card>

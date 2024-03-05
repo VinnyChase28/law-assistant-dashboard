@@ -28,14 +28,9 @@ export function AlertDialogComponent({
   description,
   confirmLabel,
 }: AlertDialogComponentProps) {
-  console.log("🚀 ~ confirmLabel:", confirmLabel);
-  console.log("🚀 ~ title:", title);
-  console.log("🚀 ~ triggerLabel:", triggerLabel);
-  console.log("🚀 ~ onCancel:", onCancel);
-  console.log("🚀 ~ onConfirm:", onConfirm);
+
   const buttonPicker =
     triggerLabel === "Cancel Subscription" ? "destructive" : "default";
-  console.log("🚀 ~ buttonPicker:", buttonPicker);
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
