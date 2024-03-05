@@ -51,22 +51,6 @@ export const userRouter = createTRPCRouter({
     return subscriptions;
   }),
 
-  // Update Subscription
-  updateSubscription: protectedProcedure
-    .input(
-      z.object({
-        subscriptionId: z.string(),
-        newStatus: z.string(),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const updatedSubscription = await ctx.db.subscription.update({
-        where: { id: input.subscriptionId },
-        data: { status: input.newStatus },
-      });
-
-      return updatedSubscription;
-    }),
 
   //get user details
   getUserDetails: protectedProcedure.query(async ({ ctx }) => {
