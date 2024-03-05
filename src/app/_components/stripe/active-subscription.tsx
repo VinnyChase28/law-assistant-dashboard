@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { ChevronDownIcon, CircleIcon, StarIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
@@ -16,12 +19,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
+import { AlertDialogComponent } from "../alert-dialogue";
 
 //TODO - Add proper props here when we force
 //to the user to sign up for a subscription or a free trial
 export function ActiveSubscription({ subscription }: any) {
   const { status, renewalDate } = subscription;
-
+  const [open, setOpen] = useState(false);
   const formattedRenewalDate = new Date(renewalDate * 1000).toLocaleDateString(
     "en-US",
     {
@@ -30,6 +34,8 @@ export function ActiveSubscription({ subscription }: any) {
       year: "numeric",
     },
   );
+
+  //render dialog if user wants to cancel subscription
 
   return (
     <Card>
@@ -57,12 +63,12 @@ export function ActiveSubscription({ subscription }: any) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              align="end"
+              align="center"
               alignOffset={-5}
-              className="w-[200px]"
+              className="h-[50px] w-[25px] border-none shadow-none"
               forceMount
             >
-              <DropdownMenuItem>Cancel</DropdownMenuItem>
+              <AlertDialogComponent />
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

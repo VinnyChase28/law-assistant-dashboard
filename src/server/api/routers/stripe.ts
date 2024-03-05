@@ -25,7 +25,6 @@ export const stripeRouter = createTRPCRouter({
         metadata: {
           userId: ctx.session.user.id,
         },
-
         trial_period_days: 7,
       },
     });
@@ -44,11 +43,6 @@ export const stripeRouter = createTRPCRouter({
     .input(z.object({ stripeCustomerId: z.string() }))
     .mutation(async ({ input }) => {
       const { stripeCustomerId } = input;
-
-      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
-        apiVersion: "2023-10-16",
-      });
-
       const subscription = await stripe.subscriptions.list({
         customer: stripeCustomerId,
       });
