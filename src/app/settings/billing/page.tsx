@@ -7,6 +7,7 @@ import { api } from "src/trpc/react";
 import { useSearchParams } from "next/navigation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { SkeletonAbstract } from "src/app/_components/skeleton-abstract";
+
 export default function SettingsAccountPage() {
   const searchParams = useSearchParams();
   console.log("🚀 ~ SettingsAccountPage ~ searchParams:", searchParams);
@@ -16,8 +17,6 @@ export default function SettingsAccountPage() {
     api.stripe.getUserSubscriptions.useQuery();
 
   if (isLoading) {
-    console.log("🚀 ~ SettingsAccountPage ~ isLoading:", isLoading);
-
     return (
       <div className="space-y-6">
         <div>
