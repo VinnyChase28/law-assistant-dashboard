@@ -146,7 +146,7 @@ model User {
   tasks           Task[]
   ChatSession     ChatSession[]
   UsageCost       UsageCost[]
-  StripeCustomer  StripeCustomer[]
+  StripeCustomer  StripeCustomer?
   SocialLink      SocialLink[]
 }
 
@@ -188,24 +188,22 @@ model Account {
 }
 
 model StripeCustomer {
-  id               String         @id @default(cuid())
-  stripeCustomerId String         @unique
-  userId           String
-  user             User           @relation(fields: [userId], references: [id])
+  id               String        @id @default(cuid())
+  stripeCustomerId String        @unique
+  userId           String?       @unique
+  user             User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
   Subscription     Subscription[]
-
-  @@index([userId])
 }
 
 model Subscription {
-  id                   String         @id @default(cuid())
-  stripeSubscriptionId String         @unique
+  id                   String          @id @default(cuid())
+  stripeSubscriptionId String          @unique
   customerId           String
-  status               String
+  status               SubscriptionStatus
   priceId              String
-  createdAt            DateTime       @default(now())
-  updatedAt            DateTime       @updatedAt
-  stripeCustomer       StripeCustomer @relation(fields: [customerId], references: [id])
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+  stripeCustomer       StripeCustomer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
 
   @@index([customerId])
 }
@@ -239,4 +237,14 @@ enum processingStatus {
 enum MessageRole {
   USER
   AI
+}
+
+enum SubscriptionStatus {
+  INCOMPLETE
+  INCOMPLETE_EXPIRED
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  UNPAID
 }
