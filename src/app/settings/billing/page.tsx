@@ -2,7 +2,7 @@
 
 import { Separator } from "@/components/ui/separator";
 import Subscriptions from "@/components/stripe/subscriptions";
-import { ActiveSubscription } from "@/components/stripe/active-subscription";
+import { SubscriptionManager } from "@/components/stripe/active-subscription";
 import { api } from "src/trpc/react";
 import { useSearchParams } from "next/navigation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -54,7 +54,7 @@ export default function SettingsAccountPage() {
         </Alert>
       )}
       {subscription ? (
-        <ActiveSubscription subscription={subscription} />
+        <SubscriptionManager subscription={subscription} />
       ) : (
         <Subscriptions />
       )}

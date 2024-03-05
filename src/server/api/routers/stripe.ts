@@ -63,12 +63,14 @@ export const stripeRouter = createTRPCRouter({
     }),
 
   resumeSubscription: protectedProcedure
-    .input(z.object({ stripeCustomerId: z.string() }))
-    .mutation(async ({ input }) => {
-      const { stripeCustomerId } = input;
+    .input(z.optional(z.object({ stripeCustomerId: z.string() })))
+    .mutation(async ({ ctx }) => {
+      const stripeCustomer = await prisma.stripeCustomer.findFirst({
+        where: { userId: ctx.session.user.id },
+      });
 
       const subscription = await stripe.subscriptions.list({
-        customer: stripeCustomerId,
+        customer: stripeCustomer?.stripeCustomerId,
       });
 
       const subscriptionId = subscription.data[0]!.id;
@@ -106,10 +108,6 @@ export const stripeRouter = createTRPCRouter({
 
     // Directly use the first subscription in the array
     const subscription = subscriptions?.data[0];
-    console.log(
-      "🚀 ~ getUserSubscriptions:protectedProcedure.query ~ subscription:",
-      subscription,
-    );
 
     return {
       id: subscription?.id,
@@ -117,6 +115,7 @@ export const stripeRouter = createTRPCRouter({
       renewalDate: subscription?.current_period_end,
       trialEndDate: subscription?.trial_end,
       cancelledAt: subscription?.canceled_at,
+      cancelAtPeriodEnd: subscription?.cancel_at_period_end,
       items: subscription?.items.data.map((item) => ({
         id: item.id,
         price: item.price.unit_amount,

@@ -23,13 +23,14 @@ import { api } from "src/trpc/react";
 
 //TODO - Add proper props here when we force
 //to the user to sign up for a subscription or a free trial
-export function ActiveSubscription({ subscription }: any) {
+//not having the types is bad practice
+export function SubscriptionManager({ subscription }: any) {
   const [subscriptionVersion, setSubscriptionVersion] = useState(0);
   const { status, renewalDate, cancelAtPeriodEnd, trialEndDate } = subscription;
   const isTrial = status === "trialing";
   const endDate = isTrial ? trialEndDate : renewalDate;
 
-  const formattedEndDate = new Date(trialEndDate * 1000).toLocaleDateString(
+  const formattedEndDate = new Date(endDate * 1000).toLocaleDateString(
     "en-US",
     {
       month: "long",
@@ -44,41 +45,48 @@ export function ActiveSubscription({ subscription }: any) {
     setSubscriptionVersion((prevVersion) => prevVersion + 1);
   };
 
+  const resumeSubscription = api.stripe.resumeSubscription.useMutation();
+  const resume = async () => {
+    await resumeSubscription.mutateAsync();
+    setSubscriptionVersion((prevVersion) => prevVersion + 1);
+  };
+
+  const cancelDialog = (
+    <AlertDialogComponent
+      triggerLabel="Cancel Subscription"
+      title="Cancel Subscription"
+      description="Are you sure you want to cancel your subscription? We're sad to see you go."
+      confirmLabel="Yes, Cancel"
+      onConfirm={cancel}
+    />
+  );
+
+  const resumeDialog = (
+    <AlertDialogComponent
+      triggerLabel="Resume Subscription"
+      title="Resume Subscription"
+      description="Are you sure you want to resume your subscription and continue enjoying our services?"
+      confirmLabel="Yes, Resume"
+      onConfirm={resume}
+    />
+  );
+
   return (
     <Card>
-      <CardHeader className="grid grid-cols-[1fr_110px] items-start gap-4 space-y-0">
-        <div className="space-y-1">
-          <CardTitle>Solo</CardTitle>
+      <CardHeader className="grid grid-cols-[1fr_auto] items-start gap-4">
+        <div>
+          <CardTitle>
+            {isTrial ? "Trial Subscription" : "Solo Subscription"}
+          </CardTitle>
           <CardDescription>
-            Your current subscription status and renewal information.
+            {isTrial
+              ? `Your trial will expire on ${formattedEndDate}.`
+              : `Your subscription will ${
+                  cancelAtPeriodEnd ? "expire" : "renew"
+                } on ${formattedEndDate}.`}
           </CardDescription>
         </div>
-        <div className="flex items-center space-x-1 rounded-md bg-secondary pr-4 text-secondary-foreground">
-          <Button variant="secondary" className="px-3 shadow-none">
-            {status === "active" ? (
-              <CircleIcon className="mr-2 h-4 w-4 fill-green-500 text-green-500" />
-            ) : (
-              <CircleIcon className="mr-2 h-4 w-4 fill-red-500 text-red-500" />
-            )}
-            {status}
-          </Button>
-          <Separator orientation="vertical" className="h-[20px]" />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild className="">
-              <Button variant="secondary" className="px-2 shadow-none">
-                <ChevronDownIcon className="h-4 w-4 text-secondary-foreground" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="center"
-              alignOffset={-5}
-              className="h-[50px] w-[25px] border-none shadow-none"
-              forceMount
-            >
-              <AlertDialogComponent continue={cancel} />
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+        {cancelAtPeriodEnd ? resumeDialog : cancelDialog}
       </CardHeader>
       <CardContent>
         <div className="flex space-x-4 text-sm text-muted-foreground">

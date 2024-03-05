@@ -11,29 +11,52 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-//define props for continue
-
 interface AlertDialogComponentProps {
-  continue: () => void;
+  onConfirm: () => void; // Renamed for clarity
+  onCancel?: () => void; // Optional callback for when the user cancels the operation
+  triggerLabel: string; // Button label to trigger the dialog
+  title: string; // Dialog title
+  description: string; // Dialog description
+  confirmLabel: string; // Confirm button label
 }
 
-export function AlertDialogComponent({ continue: onContinue }: AlertDialogComponentProps) {
+export function AlertDialogComponent({
+  onConfirm,
+  onCancel,
+  triggerLabel,
+  title,
+  description,
+  confirmLabel,
+}: AlertDialogComponentProps) {
+  console.log("🚀 ~ confirmLabel:", confirmLabel);
+  console.log("🚀 ~ title:", title);
+  console.log("🚀 ~ triggerLabel:", triggerLabel);
+  console.log("🚀 ~ onCancel:", onCancel);
+  console.log("🚀 ~ onConfirm:", onConfirm);
+  const buttonPicker =
+    triggerLabel === "Cancel Subscription" ? "destructive" : "default";
+  console.log("🚀 ~ buttonPicker:", buttonPicker);
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="default">Cancel</Button>
+        <Button variant="default">{triggerLabel}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Cancel Subscription</AlertDialogTitle>
-          <AlertDialogDescription>
-            We're sad to see you go. Are you sure you want to cancel your
-            subscription?
-          </AlertDialogDescription>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onContinue}>Continue</AlertDialogAction>
+          <AlertDialogCancel asChild>
+            <Button variant="default" onClick={onCancel}>
+              Cancel
+            </Button>
+          </AlertDialogCancel>
+          <AlertDialogAction asChild>
+            <Button variant={buttonPicker} onClick={onConfirm}>
+              {confirmLabel}
+            </Button>
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
