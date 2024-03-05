@@ -41,30 +41,18 @@ export function ActiveSubscription({ subscription }: any) {
           </CardDescription>
         </div>
         <div className="flex items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
-          <Button variant="secondary" className="px-3 shadow-none">
+          <Button
+            variant="secondary"
+            className="cursor-default px-3 shadow-none"
+          >
             {status === "active" ? (
               <CircleIcon className="mr-2 h-4 w-4 fill-green-500 text-green-500" />
             ) : (
-              <CircleIcon className="mr-2 h-4 w-4 fill-red-500 text-red-500" />
+              <CircleIcon className="mr-2 h-4 w-4 fill-red-500 text-yellow-500" />
             )}
             {status}
           </Button>
           <Separator orientation="vertical" className="h-[20px]" />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="secondary" className="px-2 shadow-none">
-                <ChevronDownIcon className="h-4 w-4 text-secondary-foreground" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              alignOffset={-5}
-              className="w-[200px]"
-              forceMount
-            >
-              <DropdownMenuItem>Manage Subscription</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
         </div>
       </CardHeader>
       <CardContent>
