@@ -22,13 +22,6 @@ export default function SettingsAccountPage() {
       refetchInterval: 1000,
     });
 
-  //need useEffect when subscription data changes.
-  useEffect(() => {
-    if (subscription) {
-      console.log(subscription, "subscriptio changed");
-    }
-  }, [subscription]);
-
   if (isLoading) {
     return (
       <div className="space-y-6">
