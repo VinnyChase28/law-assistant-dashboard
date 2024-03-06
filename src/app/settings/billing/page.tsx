@@ -12,8 +12,15 @@ import { useEffect } from "react";
 export default function SettingsAccountPage() {
   const searchParams = useSearchParams();
   const hasSessionId: boolean = searchParams?.has("session_id");
+
+  //find a better way to refetch the data
   const { data: subscription, isLoading } =
-    api.stripe.getUserSubscriptions.useQuery();
+    api.stripe.getUserSubscriptions.useQuery(undefined, {
+      refetchOnReconnect: true,
+      refetchOnMount: true,
+      refetchOnWindowFocus: true,
+      refetchInterval: 1000,
+    });
 
   //need useEffect when subscription data changes.
   useEffect(() => {
