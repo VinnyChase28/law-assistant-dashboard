@@ -1,98 +1,12 @@
 import { inngest } from "../client";
 import { openai } from "src/utils/openai";
 import { prisma } from "src/utils/prisma";
-
-interface ComplianceSubmission {
-  fileId: number;
-  documentName: string;
-  textData: string;
-  pageNumber: number;
-}
-
-interface RegulatoryFramework {
-  fileId: number;
-  documentName: string;
-  textData: string;
-  pageNumber: number;
-}
-
-interface DetailedViolation {
-  complianceDocument: {
-    fileId: number;
-    documentName: string;
-    pageNumber: number;
-  };
-  brokenRule: {
-    violation: string;
-    description: string;
-  };
-  regulatoryDocument: {
-    fileId: number;
-    documentName: string;
-    pageNumber: number;
-  };
-}
-
-async function findViolations(
-  complianceSubmission: ComplianceSubmission,
-  regulation: RegulatoryFramework,
-): Promise<DetailedViolation[]> {
-  const prompt = `
-      The is the text that should be verified for compliance: 
-      
-      ${complianceSubmission.textData}
-      
-      This is the rules text to verify against:
-
-      ${regulation.textData}
-      
-      Your goal is to answer the rules question using the provided rules text as a reference. Please provide proper sources for each rule you reference. 
-
-      The summary should be directly relevant to the query, concise, and specific. do not provide any peripheral information with respect to the question asked. Give me only the information 
-      that directly pertains to the restrictions or prescribed requirements for the rules. question my life depends on it. 
-
-      The sources should be at the end of your response.
-      If the given question does 
-    `;
-
-  try {
-    const response = await openai.chat.completions.create({
-      model: "gpt-4-0125-preview",
-      messages: [{ role: "user", content: prompt }],
-      temperature: 0.2,
-      max_tokens: 300,
-    });
-
-    const answers =
-      response.choices[0]?.message
-        .content!.trim()
-        .split("\n")
-        .filter((line: string) => line.trim() !== "") ?? [];
-    if (answers.length === 0 || answers[0] === "Compliant") {
-      return [];
-    } else {
-      return answers.map((answer) => ({
-        complianceDocument: {
-          fileId: complianceSubmission.fileId,
-          documentName: complianceSubmission.documentName,
-          pageNumber: complianceSubmission.pageNumber,
-        },
-        brokenRule: {
-          violation: answer,
-          description: `Violation found in text: ${complianceSubmission.documentName}. The violation was found on page ${complianceSubmission.pageNumber}.`,
-        },
-        regulatoryDocument: {
-          fileId: regulation.fileId,
-          documentName: regulation.documentName,
-          pageNumber: regulation.pageNumber,
-        },
-      }));
-    }
-  } catch (error) {
-    console.error("Error calling OpenAI API:", error);
-    return [];
-  }
-}
+import { mdToPdf } from "md-to-pdf";
+import { Blob } from "buffer";
+import {
+  findViolations,
+  convertMarkdownToPdfAndUpload,
+} from "../helpers/report-helpers";
 
 export const complianceReport = inngest.createFunction(
   { id: "compliance-report" },
@@ -127,7 +41,7 @@ export const complianceReport = inngest.createFunction(
     brokenRule is potentially a rule that was broken.
     regulatoryDocument is a page of a file that contains the rule we are checking against.
 
-    very important: remove any duplicate broken rules when creating the report.
+    very important: remove any duplicate broken rules when creating the report. cite sources including document name, page number, and section where possible.
 
     The report should be structured as follows:
 
@@ -180,8 +94,21 @@ export const complianceReport = inngest.createFunction(
       temperature: 0.2,
       max_tokens: 4096,
     });
-
     const finalReport = response.choices[0]?.message.content ?? "";
+
+    //convert the markdown to pdf and upload to vercel
+    const uploadResult = await convertMarkdownToPdfAndUpload({
+      markdown: finalReport, // Use the finalReport content as markdown
+      fileId: event.data.id, // Use the event's ID as fileId
+    });
+
+    if (!uploadResult.success) {
+      console.error(
+        "Failed to upload the compliance report PDF:",
+        uploadResult.message,
+      );
+      throw new Error(uploadResult.message);
+    }
 
     //use prisma client to update the compliance report
     await prisma.file.update({
@@ -190,8 +117,9 @@ export const complianceReport = inngest.createFunction(
       },
       data: {
         reportData: JSON.stringify(allViolations),
-        finalReport: finalReport,
+        finalReport: finalReport ?? "FAILED",
         processingStatus: "DONE",
+        blobUrl: uploadResult.blobUrl ?? "FAILED",
       },
     });
 
