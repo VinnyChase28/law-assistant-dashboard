@@ -29,6 +29,7 @@ const config = {
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/require-await": "off",
     "@typescript-eslint/prefer-for-of": "off",
+    "@typescript-eslint/no-unnecessary-type-assertion": "off",
     "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",

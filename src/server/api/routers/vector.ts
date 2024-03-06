@@ -123,7 +123,7 @@ export const vectorRouter = createTRPCRouter({
           // Perform a Pinecone search for similar vectors within REGULATORY_FRAMEWORK documents
           const queryResponse = await userNamespace.query({
             vector: vector,
-            topK: 3, //TODO: this will need to be adjusted based on number of docs and pages
+            topK: 3, //TODO: this will need to be adjusted based on number of docs and pages currently stored for an account. max 128k context though, so there should be an upper limit
             filter: { documentType: { $eq: "REGULATORY_FRAMEWORK" } },
             includeMetadata: true,
           });
