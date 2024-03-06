@@ -137,32 +137,32 @@ export const complianceReport = inngest.createFunction(
 
     Title: "Real Estate Compliance Report" or a more specific title based on the project or property in question.
     Property Name/ID: Identification of the property or project being audited.
-    Date: The date when the report was completed.
+    Date: Today's date.
     Prepared for: The name of the entity or individuals the report is prepared for.
     Prepared by: Your name or your firm's name, including contact information.
 
-Executive Summary
+    Executive Summary
 
     Overview: A brief summary of the report, including the purpose of the compliance audit, the scope of the report, and a high-level overview of the findings.
 
-Table of Contents
+    Table of Contents
 
     List all the sections of the report along with page numbers for easy navigation.
 
-Introduction
+    Introduction
 
     Background: Information about the property, including location, size, usage, and any relevant historical data.
     Purpose: Clearly state the purpose of the compliance report, such as due diligence for a property transaction, regulatory compliance verification, etc.
     Scope: Define the scope of the audit, including the aspects of compliance being reviewed.
 
-Methodology
+    Methodology
 
     Data Collection: Describe how information was gathered, including document reviews, inspections, and interviews.
     Analysis Techniques: Outline the methods used to analyze compliance, such as comparing property practices against regulatory requirements.
 
-Compliance Areas
+    Compliance Areas
 
-This section should be broken down into sub-sections, each covering a specific area of compliance. Depending on the property and jurisdiction, these might include:
+    This section should be broken down into sub-sections, each covering a specific area of compliance. Depending on the property and jurisdiction, these might include:
 
     Zoning and Land Use: Compliance with local zoning laws and land use restrictions.
     Building Codes and Standards: Adherence to building codes, including structural integrity, fire safety, and accessibility.
@@ -170,34 +170,20 @@ This section should be broken down into sub-sections, each covering a specific a
     Health and Safety: Ensuring the property meets health and safety standards to protect occupants and visitors.
     Permits and Licenses: Verification that all required permits and licenses for construction, renovation, and operation are obtained and current.
 
-For each area, provide:
+    For each area, provide:
 
     Regulatory Framework: A summary of applicable laws and regulations.
     Findings: Details of the audit findings, including any areas of non-compliance.
-    Evidence: Include or reference evidence such as photographs, inspection reports, and official documents.
+    Evidence: Provide sources.
 
-Summary of Violations (if applicable)
+    Summary of Violations (if applicable)
 
     List any violations or areas of non-compliance found during the audit, referenced to the detailed findings in the previous section.
 
-Recommendations
-
-    Provide detailed recommendations for addressing any compliance issues, including corrective actions and timelines.
-
-Appendices
-
-    Include any additional documentation that supports your findings and recommendations, such as full inspection reports, floor plans, permits, and correspondence with regulatory bodies.
-
-Professional Presentation Tips:
+    Professional Presentation:
 
     Clarity and Conciseness: Use clear, concise language and avoid jargon where possible.
     Formatting: Use headings, bullet points, and numbered lists for easy reading. Maintain consistent fonts and colors.
-    Visual Aids: Include charts, tables, and photographs to illustrate points and break up text.
-    Professional Binding: For physical reports, professional binding and high-quality paper can make a good impression.
-    Digital Format: Provide a digital copy of the report in a universally accessible format like PDF, ensuring all digital documents are searchable and well-organized.
-
-This structure should give you a solid foundation to create a comprehensive and professional real estate compliance report. Tailor the content to your specific audit findings and the needs of your audience.
-
     `;
 
     //create a structured compliance report using openai api
