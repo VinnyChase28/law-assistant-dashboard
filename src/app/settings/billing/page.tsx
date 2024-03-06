@@ -15,11 +15,7 @@ export default function SettingsAccountPage() {
 
   //find a better way to refetch the data
   const { data: subscription, isLoading } =
-    api.stripe.getUserSubscriptions.useQuery(undefined, {
-      refetchOnReconnect: true,
-      refetchOnMount: true,
-      refetchOnWindowFocus: true,
-    });
+    api.stripe.getUserSubscriptions.useQuery();
 
   if (isLoading) {
     return (
