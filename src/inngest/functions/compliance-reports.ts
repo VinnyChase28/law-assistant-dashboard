@@ -133,13 +133,7 @@ export const complianceReport = inngest.createFunction(
 
     The report should be structured as follows:
 
-    Cover Page
-
-    Title: "Real Estate Compliance Report" or a more specific title based on the project or property in question.
-    Property Name/ID: Identification of the property or project being audited.
-    Date: Today's date.
-    Prepared for: The name of the entity or individuals the report is prepared for.
-    Prepared by: Your name or your firm's name, including contact information.
+    Title: "Real Estate Compliance Report" 
 
     Executive Summary
 
@@ -154,11 +148,6 @@ export const complianceReport = inngest.createFunction(
     Background: Information about the property, including location, size, usage, and any relevant historical data.
     Purpose: Clearly state the purpose of the compliance report, such as due diligence for a property transaction, regulatory compliance verification, etc.
     Scope: Define the scope of the audit, including the aspects of compliance being reviewed.
-
-    Methodology
-
-    Data Collection: Describe how information was gathered, including document reviews, inspections, and interviews.
-    Analysis Techniques: Outline the methods used to analyze compliance, such as comparing property practices against regulatory requirements.
 
     Compliance Areas
 
