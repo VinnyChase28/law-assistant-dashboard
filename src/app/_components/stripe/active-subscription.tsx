@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDownIcon, TimerIcon, StarIcon } from "@radix-ui/react-icons";
+import { TimerIcon, StarIcon } from "@radix-ui/react-icons";
 
 import {
   Card,
@@ -13,15 +12,17 @@ import {
 
 import { AlertDialogComponent } from "../alert-dialogue";
 import { api } from "src/trpc/react";
+import { useRouter } from "next/navigation";
 
 //TODO - Add proper props here when we force
 //to the user to sign up for a subscription or a free trial
 //not having the types is bad practice
 export function SubscriptionManager({ subscription }: any) {
-  const [subscriptionVersion, setSubscriptionVersion] = useState(0);
+  const router = useRouter();
   const { status, renewalDate, cancelAtPeriodEnd, trialEndDate } = subscription;
   const isTrial = status === "trialing";
   const endDate = isTrial ? trialEndDate : renewalDate;
+  
 
   const formattedEndDate = new Date(endDate * 1000).toLocaleDateString(
     "en-US",
@@ -35,13 +36,11 @@ export function SubscriptionManager({ subscription }: any) {
   const cancelSubscription = api.stripe.cancelSubscription.useMutation();
   const cancel = async () => {
     await cancelSubscription.mutateAsync();
-    setSubscriptionVersion((prevVersion) => prevVersion + 1);
   };
 
   const resumeSubscription = api.stripe.resumeSubscription.useMutation();
   const resume = async () => {
     await resumeSubscription.mutateAsync();
-    setSubscriptionVersion((prevVersion) => prevVersion + 1);
   };
 
   const cancelDialog = (
@@ -71,13 +70,7 @@ export function SubscriptionManager({ subscription }: any) {
           <CardTitle>
             {isTrial ? "Trial Subscription" : "Solo Subscription"}
           </CardTitle>
-          <CardDescription>
-            {isTrial
-              ? `Your trial will expire on ${formattedEndDate}.`
-              : `Your subscription will ${
-                  cancelAtPeriodEnd ? "expire" : "renew"
-                } on ${formattedEndDate}.`}
-          </CardDescription>
+          <CardDescription>Solo</CardDescription>
         </div>
         {cancelAtPeriodEnd ? resumeDialog : cancelDialog}
       </CardHeader>

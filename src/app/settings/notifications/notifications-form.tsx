@@ -14,7 +14,7 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
-import { useToast } from "src/app/_components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 const notificationsFormSchema = z.object({
   communication_emails: z.boolean().default(false).optional(),
