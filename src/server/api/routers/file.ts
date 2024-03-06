@@ -75,13 +75,11 @@ export const fileRouter = createTRPCRouter({
   deleteFile: protectedProcedure
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
+      const index = pinecone.Index(process.env.PINECONE_INDEX ?? "");
       const fileId = input;
-
       const fileSubsections = await ctx.db.textSubsection.findMany({
         where: { fileId: fileId },
       });
-
-      const index = pinecone.Index(process.env.PINECONE_INDEX ?? "");
 
       fileSubsections.forEach(async (subsection) => {
         await index.deleteOne(subsection.pineconeVectorId);
@@ -113,7 +111,7 @@ export const fileRouter = createTRPCRouter({
       });
     }),
 
-  // update compliance report with the generated report dat set status to done
+  // update compliance report with the generated report data and set status to done
   updateComplianceReport: publicProcedure
     .input(
       z.object({
