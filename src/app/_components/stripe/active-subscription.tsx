@@ -1,8 +1,7 @@
 "use client";
 
+import { TimerIcon, StarIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
-import { ChevronDownIcon, TimerIcon, StarIcon } from "@radix-ui/react-icons";
-
 import {
   Card,
   CardContent,
@@ -13,12 +12,17 @@ import {
 
 import { AlertDialogComponent } from "../alert-dialogue";
 import { api } from "src/trpc/react";
+import { toast } from "../ui/use-toast";
+import { IconSpinner } from "../ui/icons";
 
 //TODO - Add proper props here when we force
 //to the user to sign up for a subscription or a free trial
 //not having the types is bad practice
 export function SubscriptionManager({ subscription }: any) {
-  const [subscriptionVersion, setSubscriptionVersion] = useState(0);
+  const [isCanceled, setIsCanceled] = useState<boolean | null>(null);
+  const [disabled, setDisabled] = useState(false);
+  const cancelSubscription = api.stripe.cancelSubscription.useMutation();
+  const resumeSubscription = api.stripe.resumeSubscription.useMutation();
   const { status, renewalDate, cancelAtPeriodEnd, trialEndDate } = subscription;
   const isTrial = status === "trialing";
   const endDate = isTrial ? trialEndDate : renewalDate;
@@ -32,19 +36,48 @@ export function SubscriptionManager({ subscription }: any) {
     },
   );
 
-  const cancelSubscription = api.stripe.cancelSubscription.useMutation();
   const cancel = async () => {
-    await cancelSubscription.mutateAsync();
-    setSubscriptionVersion((prevVersion) => prevVersion + 1);
+    setDisabled(true);
+    setIsCanceled(true);
+    await cancelSubscription.mutateAsync(undefined, {
+      onSuccess: () => {
+        toast({
+          title: "Subscription Canceled",
+          description: "Your subscription has been canceled.",
+        });
+      },
+    });
+
+    setTimeout(() => {
+      setDisabled(false);
+    }, 3000);
   };
 
-  const resumeSubscription = api.stripe.resumeSubscription.useMutation();
   const resume = async () => {
-    await resumeSubscription.mutateAsync();
-    setSubscriptionVersion((prevVersion) => prevVersion + 1);
+    setDisabled(true);
+    setIsCanceled(false);
+    await resumeSubscription.mutateAsync(undefined, {
+      onSuccess: () => {
+        toast({
+          title: "Subscription Resumed",
+          description: "Your subscription has been resumed.",
+        });
+        setTimeout(() => {
+          setDisabled(false);
+        }, 3000);
+      },
+    });
   };
 
-  const cancelDialog = (
+  const dialog = isCanceled ? (
+    <AlertDialogComponent
+      triggerLabel="Resume Subscription"
+      title="Resume Subscription"
+      description="Are you sure you want to resume?"
+      confirmLabel="Yes, Resume"
+      onConfirm={resume}
+    />
+  ) : (
     <AlertDialogComponent
       triggerLabel="Cancel Subscription"
       title="Cancel Subscription"
@@ -54,32 +87,17 @@ export function SubscriptionManager({ subscription }: any) {
     />
   );
 
-  const resumeDialog = (
-    <AlertDialogComponent
-      triggerLabel="Resume Subscription"
-      title="Resume Subscription"
-      description="Are you sure you want to resume your subscription and continue enjoying our services?"
-      confirmLabel="Yes, Resume"
-      onConfirm={resume}
-    />
-  );
-
   return (
     <Card>
       <CardHeader className="grid grid-cols-[1fr_auto] items-start gap-4">
         <div>
-          <CardTitle>
-            {isTrial ? "Trial Subscription" : "Solo Subscription"}
-          </CardTitle>
+          {/* TODO: ADD PROPER STRIPE SUB NAME */}
+          <CardTitle>Solo</CardTitle>
           <CardDescription>
-            {isTrial
-              ? `Your trial will expire on ${formattedEndDate}.`
-              : `Your subscription will ${
-                  cancelAtPeriodEnd ? "expire" : "renew"
-                } on ${formattedEndDate}.`}
+            {isTrial ? "Trial Subscription" : "Solo Subscription"}
           </CardDescription>
         </div>
-        {cancelAtPeriodEnd ? resumeDialog : cancelDialog}
+        {disabled ? <IconSpinner /> : dialog}
       </CardHeader>
       <CardContent>
         <div className="flex space-x-4 text-sm text-muted-foreground">

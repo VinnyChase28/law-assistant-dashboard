@@ -28,13 +28,13 @@ export function AlertDialogComponent({
   description,
   confirmLabel,
 }: AlertDialogComponentProps) {
-
-  const buttonPicker =
+  const buttonVariant =
     triggerLabel === "Cancel Subscription" ? "destructive" : "default";
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="default">{triggerLabel}</Button>
+        <Button>{triggerLabel}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -48,7 +48,7 @@ export function AlertDialogComponent({
             </Button>
           </AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Button variant={buttonPicker} onClick={onConfirm}>
+            <Button variant={buttonVariant} onClick={onConfirm}>
               {confirmLabel}
             </Button>
           </AlertDialogAction>

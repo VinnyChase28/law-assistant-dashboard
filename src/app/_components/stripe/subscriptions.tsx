@@ -2,6 +2,7 @@
 
 import { api } from "src/trpc/react";
 import { Button } from "../ui/button";
+
 const Subscriptions = () => {
   const userId = api.user.getUserId.useQuery().data !== null;
 
