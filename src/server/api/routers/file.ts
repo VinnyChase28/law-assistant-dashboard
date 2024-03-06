@@ -5,6 +5,7 @@ import {
   publicProcedure,
 } from "src/server/api/trpc";
 import { pinecone } from "src/utils/pinecone";
+import { mdToPdf } from "md-to-pdf";
 
 export const fileRouter = createTRPCRouter({
   //insert file metadata on upload to my files
@@ -143,5 +144,34 @@ export const fileRouter = createTRPCRouter({
         where: { id: fileId },
       });
       return file?.blobUrl;
+    }),
+  //new mutation to convert markdown to pdf
+  convertMarkdownToPdf: protectedProcedure
+    .input(
+      z.object({
+        markdown: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { markdown } = input;
+      const response = await fetch(
+        `${process.env.MARKDOWN_TO_PDF_SERVICE_URL}/convert`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ markdown }),
+        },
+      );
+      if (!response.ok) {
+        throw new Error(
+          `Failed to convert markdown to PDF: ${response.statusText}`,
+        );
+      }
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      //send url
+      return blobUrl;
     }),
 });

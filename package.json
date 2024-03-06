@@ -56,6 +56,7 @@
     "inngest": "^3.15.1",
     "langchain": "^0.0.200",
     "lucide-react": "^0.292.0",
+    "md-to-pdf": "^5.2.4",
     "micro": "^10.0.1",
     "next": "^14.0.3",
     "next-auth": "^4.24.5",

@@ -98,21 +98,19 @@ export const complianceReport = inngest.createFunction(
   { id: "compliance-report" },
   { event: "compliance-report/event.sent" },
   async ({ event }) => {
-    // Process each compliance submission in parallel
-    const allViolationsPromises = event.data.complianceData.map(
-      async (item) => {
-        const { complianceSubmission, regulatoryFramework } = item;
+    console.log("Processing compliance report event:", event);
+    const allViolationsPromises = event.data.data.map(async (item) => {
+      const { complianceSubmission, regulatoryFramework } = item;
 
-        // Process each regulation in parallel for the current compliance submission
-        const violationsPromises = regulatoryFramework.map((regulation) =>
-          findViolations(complianceSubmission, regulation),
-        );
+      // Process each regulation in parallel for the current compliance submission
+      const violationsPromises = regulatoryFramework.map((regulation) =>
+        findViolations(complianceSubmission, regulation),
+      );
 
-        // Wait for all regulatory checks to complete for the current compliance submission
-        const violations = await Promise.all(violationsPromises);
-        return violations.flat(); // Flatten the results, as each promise resolves to an array
-      },
-    );
+      // Wait for all regulatory checks to complete for the current compliance submission
+      const violations = await Promise.all(violationsPromises);
+      return violations.flat(); // Flatten the results, as each promise resolves to an array
+    });
 
     // Wait for all compliance submissions to be processed
     const allViolationsNested = await Promise.all(allViolationsPromises);
@@ -129,7 +127,7 @@ export const complianceReport = inngest.createFunction(
     brokenRule is potentially a rule that was broken.
     regulatoryDocument is a page of a file that contains the rule we are checking against.
 
-    remove any duplicate broken rules when creating the report.
+    very important: remove any duplicate broken rules when creating the report.
 
     The report should be structured as follows:
 
@@ -180,10 +178,10 @@ export const complianceReport = inngest.createFunction(
       model: "gpt-4-0125-preview",
       messages: [{ role: "user", content: finalReportPrompt }],
       temperature: 0.2,
-      max_tokens: 10000,
+      max_tokens: 4096,
     });
 
-    const finalReport = response.choices[0]?.message.content;
+    const finalReport = response.choices[0]?.message.content ?? "";
 
     //use prisma client to update the compliance report
     await prisma.file.update({
@@ -192,7 +190,7 @@ export const complianceReport = inngest.createFunction(
       },
       data: {
         reportData: JSON.stringify(allViolations),
-        finalReport,
+        finalReport: finalReport,
         processingStatus: "DONE",
       },
     });

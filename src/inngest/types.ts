@@ -22,7 +22,7 @@ interface ComplianceData {
 type ComplianceEventSent = {
   name: "compliance-report/event.sent";
   data: {
-    complianceData: ComplianceData[];
+    data: ComplianceData[];
     id: number;
     reportName: string;
     userId: string;
