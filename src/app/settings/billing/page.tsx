@@ -19,7 +19,6 @@ export default function SettingsAccountPage() {
       refetchOnReconnect: true,
       refetchOnMount: true,
       refetchOnWindowFocus: true,
-      refetchInterval: 1000,
     });
 
   if (isLoading) {
