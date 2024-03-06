@@ -7,12 +7,10 @@ import { api } from "src/trpc/react";
 import { useSearchParams } from "next/navigation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { SkeletonAbstract } from "@/components/skeleton-abstract";
-import { useToast } from "@/components/ui/use-toast";
 
 export default function SettingsAccountPage() {
   const searchParams = useSearchParams();
   const hasSessionId: boolean = searchParams?.has("session_id");
-  const toast = useToast();
   //find a better way to refetch the data
   const { data: subscription, isLoading } =
     api.stripe.getUserSubscriptions.useQuery();
