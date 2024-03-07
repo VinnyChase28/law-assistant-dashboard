@@ -10,17 +10,10 @@ import { signIn } from "next-auth/react";
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
-    setIsLoading(true);
-    // Trigger the sign-in process with Auth0
+  async function onSubmit() {
     signIn("auth0", {
-      callbackUrl: `/settings/billing`,
+      callbackUrl: `/`,
     });
-    // You can handle loading state, errors, or redirections after the signIn call if needed
-    setIsLoading(false);
   }
 
   return (
@@ -36,12 +29,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         </div>
       </div>
 
-      <Button onClick={onSubmit} variant={"secondary"} disabled={isLoading}>
-        {isLoading ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          "Sign In"
-        )}
+      <Button onClick={onSubmit} variant={"secondary"}>
+        Sign In
       </Button>
     </div>
   );
