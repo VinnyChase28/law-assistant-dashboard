@@ -1,9 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
 import { UserAuthForm } from "./user-auth-form";
 
 export const metadata: Metadata = {
@@ -49,11 +46,10 @@ export default function AuthenticationPage() {
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-lg">
-                &ldquo;This library has saved me countless hours of work and
-                helped me deliver stunning designs to my clients faster than
-                ever before.&rdquo;
+                &ldquo;This platform has saved me countless hours of work and
+                helped me deliver reports and more precisely than ever. &rdquo;
               </p>
-              <footer className="text-sm">Sofia Davis</footer>
+              <footer className="text-sm">Sofia Davis, Project</footer>
             </blockquote>
           </div>
         </div>
@@ -66,7 +62,7 @@ export default function AuthenticationPage() {
             </div>
             <UserAuthForm />
             <p className="px-8 text-center text-sm text-muted-foreground">
-              By clicking sign upc, you agree to our{" "}
+              By clicking sign up, you agree to our{" "}
               <Link
                 href="/terms"
                 className="underline underline-offset-4 hover:text-primary"
