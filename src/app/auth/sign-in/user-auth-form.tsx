@@ -14,11 +14,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    setIsLoading(true);
-    // Trigger the sign-in process with Auth0
-    await signIn("auth0", { redirect: false });
-    // You can handle loading state, errors, or redirections after the signIn call if needed
-    setIsLoading(false);
+
+    await signIn("auth0", {
+      // redirect: true,
+      callbackUrl: "/dashboard",
+    });
   }
 
   return (
@@ -29,7 +29,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         </div>
         <div className="relative flex justify-center text-xs uppercase">
           <span className="bg-background px-2 text-muted-foreground">
-            Sign in to your preffered provider
+            Sign in to your preferred provider
           </span>
         </div>
       </div>

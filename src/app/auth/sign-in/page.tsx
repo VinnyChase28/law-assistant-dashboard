@@ -47,9 +47,10 @@ export default function AuthenticationPage() {
             <blockquote className="space-y-2">
               <p className="text-lg">
                 &ldquo;This platform has saved me countless hours of work and
-                helped me deliver reports and more precisely than ever. &rdquo;
+                helped me deliver reports and answer compliance questions more
+                precisely than ever. &rdquo;
               </p>
-              <footer className="text-sm">Sofia Davis, Project</footer>
+              <footer className="text-sm">Sofia Davis, Project Manager</footer>
             </blockquote>
           </div>
         </div>

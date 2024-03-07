@@ -4,14 +4,12 @@ import { cookies } from "next/headers";
 import "src/styles/globals.css";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "src/lib/utils";
-import { MainNavigation } from "@/components/main-navigation";
 import { TRPCReactProvider } from "src/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { UserNav } from "@/components/user-nav";
-import ChatBubble from "@/components/bubble/bubble";
 import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Casy",
@@ -29,9 +27,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Get session server-side
-  const session = await getServerAuthSession();
-
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <head />
@@ -55,7 +50,6 @@ export default async function RootLayout({
               </header>
               {/* Main content */}
               <main className="flex w-full flex-1 flex-col">{children}</main>
-              <ChatBubble />
               {/* Toast notifications */}
               <Toaster />
             </TooltipProvider>
