@@ -92,7 +92,7 @@ export const complianceReport = inngest.createFunction(
 
     //create a structured compliance report using openai api
     const response = await openai.chat.completions.create({
-      model: models.GPT3,
+      model: models.GPT4,
       messages: [{ role: "user", content: finalReportPrompt }],
       temperature: 0.2,
       max_tokens: 4096,

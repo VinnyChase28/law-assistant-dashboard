@@ -162,5 +162,5 @@ export const vectorRouter = createTRPCRouter({
       return { data: results };
     }),
 
-    
+  
 });

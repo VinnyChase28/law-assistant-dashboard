@@ -134,7 +134,7 @@ async function findViolations(
 
   try {
     const response = await openai.chat.completions.create({
-      model: models.GPT3,
+      model: models.GPT4,
       messages: [{ role: "user", content: prompt }],
       temperature: 0.2,
       max_tokens: 300,
