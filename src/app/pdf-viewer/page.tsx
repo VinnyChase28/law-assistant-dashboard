@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import PDFViewer from "../_components/pdf-viewer";
+import PDFViewer from "@/components/pdf-viewer";
 import { useEffect, useState } from "react";
 import { api } from "src/trpc/react";
 
