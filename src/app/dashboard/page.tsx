@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { useComplianceReportsStore } from "src/store/store";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { DataTable } from "../files/components/data-table";
-import { columns } from "../files/components/columns";
+import { DataTable } from "./files/components/data-table";
+import { columns } from "./files/components/columns";
 import Charts from "@/components/charts/charts";
 import { Text } from "@tremor/react";
 import { api } from "src/trpc/react";
