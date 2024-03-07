@@ -2,7 +2,8 @@ import { openai } from "src/utils/openai";
 import * as puppeteer from "puppeteer";
 import * as marked from "marked";
 import { models } from "../functions/compliance-reports";
-import { put } from "@vercel/blob"; // Importing put from @vercel/blob for server-side operations
+import { put } from "@vercel/blob";
+import { css } from "./css";
 
 interface UploadResult {
   success: boolean;
@@ -19,6 +20,10 @@ async function convertMarkdownToPdfAndUpload({
   fileId: number;
 }): Promise<UploadResult> {
   try {
+    //create human readable time stamp
+    const date = new Date();
+    const timestamp = date.toISOString().split("T")[0];
+
     // Convert Markdown to HTML
     const html = await marked.parse(markdown);
 
@@ -30,6 +35,9 @@ async function convertMarkdownToPdfAndUpload({
 
     // Set the HTML content and wait for it to load
     await page.setContent(html);
+    await page.addStyleTag({
+      content: css,
+    });
 
     // Convert the page to PDF
     const pdfBuffer = await page.pdf({ format: "A4" });
@@ -39,9 +47,13 @@ async function convertMarkdownToPdfAndUpload({
 
     // Use the server-side `put` function to upload the PDF
     const blob = new Blob([pdfBuffer], { type: "application/pdf" });
-    const newBlob = await put(`${fileId}.pdf`, blob, {
-      access: "public",
-    });
+    const newBlob = await put(
+      `${timestamp}_${fileId}_compliance_report.pdf`,
+      blob,
+      {
+        access: "public",
+      },
+    );
 
     return {
       success: true,
