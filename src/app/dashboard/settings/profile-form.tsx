@@ -215,6 +215,7 @@ export function ProfileForm() {
                 </button>
               </div>
             ))}
+            <br />
             <Button
               type="button"
               variant="outline"
