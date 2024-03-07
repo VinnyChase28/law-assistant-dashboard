@@ -51,8 +51,7 @@ export default async function RootLayout({
             <TooltipProvider>
               {/* Header container */}
               <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
-                <MainNavigation />
-                <UserNav /> {/* Pass session to components as needed */}
+                {/* add a header for non authed pages*/}
               </header>
               {/* Main content */}
               <main className="flex w-full flex-1 flex-col">{children}</main>
