@@ -61,13 +61,12 @@ export default function AuthenticationPage() {
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">
-                Create an account
+                Create an account or sign in
               </h1>
-              <p className="text-sm text-muted-foreground">Law assistant AI</p>
             </div>
             <UserAuthForm />
             <p className="px-8 text-center text-sm text-muted-foreground">
-              By clicking continue, you agree to our{" "}
+              By clicking sign upc, you agree to our{" "}
               <Link
                 href="/terms"
                 className="underline underline-offset-4 hover:text-primary"

@@ -29,8 +29,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         </div>
       </div>
 
-      <Button onClick={onSubmit} variant={"secondary"}>
+      <Button onClick={onSubmit} variant={"default"}>
         Sign In
+      </Button>
+      <Button onClick={onSubmit} variant={"secondary"}>
+        Sign Up
       </Button>
     </div>
   );
