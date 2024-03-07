@@ -18,8 +18,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "../_components/ui/use-toast";
-import { Label } from "../_components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+import { Label } from "@/components/ui/label";
 import { Trash2 } from "lucide-react";
 import { SkeletonAbstract } from "@/components/skeleton-abstract";
 
