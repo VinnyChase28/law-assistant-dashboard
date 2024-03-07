@@ -139,7 +139,6 @@ async function findViolations(
       temperature: 0.2,
       max_tokens: 300,
     });
-    console.log("🚀 ~ findViolations openai response:", response);
 
     const answers =
       response.choices[0]?.message

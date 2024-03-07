@@ -77,7 +77,6 @@ export const stripeRouter = createTRPCRouter({
       const response = await stripe.subscriptions.update(subscriptionId, {
         cancel_at_period_end: false,
       });
-      console.log("🚀 ~ .mutation ~ response:", response);
 
       return { message: "Membership Resumed" };
     }),

@@ -16,7 +16,6 @@ export const complianceReport = inngest.createFunction(
   { id: "compliance-report", retries: 0 },
   { event: "compliance-report/event.sent" },
   async ({ event }) => {
-    console.log("Processing compliance report event:", event);
     const allViolationsPromises = event.data.data.map(async (item) => {
       const { complianceSubmission, regulatoryFramework } = item;
 
@@ -99,7 +98,6 @@ export const complianceReport = inngest.createFunction(
       max_tokens: 4096,
     });
 
-    console.log("🚀 ~ response:", response);
     const finalReport = response.choices[0]?.message.content ?? "";
 
     //convert the markdown to pdf and upload to vercel
