@@ -26,7 +26,7 @@ interface UploadFilesProps {
 export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
   const { toast } = useToast();
   const [isUploading, setIsUploading] = useState(false);
-  const [filesSelected, setFilesSelected] = useState(false); // New state to track file selection
+  const [filesSelected, setFilesSelected] = useState(false); 
   const [documentType, setDocumentType] = useState<DocumentType>(
     "REGULATORY_FRAMEWORK",
   );

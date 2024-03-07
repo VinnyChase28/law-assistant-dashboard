@@ -2,44 +2,20 @@ import { inngest } from "../client";
 import { openai } from "src/utils/openai";
 import { prisma } from "src/utils/prisma";
 
-interface ComplianceSubmission {
-  fileId: number;
-  documentName: string;
-  textData: string;
-  pageNumber: number;
+import {
+  findViolations,
+  convertMarkdownToPdfAndUpload,
+} from "../helpers/report-helpers";
+
+export enum models {
+  GPT4 = "gpt-4-0125-preview",
+  GPT3 = "gpt-3.5-turbo-0125",
 }
 
-interface RegulatoryFramework {
-  fileId: number;
-  documentName: string;
-  textData: string;
-  pageNumber: number;
-}
-
-interface DetailedViolation {
-  complianceDocument: {
-    fileId: number;
-    documentName: string;
-    pageNumber: number;
-    textSnippet: string;
-  };
-  brokenRule: {
-    violation: string;
-    description: string;
-  };
-  regulatoryDocument: {
-    fileId: number;
-    documentName: string;
-    pageNumber: number;
-    textSnippet: string;
-  };
-}
-
-export const complianceReport =  inngest.createFunction(
-  { id: "compliance-report" },
+export const complianceReport = inngest.createFunction(
+  { id: "compliance-report", retries: 0 },
   { event: "compliance-report/event.sent" },
   async ({ event }) => {
-    // Process each compliance submission in parallel
     const allViolationsPromises = event.data.data.map(async (item) => {
       const { complianceSubmission, regulatoryFramework } = item;
 
@@ -55,16 +31,99 @@ export const complianceReport =  inngest.createFunction(
 
     // Wait for all compliance submissions to be processed
     const allViolationsNested = await Promise.all(allViolationsPromises);
-    const allViolations = allViolationsNested.flat(); // Flatten the results
+    const allViolations = allViolationsNested.flat();
 
-    //instead use prisma client to update the compliance report
+    const stringifiedViolations = JSON.stringify(allViolations);
+    const finalReportPrompt = `
+
+    Create a compliance report based on the following structured data:
+    
+    ${stringifiedViolations}
+    
+    complianceDocument is a page of a file that contains text we are checking for compliance.
+    brokenRule is potentially a rule that was broken.
+    regulatoryDocument is a page of a file that contains the rule we are checking against.
+
+    very important: remove any duplicate broken rules when creating the report. cite sources including document name, page number, and section where possible.
+
+    The report should be structured as follows:
+
+    Title: "Real Estate Compliance Report" 
+
+    Executive Summary
+
+    Overview: A brief summary of the report, including the purpose of the compliance audit, the scope of the report, and a high-level overview of the findings.
+
+    Table of Contents
+
+    List all the sections of the report along with page numbers for easy navigation.
+
+    Introduction
+
+    Background: Information about the property, including location, size, usage, and any relevant historical data.
+    Purpose: Clearly state the purpose of the compliance report, such as due diligence for a property transaction, regulatory compliance verification, etc.
+    Scope: Define the scope of the audit, including the aspects of compliance being reviewed.
+
+    Compliance Areas
+
+    This section should be broken down into sub-sections, each covering a specific area of compliance. Depending on the property and jurisdiction, these might include:
+
+    Zoning and Land Use: Compliance with local zoning laws and land use restrictions.
+    Building Codes and Standards: Adherence to building codes, including structural integrity, fire safety, and accessibility.
+    Environmental Regulations: Compliance with environmental laws, including hazardous materials, waste management, and impact assessments.
+    Health and Safety: Ensuring the property meets health and safety standards to protect occupants and visitors.
+    Permits and Licenses: Verification that all required permits and licenses for construction, renovation, and operation are obtained and current.
+
+    For each area, provide:
+
+    Regulatory Framework: A summary of applicable laws and regulations.
+    Findings: Details of the audit findings, including any areas of non-compliance.
+    Evidence: Provide sources.
+
+    Summary of Violations (if applicable)
+
+    List any violations or areas of non-compliance found during the audit, referenced to the detailed findings in the previous section.
+
+    Professional Presentation:
+
+    Clarity and Conciseness: Use clear, concise language and avoid jargon where possible.
+    Formatting: Use headings, bullet points, and numbered lists for easy reading. Maintain consistent fonts and colors.
+    `;
+
+    //create a structured compliance report using openai api
+    const response = await openai.chat.completions.create({
+      model: models.GPT4,
+      messages: [{ role: "user", content: finalReportPrompt }],
+      temperature: 0.2,
+      max_tokens: 4096,
+    });
+
+    const finalReport = response.choices[0]?.message.content ?? "";
+
+    //convert the markdown to pdf and upload to vercel
+    const uploadResult = await convertMarkdownToPdfAndUpload({
+      markdown: finalReport, // Use the finalReport content as markdown
+      fileId: event.data.id, // Use the event's ID as fileId
+    });
+
+    if (!uploadResult.success) {
+      console.error(
+        "Failed to upload the compliance report PDF:",
+        uploadResult.message,
+      );
+      throw new Error(uploadResult.message);
+    }
+
+    //use prisma client to update the compliance report
     await prisma.file.update({
       where: {
         id: event.data.id,
       },
       data: {
         reportData: JSON.stringify(allViolations),
+        finalReport: finalReport ?? "FAILED",
         processingStatus: "DONE",
+        blobUrl: uploadResult.blobUrl ?? "FAILED",
       },
     });
 
@@ -74,60 +133,3 @@ export const complianceReport =  inngest.createFunction(
   },
 );
 
-async function findViolations(
-  complianceSubmission: ComplianceSubmission,
-  regulation: RegulatoryFramework,
-): Promise<DetailedViolation[]> {
-  const prompt = `
-  Review the compliance text below and compare it against the provided regulations. Identify any discrepancies or violations based on specific criteria such as safety standards, material requirements, and legal guidelines pertinent to building, zoning, and other municipal real estate and construction regulations. List each violation found with a brief explanation. If a the violation is related to a measurement, please indicate the wrong measurement and provide the correct measurement. A lack of or missing information, in addition to not addressing certain regulations is not considered a violation or something you should comment on at all.
-
-  Compliance Text: ${complianceSubmission.textData}
-  
-  Regulation Text: ${regulation.textData}
-  
-  
-
-  Most importantly, and my life depends on this, if the compliance text aligns with the regulations or if the section is not relevant to the given regulations, simply respond with "Compliant", and nothing more.
-  
-    `;
-
-  try {
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo-0125",
-      messages: [{ role: "user", content: prompt }],
-      temperature: 0.1,
-      max_tokens: 300,
-    });
-
-    const answers =
-      response.choices[0]?.message
-        .content!.trim()
-        .split("\n")
-        .filter((line: any) => line.trim() !== "") ?? [];
-    if (answers.length === 0 || answers[0] === "Compliant") {
-      return [];
-    } else {
-      return answers.map((answer) => ({
-        complianceDocument: {
-          fileId: complianceSubmission.fileId,
-          documentName: complianceSubmission.documentName,
-          pageNumber: complianceSubmission.pageNumber,
-          textSnippet: complianceSubmission.textData,
-        },
-        brokenRule: {
-          violation: answer,
-          description: `Violation found in text: ${complianceSubmission.documentName}. The violation was found on page ${complianceSubmission.pageNumber}.`,
-        },
-        regulatoryDocument: {
-          fileId: regulation.fileId,
-          documentName: regulation.documentName,
-          pageNumber: regulation.pageNumber,
-          textSnippet: regulation.textData,
-        },
-      }));
-    }
-  } catch (error) {
-    console.error("Error calling OpenAI API:", error);
-    return [];
-  }
-}

@@ -84,7 +84,7 @@ export const processDocument = inngest.createFunction(
       const vectorId = `${fileId}-${pageNumber}`;
 
       try {
-        // Insert into Pinecone and your database
+        // Insert into Pinecone and the database
         await prisma.textSubsection.upsert({
           where: { fileId_pageNumber: { fileId, pageNumber } },
           update: { text: processedText, pineconeVectorId: vectorId },

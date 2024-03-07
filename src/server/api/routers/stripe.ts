@@ -1,9 +1,9 @@
 import { z } from "zod";
-import Stripe from "stripe";
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { stripe } from "src/utils/stripe";
 import { prisma } from "src/utils/prisma";
+
 
 const url = process.env.URL ?? "http://localhost:3000";
 
@@ -74,7 +74,7 @@ export const stripeRouter = createTRPCRouter({
       });
 
       const subscriptionId = subscription.data[0]!.id;
-      await stripe.subscriptions.update(subscriptionId, {
+      const response = await stripe.subscriptions.update(subscriptionId, {
         cancel_at_period_end: false,
       });
 

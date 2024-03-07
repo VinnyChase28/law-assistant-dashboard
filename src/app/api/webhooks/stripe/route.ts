@@ -58,7 +58,6 @@ export async function POST(req: Request) {
   try {
     switch (event.type) {
       case "checkout.session.completed": {
-        console.log("Checkout session completed");
         const session = event.data.object;
         const userId = session.metadata?.userId;
         const customerStripeId = session.customer as string;
@@ -81,7 +80,6 @@ export async function POST(req: Request) {
       }
 
       case "invoice.payment_succeeded": {
-        console.log("Invoice payment succeeded");
         const invoice = event.data.object;
         const subscription = await stripe.subscriptions.retrieve(
           invoice.subscription as string,
@@ -106,7 +104,6 @@ export async function POST(req: Request) {
       }
 
       case "customer.deleted": {
-        console.log("Customer deleted");
         const customer = event.data.object;
         await prisma.stripeCustomer.delete({
           where: { stripeCustomerId: customer.id },
@@ -136,7 +133,7 @@ export async function POST(req: Request) {
       }
 
       default:
-        console.log(`Unhandled event type ${event.type}`);
+      
     }
   } catch (error) {
     console.error("Error handling webhook event:", error);
