@@ -98,6 +98,7 @@ export const complianceReport = inngest.createFunction(
       temperature: 0.2,
       max_tokens: 4096,
     });
+
     console.log("🚀 ~ response:", response);
     const finalReport = response.choices[0]?.message.content ?? "";
 

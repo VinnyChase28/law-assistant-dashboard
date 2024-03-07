@@ -23,11 +23,13 @@ async function convertMarkdownToPdfAndUpload({
     const html = await marked.parse(markdown);
 
     // Launch a headless browser
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox", "--disabled-setupid-sandbox"],
+    });
     const page = await browser.newPage();
 
     // Set the HTML content and wait for it to load
-    await page.setContent(html, { waitUntil: "networkidle0" });
+    await page.setContent(html);
 
     // Convert the page to PDF
     const pdfBuffer = await page.pdf({ format: "A4" });
