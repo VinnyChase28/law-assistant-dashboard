@@ -42,7 +42,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (
           <Button onClick={onSubmit} variant={"secondary"} disabled={isLoading}>
-            Sign in
+            Authenticate
           </Button>
         )}
       </div>
