@@ -1,15 +1,19 @@
 import { inngest } from "../client";
 import { openai } from "src/utils/openai";
 import { prisma } from "src/utils/prisma";
-import { mdToPdf } from "md-to-pdf";
-import { Blob } from "buffer";
+
 import {
   findViolations,
   convertMarkdownToPdfAndUpload,
 } from "../helpers/report-helpers";
 
+export enum models {
+  GPT4 = "gpt-4-0125-preview",
+  GPT3 = "gpt-3.5-turbo-0125",
+}
+
 export const complianceReport = inngest.createFunction(
-  { id: "compliance-report" },
+  { id: "compliance-report", retries: 0 },
   { event: "compliance-report/event.sent" },
   async ({ event }) => {
     console.log("Processing compliance report event:", event);
@@ -89,11 +93,12 @@ export const complianceReport = inngest.createFunction(
 
     //create a structured compliance report using openai api
     const response = await openai.chat.completions.create({
-      model: "gpt-4-0125-preview",
+      model: models.GPT3,
       messages: [{ role: "user", content: finalReportPrompt }],
       temperature: 0.2,
       max_tokens: 4096,
     });
+    console.log("🚀 ~ response:", response);
     const finalReport = response.choices[0]?.message.content ?? "";
 
     //convert the markdown to pdf and upload to vercel

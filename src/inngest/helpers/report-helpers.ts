@@ -1,24 +1,8 @@
-import { mdToPdf } from "md-to-pdf";
 import { openai } from "src/utils/openai";
-
-/**
- * Converts markdown content to a PDF and uploads it to a specified endpoint.
- *
- * @param markdown - The markdown content to be converted to PDF.
- * @param fileId - An identifier for the file, used in database operations or for tracking.
- * @returns A promise that resolves to an object containing the blob URL of the uploaded PDF and the fileId.
- *
- * @example
- * const result = await convertMarkdownToPdfAndUpload('# Hello World', 123);
- * console.log(result); // { success: true, blobUrl: 'https://example.com/pdf/123', fileId: 123 }
- *
- * @throws If the PDF generation or upload process fails, the function will throw an error with a descriptive message.
- */
-
-interface ConvertMarkdownToPdfAndUploadInput {
-  markdown: string;
-  fileId: number;
-}
+import * as puppeteer from "puppeteer";
+import * as marked from "marked";
+import { models } from "../functions/compliance-reports";
+import { put } from "@vercel/blob"; // Importing put from @vercel/blob for server-side operations
 
 interface UploadResult {
   success: boolean;
@@ -27,59 +11,50 @@ interface UploadResult {
   fileId?: number;
 }
 
-async function convertMarkdownToPdfAndUpload(
-  input: ConvertMarkdownToPdfAndUploadInput,
-): Promise<UploadResult> {
-  const { markdown, fileId } = input;
-
+async function convertMarkdownToPdfAndUpload({
+  markdown,
+  fileId,
+}: {
+  markdown: string;
+  fileId: number;
+}): Promise<UploadResult> {
   try {
-    // Get the current date
-    const currentDate = new Date();
-    const dateString = currentDate.toISOString().split("T")[0]; // Results in "YYYY-MM-DD"
-    const fileName = `${dateString} Compliance Report.pdf`;
+    // Convert Markdown to HTML
+    const html = await marked.parse(markdown);
 
-    const pdf = await mdToPdf({ content: markdown }).catch(console.error);
+    // Launch a headless browser
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
 
-    if (pdf && pdf.content) {
-      // Assuming Node.js environment, otherwise adjust Blob usage accordingly
-      const blob = new Blob([Buffer.from(pdf.content)], {
-        type: "application/pdf",
-      });
+    // Set the HTML content and wait for it to load
+    await page.setContent(html, { waitUntil: "networkidle0" });
 
-      const formData = new FormData();
-      formData.append("file", blob, fileName);
+    // Convert the page to PDF
+    const pdfBuffer = await page.pdf({ format: "A4" });
 
-      const uploadResponse = await fetch("/api/upload-file", {
-        method: "POST",
-        body: formData,
-        // headers: {}, // FormData sets its own headers, so this might be unnecessary
-      });
+    // Close the browser
+    await browser.close();
 
-      if (!uploadResponse.ok) {
-        throw new Error(`Failed to upload PDF: ${uploadResponse.statusText}`);
-      }
+    // Use the server-side `put` function to upload the PDF
+    const blob = new Blob([pdfBuffer], { type: "application/pdf" });
+    const newBlob = await put(`${fileId}.pdf`, blob, {
+      access: "public",
+    });
 
-      const uploadResult = await uploadResponse.json();
-
-      return {
-        success: true,
-        message: "PDF generated and uploaded successfully.",
-        blobUrl: uploadResult.url, // Assuming the response includes the URL of the uploaded blob
-        fileId: fileId,
-      };
-    } else {
-      return { success: false, message: "Failed to generate PDF." };
-    }
-  } catch (error) {
-    console.error(error);
+    return {
+      success: true,
+      message: "PDF generated and uploaded successfully.",
+      blobUrl: newBlob.url,
+      fileId: fileId,
+    };
+  } catch (error: any) {
+    console.error("An error occurred:", error);
     return {
       success: false,
-      message: "An error occurred during PDF generation or upload.",
+      message: `An error occurred during PDF generation or upload: ${error.message}`,
     };
   }
 }
-
-export default convertMarkdownToPdfAndUpload;
 
 /**
  * Identifies compliance violations by comparing a compliance submission against a regulatory framework.
@@ -145,11 +120,12 @@ async function findViolations(
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4-0125-preview",
+      model: models.GPT3,
       messages: [{ role: "user", content: prompt }],
       temperature: 0.2,
       max_tokens: 300,
     });
+    console.log("🚀 ~ findViolations openai response:", response);
 
     const answers =
       response.choices[0]?.message

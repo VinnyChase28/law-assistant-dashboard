@@ -5,8 +5,6 @@ import {
   publicProcedure,
 } from "src/server/api/trpc";
 import { pinecone } from "src/utils/pinecone";
-import { mdToPdf } from "md-to-pdf";
-
 
 export const fileRouter = createTRPCRouter({
   //insert file metadata on upload to my files
@@ -147,72 +145,5 @@ export const fileRouter = createTRPCRouter({
       });
 
       return file?.blobUrl;
-    }),
-
-  // Convert markdown to PDF and upload it
-  convertMarkdownToPdfAndUpload: protectedProcedure
-    .input(
-      z.object({
-        markdown: z.string(),
-        fileId: z.number(),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const { markdown } = input;
-
-      try {
-        // Convert markdown to PDF
-        const pdf = await mdToPdf({ content: markdown }).catch(console.error);
-
-        if (pdf && pdf.content) {
-          // Convert PDF content to a Blob
-          const blob = new Blob([pdf.content], { type: "application/pdf" });
-
-          // Prepare the form data to include the PDF blob
-          const formData = new FormData();
-          formData.append("file", blob, "document.pdf");
-
-          // Send the Blob to your upload route
-          const uploadResponse = await fetch("/api/upload-file", {
-            method: "POST",
-            body: formData,
-            headers: {},
-          });
-
-          if (!uploadResponse.ok) {
-            throw new Error(
-              `Failed to upload PDF: ${uploadResponse.statusText}`,
-            );
-          }
-
-          const uploadResult = await uploadResponse.json();
-          //save the blob url to the database by
-          await ctx.db.file.create({
-            data: {
-              name: "Compliance Report",
-              blobUrl: uploadResult.url,
-              fileType: "application/pdf",
-              fileSize: blob.size.toString(),
-              userId: ctx.session.user.id,
-              processingStatus: "DONE",
-              documentType: "COMPLIANCE_REPORT",
-            },
-          });
-
-          return {
-            success: true,
-            message: "PDF generated and uploaded successfully.",
-            uploadResult,
-          };
-        } else {
-          return { success: false, message: "Failed to generate PDF." };
-        }
-      } catch (error) {
-        console.error(error);
-        return {
-          success: false,
-          message: "An error occurred during PDF generation or upload.",
-        };
-      }
     }),
 });
