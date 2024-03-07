@@ -33,6 +33,8 @@ export const complianceReport = inngest.createFunction(
     const allViolationsNested = await Promise.all(allViolationsPromises);
     const allViolations = allViolationsNested.flat();
 
+    
+
     const stringifiedViolations = JSON.stringify(allViolations);
     const finalReportPrompt = `
 

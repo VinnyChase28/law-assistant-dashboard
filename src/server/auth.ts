@@ -31,6 +31,9 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
+  pages: {
+    signIn: "/auth/sign-in",
+  },
   adapter: PrismaAdapter(db),
   providers: [
     Auth0Provider({
