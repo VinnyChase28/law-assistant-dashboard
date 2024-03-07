@@ -13,12 +13,15 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   async function onSubmit(event: React.SyntheticEvent) {
+    setIsLoading(true);
     event.preventDefault();
 
     await signIn("auth0", {
       // redirect: true,
       callbackUrl: "/dashboard",
     });
+
+    setIsLoading(false);
   }
 
   return (
@@ -33,15 +36,16 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </span>
         </div>
       </div>
-      <form onSubmit={onSubmit}>
-        <Button variant={"secondary"} disabled={isLoading}>
-          {isLoading ? (
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-          ) : (
-            "Sign In"
-          )}
-        </Button>
-      </form>
+
+      <div className="text-center">
+        {isLoading ? (
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+        ) : (
+          <Button onClick={onSubmit} variant={"secondary"} disabled={isLoading}>
+            Sign in
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
