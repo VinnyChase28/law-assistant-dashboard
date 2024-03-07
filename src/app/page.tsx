@@ -2,8 +2,8 @@
 import { useEffect } from "react";
 import { useComplianceReportsStore } from "src/store/store";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { DataTable } from "./dashboard/files/components/data-table";
-import { columns } from "./dashboard/files/components/columns";
+import { DataTable } from "./_components/tables/data-table";
+import { columns } from "./_components/tables/columns";
 import Charts from "@/components/charts/charts";
 import { Text } from "@tremor/react";
 import { api } from "src/trpc/react";

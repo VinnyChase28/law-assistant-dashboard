@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/components/tables/data-table-view-options";
 import { DataTableFacetedFilter } from "@/components/tables/data-table-faceted-filter";
 
-import { statuses } from "../data/data";
+import { statuses } from "./data";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -54,4 +54,3 @@ export function DataTableToolbar<TData>({
     </div>
   );
 }
-
