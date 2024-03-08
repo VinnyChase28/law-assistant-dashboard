@@ -31,6 +31,7 @@ export const SideBarList = () => (
       data={costSavingsData}
       className="mt-2 pt-8"
       valueFormatter={currencyFormatter}
+      color="violet"
     />
     <Text className="mt-4 text-sm text-gray-600">
       *Cost savings are estimated for the current quarter.
