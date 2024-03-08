@@ -2,7 +2,6 @@ import { type Metadata } from "next";
 
 import { Text } from "@tremor/react";
 import AddFiles from "@/components/input/add-files";
-
 import FilesClientComponent from "./files";
 
 export const metadata: Metadata = {

@@ -9,7 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Casy",
