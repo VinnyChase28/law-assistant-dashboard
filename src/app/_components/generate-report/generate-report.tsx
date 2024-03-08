@@ -97,6 +97,14 @@ const CreateReportComponent = () => {
       });
     } finally {
       setIsLoading(false);
+      const keyDownEvent = new KeyboardEvent("keydown", {
+        key: "Escape",
+        code: "Escape",
+        bubbles: true,
+      });
+
+      document.dispatchEvent(keyDownEvent);
+      
     }
   };
 

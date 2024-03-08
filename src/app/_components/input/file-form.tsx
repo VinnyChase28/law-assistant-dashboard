@@ -121,7 +121,7 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Document Type</SelectLabel>
+                  <SelectLabel>Type</SelectLabel>
                   <SelectItem value="REGULATORY_FRAMEWORK">
                     Regulatory Framework
                   </SelectItem>
