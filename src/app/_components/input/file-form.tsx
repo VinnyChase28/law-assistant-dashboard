@@ -133,7 +133,7 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
             </Select>
             <AlertComponent
               title="Note"
-              description="Please only upload documents of the same type at a time."
+              description="Please only upload documents of the same type at a time. You can upload regulatory documents, which contain the rules text, or compliance submissions, which contain the documents that are being submitted for compliance."
               iconType="info"
             />
             <input
