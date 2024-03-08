@@ -82,7 +82,7 @@ export const columns: ColumnDef<File>[] = [
       return (
         <div className="flex w-[100px] items-center">
           {documentType.icon && (
-            <documentType.icon className="mr-2 h-10 w-10 text-muted-foreground" />
+            <documentType.icon className="mr-2 h-7 w-7 text-muted-foreground" />
           )}
           <span>{documentType.label}</span>
         </div>
