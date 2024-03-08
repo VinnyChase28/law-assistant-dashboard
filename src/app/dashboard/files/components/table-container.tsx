@@ -14,9 +14,7 @@ export default function TableContainer({
   const { setFiles } = useFilesStore();
 
   const { data: files } = api.file.getMyFiles.useQuery(
-    {
-      documentTypes: [documentType],
-    },
+    {},
     {
       refetchOnReconnect: true,
       refetchOnMount: true,
@@ -31,7 +29,9 @@ export default function TableContainer({
     }
   }, [files, setFiles]);
 
-  return (
-    <DataTable data={useFilesStore((state) => state.files)} columns={columns} />
+  const filteredFiles = files?.filter(
+    (file) => file.documentType === documentType,
   );
+
+  return <DataTable data={filteredFiles} columns={columns} />;
 }

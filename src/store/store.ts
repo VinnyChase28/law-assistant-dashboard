@@ -60,6 +60,8 @@ export const useFilesStore = create<FilesState>()(
   ),
 );
 
+
+
 export interface ComplianceReportsState {
   reports: any[]; // It's better to define a more specific type if possible
   addReport: (report: any) => void; // Adjust the type as necessary
