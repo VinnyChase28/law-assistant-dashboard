@@ -8,13 +8,10 @@ export const metadata: Metadata = {
   description: "Add files to your account",
 };
 
-export default async function Files() {
+export default async function FilesPage() {
   return (
     <main>
       <Text className="ml-10 pt-5 text-3xl font-bold">My Files</Text>
-      <div className="my-5 flex justify-center">
-        <AddFiles />
-      </div>
       <TabbedTables />
     </main>
   );

@@ -21,11 +21,21 @@ const CreateReportComponent = () => {
     (file: any) =>
       file.documentType === "COMPLIANCE_SUBMISSION" && checkedRows[file.id],
   );
+  console.log(
+    "🚀 ~ CreateReportComponent ~ selectedComplianceSubmission:",
+    selectedComplianceSubmission,
+  );
 
   const selectedRegulatoryDocuments = files.filter(
     (file: any) =>
       file.documentType === "REGULATORY_FRAMEWORK" && checkedRows[file.id],
   );
+  console.log(
+    "🚀 ~ CreateReportComponent ~ selectedRegulatoryDocuments:",
+    selectedRegulatoryDocuments,
+  );
+
+  
 
   const hasSingleComplianceSubmission =
     selectedComplianceSubmission &&
@@ -74,7 +84,6 @@ const CreateReportComponent = () => {
         title: "Compliance Report Started",
         description: `The compliance data has been sent to Casy. A new report will be available in the "GenAI docs" section soon.`,
         action: (
-          //TODO: update to new tab structure
           <Button
             onClick={() => router.push("/?tab=genaiDocs")}
             variant="default"
