@@ -192,10 +192,9 @@ export function ProfileForm() {
             </FormDescription>
             <br />
             {fields.map((field, index) => (
-              <div>
+              <div key={field.id}>
                 <br />
                 <div
-                  key={field.id}
                   className="flex items-center space-x-2"
                   style={{ width: "100%" }}
                 >
