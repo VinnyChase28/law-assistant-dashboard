@@ -17,38 +17,16 @@ const CreateReportComponent = () => {
   const { checkedRows } = useCheckedRowsStore();
 
   const { files } = useFilesStore();
-  console.log("🚀 ~ CreateReportComponent ~ files:", files);
-  console.log("🚀 ~ CreateReportComponent ~ checkedRows:", checkedRows);
-
-  files.forEach((file, index) => {
-    console.log(`File ${index}: `, file);
-    console.log(`Checked Rows for File ${index}: `, checkedRows[file.id]);
-    console.log(
-      `Document Type Check for File ${index}: `,
-      file.documentType === "COMPLIANCE_SUBMISSION",
-    );
-  });
-  
 
   const selectedComplianceSubmission = files?.find(
     (file: any) =>
       file.documentType === "COMPLIANCE_SUBMISSION" && checkedRows[file.id],
   );
-  console.log(
-    "🚀 ~ CreateReportComponent ~ selectedComplianceSubmission:",
-    selectedComplianceSubmission,
-  );
-
   const selectedRegulatoryDocuments = files?.filter(
     (file: any) =>
       file.documentType === "REGULATORY_FRAMEWORK" && checkedRows[file.id],
   );
-  console.log(
-    "🚀 ~ CreateReportComponent ~ selectedRegulatoryDocuments:",
-    selectedRegulatoryDocuments,
-  );
 
-  
 
   const hasSingleComplianceSubmission =
     selectedComplianceSubmission &&
