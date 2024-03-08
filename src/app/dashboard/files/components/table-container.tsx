@@ -37,8 +37,6 @@ export default function TableContainer({
     return null;
   }
 
-  // @ts-expect-error
-  //TODO: Fix the types for tables. they need a lot of work.
-  //eslint forced me to add this comment, bastard.
+  // @ts-expect-error ...eslint forced me to add this comment, bastard. fix the types.
   return <DataTable data={filteredFiles} columns={columns} />;
 }
