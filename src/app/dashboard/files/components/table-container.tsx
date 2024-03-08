@@ -36,7 +36,7 @@ export default function TableContainer({
   if (!filteredFiles) {
     return null;
   }
-  //TODO: Fix the types for tables. they need a lot of work. 
-  // @ts-ignore
+  //TODO: Fix the types for tables. they need a lot of work.
+  // @ts-expect-error
   return <DataTable data={filteredFiles} columns={columns} />;
 }
