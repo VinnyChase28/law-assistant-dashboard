@@ -25,7 +25,7 @@ export const DocumentAreaChart = () => (
       data={chartData}
       index="date"
       categories={["Compliance"]}
-      colors={["violet"]} // Use different colors for each category
+      colors={["indigo"]} // Use different colors for each category
       valueFormatter={valueFormatter}
     />
   </Card>

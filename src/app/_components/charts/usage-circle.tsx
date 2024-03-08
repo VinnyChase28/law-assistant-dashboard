@@ -8,7 +8,7 @@ export const UsageCircle = () => (
         value={(43 / 50) * 100}
         size="xl"
         className="my-4 pt-11"
-        color="violet"
+        color="indigo"
       />
       {/* Heading and text centered below the circle */}
       <h3 className="text-xl font-medium text-gray-700">
