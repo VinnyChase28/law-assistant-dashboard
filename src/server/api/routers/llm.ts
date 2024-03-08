@@ -6,6 +6,7 @@ import {
 import { z } from "zod";
 import { inngest } from "src/inngest";
 import { WebPDFLoader } from "langchain/document_loaders/web/pdf";
+import { api } from "src/trpc/server";
 
 // TRPC router implementation
 export const llmRouter = createTRPCRouter({
@@ -89,6 +90,9 @@ export const llmRouter = createTRPCRouter({
         };
       } catch (error) {
         console.error("Error sending event to Inngest:", error);
+
+        await api.file.setFileStatusToFailed.mutate(id);
+
         throw new Error("Failed to send event to Inngest.");
       }
     }),
@@ -146,6 +150,7 @@ export const llmRouter = createTRPCRouter({
         };
       } catch (error) {
         console.error("Error sending event to Inngest:", error);
+        await api.file.setFileStatusToFailed.mutate(fileId);
         throw new Error("Failed to send event to Inngest.");
       }
     }),

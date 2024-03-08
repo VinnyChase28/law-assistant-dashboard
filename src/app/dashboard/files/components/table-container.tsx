@@ -1,19 +1,20 @@
 "use client";
-
 import { useEffect } from "react";
 import { useFilesStore } from "src/store/store";
 import { DataTable } from "src/app/dashboard/files/components/data-table";
 import { columns } from "src/app/dashboard/files/components/columns";
 import { api } from "src/trpc/react";
+import { DocumentType } from "@prisma/client";
 
-export default function TableContainer() {
+export default function TableContainer({
+  documentType,
+}: {
+  documentType: DocumentType;
+}) {
   const { setFiles } = useFilesStore();
 
-  // TODO: move retching to websockets when we scalead
   const { data: files } = api.file.getMyFiles.useQuery(
-    {
-      documentTypes: ["REGULATORY_FRAMEWORK", "COMPLIANCE_SUBMISSION"],
-    },
+    {},
     {
       refetchOnReconnect: true,
       refetchOnMount: true,
@@ -28,7 +29,14 @@ export default function TableContainer() {
     }
   }, [files, setFiles]);
 
-  return (
-    <DataTable data={useFilesStore((state) => state.files)} columns={columns} />
+  const filteredFiles = files?.filter(
+    (file) => file.documentType === documentType,
   );
+
+  if (!filteredFiles) {
+    return null;
+  }
+
+  // @ts-expect-error ...eslint forced me to add this comment, bastard. fix the types.
+  return <DataTable data={filteredFiles} columns={columns} />;
 }

@@ -146,4 +146,19 @@ export const fileRouter = createTRPCRouter({
 
       return file?.blobUrl;
     }),
+  //for a given file id, set the status to failed
+  setFileStatusToFailed: protectedProcedure
+    .input(z.number())
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user) {
+        throw new Error("Unauthorized");
+      }
+      const fileId = input;
+      return ctx.db.file.update({
+        where: { id: fileId },
+        data: {
+          processingStatus: "FAILED",
+        },
+      });
+    }),
 });

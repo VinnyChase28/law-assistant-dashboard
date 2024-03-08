@@ -7,6 +7,8 @@ import { DataTableColumnHeader } from "src/app/dashboard/files/components/data-t
 import { DataTableRowActions } from "./data-table-row-actions";
 import { useCheckedRowsStore } from "src/store/store";
 import { statuses, documentTypes } from "./data";
+
+
 interface SelectAllCheckboxHeaderProps {
   table: Table<File>;
 }
@@ -82,7 +84,7 @@ export const columns: ColumnDef<File>[] = [
       return (
         <div className="flex w-[100px] items-center">
           {documentType.icon && (
-            <documentType.icon className="mr-2 h-7 w-7 text-muted-foreground" />
+            <documentType.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
           <span>{documentType.label}</span>
         </div>

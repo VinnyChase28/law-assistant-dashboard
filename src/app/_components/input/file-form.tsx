@@ -121,7 +121,7 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Document Type</SelectLabel>
+                  <SelectLabel>Type</SelectLabel>
                   <SelectItem value="REGULATORY_FRAMEWORK">
                     Regulatory Framework
                   </SelectItem>
@@ -133,7 +133,7 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
             </Select>
             <AlertComponent
               title="Note"
-              description="Please only upload documents of the same type at a time."
+              description="Please only upload documents of the same type at a time. You can upload regulatory documents, which contain the rules text, or compliance submissions, which contain the documents that are being submitted for compliance."
               iconType="info"
             />
             <input

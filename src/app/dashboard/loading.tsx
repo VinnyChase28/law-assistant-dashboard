@@ -1,5 +1,4 @@
-import { IconSpinner } from "./_components/ui/icons";
-
+import { IconSpinner } from "@/components/ui/icons";
 const Loading = () => {
   return (
     <div className="flex min-h-screen items-center justify-center">

@@ -67,7 +67,6 @@ export function DataTableRowActions<TData extends WithId>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuItem onSelect={viewFile}>View</DropdownMenuItem>
-        <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuSub>

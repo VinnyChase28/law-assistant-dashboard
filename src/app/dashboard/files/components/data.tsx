@@ -20,7 +20,7 @@ const documentTypes = [
   },
   {
     value: DocumentType.COMPLIANCE_REPORT,
-    label: "Compliance Report",
+    label: "Report",
     icon: Columns,
   },
 ];

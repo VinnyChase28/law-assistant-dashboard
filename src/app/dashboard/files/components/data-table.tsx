@@ -43,6 +43,8 @@ export function DataTable<TData extends { id: number }, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
+   console.log("🚀 ~ checkedRows:", checkedRows);
+   
 
   const table = useReactTable({
     data,

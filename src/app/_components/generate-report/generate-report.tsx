@@ -15,17 +15,18 @@ const CreateReportComponent = () => {
   const { toast } = useToast(); // Initialize useToast
   const router = useRouter();
   const { checkedRows } = useCheckedRowsStore();
+
   const { files } = useFilesStore();
 
-  const selectedComplianceSubmission = files.find(
+  const selectedComplianceSubmission = files?.find(
     (file: any) =>
       file.documentType === "COMPLIANCE_SUBMISSION" && checkedRows[file.id],
   );
-
-  const selectedRegulatoryDocuments = files.filter(
+  const selectedRegulatoryDocuments = files?.filter(
     (file: any) =>
       file.documentType === "REGULATORY_FRAMEWORK" && checkedRows[file.id],
   );
+
 
   const hasSingleComplianceSubmission =
     selectedComplianceSubmission &&
@@ -96,6 +97,14 @@ const CreateReportComponent = () => {
       });
     } finally {
       setIsLoading(false);
+      const keyDownEvent = new KeyboardEvent("keydown", {
+        key: "Escape",
+        code: "Escape",
+        bubbles: true,
+      });
+
+      document.dispatchEvent(keyDownEvent);
+      
     }
   };
 
