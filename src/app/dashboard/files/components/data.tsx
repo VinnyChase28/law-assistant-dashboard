@@ -5,39 +5,27 @@ import {
 } from "@radix-ui/react-icons";
 import { DocumentType } from "@prisma/client";
 import { processingStatus } from "@prisma/client";
+import { Search, Scale, Columns } from "lucide-react";
 
 const documentTypes = [
   {
     value: DocumentType.COMPLIANCE_SUBMISSION,
-    label: "Compliance Submission",
+    label: "Submission",
+    icon: Search,
   },
   {
     value: DocumentType.REGULATORY_FRAMEWORK,
-    label: "Summary",
+    label: "Regulatory",
+    icon: Scale,
   },
   {
     value: DocumentType.COMPLIANCE_REPORT,
     label: "Compliance Report",
+    icon: Columns,
   },
 ];
 
-//TODO: allow users to define their own labels and assign them to documents
-export const labels = [
-  {
-    value: "research",
-    label: "Research",
-  },
-  {
-    value: "summary",
-    label: "Summary",
-  },
-  {
-    value: "compliance",
-    label: "Compliance",
-  },
-];
-
-export const statuses = [
+const statuses = [
   {
     value: processingStatus.IN_PROGRESS,
     label: "In Progress",
@@ -54,3 +42,21 @@ export const statuses = [
     icon: CrossCircledIcon,
   },
 ];
+
+//TODO: allow users to define their own labels and assign them to documents
+const labels = [
+  {
+    value: "research",
+    label: "Research",
+  },
+  {
+    value: "summary",
+    label: "Summary",
+  },
+  {
+    value: "compliance",
+    label: "Compliance",
+  },
+];
+
+export { statuses, documentTypes, labels };

@@ -6,7 +6,7 @@ import { type File } from "./schema";
 import { DataTableColumnHeader } from "src/app/dashboard/files/components/data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { useCheckedRowsStore } from "src/store/store";
-import { statuses } from "./data";
+import { statuses, documentTypes } from "./data";
 interface SelectAllCheckboxHeaderProps {
   table: Table<File>;
 }
@@ -71,7 +71,22 @@ export const columns: ColumnDef<File>[] = [
       <DataTableColumnHeader column={column} title="Document Type" />
     ),
     cell: ({ row }) => {
-      return <div>{row.getValue("documentType")}</div>;
+      const documentType = documentTypes.find(
+        (documentType) => documentType.value === row.getValue("documentType"),
+      );
+
+      if (!documentType) {
+        return null;
+      }
+
+      return (
+        <div className="flex w-[100px] items-center">
+          {documentType.icon && (
+            <documentType.icon className="mr-2 h-10 w-10 text-muted-foreground" />
+          )}
+          <span>{documentType.label}</span>
+        </div>
+      );
     },
   },
   // {
