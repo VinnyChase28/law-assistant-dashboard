@@ -33,7 +33,7 @@ const components: { title: string; href: string; description: string }[] = [
     description: "Customize the look and feel",
   },
   {
-    title: "Contract",
+    title: "Notifications",
     href: "/dashboard/settings/notifications",
     description: "Manage your notifications settings",
   },

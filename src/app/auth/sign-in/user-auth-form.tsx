@@ -20,8 +20,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       // redirect: true,
       callbackUrl: "/dashboard",
     });
-
-    setIsLoading(false);
   }
 
   return (
@@ -37,9 +35,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         </div>
       </div>
 
-      <div className="text-center">
+      <div className="justify-content center text-center">
         {isLoading ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+          <Icons.spinner className="mr-2 h-4 w-4 animate-spin text-center" />
         ) : (
           <Button onClick={onSubmit} variant={"secondary"} disabled={isLoading}>
             Authenticate
