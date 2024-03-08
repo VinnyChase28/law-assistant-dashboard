@@ -1,5 +1,3 @@
-// Import required modules, including `getServerAuthSession` from your auth setup
-import { getServerAuthSession } from "src/server/auth";
 import { cookies } from "next/headers";
 import "src/styles/globals.css";
 import { Inter as FontSans } from "next/font/google";
@@ -9,10 +7,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
-  title: "Casy",
+  title: "Casy | Law Assistant AI",
   description: "Casy AI Dashboard",
 };
 

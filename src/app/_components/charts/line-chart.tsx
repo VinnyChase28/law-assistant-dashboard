@@ -38,7 +38,7 @@ const ComplianceTrendChart = () => (
       data={complianceData}
       index="period"
       categories={["Compliance Rate", "Non-Compliance Rate"]}
-      colors={["emerald", "red"]} // 'emerald' for compliance, 'red' for non-compliance
+      colors={["indigo", "red"]} // 'indigo' for compliance, 'red' for non-compliance
       valueFormatter={percentageFormatter}
       yAxisWidth={40}
     />
