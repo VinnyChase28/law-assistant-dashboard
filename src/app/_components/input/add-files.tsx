@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import UploadFiles from "./file-form";
-import { PlusIcon } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 
 const AddFiles = () => {
   const [isOpen, setIsDialogOpen] = useState(false);
@@ -14,10 +14,12 @@ const AddFiles = () => {
       <Dialog open={isOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button>
-            <PlusIcon className="h-3 w-3" />
+            <PlusCircle className="h-4 w-4" />
+            {/* <span className="ml-2">Add files</span> */}
           </Button>
         </DialogTrigger>
         <DialogContent>
+          <p>Add Files</p>
           <UploadFiles setIsDialogOpen={setIsDialogOpen} />
         </DialogContent>
       </Dialog>
