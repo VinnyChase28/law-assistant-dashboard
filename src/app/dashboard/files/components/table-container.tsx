@@ -33,5 +33,10 @@ export default function TableContainer({
     (file) => file.documentType === documentType,
   );
 
+  if (!filteredFiles) {
+    return null;
+  }
+  //TODO: Fix the types for tables. they need a lot of work. 
+  // @ts-ignore
   return <DataTable data={filteredFiles} columns={columns} />;
 }
