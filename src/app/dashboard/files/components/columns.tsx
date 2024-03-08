@@ -7,6 +7,8 @@ import { DataTableColumnHeader } from "src/app/dashboard/files/components/data-t
 import { DataTableRowActions } from "./data-table-row-actions";
 import { useCheckedRowsStore } from "src/store/store";
 import { statuses, documentTypes } from "./data";
+
+
 interface SelectAllCheckboxHeaderProps {
   table: Table<File>;
 }

@@ -1,5 +1,7 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import TableContainer from "./table-container";
+import { DocumentType } from "@prisma/client";
+
 
 export default function TabbedTables() {
   return (
@@ -15,13 +17,13 @@ export default function TabbedTables() {
       </TabsList>
 
       <TabsContent value="regulatory_framework">
-        <TableContainer documentType="REGULATORY_FRAMEWORK" />
+        <TableContainer documentType={DocumentType.REGULATORY_FRAMEWORK} />
       </TabsContent>
       <TabsContent value="compliance_submission">
-        <TableContainer documentType="COMPLIANCE_SUBMISSION" />
+        <TableContainer documentType={DocumentType.COMPLIANCE_SUBMISSION} />
       </TabsContent>
       <TabsContent value="compliance_report">
-        <TableContainer documentType="COMPLIANCE_REPORT" />
+        <TableContainer documentType={DocumentType.COMPLIANCE_REPORT} />
       </TabsContent>
     </Tabs>
   );

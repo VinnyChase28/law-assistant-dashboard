@@ -2,8 +2,7 @@ import { type Metadata } from "next";
 
 import { Text } from "@tremor/react";
 import AddFiles from "@/components/input/add-files";
-import TableContainer from "./components/table-container";
-
+import TabbedTables from "./components/tabbed-tables";
 export const metadata: Metadata = {
   title: "Add Files",
   description: "Add files to your account",
@@ -16,7 +15,7 @@ export default async function Files() {
       <div className="my-5 flex justify-center">
         <AddFiles />
       </div>
-      <TableContainer />
+      <TabbedTables />
     </main>
   );
 }

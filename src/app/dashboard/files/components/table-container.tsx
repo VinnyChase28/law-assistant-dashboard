@@ -1,3 +1,4 @@
+"use client";
 import { useEffect } from "react";
 import { useFilesStore } from "src/store/store";
 import { DataTable } from "src/app/dashboard/files/components/data-table";
