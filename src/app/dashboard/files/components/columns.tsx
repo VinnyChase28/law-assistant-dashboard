@@ -71,7 +71,6 @@ export const columns: ColumnDef<File>[] = [
       <DataTableColumnHeader column={column} title="Document Type" />
     ),
     cell: ({ row }) => {
-      console.log(row.getValue("documentType"), "LALALA");
       return <div>{row.getValue("documentType")}</div>;
     },
   },
