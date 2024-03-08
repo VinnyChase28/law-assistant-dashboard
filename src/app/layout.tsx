@@ -44,10 +44,6 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <TooltipProvider>
-              {/* Header container */}
-              {/* <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
-
-              </header> */}
               {/* Main content */}
               <main className="flex w-full flex-1 flex-col">{children}</main>
               {/* Toast notifications */}
