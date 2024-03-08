@@ -3,10 +3,10 @@
 import { type ColumnDef, type Table, type Row } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { type File } from "./schema";
-import { DataTableColumnHeader } from "@/components/tables/data-table-column-header";
+import { DataTableColumnHeader } from "src/app/dashboard/files/components/data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { useCheckedRowsStore } from "src/store/store";
-
+import { statuses } from "./data";
 interface SelectAllCheckboxHeaderProps {
   table: Table<File>;
 }
@@ -70,7 +70,10 @@ export const columns: ColumnDef<File>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Document Type" />
     ),
-    cell: ({ row }) => <div>{row.getValue("documentType")}</div>,
+    cell: ({ row }) => {
+      console.log(row.getValue("documentType"), "LALALA");
+      return <div>{row.getValue("documentType")}</div>;
+    },
   },
   // {
   //   accessorKey: "fileSize",
@@ -85,13 +88,25 @@ export const columns: ColumnDef<File>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
+      const status = statuses.find(
+        (status) => status.value === row.getValue("processingStatus"),
+      );
+
+      if (!status) {
+        return null;
+      }
+
       return (
-        <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("processingStatus")}
-          </span>
+        <div className="flex w-[100px] items-center">
+          {status.icon && (
+            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+          )}
+          <span>{status.label}</span>
         </div>
       );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
     },
   },
   {

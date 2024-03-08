@@ -20,21 +20,19 @@ export const labels = [
 ];
 
 export const statuses = [
-
   {
-    value: "in progress",
+    value: "IN_PROGRESS",
     label: "In Progress",
     icon: StopwatchIcon,
   },
   {
-    value: "done",
+    value: "DONE",
     label: "Done",
     icon: CheckCircledIcon,
   },
   {
-    value: "error",
+    value: "FAILED",
     label: "Error",
     icon: CrossCircledIcon,
   },
 ];
-

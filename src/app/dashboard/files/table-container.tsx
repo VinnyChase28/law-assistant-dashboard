@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import { useFilesStore } from "src/store/store";
-import { DataTable } from "@/components/tables/data-table";
-import { columns } from "@/components/tables/columns";
+import { DataTable } from "src/app/dashboard/files/components/data-table";
+import { columns } from "src/app/dashboard/files/components/columns";
 import { api } from "src/trpc/react";
 
 export default function TableContainer() {
