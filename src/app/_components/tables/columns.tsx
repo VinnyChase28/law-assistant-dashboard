@@ -2,7 +2,7 @@
 
 import { type ColumnDef, type Table, type Row } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import { type File } from "../data/schema";
+import { type File } from "./schema";
 import { DataTableColumnHeader } from "@/components/tables/data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { useCheckedRowsStore } from "src/store/store";

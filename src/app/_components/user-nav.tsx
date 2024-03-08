@@ -41,28 +41,28 @@ export async function UserNav() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <Link href={"/settings/"} passHref>
+              <Link href={"/dashboard/settings/"} passHref>
                 <DropdownMenuItem asChild>
                   <a>
                     Profile<DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                   </a>
                 </DropdownMenuItem>
               </Link>
-              <Link href="/settings/billing" passHref>
+              <Link href="/dashboard/settings/billing" passHref>
                 <DropdownMenuItem asChild>
                   <a>
                     Billing<DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                   </a>
                 </DropdownMenuItem>
               </Link>
-              <Link href="/settings/appearance" passHref>
+              <Link href="/dashboard/settings/appearance" passHref>
                 <DropdownMenuItem asChild>
                   <a>
                     Appearance<DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                   </a>
                 </DropdownMenuItem>
               </Link>
-              <Link href="/settings/notifications" passHref>
+              <Link href="/dashboard/settings/notifications" passHref>
                 <DropdownMenuItem asChild>
                   <a>
                     Notifications<DropdownMenuShortcut>⌘S</DropdownMenuShortcut>

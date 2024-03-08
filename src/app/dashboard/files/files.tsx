@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import { useFilesStore } from "src/store/store";
-import { DataTable } from "./data-table";
-import { columns } from "./columns";
+import { DataTable } from "../../_components/tables/data-table";
+import { columns } from "../../_components/tables/columns";
 import { api } from "src/trpc/react";
 
 export default function FilesClientComponent() {

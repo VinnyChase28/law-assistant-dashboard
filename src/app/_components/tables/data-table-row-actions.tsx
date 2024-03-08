@@ -44,7 +44,7 @@ export function DataTableRowActions<TData extends WithId>({
   });
 
   const viewFile = () => {
-    router.push(`/pdf-viewer?fileId=${row.original.id}`);
+    router.push(`/dashboard/pdf-viewer?fileId=${row.original.id}`);
   };
 
   const handleDelete = async () => {

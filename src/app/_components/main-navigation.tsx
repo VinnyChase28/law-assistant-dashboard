@@ -18,25 +18,24 @@ import { ModeToggle } from "@/components/dark-mode-toggle";
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: "Compliance",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "Upload legal documents to verify other documents for compliance.",
+    title: "Profile",
+    href: "/dashboard/settings/",
+    description: "Edit your profile",
   },
   {
-    title: "Research",
-    href: "/docs/primitives/hover-card",
-    description: "A collection of tools for researching and analyzing data.",
+    title: "Billing",
+    href: "/dashboard/settings/billing",
+    description: "Manage your billing information",
   },
   {
-    title: "Summary",
-    href: "/docs/primitives/progress",
-    description: "A collection of tools for summarizing and visualizing data.",
+    title: "Appearance",
+    href: "/dashboard/settings/appearance",
+    description: "Customize the look and feel",
   },
   {
-    title: "Contract",
-    href: "/docs/primitives/scroll-area",
-    description: "A collection of tools for creating contracts.",
+    title: "Notifications",
+    href: "/dashboard/settings/notifications",
+    description: "Manage your notifications settings",
   },
 ];
 
@@ -46,21 +45,21 @@ export function MainNavigation() {
       <ModeToggle />
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
+          <Link href="/dashboard" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Dashboard
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/files" legacyBehavior passHref>
+          <Link href="/dashboard/files" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Files
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Settings</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {components.map((component) => (
@@ -83,7 +82,7 @@ export function MainNavigation() {
                 <NavigationMenuLink asChild>
                   <a
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
+                    href="/dashboard"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium">CaseyAI</div>
                     <p className="text-sm leading-tight text-muted-foreground">

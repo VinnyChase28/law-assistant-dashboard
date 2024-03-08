@@ -18,8 +18,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "../_components/ui/use-toast";
-import { Label } from "../_components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
+import { Label } from "@/components/ui/label";
 import { Trash2 } from "lucide-react";
 import { SkeletonAbstract } from "@/components/skeleton-abstract";
 
@@ -187,34 +187,42 @@ export function ProfileForm() {
           />
           <div className="pt-6">
             <FormLabel className="pb-5">URLs</FormLabel>
+            <FormDescription>
+              Add your social or business links.
+            </FormDescription>
+            <br />
             {fields.map((field, index) => (
-              <div
-                key={field.id}
-                className="flex items-center space-x-2"
-                style={{ width: "100%" }}
-              >
-                <FormField
-                  control={form.control}
-                  key={field.id}
-                  name={`urls.${index}.value`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <button
-                  type="button"
-                  onClick={() => remove(index)}
-                  className="text-gray-500 hover:text-gray-700"
+              <div key={field.id}>
+                <br />
+                <div
+                  className="flex items-center space-x-2"
+                  style={{ width: "100%" }}
                 >
-                  <Trash2 size={20} />
-                </button>
+                  <FormField
+                    control={form.control}
+                    key={field.id}
+                    name={`urls.${index}.value`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => remove(index)}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                </div>
               </div>
             ))}
+
+            <br />
             <Button
               type="button"
               variant="outline"

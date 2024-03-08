@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 
 import { Separator } from "@/components/ui/separator";
-import { SidebarNav } from "./components/sidebar-nav";
+import { SidebarNav } from "../../_components/sidebar-nav";
 
 export const metadata: Metadata = {
   title: "Forms",
@@ -12,19 +12,19 @@ export const metadata: Metadata = {
 const sidebarNavItems = [
   {
     title: "Profile",
-    href: "/settings/",
+    href: "/dashboard/settings/",
   },
   {
     title: "Billing",
-    href: "/settings/billing",
+    href: "/dashboard/settings/billing",
   },
   {
     title: "Appearance",
-    href: "/settings/appearance",
+    href: "/dashboard/settings/appearance",
   },
   {
     title: "Notifications",
-    href: "/settings/notifications",
+    href: "/dashboard/settings/notifications",
   },
 ];
 
@@ -37,14 +37,14 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
     <>
       <div className="md:hidden">
         <Image
-          src="/settings/forms-light.png"
+          src="/dashboard/settings/forms-light.png"
           width={1280}
           height={791}
           alt="Forms"
           className="block dark:hidden"
         />
         <Image
-          src="/settings/forms-dark.png"
+          src="/dashboard/settings/forms-dark.png"
           width={1280}
           height={791}
           alt="Forms"
