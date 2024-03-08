@@ -3,6 +3,8 @@ import { MainNavigation } from "./_components/main-navigation";
 import AlertComponent from "./_components/alert";
 
 const Home = async () => {
+  redirect("/dashboard");
+
   return (
     <div>
       <MainNavigation />
