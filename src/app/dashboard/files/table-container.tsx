@@ -2,11 +2,11 @@
 
 import { useEffect } from "react";
 import { useFilesStore } from "src/store/store";
-import { DataTable } from "../../_components/tables/data-table";
-import { columns } from "../../_components/tables/columns";
+import { DataTable } from "@/components/tables/data-table";
+import { columns } from "@/components/tables/columns";
 import { api } from "src/trpc/react";
 
-export default function FilesClientComponent() {
+export default function TableContainer() {
   const { setFiles } = useFilesStore();
 
   // TODO: move retching to websockets when we scalead

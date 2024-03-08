@@ -2,7 +2,7 @@ import { type Metadata } from "next";
 
 import { Text } from "@tremor/react";
 import AddFiles from "@/components/input/add-files";
-import FilesClientComponent from "./files";
+import TableContainer from "./table-container";
 
 export const metadata: Metadata = {
   title: "Add Files",
@@ -16,7 +16,7 @@ export default async function Files() {
       <div className="my-5 flex justify-center">
         <AddFiles />
       </div>
-      <FilesClientComponent />
+      <TableContainer />
     </main>
   );
 }

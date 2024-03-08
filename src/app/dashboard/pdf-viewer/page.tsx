@@ -14,13 +14,12 @@ export default function PDFViewerPage() {
   const { data, isLoading, error } = api.file.getBlobUrl.useQuery(
     Number(fileId),
     {
-      enabled: !!fileId, // This ensures the query runs only if fileId is available
+      enabled: !!fileId,
     },
   );
 
   useEffect(() => {
     if (data) {
-      // Assuming the data returned directly contains the blob URL or the logic to derive it
       setBlobUrl(data);
     }
   }, [data]);
