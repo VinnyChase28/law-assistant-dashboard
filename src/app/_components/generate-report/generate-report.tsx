@@ -74,6 +74,7 @@ const CreateReportComponent = () => {
         title: "Compliance Report Started",
         description: `The compliance data has been sent to Casy. A new report will be available in the "GenAI docs" section soon.`,
         action: (
+          //TODO: update to new tab structure
           <Button
             onClick={() => router.push("/?tab=genaiDocs")}
             variant="default"
