@@ -5,6 +5,7 @@ import {
   publicProcedure,
 } from "src/server/api/trpc";
 import { pinecone } from "src/utils/pinecone";
+import { processingStatus } from "@prisma/client";
 
 export const fileRouter = createTRPCRouter({
   //insert file metadata on upload to my files
@@ -147,17 +148,26 @@ export const fileRouter = createTRPCRouter({
       return file?.blobUrl;
     }),
   //for a given file id, set the status to failed
-  setFileStatusToFailed: protectedProcedure
-    .input(z.number())
+  setFileStatus: protectedProcedure
+    .input(
+      z.object({
+        fileId: z.number(),
+        status: z.enum([
+          processingStatus.FAILED,
+          processingStatus.DONE,
+          processingStatus.IN_PROGRESS,
+        ]),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       if (!ctx.session.user) {
         throw new Error("Unauthorized");
       }
-      const fileId = input;
+      const { fileId, status } = input;
       return ctx.db.file.update({
         where: { id: fileId },
         data: {
-          processingStatus: "FAILED",
+          processingStatus: status,
         },
       });
     }),

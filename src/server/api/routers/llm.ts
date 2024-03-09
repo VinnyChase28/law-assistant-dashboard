@@ -7,7 +7,7 @@ import { z } from "zod";
 import { inngest } from "src/inngest";
 import { WebPDFLoader } from "langchain/document_loaders/web/pdf";
 import { api } from "src/trpc/server";
-
+import { processingStatus } from "@prisma/client";
 // TRPC router implementation
 export const llmRouter = createTRPCRouter({
   generateDocumentPrompt: protectedProcedure
@@ -91,7 +91,10 @@ export const llmRouter = createTRPCRouter({
       } catch (error) {
         console.error("Error sending event to Inngest:", error);
 
-        await api.file.setFileStatusToFailed.mutate(id);
+        await api.file.setFileStatus.mutate({
+          fileId: id,
+          status: processingStatus.FAILED,
+        });
 
         throw new Error("Failed to send event to Inngest.");
       }
@@ -150,7 +153,10 @@ export const llmRouter = createTRPCRouter({
         };
       } catch (error) {
         console.error("Error sending event to Inngest:", error);
-        await api.file.setFileStatusToFailed.mutate(fileId);
+        await api.file.setFileStatus.mutate({
+          fileId: fileId,
+          status: processingStatus.FAILED,
+        });
         throw new Error("Failed to send event to Inngest.");
       }
     }),
