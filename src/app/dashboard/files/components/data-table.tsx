@@ -43,7 +43,7 @@ export function DataTable<TData extends { id: number }, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
-   console.log("🚀 ~ checkedRows:", checkedRows);
+
    
 
   const table = useReactTable({
@@ -96,7 +96,7 @@ export function DataTable<TData extends { id: number }, TValue>({
                   key={row.id}
                   data-state={
                     checkedRows[row.original.id] ? "selected" : undefined
-                  } // Use Zustand store to check if row is selected
+                  }
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
