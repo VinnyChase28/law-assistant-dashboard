@@ -6,7 +6,7 @@ import {
 } from "src/server/api/trpc";
 import { pinecone } from "src/utils/pinecone";
 import { processingStatus } from "@prisma/client";
-
+import { del } from "@vercel/blob";
 export const fileRouter = createTRPCRouter({
   //insert file metadata on upload to my files
   insertFileMetadata: protectedProcedure
@@ -85,6 +85,15 @@ export const fileRouter = createTRPCRouter({
       fileSubsections.forEach(async (subsection) => {
         await index.deleteOne(subsection.pineconeVectorId);
       });
+
+      //get the blob url to delete the file from the blob storage
+      const file = await ctx.db.file.findUnique({
+        where: { id: fileId },
+      });
+
+      if (file?.blobUrl) {
+        await del(file.blobUrl);
+      }
 
       await ctx.db.file.delete({ where: { id: fileId } });
 
