@@ -1,7 +1,7 @@
 import { openai } from "src/utils/openai";
 import * as puppeteer from "puppeteer";
 import * as marked from "marked";
-import { models } from "../functions/compliance-reports";
+import { Models } from "../functions/compliance-reports";
 import { put } from "@vercel/blob";
 import { css } from "./css";
 
@@ -86,7 +86,7 @@ interface ComplianceSubmission {
   pageNumber: number;
 }
 
-interface RegulatoryFramework {
+export interface RegulatoryFramework {
   fileId: number;
   documentName: string;
   textData: string;
@@ -134,7 +134,7 @@ async function findViolations(
 
   try {
     const response = await openai.chat.completions.create({
-      model: models.GPT4,
+      model: Models.GPT4,
       messages: [{ role: "user", content: prompt }],
       temperature: 0.2,
       max_tokens: 300,

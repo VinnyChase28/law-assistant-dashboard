@@ -7,7 +7,7 @@ import {
   convertMarkdownToPdfAndUpload,
 } from "../helpers/report-helpers";
 
-export enum models {
+export enum Models {
   GPT4 = "gpt-4-0125-preview",
   GPT3 = "gpt-3.5-turbo-0125",
 }
@@ -33,9 +33,24 @@ export const complianceReport = inngest.createFunction(
     const allViolationsNested = await Promise.all(allViolationsPromises);
     const allViolations = allViolationsNested.flat();
 
-    
-
     const stringifiedViolations = JSON.stringify(allViolations);
+    //do not create a report if there are no violations
+    if (allViolations.length === 0) {
+      //use prisma client to update the compliance report
+      await prisma.file.update({
+        where: {
+          id: event.data.id,
+        },
+        data: {
+          reportData: JSON.stringify(allViolations),
+          processingStatus: "DONE",
+        },
+      });
+
+      return {
+        message: ["Compliant"],
+      };
+    }
     const finalReportPrompt = `
 
     Create a compliance report based on the following structured data:
@@ -94,7 +109,7 @@ export const complianceReport = inngest.createFunction(
 
     //create a structured compliance report using openai api
     const response = await openai.chat.completions.create({
-      model: models.GPT4,
+      model: Models.GPT4,
       messages: [{ role: "user", content: finalReportPrompt }],
       temperature: 0.2,
       max_tokens: 4096,
