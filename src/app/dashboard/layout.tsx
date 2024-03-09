@@ -9,13 +9,15 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section>
+    <section className="">
       <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
         <MainNavigation />
         <UserNav /> {/* Pass session to components as needed */}
       </header>
-      {children}
-      <ChatBubble />
+      <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+        {children}
+        <ChatBubble />
+      </div>
     </section>
   );
 }
