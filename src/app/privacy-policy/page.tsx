@@ -9,9 +9,9 @@ const PrivacyPolicy = () => {
         Welcome to Law Assistant.ai. We are committed to protecting your privacy
         and ensuring the security of your personal information. This Privacy
         Policy outlines our practices concerning the collection, use, and
-        disclosure of your information through our website (located at [Insert
-        Website URL]) and our mobile application (collectively referred to as
-        the "Service").
+        disclosure of your information through our website (located at
+        www.lawassitant.ai) and our application (collectively referred to as the
+        "Service").
       </p>
 
       <h2 className="my-3 text-xl font-semibold">1. Information We Collect</h2>
@@ -103,7 +103,7 @@ const PrivacyPolicy = () => {
       <h2 className="my-3 text-xl font-semibold">8. Contact Us</h2>
       <p>
         If you have any questions or concerns about our privacy practices,
-        please contact us at [Insert Contact Information].
+        please contact us at legal@lawassistant.ai.
       </p>
     </div>
   );
