@@ -7,6 +7,8 @@ import {
 import { pinecone } from "src/utils/pinecone";
 import { processingStatus } from "@prisma/client";
 import { del } from "@vercel/blob";
+
+
 export const fileRouter = createTRPCRouter({
   //insert file metadata on upload to my files
   insertFileMetadata: protectedProcedure
@@ -85,21 +87,27 @@ export const fileRouter = createTRPCRouter({
       const file = await ctx.db.file.findUnique({
         where: { id: fileId },
       });
-        await del(file?.blobUrl ?? "");
-    
+      const blobDeleteResponse = await del(file?.blobUrl ?? "");
+      console.log("🚀 ~ .mutation ~ blobDeleteResponse:", blobDeleteResponse);
 
       //delete the vectors from pinecone
       const index = pinecone.Index(process.env.PINECONE_INDEX ?? "");
+      console.log("🚀 ~ .mutation ~ index:", index);
       const namespace = index.namespace(ctx.session.user.id);
+      console.log("🚀 ~ .mutation ~ namespace:", namespace);
       const allPineconeIds = fileSubsections.map((sub) => sub.pineconeVectorId);
-      console.log("🚀 ~ .mutation ~ allPineconeIds:", allPineconeIds)
+      console.log("🚀 ~ .mutation ~ allPineconeIds:", allPineconeIds);
       const response = await namespace.deleteMany(allPineconeIds);
-      console.log("🚀 ~ deleteFile .mutation ~ response:", response)
+      console.log("🚀 ~ .mutation ~ deleteManyPinecone ~ response:", response);
 
       //delete the file from the database
-      await ctx.db.file.delete({
-        where: { id: fileId },  
+      const prismaFileDeleteResponse = await ctx.db.file.delete({
+        where: { id: fileId },
       });
+      console.log(
+        "🚀 ~ .mutation ~ prismaFileDeleteResponse:",
+        prismaFileDeleteResponse,
+      );
 
       return {
         success: true,
