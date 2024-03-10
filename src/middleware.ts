@@ -5,7 +5,6 @@ export default withAuth({
     authorized: ({ req }) => {
       // verify token and return a boolean
       const environment = process.env.NODE_ENV;
-      console.log(environment, "environment");
       const cookieKey =
         environment === "development"
           ? "next-auth.session-token"

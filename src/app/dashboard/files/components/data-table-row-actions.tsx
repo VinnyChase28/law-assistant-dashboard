@@ -35,7 +35,6 @@ export function DataTableRowActions<TData extends WithId>({
   const deleteFile = api.file.deleteFile.useMutation({
     onSuccess: () => {
       setFileDeleting(row.original.id, false);
-      removeFile(row.original.id);
     },
     onError: (error) => {
       console.error("Error deleting file:", error);
@@ -48,6 +47,7 @@ export function DataTableRowActions<TData extends WithId>({
   };
 
   const handleDelete = async () => {
+    removeFile(row.original.id);
     setFileDeleting(row.original.id, true);
     deleteFile.mutateAsync(row.original.id);
   };
