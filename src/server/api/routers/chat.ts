@@ -2,6 +2,7 @@ import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { z } from "zod";
 
 export const chatRouter = createTRPCRouter({
+  
   // create chat session
   createChatSession: protectedProcedure.mutation(async ({ input, ctx }) => {
     const chatSession = await ctx.db.chatSession.create({
