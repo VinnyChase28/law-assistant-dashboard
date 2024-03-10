@@ -94,7 +94,14 @@ const PrivacyPolicy = () => {
         You have certain rights regarding your personal information, including
         the right to access, correct, or delete your data, subject to certain
         exceptions. For more information or to exercise your rights, please
-        contact us at [Insert Contact Information].
+        contact us at{" "}
+        <a
+          href="mailto:legal@lawassistant.ai"
+          className="text-blue-500 hover:text-blue-600"
+        >
+          legal@lawassistant.ai
+        </a>
+        .
       </p>
 
       <h2 className="my-3 text-xl font-semibold">
@@ -116,6 +123,7 @@ const PrivacyPolicy = () => {
         >
           legal@lawassistant.ai
         </a>
+        .
       </p>
     </div>
   );
