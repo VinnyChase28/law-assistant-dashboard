@@ -18,7 +18,7 @@ export const vectorRouter = createTRPCRouter({
         throw new Error("User's user ID is not available.");
       }
 
-      const index = await pinecone.Index(process.env.PINECONE_INDEX ?? "");
+      const index = await pinecone.index(process.env.PINECONE_INDEX ?? "");
       const userNamespace = index.namespace(userId);
 
       const queryResponse = await userNamespace.query({
@@ -99,7 +99,7 @@ export const vectorRouter = createTRPCRouter({
         );
       }
 
-      const index = await pinecone.Index(process.env.PINECONE_INDEX ?? "");
+      const index = await pinecone.index(process.env.PINECONE_INDEX ?? "");
 
       const results = await Promise.all(
         textSubsections.map(async (subsection) => {
