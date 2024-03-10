@@ -40,7 +40,6 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 export function MainNavigation() {
-  const indexes = api.vector.listIndexes.useQuery().data ?? [];
   return (
     <NavigationMenu>
       <ModeToggle />
