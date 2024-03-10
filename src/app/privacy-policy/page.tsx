@@ -4,7 +4,7 @@ const PrivacyPolicy = () => {
       <h1 className="mb-4 text-2xl font-semibold">
         Privacy Policy of Law Assistant.ai
       </h1>
-      <p className="mb-4">Last Updated: [Insert Date]</p>
+      <p className="mb-4">Last Updated: March 10th, 2024</p>
       <p className="mb-4">
         Welcome to Law Assistant.ai. We are committed to protecting your privacy
         and ensuring the security of your personal information. This Privacy
