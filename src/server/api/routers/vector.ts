@@ -162,5 +162,10 @@ export const vectorRouter = createTRPCRouter({
       return { data: results };
     }),
 
-  
+  //list all indexes in pinecone
+  listIndexes: protectedProcedure.query(async () => {
+    const indexes = await pinecone.listIndexes();
+
+    return indexes;
+  }),
 });

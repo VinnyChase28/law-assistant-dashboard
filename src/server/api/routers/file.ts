@@ -76,14 +76,9 @@ export const fileRouter = createTRPCRouter({
   deleteFile: protectedProcedure
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
-      const index = pinecone.Index(process.env.PINECONE_INDEX ?? "");
       const fileId = input;
       const fileSubsections = await ctx.db.textSubsection.findMany({
         where: { fileId: fileId },
-      });
-
-      fileSubsections.forEach(async (subsection) => {
-        await index.deleteOne(subsection.pineconeVectorId);
       });
 
       //get the blob url to delete the file from the blob storage
@@ -95,7 +90,15 @@ export const fileRouter = createTRPCRouter({
         await del(file.blobUrl);
       }
 
-      await ctx.db.file.delete({ where: { id: fileId } });
+      //delete the vectors from pinecone
+      const index = pinecone.Index(process.env.PINECONE_INDEX ?? "");
+      const namespace = index.namespace(ctx.session.user.id);
+      namespace.deleteMany(fileSubsections.map((sub) => sub.pineconeVectorId));
+
+      //delete the file from the database
+      await ctx.db.file.delete({
+        where: { id: fileId },
+      });
 
       return {
         success: true,

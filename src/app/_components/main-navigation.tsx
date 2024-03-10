@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import { ModeToggle } from "@/components/dark-mode-toggle";
-
+import { api } from "src/trpc/react";
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Profile",
@@ -40,6 +40,7 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 export function MainNavigation() {
+  const indexes = api.vector.listIndexes.useQuery().data ?? [];
   return (
     <NavigationMenu>
       <ModeToggle />
