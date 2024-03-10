@@ -54,11 +54,11 @@ const TermsOfUse = () => {
         </li>
       </ul>
       <h2 className="my-3 text-xl font-semibold">Limitation of Liability</h2>
-      <p className="mb-4">
-        Law Assistant.ai, its affiliates, and its service providers will not be
-        liable for any direct, indirect, incidental, special, consequential, or
-        exemplary damages, resulting from the use or inability to use the
-        service.
+      <p>
+        In no event shall Law Assistant.ai be liable for any lost profits,
+        revenue, or data, or for any incidental, indirect, special,
+        consequential or exemplary damages, arising out of or in connection with
+        the use or inability to use our services.
       </p>
       <h2 className="my-3 text-xl font-semibold">Indemnification</h2>
       <p className="mb-4">
