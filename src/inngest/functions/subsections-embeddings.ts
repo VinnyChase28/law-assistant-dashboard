@@ -1,6 +1,6 @@
 import { inngest } from "../client";
 import nlp from "compromise";
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { OpenAIEmbeddings } from "@langchain/openai";
 import { prisma } from "src/utils/prisma";
 import { pinecone } from "src/utils/pinecone";
 import { api } from "src/trpc/server";

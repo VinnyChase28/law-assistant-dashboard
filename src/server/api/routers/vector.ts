@@ -1,5 +1,5 @@
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { OpenAIEmbeddings } from "@langchain/openai";
 import { z } from "zod";
 import { pinecone } from "src/utils/pinecone";
 

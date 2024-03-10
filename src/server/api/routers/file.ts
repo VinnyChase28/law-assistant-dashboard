@@ -75,6 +75,7 @@ export const fileRouter = createTRPCRouter({
 
   // delete a specific file, and its associated vectors
   //TODO: change this to delete all subsections and vectors at once
+  //TODO: need to ensure the user cant delete a file that is still processing
   deleteFile: protectedProcedure
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
@@ -87,29 +88,20 @@ export const fileRouter = createTRPCRouter({
       const file = await ctx.db.file.findUnique({
         where: { id: fileId },
       });
-      const blobDeleteResponse = await del(file?.blobUrl ?? "");
-      console.log("🚀 ~ .mutation ~ blobDeleteResponse:", blobDeleteResponse);
+      await del(file?.blobUrl ?? "");
 
       //delete the vectors from pinecone
       const index = await pinecone.index(process.env.PINECONE_INDEX ?? "");
-      console.log("🚀 ~ .mutation ~ index:", index);
       const namespace = await index.namespace(ctx.session.user.id);
-      console.log("🚀 ~ .mutation ~ namespace:", namespace);
       const allPineconeIds = await fileSubsections.map(
         (sub) => sub.pineconeVectorId,
       );
-      console.log("🚀 ~ .mutation ~ allPineconeIds:", allPineconeIds);
-      const response = await namespace.deleteMany(allPineconeIds);
-      console.log("🚀 ~ .mutation ~ deleteManyPinecone ~ response:", response);
+      await namespace.deleteMany(allPineconeIds);
 
       //delete the file from the database
-      const prismaFileDeleteResponse = await ctx.db.file.delete({
+      await ctx.db.file.delete({
         where: { id: fileId },
       });
-      console.log(
-        "🚀 ~ .mutation ~ prismaFileDeleteResponse:",
-        prismaFileDeleteResponse,
-      );
 
       return {
         success: true,
