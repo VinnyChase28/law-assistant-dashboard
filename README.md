@@ -4,7 +4,7 @@
 
 After being added to vercel, install the CLI locally using `npm i -g vercel`. Then, login to vercel using `vercel login`.
 
-To pull local dev env vars, run ```vercel env pull .env.development.local```
+To pull local dev env vars, run ```vercel env pull```
 
 ## Run Inngest Dev Server
 
@@ -26,11 +26,7 @@ To get stripe running locally, use the following commands:
 
 `npm i && npm run dev`
 
-## Run server
-
-run `npm run dev` to launch the project
-
 
 ## Prisma
 
-- If making db changes, you can run `npx prisma migrate dev`and then `npx prisma generate` to generate the prisma client. As this is still an alpha stage project, hard db resets may be needed. In that case, you can run `npx prisma db push --force-reset` and then `npx prisma generate` to do a hard db reset.
+- If making db changes, you can run `npx prisma migrate dev`to create a new migration and then `npx prisma generate` to generate the prisma client. As this is still an alpha stage project, hard db resets may be needed. In that case, you can run `npx prisma db push --force-reset` and then `npx prisma generate` to do a hard db reset.
