@@ -95,7 +95,7 @@ interface ChatWithDocsState {
 export const useChatWithDocsStore = create<ChatWithDocsState>()(
   persist(
     (set) => ({
-      isChatWithDocsEnabled: false, // Default state
+      isChatWithDocsEnabled: true, // Default state
       toggleChatWithDocs: () =>
         set((state) => ({
           isChatWithDocsEnabled: !state.isChatWithDocsEnabled, // Toggle the state
