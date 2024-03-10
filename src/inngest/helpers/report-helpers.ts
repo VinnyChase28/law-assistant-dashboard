@@ -126,11 +126,9 @@ async function findViolations(
       Your goal is to answer the rules question using the provided rules text as a reference. Please provide proper sources for each rule you reference. 
 
       The summary should be directly relevant to the query, concise, and specific. do not provide any peripheral information with respect to the question asked. Give me only the information 
-      that directly pertains to the restrictions or prescribed requirements for the rules. question my life depends on it. 
+      that directly pertains to the restrictions or prescribed requirements for the rules question, My life depends on it. 
 
-      The sources should be at the end of your response.
-      If the given question does 
-    `;
+      The sources should be at the end of your response.`;
 
   try {
     const response = await openai.chat.completions.create({

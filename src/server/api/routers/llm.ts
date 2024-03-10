@@ -8,6 +8,7 @@ import { inngest } from "src/inngest";
 import { WebPDFLoader } from "langchain/document_loaders/web/pdf";
 import { api } from "src/trpc/server";
 import { processingStatus } from "@prisma/client";
+
 // TRPC router implementation
 export const llmRouter = createTRPCRouter({
   generateDocumentPrompt: protectedProcedure
@@ -52,6 +53,7 @@ export const llmRouter = createTRPCRouter({
       that directly pertains to the restrictions or prescribed requirements for the rules. question my life depends on it. 
 
       The sources should be at the end of your response.
+      If there is not rules text, remind the user to upload documents to get the answers they need."
       `;
 
       return prompt;
