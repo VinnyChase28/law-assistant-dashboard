@@ -30,6 +30,7 @@ async function convertMarkdownToPdfAndUpload({
     // Launch a headless browser
     const browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disabled-setupid-sandbox"],
+      headless: true,
     });
     const page = await browser.newPage();
 
