@@ -9,7 +9,11 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "preinstall": "npx npm-force-resolutions"
+  },
+  "resolutions": {
+    "@pinecone-database/pinecone": "^2.1.0"
   },
   "dependencies": {
     "@dnd-kit/sortable": "^8.0.0",
