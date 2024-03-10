@@ -79,7 +79,7 @@
     "remark-gfm": "^4.0.0",
     "remark-math": "^6.0.0",
     "stripe": "^14.19.0",
-    "superjson": "^1.13.1",
+    "superjson": "^2.2.1",
     "svix": "^1.20.0",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
