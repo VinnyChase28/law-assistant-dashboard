@@ -17,7 +17,7 @@ const PrivacyPolicy = () => {
         Policy outlines our practices concerning the collection, use, and
         disclosure of your information through our website (located at
         www.lawassitant.ai) and our application (collectively referred to as the
-        "Service").
+        &quot;Service&quot;).
       </p>
 
       <h2 className="my-3 text-xl font-semibold">1. Information We Collect</h2>
@@ -110,7 +110,7 @@ const PrivacyPolicy = () => {
       <p className="mb-4">
         We may update our Privacy Policy from time to time. We will notify you
         of any changes by posting the new Privacy Policy on our website and
-        updating the "Last Updated" date.
+        updating the &quot;Last Updated&quot; date.
       </p>
 
       <h2 className="my-3 text-xl font-semibold">8. Contact Us</h2>

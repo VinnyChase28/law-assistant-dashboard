@@ -11,7 +11,7 @@ const TermsOfUse = () => {
       </h1>
       <p className="mb-4">
         Welcome to Law Assistant.ai. By accessing or using our website and
-        application, you agree to be bound by these Terms of Use ("Terms"). If
+        application, you agree to be bound by these Terms of Use (&quot;Terms&quot;). If
         you do not agree to these Terms, you may not use our services.
       </p>
       <h2 className="my-3 text-xl font-semibold">Use of Services</h2>
