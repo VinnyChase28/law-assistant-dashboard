@@ -51,7 +51,7 @@
     "ai": "^3.0.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
-    "cmdk": "^0.2.0",
+    "cmdk": "^1.0.0",
     "compromise": "^14.10.1",
     "date-fns": "^3.3.1",
     "inngest": "^3.15.1",
