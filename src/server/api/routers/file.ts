@@ -91,11 +91,13 @@ export const fileRouter = createTRPCRouter({
       console.log("🚀 ~ .mutation ~ blobDeleteResponse:", blobDeleteResponse);
 
       //delete the vectors from pinecone
-      const index = pinecone.Index(process.env.PINECONE_INDEX ?? "");
+      const index = await pinecone.Index(process.env.PINECONE_INDEX ?? "");
       console.log("🚀 ~ .mutation ~ index:", index);
-      const namespace = index.namespace(ctx.session.user.id);
+      const namespace = await index.namespace(ctx.session.user.id);
       console.log("🚀 ~ .mutation ~ namespace:", namespace);
-      const allPineconeIds = fileSubsections.map((sub) => sub.pineconeVectorId);
+      const allPineconeIds = await fileSubsections.map(
+        (sub) => sub.pineconeVectorId,
+      );
       console.log("🚀 ~ .mutation ~ allPineconeIds:", allPineconeIds);
       const response = await namespace.deleteMany(allPineconeIds);
       console.log("🚀 ~ .mutation ~ deleteManyPinecone ~ response:", response);
