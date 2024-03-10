@@ -1,7 +1,13 @@
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
 const PrivacyPolicy = () => {
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
-      <h1 className="mb-4 text-2xl font-semibold">
+      <Link href="/">
+        <Button variant="secondary">Home</Button>
+      </Link>
+      <h1 className="mb-4 pt-6 text-2xl font-semibold">
         Privacy Policy of Law Assistant.ai
       </h1>
       <p className="mb-4">Last Updated: March 10th, 2024</p>
@@ -103,7 +109,13 @@ const PrivacyPolicy = () => {
       <h2 className="my-3 text-xl font-semibold">8. Contact Us</h2>
       <p>
         If you have any questions or concerns about our privacy practices,
-        please contact us at legal@lawassistant.ai.
+        please contact us at{" "}
+        <a
+          href="mailto:legal@lawassistant.ai"
+          className="text-blue-500 hover:text-blue-600"
+        >
+          legal@lawassistant.ai
+        </a>
       </p>
     </div>
   );
