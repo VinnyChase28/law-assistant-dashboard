@@ -1,8 +1,7 @@
 import { type Metadata } from "next";
-
 import { Text } from "@tremor/react";
-import AddFiles from "@/components/input/add-files";
 import TabbedTables from "./components/tabbed-tables";
+
 export const metadata: Metadata = {
   title: "Add Files",
   description: "Add files to your account",

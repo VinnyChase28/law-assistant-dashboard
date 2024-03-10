@@ -186,8 +186,8 @@ const VectorSearchComponent: React.FC = () => {
     try {
       const newSession = await createChatSession.mutateAsync();
       if (newSession) {
-        setChatSessionId(newSession.id); // Update your chat session state with the new ID
-        setChatMessages([]); // Clear existing chat messages for the new session
+        setChatSessionId(newSession.id);
+        setChatMessages([]);
       }
     } catch (error) {
       console.error("Error creating new chat session:", error);

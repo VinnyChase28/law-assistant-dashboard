@@ -23,12 +23,12 @@ export function DropdownMenuCheckboxes({
   toggleChatWithDocs,
 }: DropdownMenuCheckboxesProps) {
   return (
-    <div className="flex justify-end">
+    <div className="flex justify-start">
       {" "}
       {/* Add a wrapper div to align content to the right */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="flex items-center space-x-2 text-right">
+          <button className="flex items-center space-x-2 text-left">
             {" "}
             {/* Use a button for the trigger with flex layout */}
             <span>Options</span> {/* Add the word "Options" next to the icon */}

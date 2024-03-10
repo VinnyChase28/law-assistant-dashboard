@@ -44,8 +44,7 @@ export function DataTable<TData extends { id: number }, TValue>({
 
   const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
 
-   
-
+  //sets up the table with the data and columns, and passes down props to various components
   const table = useReactTable({
     data,
     columns,
@@ -65,6 +64,8 @@ export function DataTable<TData extends { id: number }, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
+
+  console.log(table.getAllColumns(), "table.getAllColumns()");
 
   return (
     <div className="space-y-4 p-10">
