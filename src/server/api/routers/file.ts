@@ -80,7 +80,6 @@ export const fileRouter = createTRPCRouter({
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
       const fileId = input;
-      console.log("🚀 ~ .mutation ~ fileId:", fileId);
       const fileSubsections = await ctx.db.textSubsection.findMany({
         where: { fileId: fileId },
       });
@@ -94,6 +93,7 @@ export const fileRouter = createTRPCRouter({
         await del(file?.blobUrl ?? "");
       }
 
+      //only delete subsections in pinecone if they exist
       if (fileSubsections.length > 0) {
         //delete the vectors from pinecone
         const index = await pinecone.index(process.env.PINECONE_INDEX ?? "");
@@ -103,7 +103,6 @@ export const fileRouter = createTRPCRouter({
         );
         await namespace.deleteMany(allPineconeIds);
       }
-  
 
       //delete the file from the database
       await ctx.db.file.delete({

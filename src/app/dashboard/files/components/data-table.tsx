@@ -65,8 +65,6 @@ export function DataTable<TData extends { id: number }, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  console.log(table.getAllColumns(), "table.getAllColumns()");
-
   return (
     <div className="space-y-4 p-10">
       <DataTableToolbar table={table} />
