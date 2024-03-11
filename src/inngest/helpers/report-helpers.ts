@@ -1,84 +1,5 @@
 import { openai } from "src/utils/openai";
-import * as puppeteer from "puppeteer";
-import * as marked from "marked";
 import { Models } from "../functions/compliance-reports";
-import { put } from "@vercel/blob";
-import { css } from "./css";
-
-interface UploadResult {
-  success: boolean;
-  message: string;
-  blobUrl?: string;
-  fileId?: number;
-}
-
-async function convertMarkdownToPdfAndUpload({
-  markdown,
-  fileId,
-}: {
-  markdown: string;
-  fileId: number;
-}): Promise<UploadResult> {
-  try {
-    //create human readable time stamp
-    const date = new Date();
-    const timestamp = date.toISOString().split("T")[0];
-
-    // Convert Markdown to HTML
-    const html = await marked.parse(markdown);
-
-    // Launch a headless browser
-    const browser = await puppeteer.launch({
-      args: ["--no-sandbox", "--disabled-setupid-sandbox"],
-      headless: true,
-    });
-    const page = await browser.newPage();
-
-    // Set the HTML content and wait for it to load
-    await page.setContent(html);
-    await page.addStyleTag({
-      content: css,
-    });
-
-    // Convert the page to PDF
-    const pdfBuffer = await page.pdf({ format: "A4" });
-
-    // Close the browser
-    await browser.close();
-
-    // Use the server-side `put` function to upload the PDF
-    const blob = new Blob([pdfBuffer], { type: "application/pdf" });
-    const newBlob = await put(
-      `${timestamp}_${fileId}_compliance_report.pdf`,
-      blob,
-      {
-        access: "public",
-      },
-    );
-
-    return {
-      success: true,
-      message: "PDF generated and uploaded successfully.",
-      blobUrl: newBlob.url,
-      fileId: fileId,
-    };
-  } catch (error: any) {
-    console.error("An error occurred:", error);
-    return {
-      success: false,
-      message: `An error occurred during PDF generation or upload: ${error.message}`,
-    };
-  }
-}
-
-/**
- * Identifies compliance violations by comparing a compliance submission against a regulatory framework.
- * Utilizes an AI model to analyze text data for potential rule violations.
- *
- * @param {ComplianceSubmission} complianceSubmission - The compliance document to be verified, including its text data and metadata.
- * @param {RegulatoryFramework} regulation - The regulatory document to compare against, including its text data and metadata.
- * @returns {Promise<DetailedViolation[]>} - A promise that resolves to an array of detailed violations found, if any.
- */
 
 interface ComplianceSubmission {
   fileId: number;
@@ -170,4 +91,4 @@ async function findViolations(
   }
 }
 
-export { findViolations, convertMarkdownToPdfAndUpload };
+export { findViolations };

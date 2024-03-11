@@ -2,10 +2,7 @@ import { inngest } from "../client";
 import { openai } from "src/utils/openai";
 import { prisma } from "src/utils/prisma";
 
-import {
-  findViolations,
-  convertMarkdownToPdfAndUpload,
-} from "../helpers/report-helpers";
+import { findViolations } from "../helpers/report-helpers";
 
 export enum Models {
   GPT4 = "gpt-4-0125-preview",
@@ -48,7 +45,7 @@ export const complianceReport = inngest.createFunction(
       });
 
       return {
-        message: ["Compliant"],
+        message: ["No violations found."],
       };
     }
     const finalReportPrompt = `
@@ -104,7 +101,7 @@ export const complianceReport = inngest.createFunction(
     Professional Presentation:
 
     Clarity and Conciseness: Use clear, concise language and avoid jargon where possible.
-    Formatting: Use headings, bullet points, and numbered lists for easy reading. Maintain consistent fonts and colors.
+
     `;
 
     //create a structured compliance report using openai api
@@ -117,20 +114,6 @@ export const complianceReport = inngest.createFunction(
 
     const finalReport = response.choices[0]?.message.content ?? "";
 
-    //convert the markdown to pdf and upload to vercel
-    const uploadResult = await convertMarkdownToPdfAndUpload({
-      markdown: finalReport, // Use the finalReport content as markdown
-      fileId: event.data.id, // Use the event's ID as fileId
-    });
-
-    if (!uploadResult.success) {
-      console.error(
-        "Failed to upload the compliance report PDF:",
-        uploadResult.message,
-      );
-      throw new Error(uploadResult.message);
-    }
-
     //use prisma client to update the compliance report
     await prisma.file.update({
       where: {
@@ -140,7 +123,6 @@ export const complianceReport = inngest.createFunction(
         reportData: JSON.stringify(allViolations),
         finalReport: finalReport ?? "FAILED",
         processingStatus: "DONE",
-        blobUrl: uploadResult.blobUrl ?? "FAILED",
       },
     });
 
