@@ -8,7 +8,6 @@ import { useTabStore } from "src/store/store";
 
 export default function TabbedTables() {
   const { selectedTab, setSelectedTab } = useTabStore();
-  console.log("🚀 ~ TabbedTables ~ selectedTab:", selectedTab);
 
   return (
     <div>
