@@ -6,16 +6,16 @@ import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
-
+import { useCheckedRowsStore } from "src/store/store";
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
+  const { deleteAll } = useCheckedRowsStore();
   async function onSubmit(event: React.SyntheticEvent) {
     setIsLoading(true);
     event.preventDefault();
-
+    deleteAll();
     await signIn("auth0", {
       // redirect: true,
       callbackUrl: "/dashboard",

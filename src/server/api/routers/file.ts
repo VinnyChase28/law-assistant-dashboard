@@ -80,6 +80,7 @@ export const fileRouter = createTRPCRouter({
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
       const fileId = input;
+      console.log("🚀 ~ .mutation ~ fileId:", fileId);
       const fileSubsections = await ctx.db.textSubsection.findMany({
         where: { fileId: fileId },
       });
@@ -88,15 +89,21 @@ export const fileRouter = createTRPCRouter({
       const file = await ctx.db.file.findUnique({
         where: { id: fileId },
       });
-      await del(file?.blobUrl ?? "");
 
-      //delete the vectors from pinecone
-      const index = await pinecone.index(process.env.PINECONE_INDEX ?? "");
-      const namespace = await index.namespace(ctx.session.user.id);
-      const allPineconeIds = await fileSubsections.map(
-        (sub) => sub.pineconeVectorId,
-      );
-      await namespace.deleteMany(allPineconeIds);
+      if (file?.blobUrl) {
+        await del(file?.blobUrl ?? "");
+      }
+
+      if (fileSubsections.length > 0) {
+        //delete the vectors from pinecone
+        const index = await pinecone.index(process.env.PINECONE_INDEX ?? "");
+        const namespace = await index.namespace(ctx.session.user.id);
+        const allPineconeIds = await fileSubsections.map(
+          (sub) => sub.pineconeVectorId,
+        );
+        await namespace.deleteMany(allPineconeIds);
+      }
+  
 
       //delete the file from the database
       await ctx.db.file.delete({

@@ -47,9 +47,9 @@ export function DataTableRowActions<TData extends WithId>({
   };
 
   const handleDelete = async () => {
-    removeFile(row.original.id);
     setFileDeleting(row.original.id, true);
-    deleteFile.mutateAsync(row.original.id);
+    await deleteFile.mutateAsync(row.original.id);
+    removeFile(row.original.id);
   };
 
   const isDeleting = isFileDeleting(row.original.id);

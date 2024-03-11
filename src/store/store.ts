@@ -5,6 +5,7 @@ import { persist } from "zustand/middleware";
 export interface CheckedRowsState {
   checkedRows: { [key: number]: boolean };
   toggleRow: (id: number) => void;
+  deleteAll: () => void;
 }
 
 export const useCheckedRowsStore = create<CheckedRowsState>()(
@@ -21,6 +22,7 @@ export const useCheckedRowsStore = create<CheckedRowsState>()(
           }
           return { checkedRows: newCheckedRows };
         }),
+      deleteAll: () => set({ checkedRows: {} }),
     }),
     {
       name: "checked-rows-storage",
