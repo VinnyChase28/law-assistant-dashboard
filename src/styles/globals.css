@@ -119,6 +119,81 @@
   background-color: #f0f0f0; /* Light grey background on hover */
 }
 
+/* Markdown content */
+.markdown-content {
+  line-height: 1.6;
+}
+
+.markdown-content h1 { font-size: 2em; }
+.markdown-content h2 { font-size: 1.5em; }
+.markdown-content h3 { font-size: 1.17em; }
+.markdown-content h4 { font-size: 1em; }
+.markdown-content h5 { font-size: 0.83em; }
+.markdown-content h6 { font-size: 0.67em; }
+
+.markdown-content h1, .markdown-content h2, .markdown-content h3,
+.markdown-content h4, .markdown-content h5, .markdown-content h6 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.markdown-content br {
+  margin-bottom: 0; /* Removes extra space after line breaks */
+}
+
+
+.markdown-content p {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.markdown-content a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.markdown-content a:hover {
+  text-decoration: underline;
+}
+
+.markdown-content ul {
+  list-style-type: disc;
+  padding-left: 40px;
+  margin-bottom: 16px;
+}
+
+.markdown-content ol {
+  list-style-type: decimal;
+  padding-left: 40px;
+  margin-bottom: 16px;
+}
+
+.markdown-content blockquote {
+  margin: 0;
+  padding-left: 1em;
+  border-left: 0.25em solid #dfe2e5;
+  color: #6a737d;
+  padding: 0 1em;
+}
+
+.markdown-content code {
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.markdown-content pre {
+  padding: 16px;
+  overflow: auto;
+  border-radius: 3px;
+}
+
+.markdown-content pre code {
+  background: none;
+  padding: 0;
+}
+
 @layer base {
   * {
     @apply border-border;

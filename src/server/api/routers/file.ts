@@ -155,7 +155,7 @@ export const fileRouter = createTRPCRouter({
     }),
 
   //fetch blob url based on file id
-  getBlobUrl: protectedProcedure
+  getFile: protectedProcedure
     .input(z.number())
     .query(async ({ ctx, input }) => {
       if (!ctx.session.user) {
@@ -166,7 +166,7 @@ export const fileRouter = createTRPCRouter({
         where: { id: fileId },
       });
 
-      return file?.blobUrl;
+      return file;
     }),
   //for a given file id, set the status to failed
   setFileStatus: protectedProcedure

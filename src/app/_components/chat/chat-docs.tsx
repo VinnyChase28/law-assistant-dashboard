@@ -34,6 +34,8 @@ const VectorSearchComponent: React.FC = () => {
   const createChatSession = api.chat.createChatSession.useMutation();
   const getMostRecentSessionForUser =
     api.chat.getMostRecentSessionForUser.useMutation();
+
+    
   useLayoutEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "instant" });
   }, [chatMessages]);
