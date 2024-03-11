@@ -1,32 +1,42 @@
 "use client";
-
-import { useSearchParams } from "next/navigation";
-import PDFViewer from "@/components/pdf-viewer";
+import PDFViewer from "@/components/pdf-viewer"; // Ensure this path is correct
+import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { api } from "src/trpc/react";
+import Markdown from "src/app/_components/markdown";
 
-export default function PDFViewerPage() {
+export default function FileViewerPage() {
   const searchParams = useSearchParams();
   const fileId = searchParams.get("fileId");
-  const [blobUrl, setBlobUrl] = useState("");
+  const [fileContent, setFileContent] = useState({
+    blobUrl: "",
+    markdownText: "",
+  });
 
-  // Initialize the TRPC hook outside of any function
-  const { data, isLoading, error } = api.file.getBlobUrl.useQuery(
-    Number(fileId),
-    {
-      enabled: !!fileId,
-    },
-  );
+  const { data, isLoading, error } = api.file.getFile.useQuery(Number(fileId), {
+    enabled: !!fileId,
+  });
 
   useEffect(() => {
     if (data) {
-      setBlobUrl(data);
+      if (data.documentType === "COMPLIANCE_REPORT") {
+        // Assuming markdown content is stored in data.finalReport
+        setFileContent({ markdownText: data.finalReport ?? "", blobUrl: "" });
+      } else {
+        // For other document types, assuming blobUrl is used
+        setFileContent({ blobUrl: data.blobUrl ?? "", markdownText: "" });
+      }
     }
   }, [data]);
 
-  // Optional: Handle loading and error states
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>An error occurred: {error.message}</div>;
 
-  return <PDFViewer blobUrl={blobUrl} />;
+  // Render based on documentType
+  return data?.documentType === "COMPLIANCE_REPORT" ? (
+    <Markdown markdownText={fileContent.markdownText} />
+  ) : (
+    <PDFViewer blobUrl={fileContent.blobUrl} />
+  );
 }
