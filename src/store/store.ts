@@ -62,6 +62,8 @@ export const useFilesStore = create<FilesState>()(
   ),
 );
 
+
+//compliance reports
 export interface ComplianceReportsState {
   reports: any[]; // It's better to define a more specific type if possible
   addReport: (report: any) => void; // Adjust the type as necessary
@@ -87,7 +89,7 @@ export const useComplianceReportsStore = create<ComplianceReportsState>()(
   ),
 );
 
-// Define the interface for your store's state and actions
+//Chat with docs feature state
 interface ChatWithDocsState {
   isChatWithDocsEnabled: boolean; // Tracks whether the Chat with Docs feature is enabled
   toggleChatWithDocs: () => void; // Method to toggle the state
@@ -109,6 +111,8 @@ export const useChatWithDocsStore = create<ChatWithDocsState>()(
   ),
 );
 
+//chat session 
+
 interface ChatSessionState {
   chatSessionId: string | null; // Holds the current chat session ID
   setChatSessionId: (id: string | null) => void; // Method to update the chat session ID
@@ -127,3 +131,16 @@ export const useChatSessionStore = create<ChatSessionState>()(
     },
   ),
 );
+
+
+interface TabStoreState {
+  selectedTab: string;
+  setSelectedTab: (tab: string) => void;
+}
+
+export const useTabStore = create<TabStoreState>((set) => ({
+  selectedTab: "regulatory_framework", // default selected tab
+  setSelectedTab: (tab: string) => set({ selectedTab: tab }),
+}));
+
+
