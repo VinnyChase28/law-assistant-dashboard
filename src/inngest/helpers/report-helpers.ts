@@ -5,8 +5,6 @@ import { Models } from "../functions/compliance-reports";
 import { put } from "@vercel/blob";
 import { css } from "./css";
 
-import chromium from "chrome-aws-lambda";
-
 interface UploadResult {
   success: boolean;
   message: string;
@@ -30,12 +28,9 @@ async function convertMarkdownToPdfAndUpload({
     const html = await marked.parse(markdown);
 
     // Launch a headless browser
-    const browser = await chromium.puppeteer.launch({
-      args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox", "--disabled-setupid-sandbox"],
       headless: true,
-      ignoreHTTPSErrors: true,
     });
     const page = await browser.newPage();
 
@@ -46,7 +41,7 @@ async function convertMarkdownToPdfAndUpload({
     });
 
     // Convert the page to PDF
-    const pdfBuffer = await page.pdf({ format: "a4" });
+    const pdfBuffer = await page.pdf({ format: "A4" });
 
     // Close the browser
     await browser.close();
