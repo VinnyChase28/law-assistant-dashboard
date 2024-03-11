@@ -85,17 +85,17 @@ export const fileRouter = createTRPCRouter({
       });
 
       //get the blob url to delete the file from the blob storage
-      //but first check if the file has a blob url
       const file = await ctx.db.file.findUnique({
         where: { id: fileId },
       });
 
-      if (file?.blobUrl) await del(file?.blobUrl ?? "");
+      if (file?.blobUrl) {
+        await del(file?.blobUrl ?? "");
+      }
 
-      //delete the vectors from pinecone
-      //check if the file has any vectors
+      //only delete subsections in pinecone if they exist
       if (fileSubsections.length > 0) {
-        //delete the file from the database
+        //delete the vectors from pinecone
         const index = await pinecone.index(process.env.PINECONE_INDEX ?? "");
         const namespace = await index.namespace(ctx.session.user.id);
         const allPineconeIds = await fileSubsections.map(
@@ -155,7 +155,7 @@ export const fileRouter = createTRPCRouter({
     }),
 
   //fetch blob url based on file id
-  getBlobUrl: protectedProcedure
+  getFile: protectedProcedure
     .input(z.number())
     .query(async ({ ctx, input }) => {
       if (!ctx.session.user) {
@@ -166,7 +166,7 @@ export const fileRouter = createTRPCRouter({
         where: { id: fileId },
       });
 
-      return file?.blobUrl;
+      return file;
     }),
   //for a given file id, set the status to failed
   setFileStatus: protectedProcedure
