@@ -1,3 +1,5 @@
+"use client";
+
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"; // Your custom tabs components
 import TableContainer from "./table-container";
 import { DocumentType } from "@prisma/client";
