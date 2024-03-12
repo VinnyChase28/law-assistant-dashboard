@@ -131,7 +131,7 @@ export const complianceReport = inngest.createFunction(
     for await (const part of stream) {
       // Accumulate the content from each part into the finalReport variable
       console.log("🚀 ~ part:", part);
-      finalReport += part.choices[0]?.delta?.content || "";
+      finalReport += part.choices[0]?.delta?.content ?? "";
     }
 
     //use prisma client to update the compliance report
