@@ -13,6 +13,11 @@ export const complianceReport = inngest.createFunction(
   { id: "compliance-report", retries: 0 },
   { event: "compliance-report/event.sent" },
   async ({ event }) => {
+    //console.log current timestamp in pacific time
+    console.log(
+      new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
+      "started processing compliance report.",
+    );
     const allViolationsPromises = event.data.data.map(async (item) => {
       const { complianceSubmission, regulatoryFramework } = item;
 
@@ -29,7 +34,10 @@ export const complianceReport = inngest.createFunction(
     // Wait for all compliance submissions to be processed
     const allViolationsNested = await Promise.all(allViolationsPromises);
     const allViolations = allViolationsNested.flat();
-
+    console.log(
+      new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
+      "finished processing violations.",
+    );
     const stringifiedViolations = JSON.stringify(allViolations);
     //do not create a report if there are no violations
     if (allViolations.length === 0) {
@@ -125,6 +133,11 @@ export const complianceReport = inngest.createFunction(
         processingStatus: "DONE",
       },
     });
+
+    console.log(
+      new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
+      "finished processing compliance report.",
+    );
 
     return {
       message: allViolations.length > 0 ? allViolations : ["Compliant"],
