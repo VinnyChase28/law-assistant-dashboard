@@ -58,6 +58,8 @@ export const complianceReport = inngest.createFunction(
         message: ["No violations found."],
       };
     }
+
+    console.log("creating the prompt for the final report.")
     const finalReportPrompt = `
 
     Create a compliance report based on the following structured data:
@@ -112,7 +114,9 @@ export const complianceReport = inngest.createFunction(
 
     Clarity and Conciseness: Use clear, concise language and avoid jargon where possible.
 
-    `;
+    `; 
+
+    console.log("about to create a structured compliance report using openai api")
 
     //create a structured compliance report using openai api
     const response = await openai.chat.completions.create({
