@@ -124,6 +124,7 @@ export const complianceReport = inngest.createFunction(
       messages: [{ role: "user", content: finalReportPrompt }],
       temperature: 0.2,
       max_tokens: 4096,
+      stream: true,
     });
 
     console.log(response);
