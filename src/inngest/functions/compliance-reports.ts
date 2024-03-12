@@ -13,11 +13,7 @@ export const complianceReport = inngest.createFunction(
   { id: "compliance-report", retries: 0 },
   { event: "compliance-report/event.sent" },
   async ({ event }) => {
-    //console.log current timestamp in pacific time
-    console.log(
-      new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
-      "started processing compliance report.",
-    );
+
     const allViolationsPromises = event.data.data.map(async (item) => {
       const { complianceSubmission, regulatoryFramework } = item;
 
@@ -33,14 +29,9 @@ export const complianceReport = inngest.createFunction(
 
     // Wait for all compliance submissions to be processed
     const allViolationsNested = await Promise.all(allViolationsPromises);
-    console.log("🚀 ~ allViolationsNested:", allViolationsNested);
     const allViolations = allViolationsNested.flat();
-    console.log("🚀 ~ allViolations:", allViolations);
-    console.log(
-      new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
-      "finished processing violations.",
-    );
     const stringifiedViolations = JSON.stringify(allViolations);
+
     //do not create a report if there are no violations
     if (allViolations.length === 0) {
       //use prisma client to update the compliance report
@@ -59,7 +50,6 @@ export const complianceReport = inngest.createFunction(
       };
     }
 
-    console.log("creating the prompt for the final report.");
     const finalReportPrompt = `
 
     Create a compliance report based on the following structured data:
@@ -116,21 +106,16 @@ export const complianceReport = inngest.createFunction(
 
     `;
 
-    let finalReport = ""; // Initialize an empty string to accumulate the report content
-
-    // Create a stream to receive the structured compliance report in parts
+    let finalReport = ""; 
     const stream = await openai.chat.completions.create({
       model: Models.GPT4,
       messages: [{ role: "user", content: finalReportPrompt }],
       temperature: 0.2,
       max_tokens: 4096,
-      stream: true, // Enable streaming
+      stream: true,
     });
 
-    // Use a for-await-of loop to process each part of the stream as it arrives
     for await (const part of stream) {
-      // Accumulate the content from each part into the finalReport variable
-      console.log("🚀 ~ part:", part);
       finalReport += part.choices[0]?.delta?.content ?? "";
     }
 
@@ -146,10 +131,6 @@ export const complianceReport = inngest.createFunction(
       },
     });
 
-    console.log(
-      new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
-      "finished processing compliance report.",
-    );
 
     return {
       message: allViolations.length > 0 ? allViolations : ["Compliant"],
