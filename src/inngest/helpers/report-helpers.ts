@@ -64,7 +64,7 @@ async function findViolations(
 
     // Use a for-await-of loop to process each part of the stream as it arrives
     for await (const part of stream) {
-      finalResponse += part.choices[0]?.delta?.content || "";
+      finalResponse += part.choices[0]?.delta?.content ?? "";
     }
 
     // After the loop, finalResponse contains the complete content
