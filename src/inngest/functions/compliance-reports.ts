@@ -33,7 +33,9 @@ export const complianceReport = inngest.createFunction(
 
     // Wait for all compliance submissions to be processed
     const allViolationsNested = await Promise.all(allViolationsPromises);
+    console.log("🚀 ~ allViolationsNested:", allViolationsNested)
     const allViolations = allViolationsNested.flat();
+    console.log("🚀 ~ allViolations:", allViolations)
     console.log(
       new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
       "finished processing violations.",
@@ -119,6 +121,8 @@ export const complianceReport = inngest.createFunction(
       temperature: 0.2,
       max_tokens: 4096,
     });
+
+    console.log(response);
 
     const finalReport = response.choices[0]?.message.content ?? "";
 
