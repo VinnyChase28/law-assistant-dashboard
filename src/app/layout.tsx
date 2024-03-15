@@ -7,7 +7,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
-
+import { MainNavigation } from "./_components/marketing/marketing-navigation";
+import { UserNav } from "./_components/user-nav";
 export const metadata: Metadata = {
   title: "Casy | Law Assistant AI",
   description: "Casy AI Dashboard",
@@ -42,6 +43,10 @@ export default async function RootLayout({
           >
             <TooltipProvider>
               {/* Main content */}
+              <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
+                <MainNavigation />
+                <UserNav /> {/* Pass session to components as needed */}
+              </header>
               <main className="flex w-full flex-1 flex-col">{children}</main>
               {/* Toast notifications */}
               <Toaster />
