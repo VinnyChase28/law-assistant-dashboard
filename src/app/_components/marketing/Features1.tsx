@@ -32,7 +32,7 @@ export const Features1 = () => {
                 AI-driven analysis.
               </p>
               <ul className="mb-6 ">
-                <li className="mb-4 flex">
+                <li className="mb-4 flex ">
                   <CheckArrowIcon />
                   <span>Regulatory document Q&A</span>
                 </li>

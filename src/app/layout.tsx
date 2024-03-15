@@ -9,6 +9,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
 import { MainNavigation } from "./_components/marketing/marketing-navigation";
 import { UserNav } from "./_components/user-nav";
+import { LawAssistantLogo } from "./_components/marketing/assets/logos/LawAssistantLogo";
+
 export const metadata: Metadata = {
   title: "Casy | Law Assistant AI",
   description: "Casy AI Dashboard",
@@ -45,7 +47,15 @@ export default async function RootLayout({
               {/* Main content */}
               <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
                 <MainNavigation />
-                <UserNav /> {/* Pass session to components as needed */}
+                <div className="flex grow basis-0 items-center justify-center pr-3 lg:justify-end">
+                  <div className="mr-2 text-6xl ">
+                    <LawAssistantLogo />
+                  </div>
+                  <div className="font-['Inter'] text-xl font-bold ">
+                    lawassistant.ai
+                  </div>
+                </div>
+                <UserNav />
               </header>
               <main className="flex w-full flex-1 flex-col">{children}</main>
               {/* Toast notifications */}
