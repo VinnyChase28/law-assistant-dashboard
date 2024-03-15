@@ -30,7 +30,6 @@
       "@/components/*": ["src/app/_components/*"],
       "@/lib/utils": ["src/lib/utils"],
       "@/lib/*": ["src/lib/*"],
-
       "@/app/*": ["src/app/*"]
     }
   },
