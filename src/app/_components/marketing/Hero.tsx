@@ -31,10 +31,10 @@ export const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.05 }}
         >
-          <div className="px-8 text-5xl font-bold tracking-wide text-white sm:px-8  sm:text-6xl  md:px-20 lg:px-4 lg:text-7xl xl:text-7xl">
+          <div className="tracking-widesm:px-8 px-8 text-5xl font-bold  sm:text-6xl  md:px-20 lg:px-4 lg:text-7xl xl:text-7xl">
             <span className="md:inline">AI-Powered</span>
           </div>
-          <div className="mt-2 px-8 text-4xl font-bold tracking-wide text-white sm:mt-2 sm:px-20  sm:text-6xl  md:px-24 lg:px-24 lg:text-7xl xl:text-7xl">
+          <div className="tracking-widesm:mt-2 mt-2 px-8 text-4xl font-bold sm:px-20  sm:text-6xl  md:px-24 lg:px-24 lg:text-7xl xl:text-7xl">
             compliance validation
           </div>
         </motion.div>
@@ -59,8 +59,9 @@ export const Hero = () => {
             >
               Try it free
             </Button>
-            <div
-              className="bg-customDarkBg2 hover:bg-customDarkBg3 border-customPrimary flex h-12 w-64 cursor-pointer items-center  justify-center rounded-xl border border-solid font-bold text-white transition sm:w-52"
+            <Button
+              variant="outline"
+              className="custom-button-colored mb-2 mr-0 h-12 w-64 sm:mb-0 sm:mr-4 sm:w-52 lg:mr-6"
               onClick={() =>
                 window.open(
                   "https://calendly.com/vince-gauthier/30min",
@@ -69,7 +70,7 @@ export const Hero = () => {
               }
             >
               Live demo
-            </div>
+            </Button>
           </div>
         </motion.div>
         <motion.div

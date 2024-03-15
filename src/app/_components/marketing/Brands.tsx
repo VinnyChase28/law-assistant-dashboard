@@ -14,7 +14,7 @@ export const Brands = () => (
         <div className="-mx-4 flex flex-col items-center justify-center text-center lg:flex-row lg:text-left">
           <div className="mb-12 w-full px-4 lg:mb-0 lg:w-1/2">
             <div className="flex flex-col">
-              <h2 className="mb-2  text-4xl font-bold tracking-normal text-white sm:text-5xl 2xl:text-6xl">
+              <h2 className="mb-2  text-4xl font-bold tracking-normal  sm:text-5xl 2xl:text-6xl">
                 Trusted by top real estate firms
               </h2>
               <h2 className=" text-customSecondary  text-4xl font-bold tracking-normal sm:text-5xl 2xl:text-6xl">

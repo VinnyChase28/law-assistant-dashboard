@@ -22,14 +22,14 @@ export const InvitationModal = ({ setIsOpen }: { setIsOpen: any }) => (
         >
           <div className="relative flex">
             <div className="hidden w-1/2 lg:inline">
-              <h2 className="mb-2 mt-6 text-5xl font-bold tracking-normal text-white">
+              <h2 className="mb-2 mt-6 text-5xl font-bold tracking-normal ">
                 Sign up
               </h2>
               <h2 className="text-customSecondary text-5xl font-bold tracking-normal">
                 Today
               </h2>
 
-              {/* <ul className="mb-6 text-white mt-12">
+              {/* <ul className="mb-6  mt-12">
                 <li className="mb-4 flex">
                   <CheckArrowIcon />
                   <span>Vestibulum viverra</span>
@@ -46,15 +46,15 @@ export const InvitationModal = ({ setIsOpen }: { setIsOpen: any }) => (
             </div>
             <div className="flex w-full flex-col items-center justify-center pt-24 sm:pt-0 lg:w-1/2">
               <div className="mb-8 inline flex grow basis-0 items-center justify-start pr-6 lg:hidden">
-                <div className="mr-2 text-8xl text-white">
+                <div className="mr-2 text-8xl ">
                   <LawAssistantLogo />
                 </div>
-                <div className="font-['Inter'] text-3xl font-bold text-white">
+                <div className="font-['Inter'] text-3xl font-bold ">
                   Law Assistant AI
                 </div>
               </div>
 
-              <h3 className="mb-7 text-center text-2xl font-bold leading-snug text-white">
+              <h3 className="mb-7 text-center text-2xl font-bold leading-snug ">
                 Join 3,953 municipalities & real estate firms
               </h3>
               <div className="-m-2 flex flex-wrap">
@@ -68,7 +68,7 @@ export const InvitationModal = ({ setIsOpen }: { setIsOpen: any }) => (
                 </div>
                 <div className="mx-auto mt-4 w-full p-2 sm:w-4/5">
                   <button
-                    className="shadow-4xl bg-customPrimary w-full rounded-xl px-6 py-4 font-semibold text-white transition duration-200 ease-in-out hover:bg-[#7274f3] focus:ring focus:ring-indigo-300"
+                    className="shadow-4xl bg-customPrimary w-full rounded-xl px-6 py-4 font-semibold  transition duration-200 ease-in-out hover:bg-[#7274f3] focus:ring focus:ring-indigo-300"
                     type="button"
                   >
                     Join Now

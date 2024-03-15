@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-import { InvitationModal } from "./InvitationModal";
+import { Button } from "../ui/button";
 import { CheckArrowIcon } from "./assets/icons/CheckArrowIcon";
 
 const pricingDataStarter = [
@@ -50,7 +50,7 @@ export const Pricing = () => {
           <div className="container mx-auto px-4">
             <div className="mx-auto mb-16 max-w-2xl text-center">
               <span className="custom-block-subtitle">Get started today</span>
-              <h2 className="font-heading mb-6 mt-6 text-4xl font-bold text-white lg:text-5xl">
+              <h2 className="font-heading mb-6 mt-6 text-4xl font-bold  lg:text-5xl">
                 Plans
               </h2>
               <p className="text-customGrayText mb-6">
@@ -65,7 +65,7 @@ export const Pricing = () => {
                   onChange={handleChange}
                 />
                 <span className="bg-customDarkBg3 after:bg-customPrimary flex h-8 w-[5.5rem] cursor-pointer items-center pr-2 duration-300  ease-in-out after:h-10  after:w-[30rem]   after:rounded-lg after:shadow-md after:duration-300 peer-checked:after:translate-x-[5.5rem]"></span>
-                <div className="absolute flex text-sm font-bold text-white">
+                <div className="absolute flex text-sm font-bold ">
                   <div
                     className={
                       isMonthly ? "ml-3 mr-9" : "ml-3 mr-9 text-gray-400"
@@ -80,11 +80,11 @@ export const Pricing = () => {
             <div className="-mx-4 mt-20 flex flex-col flex-wrap items-center lg:flex-row">
               <div className="mb-8 w-[350px] px-4 sm:w-[380px] lg:mb-0 lg:w-1/3">
                 <div className="bg-customDarkBg3 rounded-3xl p-8">
-                  <h4 className="font-heading mb-2 text-left text-xl font-bold text-white">
+                  <h4 className="font-heading mb-2 text-left text-xl font-bold ">
                     Solo
                   </h4>
                   <div className="flex items-end justify-start">
-                    <div className="mr-2 mt-4 text-left text-4xl font-bold text-white sm:text-5xl">
+                    <div className="mr-2 mt-4 text-left text-4xl font-bold  sm:text-5xl">
                       {isMonthly ? "$19" : "$205"}
                     </div>
                     <div className="text-gray-500">
@@ -95,7 +95,7 @@ export const Pricing = () => {
                   <p className="mb-6 mt-4 text-left leading-loose text-gray-500 2xl:mb-10">
                     The perfect way to get started and get used to our tools.
                   </p>
-                  <ul className="mb-2 text-white 2xl:mb-6">
+                  <ul className="mb-2  2xl:mb-6">
                     {pricingDataStarter.map((text, index) => (
                       <li className="mb-4 flex" key={`${text}-${index}`}>
                         <CheckArrowIcon />
@@ -103,21 +103,21 @@ export const Pricing = () => {
                       </li>
                     ))}
                   </ul>
-                  <div
-                    className="custom-button-colored mt-16 inline-block w-full rounded-xl rounded-t-xl px-4 py-2 text-center font-bold leading-loose"
+                  <Button
+                    className="w-full"
                     onClick={() => setIsModalOpen(true)}
                   >
                     Get Started
-                  </div>
+                  </Button>
                 </div>
               </div>
               <div className="mb-8 w-[350px] px-4 sm:w-[380px] lg:mb-0 lg:w-1/3">
                 <div className="bg-customDarkBg3 rounded-3xl px-8 py-8">
-                  <h4 className="font-heading mb-2 text-left text-2xl font-bold text-white 2xl:mb-4">
+                  <h4 className="font-heading mb-2 text-left text-2xl font-bold  2xl:mb-4">
                     Team
                   </h4>
                   <div className="flex items-end justify-start">
-                    <div className="mr-2 mt-4 text-left text-4xl font-bold text-white sm:text-5xl">
+                    <div className="mr-2 mt-4 text-left text-4xl font-bold  sm:text-5xl">
                       {isMonthly ? "$99" : "$1069"}
                     </div>
                     <div className="text-gray-500">
@@ -127,7 +127,7 @@ export const Pricing = () => {
                   <p className="mb-8 mt-8 text-left leading-loose text-gray-500 2xl:mb-12">
                     Unlock more features and collaborate with teammates.
                   </p>
-                  <ul className="mb-14 text-white">
+                  <ul className="mb-14 ">
                     {pricingDataTeam.map((text, index) => (
                       <li className="mb-4 flex" key={`${text}-${index}`}>
                         <CheckArrowIcon />
@@ -135,28 +135,28 @@ export const Pricing = () => {
                       </li>
                     ))}
                   </ul>
-                  <div
-                    className="custom-button-colored mt-20 inline-block w-full px-4 py-2 text-center leading-loose transition duration-200"
+                  <Button
+                    className="w-full"
                     onClick={() => setIsModalOpen(true)}
                   >
                     Get Started
-                  </div>
+                  </Button>
                 </div>
               </div>
               <div className="mb-8 w-[350px] px-4 sm:w-[380px] lg:mb-0 lg:w-1/3">
                 <div className="bg-customDarkBg3 rounded-3xl p-8">
-                  <h4 className="font-heading mb-2 text-left text-xl font-bold text-white">
+                  <h4 className="font-heading mb-2 text-left text-xl font-bold ">
                     Enterprise
                   </h4>
                   <div className="flex items-end justify-start">
-                    <div className="mr-2 mt-4 text-left text-4xl font-bold text-white sm:text-3xl">
+                    <div className="mr-2 mt-4 text-left text-4xl font-bold  sm:text-3xl">
                       Custom Pricing
                     </div>
                   </div>
                   <p className="mb-6 mt-4 text-left leading-loose text-gray-500 2xl:mb-10">
                     Enterprise grade features and support for your business.
                   </p>
-                  <ul className="mb-2 text-white 2xl:mb-6">
+                  <ul className="mb-2  2xl:mb-6">
                     {pricingDataEnterprise.map((text, index) => (
                       <li className="mb-4 flex" key={`${text}-${index}`}>
                         <CheckArrowIcon />
@@ -164,12 +164,12 @@ export const Pricing = () => {
                       </li>
                     ))}
                   </ul>
-                  <div
-                    className="custom-button-colored mt-16 inline-block w-full rounded-xl rounded-t-xl px-4 py-2 text-center font-bold leading-loose"
+                  <Button
+                    className="w-full"
                     onClick={() => setIsModalOpen(true)}
                   >
                     Contact Us
-                  </div>
+                  </Button>
                 </div>
               </div>
             </div>

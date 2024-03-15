@@ -30,10 +30,10 @@ export const Footer = () => {
           <div className="flex flex-wrap">
             <div className="mb-16 w-full lg:mb-0 lg:w-1/3">
               <div className="flex grow basis-0 items-center justify-center lg:justify-start">
-                <div className="mr-2 text-6xl text-white">
+                <div className="mr-2 text-6xl ">
                   <LawAssistantLogo />
                 </div>
-                <div className="font-['Inter'] text-xl font-bold text-white">
+                <div className="font-['Inter'] text-xl font-bold ">
                   lawassistant.ai
                 </div>
               </div>
@@ -61,7 +61,7 @@ export const Footer = () => {
             </div>
             <div className="hidden w-full  flex-wrap justify-between lg:flex lg:w-2/3 lg:pl-16">
               <div className="mb-16 w-full md:mb-0 md:w-1/3 lg:w-auto">
-                <h3 className="mb-6 text-2xl font-bold text-white">Products</h3>
+                <h3 className="mb-6 text-2xl font-bold ">Products</h3>
                 <ul>
                   {footerData[0]?.items.map((item, i) => (
                     <li key={i} className="mb-4">
@@ -77,9 +77,7 @@ export const Footer = () => {
                 </ul>
               </div>
               <div className="mb-16 w-full md:mb-0 md:w-1/3 lg:w-auto">
-                <h3 className="mb-6 text-2xl font-bold text-white">
-                  Important Links
-                </h3>
+                <h3 className="mb-6 text-2xl font-bold ">Important Links</h3>
                 <ul>
                   {footerData[1]?.items.map((item, i) => (
                     <li key={i} className="mb-4">
@@ -95,7 +93,7 @@ export const Footer = () => {
                 </ul>
               </div>
               <div className="w-full md:w-1/3 lg:w-auto">
-                <h3 className="mb-6 text-2xl font-bold text-white">Company</h3>
+                <h3 className="mb-6 text-2xl font-bold ">Company</h3>
                 <ul>
                   {footerData[2]?.items.map((item, i) => (
                     <li key={i} className="mb-4">

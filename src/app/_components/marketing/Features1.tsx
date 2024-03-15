@@ -31,7 +31,7 @@ export const Features1 = () => {
                 Cross-reference documents against any regulation with our
                 AI-driven analysis.
               </p>
-              <ul className="mb-6 text-white">
+              <ul className="mb-6 ">
                 <li className="mb-4 flex">
                   <CheckArrowIcon />
                   <span>Regulatory document Q&A</span>

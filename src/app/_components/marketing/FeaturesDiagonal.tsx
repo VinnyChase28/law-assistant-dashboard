@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-import { InvitationModal } from "./InvitationModal";
+import { Button } from "../ui/button";
 import featuresdiagonal from "./assets/images/featuresdiagonal.jpg";
 import Image from "next/image";
 export const FeaturesDiagonal = () => {
@@ -46,12 +46,9 @@ export const FeaturesDiagonal = () => {
               and draw information from your legal database — all while ensuring
               top-tier security for your sensitive information.
             </p>
-            <div
-              className="custom-button-colored mr-10 h-12 w-[210px] "
-              onClick={() => setIsModalOpen(true)}
-            >
+            <Button className="w-[210px] " onClick={() => setIsModalOpen(true)}>
               Get Started
-            </div>
+            </Button>
           </div>
           <div className="mx-auto flex w-4/5 justify-center pt-16 lg:w-1/2 lg:pl-16 lg:pt-0">
             <Image

@@ -47,12 +47,10 @@ export const Testimonials = () => (
               <div className="mb-2 flex">
                 <QuoteIcon />
               </div>
-              <div className="custom-content-text-white">
-                "{testimonial.content}"
-              </div>
+              <div className="custom-content-">"{testimonial.content}"</div>
               <div className="mb-2 mt-4 flex xl:mb-4 xl:mt-8">
                 <div className="ml-4 flex flex-col">
-                  <div className="custom-content-text-white font-medium">
+                  <div className="custom-content- font-medium">
                     {testimonial.customerName}
                   </div>
                   <div className="custom-content-text-gray">

@@ -27,10 +27,10 @@ export const Navbar = () => {
         >
           <a className="navbar-link" href="#home" aria-label="Home">
             <div className="flex grow basis-0 items-center justify-start">
-              <div className="mr-2 text-6xl text-white">
+              <div className="mr-2 text-6xl ">
                 <LawAssistantLogo />
               </div>
-              <div className="font-['Inter'] text-xl font-bold text-white">
+              <div className="font-['Inter'] text-xl font-bold ">
                 lawassistant.ai
               </div>
             </div>
@@ -64,7 +64,7 @@ export const Navbar = () => {
           <div className="hidden grow basis-0 justify-end lg:flex">
             <a
               className="custom-border-gray bg-customDarkBg2 hover:bg-customDarkBg3
-           flex rounded-xl  border-gray-700 pb-2 pl-6 pr-8 pt-2 text-sm text-white"
+           flex rounded-xl  border-gray-700 pb-2 pl-6 pr-8 pt-2 text-sm "
               href="https://app.lawassistant.ai/"
               target="_blank"
               aria-label="Sign up free"
@@ -109,7 +109,7 @@ export const Navbar = () => {
               ))}
               <a
                 className="custom-border-gray bg-customDarkBg2 hover:bg-customDarkBg3
-           flex rounded-xl  border-gray-700 pb-2 pl-6 pr-8 pt-2 text-sm text-white"
+           flex rounded-xl  border-gray-700 pb-2 pl-6 pr-8 pt-2 text-sm "
                 href="https://app.lawassistant.ai/spi/auth/signin"
                 target="_blank"
               >

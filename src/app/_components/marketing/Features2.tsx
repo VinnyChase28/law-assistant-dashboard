@@ -43,7 +43,7 @@ export const Features2 = () => (
               ensuring data integrity with advanced encryption and strict access
               protocols.
             </p>
-            <ul className="mb-6 text-white">
+            <ul className="mb-6 ">
               <li className="mb-4 flex">
                 <CheckArrowIcon />
                 <span>Automatic redaction</span>
