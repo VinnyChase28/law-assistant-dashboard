@@ -1,20 +1,22 @@
-import { redirect } from "next/navigation";
-import { MainNavigation } from "./_components/main-navigation";
-import AlertComponent from "./_components/alert";
-
-const Home = async () => {
-  redirect("/dashboard");
-
-  return (
-    <div>
-      <MainNavigation />
-      <AlertComponent
-        title="Welcome!"
-        description="We home you enjoy your stay"
-        iconType="info"
-      />
-    </div>
-  );
+export const metadata = {
+  title: "Home - Law Assistant AI",
+  description: "Landing page for Law Assistant AI",
 };
 
-export default Home;
+import Hero from "./_components/marketing/hero";
+import Features from "./_components/marketing/features";
+import Newsletter from "./_components/marketing/newsletter";
+import Zigzag from "./_components/marketing/zigzag";
+import Testimonials from "./_components/marketing/testimonials";
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <Features />
+      <Zigzag />
+      <Testimonials />
+      <Newsletter />
+    </>
+  );
+}
