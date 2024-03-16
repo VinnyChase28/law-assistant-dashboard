@@ -74,7 +74,7 @@ export const stripeRouter = createTRPCRouter({
       });
 
       const subscriptionId = subscription.data[0]!.id;
-      const response = await stripe.subscriptions.update(subscriptionId, {
+      await stripe.subscriptions.update(subscriptionId, {
         cancel_at_period_end: false,
       });
 

@@ -1,4 +1,3 @@
-import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { openai } from "src/utils/openai";
 

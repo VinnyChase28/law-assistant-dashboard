@@ -6,7 +6,7 @@ import { TRPCReactProvider } from "src/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { MainNavigation } from "./_components/main-navigation";
 import { UserNav } from "./_components/user-nav";
 import { Navbar } from "./_components/marketing/Navbar";
