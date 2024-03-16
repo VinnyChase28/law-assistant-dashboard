@@ -18,6 +18,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { LogoIcon } from "./Icons";
+import { usePathname } from "next/navigation";
 
 interface RouteProps {
   href: string;
@@ -43,10 +44,21 @@ const routeList: RouteProps[] = [
   },
 ];
 
+const routeListOnSignIn: RouteProps[] = [
+  {
+    href: "/",
+    label: "Home",
+  },
+];
+
 export const Navbar = () => {
+  const pathname = usePathname();
+  const isSignIn = pathname === "/auth/sign-in";
+  const routes = isSignIn ? routeListOnSignIn : routeList;
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
-    <header className="sticky top-0 z-40 w-full border-b-[1px] bg-white dark:border-b-slate-700 dark:bg-background">
+    <header className="sticky top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container flex h-14 w-screen justify-between px-4 ">
           <NavigationMenuItem className="flex font-bold">
@@ -73,11 +85,11 @@ export const Navbar = () => {
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="text-xl font-bold">
-                    Shadcn/React
+                    Law Assistant AI
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="mt-4 flex flex-col items-center justify-center gap-2">
-                  {routeList.map(({ href, label }: RouteProps) => (
+                  {routes.map(({ href, label }: RouteProps) => (
                     <Link key={label} href={href} passHref>
                       <div
                         onClick={() => setIsOpen(false)}
@@ -104,7 +116,7 @@ export const Navbar = () => {
 
           {/* desktop */}
           <nav className="hidden gap-2 md:flex">
-            {routeList.map((route: RouteProps, i) => (
+            {routes.map((route: RouteProps, i) => (
               <Link href={route.href} key={i} passHref>
                 <div
                   className={`text-[17px] ${buttonVariants({ variant: "ghost" })} cursor-pointer`}
