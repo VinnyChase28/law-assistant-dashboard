@@ -9,6 +9,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
 import { UserNav } from "./_components/user-nav";
 import { Navbar } from "./_components/marketing/Navbar";
+
+
 export const metadata: Metadata = {
   title: "Casy | Law Assistant AI",
   description: "Casy AI Dashboard",

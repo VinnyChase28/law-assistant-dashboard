@@ -40,12 +40,12 @@ const features: FeatureProps[] = [
 ];
 
 const featureList: string[] = [
-  "Dark/Light theme",
-  "Reviews",
-  "Features",
-  "Pricing",
-  "Contact form",
-  "Our team",
+  "Compliance Automation",
+  "Document Q&A",
+  "AI Chat",
+  "Comliance Reports",
+  "Contact Form",
+  "Our Team",
   "Responsive design",
   "Newsletter",
   "Minimalist",
@@ -55,9 +55,9 @@ export const Features = () => {
   return (
     <section id="features" className="container space-y-8 py-24 sm:py-32">
       <h2 className="text-3xl font-bold md:text-center lg:text-4xl">
-        Many{" "}
+        Our{" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary bg-clip-text text-transparent">
-          Great Features
+          Features
         </span>
       </h2>
 

@@ -13,6 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Menu } from "lucide-react";
@@ -52,7 +53,7 @@ export const Navbar = () => {
           <NavigationMenuItem className="flex font-bold">
             <a href="/" className="ml-2 flex text-xl font-bold">
               <LogoIcon />
-              ShadcnUI/React
+              lawassistant.ai
             </a>
           </NavigationMenuItem>
 

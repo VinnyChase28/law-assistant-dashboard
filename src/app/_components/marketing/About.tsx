@@ -17,14 +17,13 @@ export const About = () => {
                 <span className="bg-gradient-to-b from-primary/60 to-primary bg-clip-text text-transparent">
                   About{" "}
                 </span>
-                Company
+                Us
               </h2>
               <p className="mt-4 text-xl text-muted-foreground">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit.
+                Law Assistant AI was founded on the beleif that compliance can
+                be fully automated, freeing up time for legal professionals and
+                project managers to focus on more complex tasks. Our mission is
+                to make compliance easy and accessible for everyone.
               </p>
             </div>
 
