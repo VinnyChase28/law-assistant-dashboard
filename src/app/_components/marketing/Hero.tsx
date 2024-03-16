@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
 import { HeroCards } from "./HeroCards";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { CalendarIcon } from "lucide-react";
+import Link from "next/link";
 
 export const Hero = () => {
   return (
@@ -22,7 +23,7 @@ export const Hero = () => {
         </main>
 
         <p className="mx-auto text-xl text-muted-foreground md:w-10/12 lg:mx-0">
-          Navigate regulatory documents in record time
+          Navigate regulations in record time
         </p>
 
         <div className="space-y-4 md:space-x-4 md:space-y-0">
@@ -35,8 +36,8 @@ export const Hero = () => {
               variant: "outline",
             })}`}
           >
-            Github Repository
-            <GitHubLogoIcon className="ml-2 h-5 w-5" />
+            Request Demo
+            <CalendarIcon className="ml-2 h-5 w-5" />
           </a>
         </div>
       </div>

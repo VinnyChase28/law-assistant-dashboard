@@ -32,7 +32,7 @@ const pricingList: PricingProps[] = [
     price: 19.99,
     description:
       "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
-    buttonText: "Get Started",
+    buttonText: "Start Free Trial",
     benefitList: [
       "1 Team member",
       "2 GB Storage",
@@ -59,7 +59,7 @@ const pricingList: PricingProps[] = [
   {
     title: "Enterprise",
     popular: 0,
-    price: 40,
+    price: 1000,
     description:
       "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
     buttonText: "Contact US",

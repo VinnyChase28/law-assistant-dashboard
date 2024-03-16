@@ -42,11 +42,9 @@ export const HowItWorks = () => {
         <span className="bg-gradient-to-b from-primary/60 to-primary bg-clip-text text-transparent">
           Works{" "}
         </span>
-        Step-by-Step Guide
       </h2>
       <p className="mx-auto mb-8 mt-4 text-xl text-muted-foreground md:w-3/4">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-        dolor pariatur sit!
+        Here's an overview of the features and functionality
       </p>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">

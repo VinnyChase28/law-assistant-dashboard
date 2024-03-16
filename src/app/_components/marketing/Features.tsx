@@ -55,7 +55,7 @@ export const Features = () => {
   return (
     <section id="features" className="container space-y-8 py-24 sm:py-32">
       <h2 className="text-3xl font-bold md:text-center lg:text-4xl">
-        Our{" "}
+        All{" "}
         <span className="bg-gradient-to-b from-primary/60 to-primary bg-clip-text text-transparent">
           Features
         </span>
