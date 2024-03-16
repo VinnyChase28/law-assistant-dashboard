@@ -1,6 +1,7 @@
 import { Statistics } from "./Statistics";
 import pilot from "../../assets/pilot.png";
 import Image from "next/image";
+
 export const About = () => {
   return (
     <section id="about" className="container py-24 sm:py-32">
