@@ -44,21 +44,14 @@ const routeList: RouteProps[] = [
   },
 ];
 
-const routeListOnSignIn: RouteProps[] = [
-  {
-    href: "/",
-    label: "Home",
-  },
-];
-
 export const Navbar = () => {
   const pathname = usePathname();
-  const isSignIn = pathname === "/auth/sign-in";
-  const routes = isSignIn ? routeListOnSignIn : routeList;
-
+  if (pathname === "/auth/sign-in") {
+    return null;
+  }
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
-    <header className="sticky top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
+    <header className="sticky top-0 z-40 w-full  bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container flex h-14 w-screen justify-between px-4 ">
           <NavigationMenuItem className="flex font-bold">
@@ -85,11 +78,11 @@ export const Navbar = () => {
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="text-xl font-bold">
-                    Law Assistant AI
+                    Shadcn/React
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="mt-4 flex flex-col items-center justify-center gap-2">
-                  {routes.map(({ href, label }: RouteProps) => (
+                  {routeList.map(({ href, label }: RouteProps) => (
                     <Link key={label} href={href} passHref>
                       <div
                         onClick={() => setIsOpen(false)}
@@ -116,7 +109,7 @@ export const Navbar = () => {
 
           {/* desktop */}
           <nav className="hidden gap-2 md:flex">
-            {routes.map((route: RouteProps, i) => (
+            {routeList.map((route: RouteProps, i) => (
               <Link href={route.href} key={i} passHref>
                 <div
                   className={`text-[17px] ${buttonVariants({ variant: "ghost" })} cursor-pointer`}
