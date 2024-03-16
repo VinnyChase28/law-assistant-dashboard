@@ -6,9 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import image from "../assets/growth.png";
-import image3 from "../assets/reflecting.png";
-import image4 from "../assets/looking-ahead.png";
+import image from "../../assets/growth.png";
+import image3 from "../../assets/reflecting.png";
+import image4 from "../../assets/looking-ahead.png";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
 

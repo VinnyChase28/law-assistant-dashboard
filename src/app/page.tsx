@@ -1,3 +1,4 @@
+"use client";
 import { About } from "@/components/marketing/About";
 import { Cta } from "@/components/marketing/Cta";
 import { FAQ } from "@/components/marketing/FAQ";
@@ -13,12 +14,10 @@ import { Services } from "@/components/marketing/Services";
 import { Sponsors } from "@/components/marketing/Sponsors";
 import { Team } from "@/components/marketing/Team";
 import { Testimonials } from "@/components/marketing/Testimonials";
-import "./App.css";
 
 function Home() {
   return (
     <>
-      <Navbar />
       <Hero />
       <Sponsors />
       <About />

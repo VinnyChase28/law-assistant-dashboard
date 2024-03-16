@@ -5,7 +5,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { MagnifierIcon, WalletIcon, ChartIcon } from "./Icons";
-import cubeLeg from "../assets/cube-leg.png";
+import cubeLeg from "../../assets/cube-leg.png";
 import Image from "next/image";
 
 interface ServiceProps {
