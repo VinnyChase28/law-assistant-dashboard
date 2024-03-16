@@ -1,5 +1,5 @@
 "use client";
-import { About } from "@/components/marketing/About";
+import { About } from "src/app/_components/marketing/about";
 import { Cta } from "@/components/marketing/Cta";
 import { FAQ } from "@/components/marketing/FAQ";
 import { Features } from "@/components/marketing/Features";

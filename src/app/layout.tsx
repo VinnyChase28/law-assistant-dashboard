@@ -7,9 +7,10 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Metadata } from "next";
+import { MainNavigation } from "./_components/main-navigation";
 import { UserNav } from "./_components/user-nav";
 import { Navbar } from "./_components/marketing/Navbar";
-
+import { getServerAuthSession } from "src/server/auth";
 
 export const metadata: Metadata = {
   title: "Casy | Law Assistant AI",
@@ -27,6 +28,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerAuthSession();
+  console.log("session", session);
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <head />
@@ -45,10 +48,17 @@ export default async function RootLayout({
           >
             <TooltipProvider>
               {/* Main content */}
-              <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
-                <Navbar />
-                <UserNav />
-              </header>
+              {session ? (
+                <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
+                  <MainNavigation />
+                  <UserNav />
+                </header>
+              ) : (
+                <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
+                  <Navbar />
+                </header>
+              )}
+
               <main className="flex w-full flex-1 flex-col">{children}</main>
               {/* Toast notifications */}
               <Toaster />
