@@ -46,10 +46,12 @@ const routeList: RouteProps[] = [
 
 export const Navbar = () => {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  
   if (pathname === "/auth/sign-in") {
     return null;
   }
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <header className="sticky top-0 z-40 w-full  bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto">

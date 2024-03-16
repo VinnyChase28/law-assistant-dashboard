@@ -44,7 +44,7 @@ export const HowItWorks = () => {
         </span>
       </h2>
       <p className="mx-auto mb-8 mt-4 text-xl text-muted-foreground md:w-3/4">
-        Here's an overview of the features and functionality
+        Here&apos;s an overview of the features and functionality
       </p>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
