@@ -10,27 +10,27 @@ interface FeatureProps {
 const features: FeatureProps[] = [
   {
     icon: <MedalIcon />,
-    title: "Accesibility",
+    title: "Compliance Monitoring",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "We continuously scan a variety of legal and regulatory databases to ensure that the most up-to-date compliance information is readily available",
   },
   {
     icon: <MapIcon />,
-    title: "Community",
+    title: "Document Analysis",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Our AI analyzes your existing documents, contracts, policies, and procedures to assess compliance with current laws and regulations",
   },
   {
     icon: <PlaneIcon />,
-    title: "Scalability",
+    title: "Information Retrieval",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Users can query the system to quickly find specific compliance information, guidelines, and legal interpretations.",
   },
   {
     icon: <GiftIcon />,
-    title: "Gamification",
+    title: "Compliance Reporting",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "The system generates comprehensive reports detailing your compliance status, including any potential issues or areas for improvement",
   },
 ];
 

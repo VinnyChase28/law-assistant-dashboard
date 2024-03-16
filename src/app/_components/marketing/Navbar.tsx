@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link"; // Import Link from next/link
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -12,9 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
-
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { UserIcon } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
@@ -51,10 +50,10 @@ export const Navbar = () => {
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container flex h-14 w-screen justify-between px-4 ">
           <NavigationMenuItem className="flex font-bold">
-            <a href="/" className="ml-2 flex text-xl font-bold">
+            <Link href="/" passHref>
               <LogoIcon />
-              lawassistant.ai
-            </a>
+            </Link>
+            lawassistant.ai
           </NavigationMenuItem>
 
           {/* mobile */}
@@ -79,25 +78,25 @@ export const Navbar = () => {
                 </SheetHeader>
                 <nav className="mt-4 flex flex-col items-center justify-center gap-2">
                   {routeList.map(({ href, label }: RouteProps) => (
-                    <a
-                      key={label}
-                      href={href}
-                      onClick={() => setIsOpen(false)}
-                      className={buttonVariants({ variant: "ghost" })}
-                    >
-                      {label}
-                    </a>
+                    <Link key={label} href={href} passHref>
+                      <div
+                        onClick={() => setIsOpen(false)}
+                        className={buttonVariants({ variant: "ghost" })}
+                        role="button"
+                      >
+                        {label}
+                      </div>
+                    </Link>
                   ))}
-                  <a
-                    href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-                    target="_blank"
-                    className={`w-[110px] border ${buttonVariants({
-                      variant: "secondary",
-                    })}`}
-                  >
-                    <GitHubLogoIcon className="mr-2 h-5 w-5" />
-                    Github
-                  </a>
+                  <Link href="/auth/sign-in" passHref>
+                    <div
+                      className={`w-[110px] border ${buttonVariants({ variant: "secondary" })} cursor-pointer`}
+                      role="button"
+                    >
+                      <UserIcon className="mr-2 h-5 w-5" />
+                      Sign In
+                    </div>
+                  </Link>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -106,27 +105,27 @@ export const Navbar = () => {
           {/* desktop */}
           <nav className="hidden gap-2 md:flex">
             {routeList.map((route: RouteProps, i) => (
-              <a
-                href={route.href}
-                key={i}
-                className={`text-[17px] ${buttonVariants({
-                  variant: "ghost",
-                })}`}
-              >
-                {route.label}
-              </a>
+              <Link href={route.href} key={i} passHref>
+                <div
+                  className={`text-[17px] ${buttonVariants({ variant: "ghost" })} cursor-pointer`}
+                  role="button"
+                >
+                  {route.label}
+                </div>
+              </Link>
             ))}
           </nav>
 
           <div className="hidden gap-2 md:flex">
-            <a
-              href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-              target="_blank"
-              className={`border ${buttonVariants({ variant: "secondary" })}`}
-            >
-              <GitHubLogoIcon className="mr-2 h-5 w-5" />
-              Github
-            </a>
+            <Link href="/auth/sign-in" passHref>
+              <div
+                className={`border ${buttonVariants({ variant: "secondary" })} cursor-pointer`}
+                role="button"
+              >
+                <UserIcon className="mr-2 h-5 w-5" />
+                Sign In
+              </div>
+            </Link>
 
             <ModeToggle />
           </div>
