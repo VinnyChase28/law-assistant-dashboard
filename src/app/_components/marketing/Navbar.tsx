@@ -60,9 +60,8 @@ export const Navbar = () => {
             <Link href="/" passHref>
               <div className="flex items-center">
                 <LawAssistantLogo />
-                <span className="ml-2">
-                  CodeX
-                </span>{" "}
+                <span className="ml-2">CodeX</span>
+
                 {/* Added span around text for better control */}
               </div>
             </Link>
@@ -85,7 +84,7 @@ export const Navbar = () => {
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="text-xl font-bold">
-                    Shadcn/React
+                    CodeX | Law Assistant AI
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="mt-4 flex flex-col items-center justify-center gap-2">

@@ -21,10 +21,10 @@ export const About = () => {
                 Us
               </h2>
               <p className="mt-4 text-xl text-muted-foreground">
-                Law Assistant AI was founded on the beleif that compliance can
-                be fully automated, freeing up time for legal professionals and
-                project managers to focus on more complex tasks. Our mission is
-                to make compliance easy and accessible for everyone.
+                CodeX was created with a goal that compliance can be eventually
+                fully automated, freeing up time for professionals to focus on
+                more complex tasks. We're still an early stage startup, but
+                we're growing fast and we're excited to hear your feedback.
               </p>
             </div>
 

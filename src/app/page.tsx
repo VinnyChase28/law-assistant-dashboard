@@ -20,17 +20,18 @@ function Home() {
       <Hero />
       <Services />
       <Sponsors />
+      <Pricing />
       <HowItWorks />
-      <Features />
+      {/* <Features /> */}
       <About />
 
-      <Cta />
+      {/* <Cta /> */}
       {/* <Testimonials /> */}
-      <Team />
-      <Pricing />
+      {/* <Team /> */}
+
       <Newsletter />
-      <FAQ />
-      <Footer />
+      {/* <FAQ /> */}
+      {/* <Footer /> */}
       <ScrollToTop />
     </>
   );

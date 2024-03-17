@@ -18,7 +18,7 @@ const serviceList: ServiceProps[] = [
   {
     title: "Collaborative AI Development",
     description:
-      "Our approach centers on working closely with you to create AI solutions that evolve with your needs. By fine-tuning models to specific jurisdictions, legal areas, and document types, we ensure a highly customized and effective tool for your compliance requirements.",
+      "By fine-tuning models to specific jurisdictions, legal areas, and document types, we ensure a highly customized and effective tool.",
     icon: <ChartIcon />,
   },
   {
@@ -30,7 +30,7 @@ const serviceList: ServiceProps[] = [
   {
     title: "Self-Service Chat",
     description:
-      "Give your website visitors instant access to crucial regulatory information with our self-serve chat feature. Our system dynamically updates to reflect the latest in compliance standards based on information found on the web, in legal databases, and in your own documents.",
+      "Give your website visitors instant access to crucial regulatory information with our self-serve chat feature. Users increasingly don't want to search for information. They want answers.",
     icon: <MagnifierIcon />,
   },
 ];
