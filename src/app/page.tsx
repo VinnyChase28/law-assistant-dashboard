@@ -19,9 +19,9 @@ function Home() {
     <>
       <Hero />
       <Sponsors />
+      <Features />
       <About />
       <HowItWorks />
-      <Features />
       <Services />
       <Cta />
       {/* <Testimonials /> */}

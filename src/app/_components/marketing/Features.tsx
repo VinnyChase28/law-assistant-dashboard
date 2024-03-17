@@ -43,7 +43,7 @@ const featureList: string[] = [
   "Compliance Automation",
   "Document Q&A",
   "AI Chat",
-  "Comliance Reports",
+  "Compliance Reports",
   "Contact Form",
   "Our Team",
   "Responsive design",

@@ -24,7 +24,7 @@ const features: FeatureProps[] = [
     icon: <PlaneIcon />,
     title: "Information Retrieval",
     description:
-      "Users can query the system to quickly find specific compliance information, guidelines, and legal interpretations.",
+      "Users can quickly find specific compliance information, guidelines, and legal interpretations.",
   },
   {
     icon: <GiftIcon />,
