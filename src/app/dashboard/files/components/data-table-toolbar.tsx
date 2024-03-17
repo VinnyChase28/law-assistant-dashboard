@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "src/app/dashboard/files/components/data-table-view-options";
 import { DataTableFacetedFilter } from "src/app/dashboard/files/components/data-table-faceted-filter";
-
+import { useCheckedRowsStore } from "src/store/store";
 import { statuses } from "./data";
 
 interface DataTableToolbarProps<TData> {
@@ -17,7 +17,7 @@ export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
-
+  const { uncheckAll } = useCheckedRowsStore();
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -36,6 +36,13 @@ export function DataTableToolbar<TData>({
             options={statuses}
           />
         )}
+        <Button
+          variant="outline"
+          onClick={uncheckAll} // Assuming uncheckAll is a function to unset all checks
+          className="h-8 px-2 lg:px-3"
+        >
+          Uncheck All
+        </Button>
 
         {/* Consider adding additional filters based on your schema here */}
 

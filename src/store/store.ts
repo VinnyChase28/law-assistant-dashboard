@@ -1,11 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-//track table checked rows
+
 export interface CheckedRowsState {
   checkedRows: { [key: number]: boolean };
   toggleRow: (id: number) => void;
   deleteAll: () => void;
+  uncheckAll: () => void; 
 }
 
 export const useCheckedRowsStore = create<CheckedRowsState>()(
@@ -13,7 +14,7 @@ export const useCheckedRowsStore = create<CheckedRowsState>()(
     (set) => ({
       checkedRows: {},
       toggleRow: (id: number) =>
-        set((state) => {
+        set((state: any) => {
           const newCheckedRows = { ...state.checkedRows };
           if (newCheckedRows[id]) {
             delete newCheckedRows[id];
@@ -23,12 +24,26 @@ export const useCheckedRowsStore = create<CheckedRowsState>()(
           return { checkedRows: newCheckedRows };
         }),
       deleteAll: () => set({ checkedRows: {} }),
+      uncheckAll: () =>
+        set((state: any) => {
+          const allUnchecked: Record<number, boolean> = Object.keys(
+            state.checkedRows,
+          ).reduce((acc: Record<number, boolean>, key) => {
+            const numericKey = Number(key); // Convert the key to a number since your keys are numerical
+            acc[numericKey] = false; // Set each row's value to false
+            return acc;
+          }, {});
+          return { checkedRows: allUnchecked };
+        }),
     }),
     {
       name: "checked-rows-storage",
     },
   ),
 );
+``;
+
+
 
 //track user uploaded files
 export interface FilesState {
