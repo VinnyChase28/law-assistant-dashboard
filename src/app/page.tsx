@@ -13,7 +13,7 @@ import { Services } from "@/components/marketing/Services";
 import { Sponsors } from "@/components/marketing/Sponsors";
 import { Team } from "@/components/marketing/Team";
 // import { Testimonials } from "@/components/marketing/Testimonials";
-
+import Script from "next/script";
 function Home() {
   return (
     <>
@@ -32,6 +32,14 @@ function Home() {
       {/* <Newsletter /> */}
       {/* <FAQ /> */}
       {/* <Footer /> */}
+      {/* HubSpot Chat Script */}
+      <Script
+        src="//js-na1.hs-scripts.com/40814956.js" // Your HubSpot Script Source
+        id="hs-script-loader"
+        async
+        defer
+        strategy="lazyOnload" // Loads the script after the page has finished loading
+      />
       <ScrollToTop />
     </>
   );
