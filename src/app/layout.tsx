@@ -63,8 +63,6 @@ export default async function RootLayout({
                   <Link href="/" passHref>
                     <div className="flex items-center">
                       <LawAssistantLogo />
-                      <span className="ml-2">CodeX</span>
-
                       {/* Added span around text for better control */}
                     </div>
                   </Link>
