@@ -29,7 +29,7 @@ function Home() {
       {/* <Testimonials /> */}
       {/* <Team /> */}
 
-      <Newsletter />
+      {/* <Newsletter /> */}
       {/* <FAQ /> */}
       {/* <Footer /> */}
       <ScrollToTop />

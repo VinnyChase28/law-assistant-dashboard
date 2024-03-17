@@ -19,10 +19,10 @@ enum PopularPlanType {
 
 interface PricingProps {
   title: string;
-  popular: PopularPlanType;
-  price: number;
-  description: string;
-  buttonText?: string;
+  popular?: PopularPlanType;
+  price?: number;
+  description?: string;
+  buttonText: string;
   benefitList?: string[];
 }
 
@@ -31,33 +31,29 @@ const pricingList: PricingProps[] = [
     title: "Starter",
     popular: 0,
     price: 19.99,
-    description: "Get started as a solo user with a 7-day free trial.",
+    description: "+$0.06/1000 tokens, billed monthly",
     buttonText: "Start Free Trial",
     benefitList: [
-      "Up to 50 documents",
       "AI Assistant",
-      "Community support",
-      "lorem ipsum dolor",
+      "Self-service embed code",
+      "Report Drafting",
+      "Document Management",
+      "Up to 50 documents",
     ],
   },
   {
     title: "Pro",
     popular: 1,
     price: 99,
-    description: "Get started as a team with a 3-day free trial.",
+    description: "+$0.04/1000 tokens, billed monthly",
     buttonText: "Start Free Trial",
-    benefitList: [
-      "10 Users",
-      "Upto 6 pages",
-      "Priority support",
-      "lorem ipsum dolor",
-    ],
+    benefitList: ["Starter features", "Up to 500 documents", "10 Users"],
   },
   {
     title: "Enterprise",
     popular: 0,
-    price: 1000,
-    description: "Contact Us",
+    buttonText: "Contact Us",
+    benefitList: ["Pro features", "Tailored workflows", "Fine-tuned models"],
   },
 ];
 
