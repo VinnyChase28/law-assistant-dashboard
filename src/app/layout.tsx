@@ -11,8 +11,9 @@ import { MainNavigation } from "./_components/main-navigation";
 import { UserNav } from "./_components/user-nav";
 import { Navbar } from "./_components/marketing/Navbar";
 import { getServerAuthSession } from "src/server/auth";
-import { Home, Newspaper } from "lucide-react";
+import { Home, NewspaperIcon } from "lucide-react";
 import Link from "next/link";
+import { LawAssistantLogo } from "./_components/marketing/assets/LawAssistantLogo";
 
 export const metadata: Metadata = {
   title: "CodeX | Law Assistant AI",
@@ -55,14 +56,25 @@ export default async function RootLayout({
             <TooltipProvider>
               {/* Main content */}
               {session ? (
-                <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
+                <header className="flex w-full items-center justify-between px-4 px-4 py-2 shadow-md">
                   <MainNavigation />
 
-                  <Link href="/">
-                    <Home className="h-5 w-5 cursor-pointer" />
+                  {/* This Link component for Home icon now has margin-left:auto to push everything to the right */}
+                  <Link href="/" passHref>
+                    <div className="flex items-center">
+                      <LawAssistantLogo />
+                      <span className="ml-2">CodeX</span>
+
+                      {/* Added span around text for better control */}
+                    </div>
                   </Link>
-                  <Link href="/news">
-                    <Newspaper className="h-5 w-5 cursor-pointer" />
+                  <Link href="/news" passHref>
+                    <div className="flex items-center">
+                      <NewspaperIcon />
+                      <span className="ml-2">Blog</span>
+
+                      {/* Added span around text for better control */}
+                    </div>
                   </Link>
                   <UserNav />
                 </header>
