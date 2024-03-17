@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { api } from "src/trpc/react";
-import { cn } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -50,8 +50,7 @@ export function ProfileForm() {
   // Fetch user details
   const { data: userData, isLoading: isUserDataLoading } =
     api.user.getUserDetails.useQuery();
-  const { data: socialLinks, isLoading: isSocialLinksLoading } =
-    api.user.getSocialLinks.useQuery();
+  const { data: socialLinks } = api.user.getSocialLinks.useQuery();
 
   // Initialize the form outside the conditional rendering block
   const form = useForm<ProfileFormValues>({
@@ -78,7 +77,7 @@ export function ProfileForm() {
       };
       form.reset(defaultValues); // Update form values
     }
-  }, [userData, socialLinks, isUserDataLoading, form.reset]);
+  }, [userData, socialLinks, isUserDataLoading, form.reset, form]);
 
   const { fields, append, remove } = useFieldArray({
     name: "urls",

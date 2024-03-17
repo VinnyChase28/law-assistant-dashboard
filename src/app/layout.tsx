@@ -6,11 +6,17 @@ import { TRPCReactProvider } from "src/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
-import { Metadata } from "next";
-
+import type { Metadata } from "next";
+import { MainNavigation } from "./_components/main-navigation";
+import { UserNav } from "./_components/user-nav";
+import { Navbar } from "./_components/marketing/Navbar";
+import { getServerAuthSession } from "src/server/auth";
+import { Home, Newspaper } from "lucide-react";
+import Link from "next/link";
+import Script from "next/script";
 export const metadata: Metadata = {
-  title: "Casy | Law Assistant AI",
-  description: "Casy AI Dashboard",
+  title: "CodeX | Law Assistant AI",
+  description: "CodeX AI Dashboard",
 };
 
 const fontSans = FontSans({
@@ -24,9 +30,15 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerAuthSession();
+
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <head />
+      <head>
+        {" "}
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+
       <body
         className={cn(
           "flex min-h-screen flex-col bg-background font-sans antialiased",
@@ -42,7 +54,33 @@ export default async function RootLayout({
           >
             <TooltipProvider>
               {/* Main content */}
+              {session ? (
+                <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
+                  <MainNavigation />
+
+                  <Link href="/">
+                    <Home className="h-5 w-5 cursor-pointer" />
+                  </Link>
+                  <Link href="/news">
+                    <Newspaper className="h-5 w-5 cursor-pointer" />
+                  </Link>
+                  <UserNav />
+                </header>
+              ) : (
+                <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
+                  <Navbar />
+                </header>
+              )}
+
               <main className="flex w-full flex-1 flex-col">{children}</main>
+              {/* HubSpot Chat Script */}
+              <Script
+                src="//js-na1.hs-scripts.com/40814956.js" // Your HubSpot Script Source
+                id="hs-script-loader"
+                async
+                defer
+                strategy="lazyOnload" // Loads the script after the page has finished loading
+              />
               {/* Toast notifications */}
               <Toaster />
             </TooltipProvider>

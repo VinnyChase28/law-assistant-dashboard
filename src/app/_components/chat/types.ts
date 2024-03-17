@@ -1,5 +1,5 @@
 export type ChatMessage = {
-  role: "Me" | "Casy";
+  role: "Me" | "CodeX";
   content: string;
   isFinal?: boolean;
 };

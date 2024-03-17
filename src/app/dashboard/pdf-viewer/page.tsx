@@ -1,6 +1,5 @@
 "use client";
-import PDFViewer from "@/components/pdf-viewer"; // Ensure this path is correct
-import ReactMarkdown from "react-markdown";
+import PDFViewer from "@/components/pdf-viewer";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { api } from "src/trpc/react";

@@ -46,7 +46,7 @@ const ChatBubble = () => {
                 <ArrowLeft className="h-6 w-6 opacity-50" />
               </button>
             )}
-            <DialogTitle>Casy AI</DialogTitle>
+            <DialogTitle>CodeX AI</DialogTitle>
           </div>
         </DialogHeader>
         <div className="overflow-y-auto">
@@ -56,8 +56,8 @@ const ChatBubble = () => {
         {!showVectorSearch && !showCreateReport && (
           <div className="p-2">
             <AlertComponent
-              description="Hi! I'm Casy. You can chat with me for general help, use my memory to chat with your selected docs, or create reports from the documents stored in your files table. What would you like to do?"
-              title="Casy AI"
+              description="Hi! I'm CodeX. You can chat with me for general help, use my memory to chat with your selected docs, or create reports from the documents stored in your files table. What would you like to do?"
+              title="CodeX AI"
               iconType="info"
             />
 

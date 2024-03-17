@@ -2,9 +2,8 @@ import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { z } from "zod";
 
 export const chatRouter = createTRPCRouter({
-  
   // create chat session
-  createChatSession: protectedProcedure.mutation(async ({ input, ctx }) => {
+  createChatSession: protectedProcedure.mutation(async ({ ctx }) => {
     const chatSession = await ctx.db.chatSession.create({
       data: {
         userId: ctx.session.user.id,
