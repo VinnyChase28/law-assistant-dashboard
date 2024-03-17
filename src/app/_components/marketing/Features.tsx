@@ -20,7 +20,7 @@ interface FeatureProps {
 
 const features: FeatureProps[] = [
   {
-    title: "Responsive Design",
+    title: "Serlf-Service Chat",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
     image: image4,
@@ -42,13 +42,8 @@ const features: FeatureProps[] = [
 const featureList: string[] = [
   "Compliance Automation",
   "Document Q&A",
-  "AI Chat",
+  "AI Assistant",
   "Compliance Reports",
-  "Contact Form",
-  "Our Team",
-  "Responsive design",
-  "Newsletter",
-  "Minimalist",
 ];
 
 export const Features = () => {

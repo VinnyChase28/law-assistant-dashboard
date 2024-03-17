@@ -27,10 +27,12 @@ export const Hero = () => {
         </p>
 
         <div className="space-y-4 md:space-x-4 md:space-y-0">
-          <Button className="w-full md:w-1/3">Get Started</Button>
+          <Link href="/auth/sign-in">
+            <Button className="w-full md:w-1/3">Get Started</Button>
+          </Link>
 
           <a
-            href="https://github.com/leoMirandaa/shadcn-landing-page.git"
+            href="https://calendly.com/vince-gauthier/30min?month=2024-03"
             target="_blank"
             className={`w-full md:w-1/3 ${buttonVariants({
               variant: "outline",
