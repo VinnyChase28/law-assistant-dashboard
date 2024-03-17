@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
+import { signIn } from "next-auth/react";
 import { Check } from "lucide-react";
 import Link from "next/link";
 
@@ -93,9 +93,17 @@ export const Pricing = () => {
             </CardHeader>
 
             <CardContent>
-              <Link href="/auth/sign-in" passHref>
-                <Button className="w-full">{pricing.buttonText}</Button>
-              </Link>
+              <Button
+                onClick={() => {
+                  signIn("auth0", {
+                    // redirect: true,
+                    callbackUrl: "/dashboard",
+                  });
+                }}
+                className="w-full"
+              >
+                {pricing.buttonText}
+              </Button>
             </CardContent>
 
             <hr className="m-auto mb-4 w-4/5" />

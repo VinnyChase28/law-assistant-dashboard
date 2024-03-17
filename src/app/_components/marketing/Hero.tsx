@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
 import { HeroCards } from "./HeroCards";
 import { CalendarIcon } from "lucide-react";
-import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export const Hero = () => {
   return (
@@ -27,9 +27,17 @@ export const Hero = () => {
         </p>
 
         <div className="space-y-4 md:space-x-4 md:space-y-0">
-          <Link href="/auth/sign-in">
-            <Button className="w-full md:w-1/3">Get Started</Button>
-          </Link>
+          <Button
+            onClick={() => {
+              signIn("auth0", {
+                // redirect: true,
+                callbackUrl: "/dashboard",
+              });
+            }}
+            className="w-max-xl"
+          >
+            Get Started
+          </Button>
 
           <a
             href="https://calendly.com/vince-gauthier/30min?month=2024-03"

@@ -10,7 +10,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Check, Linkedin } from "lucide-react";
-import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export const HeroCards = () => {
   return (
@@ -100,9 +100,17 @@ export const HeroCards = () => {
         </CardHeader>
 
         <CardContent>
-          <Link href="/auth/sign-in" passHref>
-            <Button className="w-full">Start Free Trial</Button>
-          </Link>
+          <Button
+            onClick={() => {
+              signIn("auth0", {
+                // redirect: true,
+                callbackUrl: "/dashboard",
+              });
+            }}
+            className="w-full"
+          >
+            Start Free Trial
+          </Button>
         </CardContent>
 
         <hr className="m-auto mb-4 w-4/5" />
