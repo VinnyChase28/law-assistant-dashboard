@@ -194,6 +194,11 @@
   padding: 0;
 }
 
+/* .Hubspot */
+#hubspot-messages-iframe-container {
+  color-scheme: light;
+}
+
 @layer base {
   * {
     @apply border-border;

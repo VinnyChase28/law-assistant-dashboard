@@ -13,7 +13,7 @@ import { Navbar } from "./_components/marketing/Navbar";
 import { getServerAuthSession } from "src/server/auth";
 import { Home, Newspaper } from "lucide-react";
 import Link from "next/link";
-
+import Script from "next/script";
 export const metadata: Metadata = {
   title: "CodeX | Law Assistant AI",
   description: "CodeX AI Dashboard",
@@ -34,7 +34,11 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <head />
+      <head>
+        {" "}
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+
       <body
         className={cn(
           "flex min-h-screen flex-col bg-background font-sans antialiased",
@@ -69,6 +73,14 @@ export default async function RootLayout({
               )}
 
               <main className="flex w-full flex-1 flex-col">{children}</main>
+              {/* HubSpot Chat Script */}
+              <Script
+                src="//js-na1.hs-scripts.com/40814956.js" // Your HubSpot Script Source
+                id="hs-script-loader"
+                async
+                defer
+                strategy="lazyOnload" // Loads the script after the page has finished loading
+              />
               {/* Toast notifications */}
               <Toaster />
             </TooltipProvider>

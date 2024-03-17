@@ -17,8 +17,8 @@ import { UserIcon } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
-import { LogoIcon } from "./Icons";
 import { usePathname } from "next/navigation";
+import { LawAssistantLogo } from "./assets/LawAssistantLogo";
 
 interface RouteProps {
   href: string;
@@ -31,8 +31,8 @@ const routeList: RouteProps[] = [
     label: "Features",
   },
   {
-    href: "#testimonials",
-    label: "Testimonials",
+    href: "#howItWorks",
+    label: "How It Works",
   },
   {
     href: "#pricing",
@@ -47,7 +47,7 @@ const routeList: RouteProps[] = [
 export const Navbar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  
+
   if (pathname === "/auth/sign-in") {
     return null;
   }
@@ -56,11 +56,16 @@ export const Navbar = () => {
     <header className="sticky top-0 z-40 w-full  bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container flex h-14 w-screen justify-between px-4 ">
-          <NavigationMenuItem className="flex font-bold">
+          <NavigationMenuItem className="flex items-center font-bold">
             <Link href="/" passHref>
-              <LogoIcon />
+              <div className="flex items-center">
+                <LawAssistantLogo />
+                <span className="ml-2">
+                  CodeX
+                </span>{" "}
+                {/* Added span around text for better control */}
+              </div>
             </Link>
-            lawassistant.ai
           </NavigationMenuItem>
 
           {/* mobile */}

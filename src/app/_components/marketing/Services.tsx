@@ -16,21 +16,21 @@ interface ServiceProps {
 
 const serviceList: ServiceProps[] = [
   {
-    title: "Code Collaboration",
+    title: "Collaborative AI Development",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "Our approach centers on working closely with you to create AI solutions that evolve with your needs. By fine-tuning models to specific jurisdictions, legal areas, and document types, we ensure a highly customized and effective tool for your compliance requirements.",
     icon: <ChartIcon />,
   },
   {
-    title: "Project Management",
+    title: "Dynamic Compliance Monitoring",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "Leverage our AI's capability to continuously scan legal databases or documents, ensuring your operations remain within regulatory bounds. ",
     icon: <WalletIcon />,
   },
   {
-    title: "Task Automation",
+    title: "Self-Service Chat",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "Give your website visitors instant access to crucial regulatory information with our self-serve chat feature. Our system dynamically updates to reflect the latest in compliance standards based on information found on the web, in legal databases, and in your own documents.",
     icon: <MagnifierIcon />,
   },
 ];
@@ -42,14 +42,13 @@ export const Services = () => {
         <div>
           <h2 className="text-3xl font-bold md:text-4xl">
             <span className="bg-gradient-to-b from-primary/60 to-primary bg-clip-text text-transparent">
-              Client-Centric{" "}
+              Partner-Driven{" "}
             </span>
-            Services
+            AI Services
           </h2>
 
           <p className="mb-8 mt-4 text-xl text-muted-foreground ">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-            dolor.
+            Tailoring AI to your unique compliance landscape
           </p>
 
           <div className="flex flex-col gap-8">
@@ -74,7 +73,7 @@ export const Services = () => {
         <Image
           src={cubeLeg}
           className="w-[300px] object-contain md:w-[500px] lg:w-[600px]"
-          alt="About services"
+          alt="Innovative AI Services"
         />
       </div>
     </section>

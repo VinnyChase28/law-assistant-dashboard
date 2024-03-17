@@ -18,11 +18,12 @@ function Home() {
   return (
     <>
       <Hero />
+      <Services />
       <Sponsors />
+      <HowItWorks />
       <Features />
       <About />
-      <HowItWorks />
-      <Services />
+
       <Cta />
       {/* <Testimonials /> */}
       <Team />
