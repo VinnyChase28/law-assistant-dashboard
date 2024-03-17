@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 
 import { Check } from "lucide-react";
+import Link from "next/link";
 
 enum PopularPlanType {
   NO = 0,
@@ -42,13 +43,11 @@ const pricingList: PricingProps[] = [
   {
     title: "Pro",
     popular: 1,
-    price: 5,
-    description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
+    price: 99,
+    description: "Get started as a team with a 3-day free trial.",
     buttonText: "Start Free Trial",
     benefitList: [
-      "4 Team member",
-      "4 GB Storage",
+      "10 Users",
       "Upto 6 pages",
       "Priority support",
       "lorem ipsum dolor",
@@ -105,7 +104,9 @@ export const Pricing = () => {
             </CardHeader>
 
             <CardContent>
-              <Button className="w-full">{pricing.buttonText}</Button>
+              <Link href="/auth/sign-in" passHref>
+                <Button className="w-full">{pricing.buttonText}</Button>
+              </Link>
             </CardContent>
 
             <hr className="m-auto mb-4 w-4/5" />

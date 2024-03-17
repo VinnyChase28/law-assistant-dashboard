@@ -10,9 +10,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Check, Linkedin } from "lucide-react";
-import { LightBulbIcon } from "./Icons";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import Markdown from "../markdown";
+import Link from "next/link";
 
 export const HeroCards = () => {
   return (
@@ -93,9 +91,6 @@ export const HeroCards = () => {
         <CardHeader>
           <CardTitle className="item-center flex justify-between">
             Solo
-            <Badge variant="secondary" className="text-sm text-primary">
-              Most popular
-            </Badge>
           </CardTitle>
           <div>
             <span className="text-3xl font-bold">$19.99</span>
@@ -105,7 +100,9 @@ export const HeroCards = () => {
         </CardHeader>
 
         <CardContent>
-          <Button className="w-full">Start Free Trial</Button>
+          <Link href="/auth/sign-in" passHref>
+            <Button className="w-full">Start Free Trial</Button>
+          </Link>
         </CardContent>
 
         <hr className="m-auto mb-4 w-4/5" />
