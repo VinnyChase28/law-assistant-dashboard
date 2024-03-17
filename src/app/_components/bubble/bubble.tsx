@@ -14,6 +14,7 @@ import VectorSearchComponent from "../chat/chat-docs";
 import CreateReportComponent from "../generate-report/generate-report";
 import { ArrowLeft } from "lucide-react";
 import AlertComponent from "../alert";
+import { Badge } from "../ui/badge";
 const ChatBubble = () => {
   const [showVectorSearch, setShowVectorSearch] = useState(false);
   const [showCreateReport, setShowCreateReport] = useState(false);
@@ -46,7 +47,9 @@ const ChatBubble = () => {
                 <ArrowLeft className="h-6 w-6 opacity-50" />
               </button>
             )}
-            <DialogTitle>CodeX AI</DialogTitle>
+            <DialogTitle>
+              CodeX AI <Badge>Alpha</Badge>
+            </DialogTitle>
           </div>
         </DialogHeader>
         <div className="overflow-y-auto">
@@ -57,7 +60,7 @@ const ChatBubble = () => {
           <div className="p-2">
             <AlertComponent
               description="Hi! I'm CodeX. You can chat with me for general help, use my memory to chat with your selected docs, or create reports from the documents stored in your files table. What would you like to do?"
-              title="CodeX AI"
+              title="CodeX"
               iconType="info"
             />
 

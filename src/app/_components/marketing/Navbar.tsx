@@ -19,6 +19,9 @@ import { Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { usePathname } from "next/navigation";
 import { LawAssistantLogo } from "./assets/LawAssistantLogo";
+import { useCheckedRowsStore } from "src/store/store";
+import { signIn } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 
 interface RouteProps {
   href: string;
@@ -38,16 +41,28 @@ const routeList: RouteProps[] = [
     href: "#pricing",
     label: "Pricing",
   },
+  // {
+  //   href: "#faq",
+  //   label: "FAQ",
+  // },
   {
-    href: "#faq",
-    label: "FAQ",
+    href: "#about",
+    label: "About Us",
   },
 ];
 
 export const Navbar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const { deleteAll } = useCheckedRowsStore();
+  async function signInWithAuth0(event: React.SyntheticEvent) {
+    event.preventDefault();
+    deleteAll();
+    await signIn("auth0", {
+      // redirect: true,
+      callbackUrl: "/dashboard",
+    });
+  }
   if (pathname === "/auth/sign-in") {
     return null;
   }
@@ -128,15 +143,14 @@ export const Navbar = () => {
           </nav>
 
           <div className="hidden gap-2 md:flex">
-            <Link href="/auth/sign-in" passHref>
-              <div
-                className={`border ${buttonVariants({ variant: "secondary" })} cursor-pointer`}
-                role="button"
-              >
-                <UserIcon className="mr-2 h-5 w-5" />
-                Sign In
-              </div>
-            </Link>
+            <div
+              className={`border ${buttonVariants({ variant: "secondary" })} cursor-pointer`}
+              role="button"
+              onClick={signInWithAuth0}
+            >
+              <UserIcon className="mr-2 h-5 w-5" />
+              Sign In
+            </div>
 
             <ModeToggle />
           </div>
