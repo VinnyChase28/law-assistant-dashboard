@@ -11,10 +11,12 @@ import { MainNavigation } from "./_components/main-navigation";
 import { UserNav } from "./_components/user-nav";
 import { Navbar } from "./_components/marketing/Navbar";
 import { getServerAuthSession } from "src/server/auth";
+import { Home, Newspaper } from "lucide-react";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Casy | Law Assistant AI",
-  description: "Casy AI Dashboard",
+  title: "CodeX | Law Assistant AI",
+  description: "CodeX AI Dashboard",
 };
 
 const fontSans = FontSans({
@@ -51,6 +53,13 @@ export default async function RootLayout({
               {session ? (
                 <header className="flex w-full items-center justify-between px-4 py-2 shadow-md">
                   <MainNavigation />
+
+                  <Link href="/">
+                    <Home className="h-5 w-5 cursor-pointer" />
+                  </Link>
+                  <Link href="/news">
+                    <Newspaper className="h-5 w-5 cursor-pointer" />
+                  </Link>
                   <UserNav />
                 </header>
               ) : (

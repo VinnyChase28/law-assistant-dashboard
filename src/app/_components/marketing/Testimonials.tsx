@@ -16,9 +16,9 @@ interface TestimonialProps {
 
 const testimonials: TestimonialProps[] = [
   {
-    image: "https://github.com/shadcn.png",
-    name: "John Doe React",
-    userName: "@john_Doe",
+    image: "",
+    name: "CodeX",
+    userName: "@CodeX",
     comment: "This landing page is awesome!",
   },
   {

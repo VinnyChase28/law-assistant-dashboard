@@ -73,7 +73,7 @@ const CreateReportComponent = () => {
       //we need to go to home page ('/') if we click View
       toast({
         title: "Compliance Report Started",
-        description: `The compliance data has been sent to Casy. A new report will be available in the "GenAI docs" section soon.`,
+        description: `The compliance data has been sent to CodeX. A new report will be available in the "GenAI docs" section soon.`,
       });
     } catch (error) {
       console.error(

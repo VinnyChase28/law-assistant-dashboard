@@ -1,5 +1,5 @@
 "use client";
-import { About } from "./_components/marketing/About";
+import { About } from "./_components/marketing/about";
 import { Cta } from "@/components/marketing/Cta";
 import { FAQ } from "@/components/marketing/FAQ";
 import { Features } from "@/components/marketing/Features";
@@ -12,7 +12,7 @@ import { ScrollToTop } from "@/components/marketing/ScrollToTop";
 import { Services } from "@/components/marketing/Services";
 import { Sponsors } from "@/components/marketing/Sponsors";
 import { Team } from "@/components/marketing/Team";
-import { Testimonials } from "@/components/marketing/Testimonials";
+// import { Testimonials } from "@/components/marketing/Testimonials";
 
 function Home() {
   return (
@@ -24,7 +24,7 @@ function Home() {
       <Features />
       <Services />
       <Cta />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <Team />
       <Pricing />
       <Newsletter />
