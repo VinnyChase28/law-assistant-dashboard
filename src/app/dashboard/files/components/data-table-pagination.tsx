@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCheckedRowsStore } from "src/store/store"; // Adjust the import path as needed
+import { useFilesStore } from "src/store/store";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
@@ -24,6 +25,8 @@ export function DataTablePagination<TData>({
 }: DataTablePaginationProps<TData>) {
   // Use the Zustand store to access the checkedRows state
   const { checkedRows } = useCheckedRowsStore();
+  const { files } = useFilesStore();
+  const filesCount = files.length;
 
   // Calculate the number of selected rows based on checkedRows state
   const selectedRowCount = Object.values(checkedRows).filter(Boolean).length;
@@ -31,8 +34,8 @@ export function DataTablePagination<TData>({
     <div className="flex items-center justify-between px-2">
       <div className="flex-1 text-sm text-muted-foreground">
         {/* Display the number of selected rows */}
-        {selectedRowCount} of {table.getFilteredRowModel().rows.length} row(s)
-        selected.
+        {selectedRowCount} of {filesCount} total row(s) selected across all
+        tables.
       </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
         {/* Pagination controls omitted for brevity */}
