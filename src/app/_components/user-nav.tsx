@@ -1,5 +1,3 @@
-"use client";
-
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -16,12 +14,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { getServerAuthSession } from "src/server/auth";
 import AuthButton from "./sign-in-out";
-import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 export async function UserNav() {
   const session = await getServerAuthSession();
-  const router = useRouter();
   return (
     <>
       {session ? (
@@ -76,19 +71,13 @@ export async function UserNav() {
               </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <Button
-              onClick={() => {
-                signOut({ redirect: false }).then(() => {
-                  router.push("/");
-                });
-              }}
-            >
+            <Link href={"/api/auth/signout"} passHref>
               <DropdownMenuItem asChild>
                 <a>
                   Sign Out<DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                 </a>
               </DropdownMenuItem>
-            </Button>
+            </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
