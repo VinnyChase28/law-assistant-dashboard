@@ -12,6 +12,7 @@ import {
 import { Check, Linkedin } from "lucide-react";
 import { LightBulbIcon } from "./Icons";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import Markdown from "../markdown";
 
 export const HeroCards = () => {
   return (
@@ -20,7 +21,7 @@ export const HeroCards = () => {
       <Card className="absolute -top-[15px] w-[340px] shadow-black/10 drop-shadow-xl dark:shadow-white/10">
         <CardHeader className="flex flex-row items-center gap-4 pb-2">
           <Avatar>
-            <AvatarImage alt="" src="https://github.com/shadcn.png" />
+            <AvatarImage alt="" src="" />
             <AvatarFallback>SH</AvatarFallback>
           </Avatar>
 
@@ -30,7 +31,25 @@ export const HeroCards = () => {
           </div>
         </CardHeader>
 
-        <CardContent>This landig page is awesome!</CardContent>
+        <CardContent>
+          Regarding swimming pools, the rules from the provided texts are as
+          follows:
+          <p>
+            Fencing Requirements: 1. Swimming pools must be enclosed within a
+            fence not less than 1.5 meters in height, with no openings greater
+            than 100 millimeters in their least dimension. The access through
+            the fence must feature a self-closing gate designed to lock
+            automatically when not in use, with a spring lock that can only be
+            opened from the swimming pool side.
+          </p>
+          <p>
+            Placement Restrictions: Swimming pools must not be sited less than
+            1.5 meters from any lot line.
+          </p>
+          <p>Sources: </p>
+          <li>Building-1394.pdf, Page 11, Section 17.0</li>
+          <li>Zoning_0.pdf, Page 16, Section 3.5.5</li>
+        </CardContent>
       </Card>
 
       {/* Team */}
