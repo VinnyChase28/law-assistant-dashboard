@@ -63,6 +63,7 @@ export const Navbar = () => {
       callbackUrl: "/dashboard",
     });
   }
+  
   if (pathname === "/auth/sign-in") {
     return null;
   }

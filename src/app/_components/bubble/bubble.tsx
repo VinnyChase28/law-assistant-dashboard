@@ -15,6 +15,7 @@ import CreateReportComponent from "../generate-report/generate-report";
 import { ArrowLeft } from "lucide-react";
 import AlertComponent from "../alert";
 import { Badge } from "../ui/badge";
+
 const ChatBubble = () => {
   const [showVectorSearch, setShowVectorSearch] = useState(false);
   const [showCreateReport, setShowCreateReport] = useState(false);
