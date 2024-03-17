@@ -31,7 +31,7 @@ const config = {
     "@typescript-eslint/prefer-for-of": "off",
     "@typescript-eslint/no-unnecessary-type-assertion": "off",
     "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
-    "@typescript-eslint/no-unescaped-entitied": "off",
+    "@typescript-eslint/no-unescaped-entities": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {
