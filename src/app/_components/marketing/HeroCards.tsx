@@ -48,7 +48,7 @@ export const HeroCards = () => {
 
         <CardFooter>
           <CardDescription className="font-normal text-primary">
-            We're on
+            We&apos;re on
           </CardDescription>
           <div>
             <a
