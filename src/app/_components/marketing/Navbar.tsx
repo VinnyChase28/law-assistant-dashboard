@@ -99,9 +99,7 @@ export const Navbar = () => {
 
               <SheetContent side={"left"}>
                 <SheetHeader>
-                  <SheetTitle className="text-xl font-bold">
-                    CodeX | Law Assistant AI
-                  </SheetTitle>
+                  <SheetTitle className="text-xl font-bold">CodeX</SheetTitle>
                 </SheetHeader>
                 <nav className="mt-4 flex flex-col items-center justify-center gap-2">
                   {routeList.map(({ href, label }: RouteProps) => (
