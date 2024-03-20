@@ -62,8 +62,7 @@ export const Pricing = () => {
     <section id="pricing" className="container py-24 sm:py-32">
       <h2 className="text-center text-3xl font-bold md:text-4xl">Plans</h2>
       <h3 className="pb-8 pt-4 text-center text-xl text-muted-foreground">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
-        reiciendis.
+        Select a plan below to start a free trial
       </h3>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {pricingList.map((pricing: PricingProps) => (
