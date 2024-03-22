@@ -34,7 +34,7 @@ export const Hero = () => {
                 callbackUrl: "/dashboard",
               });
             }}
-            className="w-max-xl"
+            className="w-full md:w-1/3"
           >
             Get Started
           </Button>

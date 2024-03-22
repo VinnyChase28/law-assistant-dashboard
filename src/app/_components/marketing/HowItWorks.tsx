@@ -14,23 +14,18 @@ const features: FeatureProps[] = [
     description:
       "We continuously scan a variety of legal and regulatory databases to ensure the most up-to-date compliance docs are readily available",
   },
-  {
-    icon: <MapIcon />,
-    title: "Document Analysis",
-    description:
-      "Our AI analyzes your existing documents, contracts, policies, and procedures to assess compliance with current laws and regulations",
-  },
+
   {
     icon: <PlaneIcon />,
     title: "Information Retrieval",
     description:
-      "Users can quickly find specific compliance information, guidelines, and legal interpretations.",
+      "Users and website visitors can quickly find specific compliance information, guidelines, and legal interpretations instantly",
   },
   {
     icon: <GiftIcon />,
     title: "Compliance Reporting",
     description:
-      "The system generates comprehensive reports detailing your compliance status, including any potential issues or areas for improvement",
+      "CodeX generates comprehensive reports detailing your compliance status, including any potential issues or areas for improvement",
   },
 ];
 
@@ -47,7 +42,7 @@ export const HowItWorks = () => {
         Here&apos;s an overview of the features and functionality
       </p>
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {features.map(({ icon, title, description }: FeatureProps) => (
           <Card key={title} className="bg-muted/50">
             <CardHeader>

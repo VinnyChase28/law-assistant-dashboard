@@ -16,21 +16,21 @@ interface ServiceProps {
 
 const serviceList: ServiceProps[] = [
   {
-    title: "Collaborative AI Development",
+    title: "Create your own expert",
     description:
-      "By fine-tuning models to specific jurisdictions, legal areas, and document types, we ensure a highly customized and effective tool.",
+      "By adding documents, web pages, and other data sources to your account,  CodeX becomes an expert in your regulatory environment intantly.",
     icon: <ChartIcon />,
   },
   {
     title: "Dynamic Compliance Monitoring",
     description:
-      "Leverage our AI's capability to continuously scan legal databases or documents, ensuring your operations remain within regulatory bounds. ",
+      "We continuously scan content on URL's to update your documents and keep you informed of any changes.",
     icon: <WalletIcon />,
   },
   {
     title: "Self-Service Chat",
     description:
-      "Give your website visitors instant access to crucial regulatory information with our self-serve chat feature. Users increasingly don't want to search for information. They want answers.",
+      "Give your website visitors instant access to crucial regulatory information with our self-serve chat feature, which can be enbedded on your website.",
     icon: <MagnifierIcon />,
   },
 ];
@@ -42,13 +42,13 @@ export const Services = () => {
         <div>
           <h2 className="text-3xl font-bold md:text-4xl">
             <span className="bg-gradient-to-b from-primary/60 to-primary bg-clip-text text-transparent">
-              Partner-Driven{" "}
+              AI Solutions{" "}
             </span>
-            AI Services
+            for Compliance
           </h2>
 
           <p className="mb-8 mt-4 text-xl text-muted-foreground ">
-            Tailoring AI to your unique compliance landscape
+            Get an expert agent on your regulatory environment
           </p>
 
           <div className="flex flex-col gap-8">

@@ -21,11 +21,9 @@ export const About = () => {
                 Us
               </h2>
               <p className="mt-4 text-xl text-muted-foreground">
-                CodeX was created with a vision that compliance can be
-                eventually fully automated, freeing up time for professionals to
-                focus on more complex tasks. We&apos;re still an early stage
-                startup, but we&apos;re growing fast and we&apos;re excited to
-                hear your feedback.
+                We beleive that AI will revolutionize the way we approach
+                compliance. Our mission is to provide the most easy to use and
+                comprehensive compliance platform on the market.
               </p>
             </div>
 
