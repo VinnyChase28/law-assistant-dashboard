@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "lucide-react";
-
+import { Paperclip, HeartPulse } from "lucide-react";
 interface FeatureProps {
   icon: JSX.Element;
   title: string;
@@ -9,7 +9,7 @@ interface FeatureProps {
 
 const features: FeatureProps[] = [
   {
-    icon: <MedalIcon />,
+    icon: <HeartPulse />,
     title: "Compliance Monitoring",
     description:
       "We continuously scan a variety of legal and regulatory databases to ensure the most up-to-date compliance docs are readily available",
@@ -22,7 +22,7 @@ const features: FeatureProps[] = [
       "Users and website visitors can quickly find specific compliance information, guidelines, and legal interpretations instantly",
   },
   {
-    icon: <GiftIcon />,
+    icon: <Paperclip />,
     title: "Compliance Reporting",
     description:
       "CodeX generates comprehensive reports detailing your compliance status, including any potential issues or areas for improvement",

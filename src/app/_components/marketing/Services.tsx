@@ -24,7 +24,7 @@ const serviceList: ServiceProps[] = [
   {
     title: "Dynamic Compliance Monitoring",
     description:
-      "We continuously scan content on URL's to update your documents and keep you informed of any changes.",
+      "We continuously scan public regulatory knowledge to update your knowledge base and keep you informed of any changes.",
     icon: <WalletIcon />,
   },
   {

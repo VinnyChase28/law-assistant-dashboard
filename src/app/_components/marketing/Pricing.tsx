@@ -53,7 +53,7 @@ const pricingList: PricingProps[] = [
     title: "Enterprise",
     popular: 0,
     buttonText: "Contact Us",
-    benefitList: ["Pro features", "Tailored workflows", "Fine-tuned models"],
+    benefitList: ["Tailored workflows", "Fine-tuned models"],
   },
 ];
 
@@ -94,6 +94,13 @@ export const Pricing = () => {
             <CardContent>
               <Button
                 onClick={() => {
+                  if (pricing.buttonText === "Contact Us") {
+                    //open a mailto: vince.gauthier@lawassistant.ai
+
+                    window.location.href =
+                      "mailto:vince.gauthier@lawassistant.ai";
+                    return;
+                  }
                   signIn("auth0", {
                     // redirect: true,
                     callbackUrl: "/dashboard",
