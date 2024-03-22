@@ -16,17 +16,12 @@ interface ServiceProps {
 
 const serviceList: ServiceProps[] = [
   {
-    title: "Create your own expert",
+    title: "Build your own knowledge base",
     description:
       "By adding documents, web pages, and other data sources to your account,  CodeX becomes an expert in your regulatory environment intantly.",
     icon: <ChartIcon />,
   },
-  {
-    title: "Dynamic Compliance Monitoring",
-    description:
-      "We continuously scan public regulatory knowledge to update your knowledge base and keep you informed of any changes.",
-    icon: <WalletIcon />,
-  },
+
   {
     title: "Self-Service Chat",
     description:
@@ -42,13 +37,13 @@ export const Services = () => {
         <div>
           <h2 className="text-3xl font-bold md:text-4xl">
             <span className="bg-gradient-to-b from-primary/60 to-primary bg-clip-text text-transparent">
-              AI Solutions{" "}
+              Self-serve{" "}
             </span>
-            for Compliance
+            compliance tools
           </h2>
 
           <p className="mb-8 mt-4 text-xl text-muted-foreground ">
-            Get an expert agent on your regulatory environment
+            Create agent that is an expert on your regulatory environment
           </p>
 
           <div className="flex flex-col gap-8">
