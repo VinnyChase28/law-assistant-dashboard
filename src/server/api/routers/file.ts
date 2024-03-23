@@ -192,4 +192,36 @@ export const fileRouter = createTRPCRouter({
         },
       });
     }),
+
+  // allows a user to create a new label
+  createLabel: protectedProcedure
+    .input(
+      z.object({
+        text: z
+          .string()
+          .min(1)
+          .max(10)
+          .transform((str) => str.toLowerCase()), // Ensure label text is within length limits and lowercase
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { text } = input;
+      // Optional: Check if the label already exists for the user
+      const existingLabel = await ctx.db.label.findFirst({
+        where: {
+          text,
+          userId: ctx.session.user.id,
+        },
+      });
+      if (existingLabel) {
+        throw new Error("Label already exists.");
+      }
+      // Create the new label
+      return ctx.db.label.create({
+        data: {
+          text,
+          userId: ctx.session.user.id, // Associate label with the user's ID
+        },
+      });
+    }),
 });
