@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "lucide-react";
+import { PlaneIcon } from "lucide-react";
 import { Paperclip, HeartPulse } from "lucide-react";
 interface FeatureProps {
   icon: JSX.Element;
@@ -38,11 +38,8 @@ export const HowItWorks = () => {
           Works{" "}
         </span>
       </h2>
-      <p className="mx-auto mb-8 mt-4 text-xl text-muted-foreground md:w-3/4">
-        Here&apos;s an overview of the features and functionality
-      </p>
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 pt-6 md:grid-cols-2 lg:grid-cols-3">
         {features.map(({ icon, title, description }: FeatureProps) => (
           <Card key={title} className="bg-muted/50">
             <CardHeader>
