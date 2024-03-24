@@ -15,6 +15,7 @@ interface ProcessDocumentEventData {
 interface PineconeMetadata {
   documentType: DocumentType;
   pageNumber: number;
+  fileId: number;
 }
 
 enum DocumentType {
@@ -99,6 +100,7 @@ export const processDocument = inngest.createFunction(
         await pineconeUpsert(userId, vectorId, embedding, {
           documentType,
           pageNumber,
+          fileId,
         });
       } catch (error) {
         console.error("Error processing page:", pageNumber, error);

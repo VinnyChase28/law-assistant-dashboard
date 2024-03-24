@@ -19,8 +19,6 @@ export const vectorRouter = createTRPCRouter({
         throw new Error("User's user ID is not available.");
       }
 
-      const selectedFiles = useCheckedRowsStore.getState().checkedRows;
-
       const index = await pinecone.index(process.env.PINECONE_INDEX ?? "");
       const userNamespace = index.namespace(userId);
 
@@ -30,7 +28,6 @@ export const vectorRouter = createTRPCRouter({
         includeMetadata: true,
         filter: {
           documentType: { $eq: "REGULATORY_FRAMEWORK" },
-          fileId: { $in: Object.keys(selectedFiles).map(Number) },
         },
       });
       console.log("🚀 ~ .mutation ~ queryResponse:", queryResponse);

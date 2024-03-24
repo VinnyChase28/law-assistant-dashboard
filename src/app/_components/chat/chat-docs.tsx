@@ -10,6 +10,7 @@ import { type ChatMessage } from "./types";
 import { TypingIndicator } from "./helpers";
 import { IconSpinner } from "@/components/ui/icons";
 import { DropdownMenuCheckboxes } from "./dropdown-menu";
+import { useCheckedRowsStore } from "src/store/store";
 
 const VectorSearchComponent: React.FC = () => {
   const [inputMessage, setInputMessage] = useState("");
@@ -25,6 +26,8 @@ const VectorSearchComponent: React.FC = () => {
       { enabled: !!chatSessionId },
     );
 
+  const { checkedRows } = useCheckedRowsStore();
+
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
   const convertTextToVector = api.vector.convertTextToVector.useMutation();
@@ -35,7 +38,6 @@ const VectorSearchComponent: React.FC = () => {
   const getMostRecentSessionForUser =
     api.chat.getMostRecentSessionForUser.useMutation();
 
-    
   useLayoutEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "instant" });
   }, [chatMessages]);
