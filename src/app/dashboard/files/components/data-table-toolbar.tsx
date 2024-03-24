@@ -10,7 +10,7 @@ import { useCheckedRowsStore } from "src/store/store";
 import { statuses } from "./data";
 import { LabelDialog } from "./label-dialogue";
 import { api } from "src/trpc/react";
-
+import { Separator } from "src/app/_components/ui/separator";
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
@@ -50,6 +50,7 @@ export function DataTableToolbar<TData>({
             }))}
           />
         )}
+        <Separator orientation="vertical" className="h-6" />{" "}
         <Button
           variant="outline"
           onClick={uncheckAll} // Assuming uncheckAll is a function to unset all checks
@@ -58,9 +59,7 @@ export function DataTableToolbar<TData>({
           Uncheck All
         </Button>
         <LabelDialog />
-
         {/* Consider adding additional filters based on your schema here */}
-
         {isFiltered && (
           <Button
             variant="ghost"
