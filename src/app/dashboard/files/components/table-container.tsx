@@ -6,7 +6,7 @@ import { api } from "src/trpc/react";
 import { DocumentType } from "@prisma/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFilesStore } from "src/store/store";
-
+import { IconSpinner } from "src/app/_components/ui/icons";
 
 export default function TableContainer({
   documentType,
@@ -37,10 +37,8 @@ export default function TableContainer({
 
   if (isLoading) {
     return (
-      <div className="flex max-w-7xl flex-col items-center justify-center space-y-4">
-        <Skeleton className="h-6 w-full" />
-        <Skeleton className="h-6 w-full" />
-        <Skeleton className="h-6 w-full" />
+      <div className="items-center">
+        <IconSpinner />
       </div>
     );
   }
