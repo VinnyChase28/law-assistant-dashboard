@@ -68,10 +68,20 @@ function IconNextChat({
         width={16}
         height={16}
       >
-        <circle cx={9} cy={8} r={8} fill={inverted ? "black" : "white"} />
+        <circle
+          cx={9}
+          cy={8}
+          r={8}
+          fill={inverted ? "black" : "white"}
+        ></circle>
       </mask>
       <g mask="url(#mask0_91_2047)">
-        <circle cx={9} cy={8} r={8} fill={inverted ? "black" : "white"} />
+        <circle
+          cx={9}
+          cy={8}
+          r={8}
+          fill={inverted ? "black" : "white"}
+        ></circle>
         <path
           d="M14.2896 14.0018L7.146 4.8H5.80005V11.1973H6.87681V6.16743L13.4444 14.6529C13.7407 14.4545 14.0231 14.2369 14.2896 14.0018Z"
           fill={`url(#gradient-${id}-1)`}

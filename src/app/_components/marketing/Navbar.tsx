@@ -63,10 +63,6 @@ export const Navbar = () => {
       callbackUrl: "/dashboard",
     });
   }
-  
-  if (pathname === "/auth/sign-in") {
-    return null;
-  }
 
   return (
     <header className="sticky top-0 z-40 w-full  bg-white dark:border-b-slate-700 dark:bg-background">
@@ -77,8 +73,6 @@ export const Navbar = () => {
               <div className="flex items-center">
                 <LawAssistantLogo />
                 <span className="ml-2">CodeX</span>
-
-                {/* Added span around text for better control */}
               </div>
             </Link>
           </NavigationMenuItem>

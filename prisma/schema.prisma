@@ -40,11 +40,10 @@ model File {
   id               Int               @id @default(autoincrement())
   name             String
   blobUrl          String?
-  fileType          String?
-  fileSize          String?
-  finalReport       String?
+  fileType         String?
+  fileSize         String?
+  finalReport      String?
   processingStatus processingStatus
-  label            String?
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   userId           String
@@ -55,10 +54,23 @@ model File {
   favorites        Favorite?
   taskHistory      FileTaskHistory[]
   textSubsections  TextSubsection[]
+  labelId          String?          
+  label            Label?            @relation(fields: [labelId], references: [id]) 
+
 
   @@index([userId])
 }
 
+model Label {
+  id        String   @id @default(cuid())
+  text      String   @db.VarChar(20) 
+  userId    String            
+  user      User     @relation(fields: [userId], references: [id])
+  files     File[]  
+
+  @@index([userId], name: "idx_label_userId")
+  @@index([text, userId], name: "idx_label_text_userId")
+}
 model TextSubsection {
   id               Int      @id @default(autoincrement())
   fileId            Int
@@ -142,13 +154,14 @@ model User {
   bio             String?
   accounts        Account[]
   favorites       Favorite?
-  fileTaskHistory  FileTaskHistory[]
+  fileTaskHistory FileTaskHistory[]
   sessions        Session[]
   tasks           Task[]
   ChatSession     ChatSession[]
   UsageCost       UsageCost[]
   StripeCustomer  StripeCustomer?
   SocialLink      SocialLink[]
+  labels          Label[]           // Add this line: a list of labels associated with the user
 }
 
 model SocialLink {

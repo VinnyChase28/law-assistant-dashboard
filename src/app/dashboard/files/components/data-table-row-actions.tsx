@@ -42,6 +42,32 @@ export function DataTableRowActions<TData extends WithId>({
     },
   });
 
+  const {
+    data: labels,
+    isLoading: isLoadingLabels,
+    refetch,
+  } = api.file.getLabels.useQuery();
+  const assignLabel = api.file.assignLabel.useMutation();
+
+  const handleLabelAssignment = async (labelId: string) => {
+    await assignLabel.mutateAsync({
+      fileId: row.original.id,
+      labelId,
+    });
+  };
+
+  const removeLabel = api.file.removeLabel.useMutation({
+    onSuccess: () => {
+      void refetch();
+    },
+  });
+
+  const handleLabelRemoval = async () => {
+    await removeLabel.mutateAsync({
+      fileId: row.original.id,
+    });
+  };
+
   const viewFile = () => {
     router.push(`/dashboard/pdf-viewer?fileId=${row.original.id}`);
   };
@@ -72,8 +98,23 @@ export function DataTableRowActions<TData extends WithId>({
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            {/* DropdownMenuRadioGroup and items based on your schema */}
-            Test
+            {labels?.map((label) => (
+              <DropdownMenuItem
+                key={label.id}
+                onSelect={() => handleLabelAssignment(label.id)}
+              >
+                {label.text}
+              </DropdownMenuItem>
+            ))}
+            {/* @ts-expect-error */}
+            {row.original.label && (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={handleLabelRemoval}>
+                  Remove Label
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSeparator />

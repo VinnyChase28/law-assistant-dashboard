@@ -8,7 +8,9 @@ import { DataTableViewOptions } from "src/app/dashboard/files/components/data-ta
 import { DataTableFacetedFilter } from "src/app/dashboard/files/components/data-table-faceted-filter";
 import { useCheckedRowsStore } from "src/store/store";
 import { statuses } from "./data";
-
+import { LabelDialog } from "./label-dialogue";
+import { api } from "src/trpc/react";
+import { Separator } from "src/app/_components/ui/separator";
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
@@ -18,6 +20,8 @@ export function DataTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const { uncheckAll } = useCheckedRowsStore();
+  const { data: labels } = api.file.getLabels.useQuery();
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -36,16 +40,17 @@ export function DataTableToolbar<TData>({
             options={statuses}
           />
         )}
-        <Button
-          variant="outline"
-          onClick={uncheckAll} // Assuming uncheckAll is a function to unset all checks
-          className="h-8 px-2 lg:px-3"
-        >
-          Uncheck All
-        </Button>
-
+        {table.getColumn("label") && labels && (
+          <DataTableFacetedFilter
+            column={table.getColumn("label")}
+            title="Label"
+            options={labels.map((label) => ({
+              label: label.text,
+              value: label.id,
+            }))}
+          />
+        )}
         {/* Consider adding additional filters based on your schema here */}
-
         {isFiltered && (
           <Button
             variant="ghost"
@@ -56,6 +61,15 @@ export function DataTableToolbar<TData>({
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
+        <Separator orientation="vertical" className="h-6" />{" "}
+        <Button
+          variant="outline"
+          onClick={uncheckAll} // Assuming uncheckAll is a function to unset all checks
+          className="h-8 px-2 lg:px-3"
+        >
+          Uncheck All
+        </Button>
+        <LabelDialog />
       </div>
       <DataTableViewOptions table={table} />
     </div>

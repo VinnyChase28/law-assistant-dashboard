@@ -35,7 +35,6 @@ export const fileRouter = createTRPCRouter({
       });
     }),
 
-  // fetch my own uploaded files
   getMyFiles: protectedProcedure
     .input(
       z.object({
@@ -59,6 +58,9 @@ export const fileRouter = createTRPCRouter({
         },
         orderBy: {
           createdAt: "desc",
+        },
+        include: {
+          label: true,
         },
       });
     }),
@@ -190,6 +192,101 @@ export const fileRouter = createTRPCRouter({
         data: {
           processingStatus: status,
         },
+      });
+    }),
+
+  // allows a user to create a new label
+  createLabel: protectedProcedure
+    .input(
+      z.object({
+        text: z
+          .string()
+          .min(1)
+          .max(20)
+          .transform((str) => str.toLowerCase()), // Ensure label text is within length limits and lowercase
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { text } = input;
+      // Optional: Check if the label already exists for the user
+      const existingLabel = await ctx.db.label.findFirst({
+        where: {
+          text,
+          userId: ctx.session.user.id,
+        },
+      });
+      if (existingLabel) {
+        throw new Error("Label already exists.");
+      }
+      // Create the new label
+      return ctx.db.label.create({
+        data: {
+          text,
+          userId: ctx.session.user.id, // Associate label with the user's ID
+        },
+      });
+    }),
+
+  getLabels: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.label.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+    });
+  }),
+
+  deleteLabel: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(), // Validate that the input is a string (assuming the label ID is a string)
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id } = input;
+      // Check if the label exists and belongs to the current user
+      const label = await ctx.db.label.findFirst({
+        where: {
+          id,
+          userId: ctx.session.user.id,
+        },
+      });
+      if (!label) {
+        throw new Error("Label not found or not authorized.");
+      }
+      // Delete the label
+      return ctx.db.label.delete({
+        where: {
+          id,
+        },
+      });
+    }),
+  //assign a label to a file
+  assignLabel: protectedProcedure
+    .input(
+      z.object({
+        fileId: z.number(),
+        labelId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { fileId, labelId } = input;
+      return ctx.db.file.update({
+        where: { id: fileId },
+        data: { labelId },
+      });
+    }),
+
+  removeLabel: protectedProcedure
+    .input(
+      z.object({
+        fileId: z.number(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { fileId } = input;
+      return ctx.db.file.update({
+        where: { id: fileId },
+        data: { labelId: null },
       });
     }),
 });
