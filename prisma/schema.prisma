@@ -54,8 +54,9 @@ model File {
   favorites        Favorite?
   taskHistory      FileTaskHistory[]
   textSubsections  TextSubsection[]
-  labelId          String?           // Foreign key to reference Label
-  label            Label?            @relation(fields: [labelId], references: [id])  // Relation to Label
+  labelId          String?          
+  label            Label?            @relation(fields: [labelId], references: [id]) 
+
 
   @@index([userId])
 }

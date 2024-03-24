@@ -35,7 +35,6 @@ export const fileRouter = createTRPCRouter({
       });
     }),
 
-  // fetch my own uploaded files
   getMyFiles: protectedProcedure
     .input(
       z.object({
@@ -59,6 +58,9 @@ export const fileRouter = createTRPCRouter({
         },
         orderBy: {
           createdAt: "desc",
+        },
+        include: {
+          label: true,
         },
       });
     }),
@@ -256,6 +258,21 @@ export const fileRouter = createTRPCRouter({
         where: {
           id,
         },
+      });
+    }),
+  //assign a label to a file
+  assignLabel: protectedProcedure
+    .input(
+      z.object({
+        fileId: z.number(),
+        labelId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { fileId, labelId } = input;
+      return ctx.db.file.update({
+        where: { id: fileId },
+        data: { labelId },
       });
     }),
 });

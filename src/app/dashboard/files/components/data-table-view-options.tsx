@@ -14,6 +14,11 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 
+const columnDisplayNameMap: { [key: string]: string } = {
+  documentType: "Type",
+  processingStatus: "Status",
+};
+
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;
 }
@@ -44,6 +49,7 @@ export function DataTableViewOptions<TData>({
               typeof column.accessorFn !== "undefined" && column.getCanHide(),
           )
           .map((column) => {
+            const displayName = columnDisplayNameMap[column.id] || column.id; // Use mapped name or default to ID
             return (
               <DropdownMenuItem key={column.id}>
                 <DropdownMenuCheckboxItem
@@ -52,7 +58,7 @@ export function DataTableViewOptions<TData>({
                   checked={column.getIsVisible()}
                   onCheckedChange={(value) => column.toggleVisibility(!!value)}
                 >
-                  {column.id}
+                  {displayName} {/* Use the displayName here */}
                 </DropdownMenuCheckboxItem>
               </DropdownMenuItem>
             );
@@ -61,3 +67,4 @@ export function DataTableViewOptions<TData>({
     </DropdownMenu>
   );
 }
+

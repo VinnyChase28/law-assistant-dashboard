@@ -7,7 +7,7 @@ import { DataTableColumnHeader } from "src/app/dashboard/files/components/data-t
 import { DataTableRowActions } from "./data-table-row-actions";
 import { useCheckedRowsStore } from "src/store/store";
 import { statuses, documentTypes } from "./data";
-
+import { api } from "src/trpc/react";
 
 interface SelectAllCheckboxHeaderProps {
   table: Table<File>;
@@ -68,9 +68,20 @@ export const columns: ColumnDef<File>[] = [
   //   cell: ({ row }) => <div>{row.getValue("fileType")}</div>,
   // },
   {
+    accessorKey: "label",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Label" />
+    ),
+    cell: ({ row }) => {
+      // @ts-expect-error
+      const label = row.original.label;
+      return <div>{label ? label.text : ""}</div>;
+    },
+  },
+  {
     accessorKey: "documentType",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Document Type" />
+      <DataTableColumnHeader column={column} title="Type" />
     ),
     cell: ({ row }) => {
       const documentType = documentTypes.find(

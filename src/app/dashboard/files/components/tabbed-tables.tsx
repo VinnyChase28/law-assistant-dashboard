@@ -3,6 +3,7 @@ import TableContainer from "./table-container";
 import { DocumentType } from "@prisma/client";
 import AddFiles from "src/app/_components/input/add-files";
 
+
 export default function TabbedTables() {
   return (
     <div>

@@ -42,6 +42,16 @@ export function DataTableRowActions<TData extends WithId>({
     },
   });
 
+  const { data: labels } = api.file.getLabels.useQuery();
+  const assignLabel = api.file.assignLabel.useMutation();
+
+  const handleLabelAssignment = async (labelId: string) => {
+    await assignLabel.mutateAsync({
+      fileId: row.original.id,
+      labelId,
+    });
+  };
+
   const viewFile = () => {
     router.push(`/dashboard/pdf-viewer?fileId=${row.original.id}`);
   };
@@ -72,8 +82,14 @@ export function DataTableRowActions<TData extends WithId>({
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            {/* DropdownMenuRadioGroup and items based on your schema */}
-            Test
+            {labels?.map((label) => (
+              <DropdownMenuItem
+                key={label.id}
+                onSelect={() => handleLabelAssignment(label.id)}
+              >
+                {label.text}
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSeparator />
