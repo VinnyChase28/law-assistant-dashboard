@@ -17,7 +17,7 @@ import { LawAssistantLogo } from "./_components/marketing/assets/LawAssistantLog
 
 export const metadata: Metadata = {
   title: "CodeX | Law Assistant AI",
-  description: "CodeX AI Dashboard",
+  description: "CodeX Dashboard",
 };
 
 const fontSans = FontSans({

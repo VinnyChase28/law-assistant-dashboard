@@ -20,6 +20,7 @@ export default function TableContainer({
       refetchOnReconnect: true,
       refetchOnMount: true,
       refetchOnWindowFocus: true,
+      refetchInterval: 10000,
     },
   );
 
