@@ -49,7 +49,7 @@ const ChatBubble = () => {
               </button>
             )}
             <DialogTitle>
-              CodeX AI <Badge>Alpha</Badge>
+              CodeX <Badge>Alpha</Badge>
             </DialogTitle>
           </div>
         </DialogHeader>

@@ -88,7 +88,7 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
       toast({
         title: "Files sent for processing",
         description:
-          "Once your files are finished processing, they will be marked as DONE",
+          "Once your files are finished processing, they will be marked as done.",
       });
     } catch (error) {
       console.error("Error uploading files:", error);
