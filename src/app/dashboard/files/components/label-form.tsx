@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { Label } from "@/components/ui/label";
 import { Trash2 } from "lucide-react";
-
+import { Separator } from "src/app/_components/ui/separator";
 const labelFormSchema = z.object({
   labels: z.array(
     z.object({
@@ -28,6 +28,9 @@ type LabelFormValues = z.infer<typeof labelFormSchema>;
 export function LabelForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [savedLabels, setSavedLabels] = useState<
+    { id: string; name: string }[]
+  >([]);
 
   const form = useForm<LabelFormValues>({
     resolver: zodResolver(labelFormSchema),
@@ -43,6 +46,20 @@ export function LabelForm() {
   });
 
   const createLabel = api.file.createLabel.useMutation();
+  const deleteLabel = api.file.deleteLabel.useMutation();
+  const {
+    data: labels,
+    isLoading: isLoadingLabels,
+    refetch,
+  } = api.file.getLabels.useQuery();
+
+  useEffect(() => {
+    if (labels) {
+      setSavedLabels(
+        labels.map((label) => ({ id: label.id, name: label.text })),
+      );
+    }
+  }, [labels]);
 
   async function onSubmit(data: LabelFormValues) {
     setIsSubmitting(true);
@@ -51,6 +68,8 @@ export function LabelForm() {
       for (const label of data.labels) {
         await createLabel.mutateAsync({ text: label.name });
       }
+
+      await refetch();
 
       toast({
         title: "Labels created successfully",
@@ -66,8 +85,46 @@ export function LabelForm() {
     setIsSubmitting(false);
   }
 
+  async function handleDeleteLabel(id: string) {
+    try {
+      await deleteLabel.mutateAsync({ id });
+      setSavedLabels((prevSavedLabels) =>
+        prevSavedLabels.filter((label) => label.id !== id),
+      );
+      toast({
+        title: "Label deleted successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Error deleting label",
+        description:
+          error instanceof Error ? error.message : "An error occurred",
+      });
+    }
+  }
+
   return (
     <div className="w-full">
+      {isLoadingLabels ? (
+        <div>Loading labels...</div>
+      ) : (
+        <div className="mt-8 pb-4">
+          <Label>Saved Labels</Label>
+          {savedLabels.map((label) => (
+            <div key={label.id} className="mt-2 flex items-center space-x-2">
+              <div className="flex-1">{label.name}</div>
+              <button
+                type="button"
+                onClick={() => handleDeleteLabel(label.id)}
+                className="flex items-center justify-center p-1"
+              >
+                <Trash2 size={20} />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+      <Separator />
       <Label>Create New Labels</Label>
       <Form {...form}>
         <form
@@ -77,7 +134,7 @@ export function LabelForm() {
           {fields.map((field, index) => (
             <div
               key={field.id}
-              className="flex w-full content-center  space-x-2"
+              className="flex w-full content-center space-x-2"
             >
               <FormItem className="flex-1">
                 <FormLabel>Label {index + 1}</FormLabel>
@@ -92,7 +149,7 @@ export function LabelForm() {
               <button
                 type="button"
                 onClick={() => remove(index)}
-                className="flex items-center justify-center p-1 pt-8 text-gray-500 hover:text-gray-700" // Added padding to ensure the button is a square, which might help with alignment
+                className="flex items-center justify-center p-1 pt-8 hover:text-gray-700"
               >
                 <Trash2 size={20} />
               </button>

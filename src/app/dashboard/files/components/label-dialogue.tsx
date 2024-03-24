@@ -26,16 +26,8 @@ export function LabelDialog() {
             be unique and relevant to the file's content.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex w-full">
-          <div className="flex-1">
-            <LabelForm />
-          </div>
-          <div className="flex-1">
-            {" "}
-            {/* Right column: Empty space for now */}
-            {/* This is intentionally left blank for future content */}
-          </div>
-        </div>
+
+        <LabelForm />
       </DialogContent>
     </Dialog>
   );

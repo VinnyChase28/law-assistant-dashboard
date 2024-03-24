@@ -232,4 +232,30 @@ export const fileRouter = createTRPCRouter({
       },
     });
   }),
+
+  deleteLabel: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(), // Validate that the input is a string (assuming the label ID is a string)
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id } = input;
+      // Check if the label exists and belongs to the current user
+      const label = await ctx.db.label.findFirst({
+        where: {
+          id,
+          userId: ctx.session.user.id,
+        },
+      });
+      if (!label) {
+        throw new Error("Label not found or not authorized.");
+      }
+      // Delete the label
+      return ctx.db.label.delete({
+        where: {
+          id,
+        },
+      });
+    }),
 });
