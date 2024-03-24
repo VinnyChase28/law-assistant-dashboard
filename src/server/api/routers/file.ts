@@ -224,4 +224,12 @@ export const fileRouter = createTRPCRouter({
         },
       });
     }),
+
+  getLabels: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.label.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+    });
+  }),
 });
