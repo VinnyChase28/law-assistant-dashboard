@@ -50,15 +50,6 @@ export function DataTableToolbar<TData>({
             }))}
           />
         )}
-        <Separator orientation="vertical" className="h-6" />{" "}
-        <Button
-          variant="outline"
-          onClick={uncheckAll} // Assuming uncheckAll is a function to unset all checks
-          className="h-8 px-2 lg:px-3"
-        >
-          Uncheck All
-        </Button>
-        <LabelDialog />
         {/* Consider adding additional filters based on your schema here */}
         {isFiltered && (
           <Button
@@ -70,6 +61,15 @@ export function DataTableToolbar<TData>({
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
+        <Separator orientation="vertical" className="h-6" />{" "}
+        <Button
+          variant="outline"
+          onClick={uncheckAll} // Assuming uncheckAll is a function to unset all checks
+          className="h-8 px-2 lg:px-3"
+        >
+          Uncheck All
+        </Button>
+        <LabelDialog />
       </div>
       <DataTableViewOptions table={table} />
     </div>

@@ -18,7 +18,7 @@ const labelFormSchema = z.object({
       name: z
         .string()
         .min(1, "Label must not be empty.")
-        .max(10, "Label must not be longer than 10 characters."),
+        .max(20, "Label must not be longer than 20 characters."),
     }),
   ),
 });

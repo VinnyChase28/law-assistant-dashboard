@@ -25,10 +25,12 @@ interface WithId {
 
 interface DataTableRowActionsProps<TData extends WithId> {
   row: Row<TData>;
+  refetch: () => Promise<void>;
 }
 
 export function DataTableRowActions<TData extends WithId>({
   row,
+  refetch,
 }: DataTableRowActionsProps<TData>) {
   const router = useRouter();
   const { setFileDeleting, isFileDeleting, removeFile } = useFilesStore();
@@ -42,13 +44,26 @@ export function DataTableRowActions<TData extends WithId>({
     },
   });
 
-  const { data: labels } = api.file.getLabels.useQuery();
+  const { data: labels, isLoading: isLoadingLabels } =
+    api.file.getLabels.useQuery();
   const assignLabel = api.file.assignLabel.useMutation();
 
   const handleLabelAssignment = async (labelId: string) => {
     await assignLabel.mutateAsync({
       fileId: row.original.id,
       labelId,
+    });
+  };
+
+  const removeLabel = api.file.removeLabel.useMutation({
+    onSuccess: () => {
+      void refetch();
+    },
+  });
+
+  const handleLabelRemoval = async () => {
+    await removeLabel.mutateAsync({
+      fileId: row.original.id,
     });
   };
 
@@ -90,6 +105,15 @@ export function DataTableRowActions<TData extends WithId>({
                 {label.text}
               </DropdownMenuItem>
             ))}
+            {/* @ts-expect-error */}
+            {row.original.label && (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={handleLabelRemoval}>
+                  Remove Label
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSeparator />

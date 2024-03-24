@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Label" ALTER COLUMN "text" SET DATA TYPE VARCHAR(20);

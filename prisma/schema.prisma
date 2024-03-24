@@ -63,13 +63,13 @@ model File {
 
 model Label {
   id        String   @id @default(cuid())
-  text      String   @db.VarChar(10)  // Ensuring text is max 10 characters
-  userId    String                      // User ID to associate the label with a specific user
-  user      User     @relation(fields: [userId], references: [id])  // Relation to User
-  files     File[]   // Relation back to File
+  text      String   @db.VarChar(20) 
+  userId    String            
+  user      User     @relation(fields: [userId], references: [id])
+  files     File[]  
 
   @@index([userId], name: "idx_label_userId")
-  @@index([text, userId], name: "idx_label_text_userId") // Composite index for faster queries filtering by text and userId
+  @@index([text, userId], name: "idx_label_text_userId")
 }
 model TextSubsection {
   id               Int      @id @default(autoincrement())

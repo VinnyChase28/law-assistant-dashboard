@@ -202,7 +202,7 @@ export const fileRouter = createTRPCRouter({
         text: z
           .string()
           .min(1)
-          .max(10)
+          .max(20)
           .transform((str) => str.toLowerCase()), // Ensure label text is within length limits and lowercase
       }),
     )
@@ -273,6 +273,20 @@ export const fileRouter = createTRPCRouter({
       return ctx.db.file.update({
         where: { id: fileId },
         data: { labelId },
+      });
+    }),
+
+  removeLabel: protectedProcedure
+    .input(
+      z.object({
+        fileId: z.number(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { fileId } = input;
+      return ctx.db.file.update({
+        where: { id: fileId },
+        data: { labelId: null },
       });
     }),
 });
