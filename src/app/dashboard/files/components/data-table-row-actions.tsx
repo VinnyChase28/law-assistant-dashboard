@@ -25,12 +25,10 @@ interface WithId {
 
 interface DataTableRowActionsProps<TData extends WithId> {
   row: Row<TData>;
-  refetch: () => Promise<void>;
 }
 
 export function DataTableRowActions<TData extends WithId>({
   row,
-  refetch,
 }: DataTableRowActionsProps<TData>) {
   const router = useRouter();
   const { setFileDeleting, isFileDeleting, removeFile } = useFilesStore();
@@ -44,8 +42,11 @@ export function DataTableRowActions<TData extends WithId>({
     },
   });
 
-  const { data: labels, isLoading: isLoadingLabels } =
-    api.file.getLabels.useQuery();
+  const {
+    data: labels,
+    isLoading: isLoadingLabels,
+    refetch,
+  } = api.file.getLabels.useQuery();
   const assignLabel = api.file.assignLabel.useMutation();
 
   const handleLabelAssignment = async (labelId: string) => {
