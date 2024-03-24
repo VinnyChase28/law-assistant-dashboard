@@ -2,6 +2,7 @@ import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { z } from "zod";
 import { pinecone } from "src/utils/pinecone";
+import { useCheckedRowsStore } from "src/store/store";
 
 export const vectorRouter = createTRPCRouter({
   // Vector Search Query Scoped by user ID
@@ -18,15 +19,21 @@ export const vectorRouter = createTRPCRouter({
         throw new Error("User's user ID is not available.");
       }
 
+      const selectedFiles = useCheckedRowsStore.getState().checkedRows;
+
       const index = await pinecone.index(process.env.PINECONE_INDEX ?? "");
       const userNamespace = index.namespace(userId);
 
       const queryResponse = await userNamespace.query({
         vector: input.queryVector,
-        topK: input.topK ?? 3,
+        topK: input.topK ?? 4,
         includeMetadata: true,
-        filter: { documentType: { $eq: "REGULATORY_FRAMEWORK" } },
+        filter: {
+          documentType: { $eq: "REGULATORY_FRAMEWORK" },
+          fileId: { $in: Object.keys(selectedFiles).map(Number) },
+        },
       });
+      console.log("🚀 ~ .mutation ~ queryResponse:", queryResponse);
 
       const parsedIds = queryResponse.matches.map((match) => {
         const [fileId, pageNumber] = match.id.split("-").map(Number);
@@ -42,7 +49,7 @@ export const vectorRouter = createTRPCRouter({
           })),
         },
         include: {
-          file: true, // Include all fields of the related File record
+          file: true,
         },
       });
 
@@ -74,8 +81,7 @@ export const vectorRouter = createTRPCRouter({
       }
     }),
 
-  // find 5 most relevant COMPLIANCE_SUBMISSION documents for a given COMPLIANCE_SUBMISSION
-  //TODO: make sure you use the correct namespace for the user
+  // find k most relevant COMPLIANCE_SUBMISSION documents for a given COMPLIANCE_SUBMISSION
   findSimilarRegulatoryDocuments: protectedProcedure
     .input(
       z.object({
@@ -161,5 +167,4 @@ export const vectorRouter = createTRPCRouter({
 
       return { data: results };
     }),
-
 });

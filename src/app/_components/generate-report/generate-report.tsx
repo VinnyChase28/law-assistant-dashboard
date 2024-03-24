@@ -15,6 +15,7 @@ const CreateReportComponent = () => {
   const { toast } = useToast(); // Initialize useToast
   const router = useRouter();
   const { checkedRows } = useCheckedRowsStore();
+  console.log("🚀 ~ CreateReportComponent ~ checkedRows:", checkedRows);
 
   const { files } = useFilesStore();
 
