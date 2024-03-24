@@ -74,11 +74,13 @@ export const columns: ColumnDef<File>[] = [
     ),
     cell: ({ row }) => {
       //@ts-expect-error
+      //label type is not defined in the schema
       const label = row.original.label;
       return <div>{label ? label.text : ""}</div>;
     },
     filterFn: (row, id, value) => {
       //@ts-expect-error
+      //label type is not defined in the schema
       const label = row.original.label;
       return value.includes(label?.id || "");
     },

@@ -49,7 +49,7 @@ export function DataTableViewOptions<TData>({
               typeof column.accessorFn !== "undefined" && column.getCanHide(),
           )
           .map((column) => {
-            const displayName = columnDisplayNameMap[column.id] || column.id; // Use mapped name or default to ID
+            const displayName = columnDisplayNameMap[column.id] ?? column.id; // Use mapped name or default to ID
             return (
               <DropdownMenuItem key={column.id}>
                 <DropdownMenuCheckboxItem

@@ -106,7 +106,7 @@ export function DataTableRowActions<TData extends WithId>({
                 {label.text}
               </DropdownMenuItem>
             ))}
-            {/* @ts-expect-error */}
+            {/* @ts-expect-error label type*/}
             {row.original.label && (
               <>
                 <DropdownMenuSeparator />

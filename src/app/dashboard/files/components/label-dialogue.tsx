@@ -23,7 +23,7 @@ export function LabelDialog() {
           <DialogTitle>Labels</DialogTitle>
           <DialogDescription>
             Enter the labels you want to assign to your files. Each label should
-            be unique and relevant to the file's content.
+            be unique and relevant to the file&apos;s content.
           </DialogDescription>
         </DialogHeader>
 
