@@ -8,7 +8,8 @@ import { DataTableViewOptions } from "src/app/dashboard/files/components/data-ta
 import { DataTableFacetedFilter } from "src/app/dashboard/files/components/data-table-faceted-filter";
 import { useCheckedRowsStore } from "src/store/store";
 import { statuses } from "./data";
-import { LabelDropdownMenu } from "./label-dropdown-menu";
+import { LabelDialog } from "./label-dialogue";
+
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
@@ -43,7 +44,7 @@ export function DataTableToolbar<TData>({
         >
           Uncheck All
         </Button>
-        <LabelDropdownMenu />
+        <LabelDialog />
 
         {/* Consider adding additional filters based on your schema here */}
 

@@ -54,7 +54,6 @@ export function LabelForm() {
 
       toast({
         title: "Labels created successfully",
-        // other toast options
       });
     } catch (error) {
       toast({
@@ -68,42 +67,52 @@ export function LabelForm() {
   }
 
   return (
-    <div>
+    <div className="w-full">
       <Label>Create New Labels</Label>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-full space-y-8"
+        >
           {fields.map((field, index) => (
-            <div key={field.id} className="flex items-center space-x-2">
-              <FormItem>
+            <div
+              key={field.id}
+              className="flex w-full content-center  space-x-2"
+            >
+              <FormItem className="flex-1">
                 <FormLabel>Label {index + 1}</FormLabel>
-                <FormControl>
+                <FormControl className="w-full">
                   <Input
                     placeholder="Enter label"
                     {...form.register(`labels.${index}.name`)}
+                    className="w-full"
                   />
                 </FormControl>
               </FormItem>
               <button
                 type="button"
                 onClick={() => remove(index)}
-                className="text-gray-500 hover:text-gray-700"
+                className="flex items-center justify-center p-1 pt-8 text-gray-500 hover:text-gray-700" // Added padding to ensure the button is a square, which might help with alignment
               >
                 <Trash2 size={20} />
               </button>
             </div>
           ))}
-
           <Button
             type="button"
             variant="outline"
             size="sm"
-            className="mt-2"
+            className="mt-2 w-full sm:w-auto"
             onClick={() => append({ name: "" })}
           >
             Add Label
           </Button>
-
-          <Button variant="default" disabled={isSubmitting} type="submit">
+          <Button
+            variant="default"
+            disabled={isSubmitting}
+            type="submit"
+            className="w-full sm:w-auto"
+          >
             Create Labels
           </Button>
         </form>
