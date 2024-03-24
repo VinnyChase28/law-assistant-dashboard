@@ -9,6 +9,7 @@ import { DataTableFacetedFilter } from "src/app/dashboard/files/components/data-
 import { useCheckedRowsStore } from "src/store/store";
 import { statuses } from "./data";
 import { LabelDialog } from "./label-dialogue";
+import { api } from "src/trpc/react";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -19,6 +20,8 @@ export function DataTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const { uncheckAll } = useCheckedRowsStore();
+  const { data: labels } = api.file.getLabels.useQuery();
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -35,6 +38,16 @@ export function DataTableToolbar<TData>({
             column={table.getColumn("processingStatus")}
             title="Status"
             options={statuses}
+          />
+        )}
+        {table.getColumn("label") && labels && (
+          <DataTableFacetedFilter
+            column={table.getColumn("label")}
+            title="Label"
+            options={labels.map((label) => ({
+              label: label.text,
+              value: label.id,
+            }))}
           />
         )}
         <Button

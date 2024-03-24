@@ -73,9 +73,14 @@ export const columns: ColumnDef<File>[] = [
       <DataTableColumnHeader column={column} title="Label" />
     ),
     cell: ({ row }) => {
-      // @ts-expect-error
+      //@ts-expect-error
       const label = row.original.label;
       return <div>{label ? label.text : ""}</div>;
+    },
+    filterFn: (row, id, value) => {
+      //@ts-expect-error
+      const label = row.original.label;
+      return value.includes(label?.id || "");
     },
   },
   {
