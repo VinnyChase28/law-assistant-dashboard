@@ -4,6 +4,7 @@ import { z } from "zod";
 import { pinecone } from "src/utils/pinecone";
 
 export const vectorRouter = createTRPCRouter({
+  
   // Vector Search Query Scoped by user ID
   vectorSearch: protectedProcedure
     .input(
