@@ -35,6 +35,7 @@ export const fileRouter = createTRPCRouter({
       });
     }),
 
+  //get all of a user's files
   getMyFiles: protectedProcedure
     .input(
       z.object({

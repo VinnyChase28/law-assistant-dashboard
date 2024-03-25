@@ -102,6 +102,7 @@ export const processDocument = inngest.createFunction(
           pageNumber,
           fileId,
         });
+        
       } catch (error) {
         console.error("Error processing page:", pageNumber, error);
       }

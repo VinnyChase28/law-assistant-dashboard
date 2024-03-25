@@ -2,7 +2,7 @@ import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { z } from "zod";
 import { pinecone } from "src/utils/pinecone";
-import { useCheckedRowsStore } from "src/store/store";
+
 
 export const vectorRouter = createTRPCRouter({
   // Vector Search Query Scoped by user ID
@@ -11,6 +11,7 @@ export const vectorRouter = createTRPCRouter({
       z.object({
         queryVector: z.array(z.number()),
         topK: z.number().optional(),
+        fileIds: z.array(z.number()).optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -28,9 +29,9 @@ export const vectorRouter = createTRPCRouter({
         includeMetadata: true,
         filter: {
           documentType: { $eq: "REGULATORY_FRAMEWORK" },
+          //NEED TO FILTER BY FILEIDs
         },
       });
-      console.log("🚀 ~ .mutation ~ queryResponse:", queryResponse);
 
       const parsedIds = queryResponse.matches.map((match) => {
         const [fileId, pageNumber] = match.id.split("-").map(Number);
