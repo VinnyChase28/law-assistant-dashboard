@@ -3,7 +3,6 @@ import { OpenAIEmbeddings } from "@langchain/openai";
 import { z } from "zod";
 import { pinecone } from "src/utils/pinecone";
 
-
 export const vectorRouter = createTRPCRouter({
   // Vector Search Query Scoped by user ID
   vectorSearch: protectedProcedure
@@ -11,11 +10,12 @@ export const vectorRouter = createTRPCRouter({
       z.object({
         queryVector: z.array(z.number()),
         topK: z.number().optional(),
-        fileIds: z.array(z.number()).optional(),
+        fileIds: z.array(z.number()),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
+
       if (!userId) {
         throw new Error("User's user ID is not available.");
       }
@@ -29,7 +29,7 @@ export const vectorRouter = createTRPCRouter({
         includeMetadata: true,
         filter: {
           documentType: { $eq: "REGULATORY_FRAMEWORK" },
-          //NEED TO FILTER BY FILEIDs
+          fileId: { $in: input.fileIds.map(String) },
         },
       });
 
