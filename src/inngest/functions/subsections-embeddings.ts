@@ -46,6 +46,7 @@ async function pineconeUpsert(
   const recordMetadata: Record<string, any> = {
     documentType: metadata.documentType.toString(),
     pageNumber: metadata.pageNumber.toString(),
+    fileId: metadata.fileId.toString(),
   };
 
   // Specify the index and namespace
