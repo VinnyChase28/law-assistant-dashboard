@@ -4,16 +4,19 @@ import { z } from "zod";
 import { pinecone } from "src/utils/pinecone";
 
 export const vectorRouter = createTRPCRouter({
+  
   // Vector Search Query Scoped by user ID
   vectorSearch: protectedProcedure
     .input(
       z.object({
         queryVector: z.array(z.number()),
         topK: z.number().optional(),
+        fileIds: z.array(z.number()),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
+
       if (!userId) {
         throw new Error("User's user ID is not available.");
       }
@@ -23,9 +26,12 @@ export const vectorRouter = createTRPCRouter({
 
       const queryResponse = await userNamespace.query({
         vector: input.queryVector,
-        topK: input.topK ?? 3,
+        topK: input.topK ?? 4,
         includeMetadata: true,
-        filter: { documentType: { $eq: "REGULATORY_FRAMEWORK" } },
+        filter: {
+          documentType: { $eq: "REGULATORY_FRAMEWORK" },
+          fileId: { $in: input.fileIds.map(String) },
+        },
       });
 
       const parsedIds = queryResponse.matches.map((match) => {
@@ -42,7 +48,7 @@ export const vectorRouter = createTRPCRouter({
           })),
         },
         include: {
-          file: true, // Include all fields of the related File record
+          file: true,
         },
       });
 
@@ -74,8 +80,7 @@ export const vectorRouter = createTRPCRouter({
       }
     }),
 
-  // find 5 most relevant COMPLIANCE_SUBMISSION documents for a given COMPLIANCE_SUBMISSION
-  //TODO: make sure you use the correct namespace for the user
+  // find k most relevant COMPLIANCE_SUBMISSION documents for a given COMPLIANCE_SUBMISSION
   findSimilarRegulatoryDocuments: protectedProcedure
     .input(
       z.object({
@@ -161,5 +166,4 @@ export const vectorRouter = createTRPCRouter({
 
       return { data: results };
     }),
-
 });
