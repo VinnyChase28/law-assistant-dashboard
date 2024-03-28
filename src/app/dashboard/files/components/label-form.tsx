@@ -180,7 +180,7 @@ export function LabelForm() {
             type="submit"
             className="w-full sm:w-auto"
           >
-            Create Labels
+            Save Labels
           </Button>
         </form>
       </Form>
