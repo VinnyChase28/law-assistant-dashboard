@@ -15,6 +15,7 @@ interface ProcessDocumentEventData {
 interface PineconeMetadata {
   documentType: DocumentType;
   pageNumber: number;
+  fileId: number;
 }
 
 enum DocumentType {
@@ -45,6 +46,7 @@ async function pineconeUpsert(
   const recordMetadata: Record<string, any> = {
     documentType: metadata.documentType.toString(),
     pageNumber: metadata.pageNumber.toString(),
+    fileId: metadata.fileId.toString(),
   };
 
   // Specify the index and namespace
@@ -99,7 +101,9 @@ export const processDocument = inngest.createFunction(
         await pineconeUpsert(userId, vectorId, embedding, {
           documentType,
           pageNumber,
+          fileId,
         });
+        
       } catch (error) {
         console.error("Error processing page:", pageNumber, error);
       }

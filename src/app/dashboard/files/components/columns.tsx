@@ -21,7 +21,7 @@ const SelectAllCheckboxHeader = ({ table }: SelectAllCheckboxHeaderProps) => {
   return (
     <Checkbox
       checked={isAllSelected}
-      onCheckedChange={(value) => {
+      onCheckedChange={() => {
         allRows.forEach((row) => {
           useCheckedRowsStore.getState().toggleRow(row.original.id);
         });
