@@ -9,9 +9,11 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "contentful": "cf-content-types-generator --spaceId $CONTENTFUL_SPACE_ID --token $CONTENTFUL_MANAGEMENT_TOKEN -o src/contentful/types -X && prettier --write src/contentful/types"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^15.19.6",
     "@dnd-kit/sortable": "^8.0.0",
     "@hookform/resolvers": "^3.3.2",
     "@langchain/openai": "^0.0.19",
@@ -50,10 +52,12 @@
     "@vercel/blob": "^0.22.1",
     "@vercel/postgres": "^0.7.2",
     "ai": "^3.0.8",
+    "cf-content-types-generator": "^2.15.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^1.0.0",
     "compromise": "^14.10.1",
+    "contentful": "^10.8.6",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.0.14",
     "inngest": "^3.15.1",
