@@ -133,17 +133,7 @@ model ChatMessage {
   @@index([chatSessionId])
 }
 
-model UsageCost {
-  id        Int      @id @default(autoincrement())
-  userId    String
-  totalCost Float
-  date      DateTime
 
-  user User @relation(fields: [userId], references: [id])
-
-  @@unique([userId, date])
-  @@index([userId, date])
-}
 
 model Usage {
   id           Int      @id @default(autoincrement())
@@ -170,7 +160,6 @@ model User {
   sessions        Session[]
   tasks           Task[]
   ChatSession     ChatSession[]
-  UsageCost       UsageCost[]
   StripeCustomer  StripeCustomer?
   SocialLink      SocialLink[]
   labels          Label[]
