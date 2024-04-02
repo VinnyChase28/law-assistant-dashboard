@@ -16,37 +16,60 @@ export const calculateDailyUsage = inngest.createFunction(
 
     // Loop through each user and calculate their usage
     for (const user of users) {
-      // Fetch usage records from the previous day for the current user
-      const usageRecords = await prisma.usage.findMany({
+      // Fetch chat messages from the previous day for the current user
+      const chatMessages = await prisma.chatMessage.findMany({
         where: {
-          userId: user.id,
-          timestamp: {
+          createdAt: {
             gte: startOfPreviousDay,
             lte: endOfPreviousDay,
+          },
+          chatSession: {
+            userId: user.id,
           },
         },
       });
 
-      // Calculate total input and output tokens for the current user
-      const totalInputTokens = usageRecords.reduce(
-        (sum, record) => sum + record.inputTokens,
-        0,
-      );
-      const totalOutputTokens = usageRecords.reduce(
-        (sum, record) => sum + record.outputTokens,
-        0,
-      );
+      // Calculate total word count for chat messages
+      const chatWordCount = chatMessages.reduce((sum, message) => {
+        const contentWords = message.content.trim().split(/\s+/).length;
+        const promptWords = message.prompt?.trim().split(/\s+/).length ?? 0;
+        return sum + contentWords + promptWords;
+      }, 0);
 
-      // Calculate total cost based on the simplified pricing
-      const costPerToken = 0.06 / 1000; // $0.06 per 1000 tokens
-      const totalCost = (totalInputTokens + totalOutputTokens) * costPerToken;
+      // Fetch reports from the previous day for the current user
+      const reports = await prisma.file.findMany({
+        where: {
+          createdAt: {
+            gte: startOfPreviousDay,
+            lte: endOfPreviousDay,
+          },
+          userId: user.id,
+          finalReport: {
+            not: null,
+          },
+        },
+      });
 
-      // Create a new Usage record for the current user
+      // Calculate total word count for reports
+      const reportWordCount = reports.reduce((sum, report) => {
+        const words = report.finalReport?.trim().split(/\s+/).length ?? 0;
+        return sum + words;
+      }, 0);
+
+      // Calculate total tokens based on the word count
+      const totalWords = chatWordCount + reportWordCount;
+      const totalTokens = Math.ceil(totalWords / 0.75); // Assuming 1 token ~= ¾ words
+
+      // Calculate input and output tokens (you can adjust the ratio as needed)
+      const inputTokens = Math.ceil(totalTokens * 0.4);
+      const outputTokens = Math.ceil(totalTokens * 0.6);
+
+      // Store the usage data for the user in the Usage model
       await prisma.usage.create({
         data: {
           userId: user.id,
-          inputTokens: totalInputTokens,
-          outputTokens: totalOutputTokens,
+          inputTokens,
+          outputTokens,
           timestamp: startOfPreviousDay,
         },
       });
