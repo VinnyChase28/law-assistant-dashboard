@@ -33,8 +33,9 @@ To get stripe running locally, use the following commands:
 
 ## DaNgEr ZoNe
 
+- Ensure you have prod env vars, by running `vercel pull --environment=production`
 - For prod db changes, do the following after creating a local migration:
 
 1. Open a new terminal window
-2. run `export $(grep -v '^#' .vercel/.env.production.local | xargs)`
+2. run `export $(grep -v '^#' .vercel/.env.production.local | xargs)` (this will use the prod)
 3. prisma migrate deploy
