@@ -30,3 +30,11 @@ To get stripe running locally, use the following commands:
 ## Prisma
 
 - If making db changes, you can run `npx prisma migrate dev`to create a new migration and then `npx prisma generate` to generate the prisma client. As this is still an alpha stage project, hard db resets may be needed. In that case, you can run `npx prisma db push --force-reset` and then `npx prisma generate` to do a hard db reset.
+
+## DaNgEr ZoNe
+
+- For prod db changes, do the following after creating a local migration:
+
+1. Open a new terminal window
+2. run `export $(grep -v '^#' .vercel/.env.production.local | xargs)`
+3. prisma migrate deploy
