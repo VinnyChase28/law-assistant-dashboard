@@ -31,7 +31,7 @@ export default function TermsAndConditions() {
         <button
           onClick={handleContinue}
           disabled={!accepted}
-          className="mt-8 rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:opacity-50"
+          className="mt-8 rounded-md px-4 py-2 text-white disabled:opacity-50"
         >
           Continue
         </button>
