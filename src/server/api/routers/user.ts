@@ -158,10 +158,16 @@ export const userRouter = createTRPCRouter({
     return deletedLinks;
   }),
 
-  acceptTerms: protectedProcedure.mutation(async ({ ctx }) => {
-    await ctx.db.user.update({
-      where: { id: ctx.session.user.id },
-      data: { acceptedTerms: true },
-    });
-  }),
+  acceptTerms: protectedProcedure
+    .input(
+      z.object({
+        accepted: z.boolean(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.user.update({
+        where: { id: ctx.session.user.id },
+        data: { acceptedTerms: input.accepted },
+      });
+    }),
 });
