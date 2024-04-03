@@ -24,7 +24,7 @@ export const stripeRouter = createTRPCRouter({
 
     const lineItems = [
       { price: basePrice, quantity: 1 },
-      { price: usagePrice, quantity: 1 },
+      { price: usagePrice }, // Remove the quantity for the metered usage price
     ];
 
     const session = await stripe.checkout.sessions.create({

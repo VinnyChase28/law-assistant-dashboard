@@ -11,9 +11,12 @@ import { SkeletonAbstract } from "@/components/skeleton-abstract";
 export default function SettingsAccountPage() {
   const searchParams = useSearchParams();
   const hasSessionId: boolean = searchParams?.has("session_id");
-  //find a better way to refetch the data
-  const { data: subscription, isLoading } =
-    api.stripe.getUserSubscriptions.useQuery();
+  const {
+    data: subscription,
+    isLoading,
+    error,
+    refetch,
+  } = api.stripe.getUserSubscriptions.useQuery();
 
   if (isLoading) {
     return (
@@ -26,6 +29,25 @@ export default function SettingsAccountPage() {
         </div>
         <Separator />
         <SkeletonAbstract />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-lg font-medium">Billing</h3>
+          <p className="text-sm text-muted-foreground">
+            Manage your subscription
+          </p>
+        </div>
+        <Separator />
+        <Alert variant="destructive" title="Error">
+          <AlertDescription>
+            Failed to fetch subscription data. Please try again later.
+          </AlertDescription>
+        </Alert>
       </div>
     );
   }
@@ -46,8 +68,9 @@ export default function SettingsAccountPage() {
           </AlertDescription>
         </Alert>
       )}
+
       {subscription ? (
-        <SubscriptionManager subscription={subscription} />
+        <SubscriptionManager subscription={subscription} refetch={refetch} />
       ) : (
         <Subscriptions />
       )}
