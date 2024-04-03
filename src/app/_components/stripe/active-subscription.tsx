@@ -28,7 +28,7 @@ export function SubscriptionManager({ subscription }: any) {
   }, [refetch]);
 
   const { status, renewalDate, cancelAtPeriodEnd, trialEndDate } =
-    latestSubscription || {};
+    latestSubscription ?? {};
 
   if (!latestSubscription) {
     return <div>Loading...</div>;
