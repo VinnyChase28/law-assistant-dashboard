@@ -21,6 +21,8 @@ async function upsertSubscription(
   subscription: Stripe.Subscription,
   customerId: string,
 ) {
+  const priceIds = subscription.items.data.map((item) => item.price.id);
+
   return await prisma.subscription.upsert({
     where: {
       stripeSubscriptionId: subscription.id,
@@ -29,11 +31,11 @@ async function upsertSubscription(
       stripeSubscriptionId: subscription.id,
       customerId: customerId,
       status: subscription.status as SubscriptionStatus,
-      priceId: subscription.items.data[0]?.price.id ?? "",
+      priceIds: priceIds,
     },
     update: {
       status: subscription.status as SubscriptionStatus,
-      priceId: subscription.items.data[0]?.price.id,
+      priceIds: priceIds,
     },
   });
 }

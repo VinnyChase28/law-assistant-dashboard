@@ -9,34 +9,37 @@ const url = process.env.URL ?? "http://localhost:3000";
 
 export const stripeRouter = createTRPCRouter({
   getSubscriptionCheckoutURL: protectedProcedure.query(async ({ ctx }) => {
-    const checkoutSession = await stripe.checkout.sessions.create({
-      mode: "subscription",
-      line_items: [
-        {
-          price: process.env.STRIPE_SUBSCRIPTION_PRICE_ID,
-          quantity: 1,
-        },
-      ],
+    const { user } = ctx.session;
+    const userId = user.id;
 
-      success_url: `${url}/dashboard/settings/billing?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${url}/`,
-      metadata: { userId: ctx.session.user.id },
-      subscription_data: {
-        metadata: {
-          userId: ctx.session.user.id,
-        },
-        trial_period_days: 7,
-      },
-    });
+    const basePrice = process.env.STRIPE_SUBSCRIPTION_PRICE_ID;
+    const usagePrice = process.env.STRIPE_USAGE_PRICE_ID;
 
-    if (!checkoutSession.url) {
+    if (!basePrice || !usagePrice) {
       throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: "Could not create checkout message",
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Stripe price IDs are not configured",
       });
     }
 
-    return { redirectURL: checkoutSession.url };
+    const lineItems = [
+      { price: basePrice, quantity: 1 },
+      { price: usagePrice }, // Remove the quantity for the metered usage price
+    ];
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      billing_address_collection: "auto",
+      line_items: lineItems,
+      mode: "subscription",
+      success_url: `${process.env.NEXTAUTH_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXTAUTH_URL}/dashboard`,
+      metadata: {
+        userId,
+      },
+    });
+
+    return { redirectURL: session.url };
   }),
 
   cancelSubscription: protectedProcedure

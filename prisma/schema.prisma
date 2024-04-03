@@ -57,7 +57,6 @@ model File {
   labelId          String?          
   label            Label?            @relation(fields: [labelId], references: [id]) 
 
-
   @@index([userId])
 }
 
@@ -71,9 +70,10 @@ model Label {
   @@index([userId], name: "idx_label_userId")
   @@index([text, userId], name: "idx_label_text_userId")
 }
+
 model TextSubsection {
   id               Int      @id @default(autoincrement())
-  fileId            Int
+  fileId           Int
   pageNumber       Int
   text             String
   pineconeVectorId String?
@@ -87,23 +87,23 @@ model TextSubsection {
 
 model DataSubsection {
   id               Int      @id @default(autoincrement())
-  fileId            Int
+  fileId           Int
   dataContent      Json
   pineconeVectorId String?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
-  file              File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  file             File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
 
   @@index([fileId])
 }
 
 model FileTaskHistory {
   id     String   @id @default(cuid())
-  fileId  Int
+  fileId Int
   taskId String
   userId String
   usedAt DateTime @default(now())
-  file    File     @relation(fields: [fileId], references: [id])
+  file   File     @relation(fields: [fileId], references: [id])
   task   Task     @relation(fields: [taskId], references: [id])
   user   User     @relation(fields: [userId], references: [id])
 
@@ -133,16 +133,18 @@ model ChatMessage {
   @@index([chatSessionId])
 }
 
-model UsageCost {
-  id        Int      @id @default(autoincrement())
-  userId    String
-  totalCost Float
-  date      DateTime
+
+
+model Usage {
+  id           Int      @id @default(autoincrement())
+  userId       String
+  inputTokens  Int
+  outputTokens Int
+  timestamp    DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
 
-  @@unique([userId, date])
-  @@index([userId, date])
+  @@index([userId])
 }
 
 model User {
@@ -158,10 +160,11 @@ model User {
   sessions        Session[]
   tasks           Task[]
   ChatSession     ChatSession[]
-  UsageCost       UsageCost[]
   StripeCustomer  StripeCustomer?
   SocialLink      SocialLink[]
-  labels          Label[]           // Add this line: a list of labels associated with the user
+  labels          Label[]
+  usageRecords    Usage[]
+  acceptedTerms   Boolean           @default(false)
 }
 
 model SocialLink {
@@ -214,7 +217,7 @@ model Subscription {
   stripeSubscriptionId String          @unique
   customerId           String
   status               SubscriptionStatus
-  priceId              String
+  priceIds             String[]
   createdAt            DateTime        @default(now())
   updatedAt            DateTime        @updatedAt
   stripeCustomer       StripeCustomer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
@@ -223,7 +226,7 @@ model Subscription {
 }
 
 model VerificationToken {
-  identifier  String
+  identifier String
   token      String   @unique
   expires    DateTime
 

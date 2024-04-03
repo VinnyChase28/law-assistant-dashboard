@@ -32,7 +32,7 @@ const Subscriptions = () => {
             Solo
           </h2>
           <h5 className="text-center">
-            19$ and $0.06 per 1000 tokens (approximately 750 words) billed
+            $19.99 and $0.06 per 1000 tokens (approximately 750 words) billed
             monthly
           </h5>
           <Button onClick={() => handleGoToSubscriptionCheckoutSession()}>

@@ -1,7 +1,7 @@
 "use client";
 
 import { TimerIcon, StarIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -15,19 +15,29 @@ import { api } from "src/trpc/react";
 import { toast } from "../ui/use-toast";
 import { IconSpinner } from "../ui/icons";
 
-//TODO - Add proper props here when we force
-//to the user to sign up for a subscription or a free trial
-//not having the types is bad practice
 export function SubscriptionManager({ subscription }: any) {
   const [isCanceled, setIsCanceled] = useState<boolean | null>(null);
   const [disabled, setDisabled] = useState(false);
   const cancelSubscription = api.stripe.cancelSubscription.useMutation();
   const resumeSubscription = api.stripe.resumeSubscription.useMutation();
-  const { status, renewalDate, cancelAtPeriodEnd, trialEndDate } = subscription;
+  const { data: latestSubscription, refetch } =
+    api.stripe.getUserSubscriptions.useQuery();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  const { status, renewalDate, cancelAtPeriodEnd, trialEndDate } =
+    latestSubscription ?? {};
+
+  if (!latestSubscription) {
+    return <div>Loading...</div>;
+  }
+
   const isTrial = status === "trialing";
   const endDate = isTrial ? trialEndDate : renewalDate;
 
-  const formattedEndDate = new Date(endDate * 1000).toLocaleDateString(
+  const formattedEndDate = new Date(endDate! * 1000).toLocaleDateString(
     "en-US",
     {
       month: "long",
@@ -40,7 +50,8 @@ export function SubscriptionManager({ subscription }: any) {
     setDisabled(true);
     setIsCanceled(true);
     await cancelSubscription.mutateAsync(undefined, {
-      onSuccess: () => {
+      onSuccess: async () => {
+        await refetch();
         toast({
           title: "Subscription Canceled",
           description: "Your subscription has been canceled.",
@@ -57,7 +68,8 @@ export function SubscriptionManager({ subscription }: any) {
     setDisabled(true);
     setIsCanceled(false);
     await resumeSubscription.mutateAsync(undefined, {
-      onSuccess: () => {
+      onSuccess: async () => {
+        await refetch();
         toast({
           title: "Subscription Resumed",
           description: "Your subscription has been resumed.",
