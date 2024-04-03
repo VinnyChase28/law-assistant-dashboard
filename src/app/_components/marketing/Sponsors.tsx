@@ -1,35 +1,17 @@
-import { Radar } from "lucide-react";
+'use client'
+import React from "react";
+import CenterCourt from "../../../public/CenterCourt.svg";
+import ConcordPacific from "../../../public/ConcordPacific.svg";
+import FairField from "../../../public/FairField.svg";
+import Provo from "../../../public/Provo.svg";
+import CrestonValley from "../../../public/CrestonValley.svg";
 
-interface SponsorProps {
-  icon: JSX.Element;
-  name: string;
-}
-
-const sponsors: SponsorProps[] = [
-  {
-    icon: <Radar size={34} />,
-    name: "Town of Creston",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Provo",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Center Court",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "City of Toronto",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Fairfield",
-  },
-  {
-    icon: <Radar size={34} />,
-    name: "Municipality of Frisco",
-  },
+const logos = [
+  CenterCourt,
+  ConcordPacific,
+  CrestonValley,
+  FairField,
+  Provo,
 ];
 
 export const Sponsors = () => {
@@ -39,16 +21,18 @@ export const Sponsors = () => {
         Trusted By
       </h2>
 
-      <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
-        {sponsors.map(({ icon, name }: SponsorProps) => (
-          <div
-            key={name}
-            className="flex items-center gap-1 text-muted-foreground/60"
-          >
-            <span>{icon}</span>
-            <h3 className="text-xl  font-bold">{name}</h3>
-          </div>
-        ))}
+      <div className="relative flex overflow-x-hidden">
+        <div className="py-12 animate-marquee whitespace-nowrap">
+          {[...Array(Math.ceil(100 / logos.length))].map((_, i) => (
+            <React.Fragment key={i}>
+              {logos.map((Logo, index) => (
+                <span key={`${i}-${index}`} className="mx-8 inline-block">
+                  <Logo className="h-16 w-auto rounded-lg" />
+                </span>
+              ))}
+            </React.Fragment>
+          ))}
+        </div>
       </div>
     </section>
   );
