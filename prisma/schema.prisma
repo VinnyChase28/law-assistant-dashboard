@@ -216,7 +216,7 @@ model Subscription {
   stripeSubscriptionId String          @unique
   customerId           String
   status               SubscriptionStatus
-  priceId              String
+  priceIds             String[]
   createdAt            DateTime        @default(now())
   updatedAt            DateTime        @updatedAt
   stripeCustomer       StripeCustomer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
