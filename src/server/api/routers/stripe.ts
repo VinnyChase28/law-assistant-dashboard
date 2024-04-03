@@ -32,8 +32,8 @@ export const stripeRouter = createTRPCRouter({
       billing_address_collection: "auto",
       line_items: lineItems,
       mode: "subscription",
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard`,
+      success_url: `${process.env.NEXTAUTH_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXTAUTH_URL}/dashboard`,
       metadata: {
         userId,
       },
