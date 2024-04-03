@@ -51,7 +51,6 @@ export const userRouter = createTRPCRouter({
     return subscriptions;
   }),
 
-
   //get user details
   getUserDetails: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.db.user.findUnique({
@@ -157,5 +156,12 @@ export const userRouter = createTRPCRouter({
     });
 
     return deletedLinks;
+  }),
+
+  acceptTerms: protectedProcedure.mutation(async ({ ctx }) => {
+    await ctx.db.user.update({
+      where: { id: ctx.session.user.id },
+      data: { acceptedTerms: true },
+    });
   }),
 });

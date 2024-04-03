@@ -164,6 +164,7 @@ model User {
   SocialLink      SocialLink[]
   labels          Label[]
   usageRecords    Usage[]
+  acceptedTerms   Boolean           @default(false)
 }
 
 model SocialLink {
