@@ -18,7 +18,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { usePathname } from "next/navigation";
-import { LawAssistantLogo } from "../assets/LawAssistantLogo";
+import { LawAssistantLogo } from "../../_components/marketing/assets/LawAssistantLogo";
 import { useCheckedRowsStore } from "src/store/store";
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";

@@ -12,20 +12,20 @@ const features: FeatureProps[] = [
     icon: <HeartPulse />,
     title: "Compliance Monitoring",
     description:
-      "We continuously scan a variety of legal and regulatory databases to ensure the most up-to-date compliance docs are readily available",
+      "We continuously scan a your data sources and regulatory databases in your jurisdiction to ensure the most up-to-date compliance docs are readily available.",
   },
 
   {
     icon: <PlaneIcon />,
     title: "Information Retrieval",
     description:
-      "Users and website visitors can quickly find specific compliance information, guidelines, and legal interpretations instantly",
+      "Both you and your website visitors can quickly find specific compliance information, guidelines, and legal interpretations instantly, with sources.",
   },
   {
     icon: <Paperclip />,
     title: "Compliance Reporting",
     description:
-      "CodeX generates comprehensive reports detailing your compliance status, including any potential issues or areas for improvement",
+      "CodeX generates comprehensive reports detailing your compliance status, including any potential issues or areas for improvement. You can specify any reporting requirements.",
   },
 ];
 

@@ -9,7 +9,7 @@ import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { MainNavigation } from "./_components/main-navigation";
 import { UserNav } from "./_components/user-nav";
-import { Navbar } from "./_components/marketing/components/navbar";
+import { Navbar } from "./marketing/components/navbar";
 import { getServerAuthSession } from "src/server/auth";
 import { Home, NewspaperIcon } from "lucide-react";
 import Link from "next/link";

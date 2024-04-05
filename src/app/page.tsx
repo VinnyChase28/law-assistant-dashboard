@@ -1,11 +1,11 @@
 "use client";
-import { CaseStudies } from "@/components/marketing/components/case-studies";
-import { HowItWorks } from "@/components/marketing/components/how-it-works";
-import { Pricing } from "@/components/marketing/components/pricing";
-import { Sponsors } from "@/components/marketing/components/sponsors";
-import { Cta } from "@/components/marketing/components/cta";
-import { ScrollToTop } from "@/components/marketing/components/scroll-to-top";
-import { Hero } from "@/components/marketing/components/hero";
+import { CaseStudies } from "src/app/marketing/components/case-studies";
+import { HowItWorks } from "src/app/marketing/components/how-it-works";
+import { Pricing } from "src/app/marketing/components/pricing";
+import { Sponsors } from "src/app/marketing/components/sponsors";
+import { Cta } from "src/app/marketing/components/cta";
+import { ScrollToTop } from "src/app/marketing/components/scroll-to-top";
+import { Hero } from "src/app/marketing/components/hero";
 import Script from "next/script";
 
 //add seo
