@@ -1,10 +1,10 @@
 'use client'
 import React from "react";
-import CenterCourt from "../../../public/CenterCourt.svg";
-import ConcordPacific from "../../../public/ConcordPacific.svg";
-import FairField from "../../../public/FairField.svg";
-import Provo from "../../../public/Provo.svg";
-import CrestonValley from "../../../public/CrestonValley.svg";
+import CenterCourt from "../../../../public/CenterCourt.svg";
+import ConcordPacific from "../../../../public/ConcordPacific.svg";
+import FairField from "../../../../public/FairField.svg";
+import Provo from "../../../../public/Provo.svg";
+import CrestonValley from "../../../../public/CrestonValley.svg";
 
 const logos = [
   CenterCourt,

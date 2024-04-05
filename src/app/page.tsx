@@ -1,19 +1,14 @@
 "use client";
-import { About } from "src/app/_components/marketing/components/about";
-import { Cta } from "@/components/marketing/Cta";
-import { FAQ } from "@/components/marketing/FAQ";
-import { Features } from "@/components/marketing/Features";
-import { Footer } from "@/components/marketing/Footer";
-import { Hero } from "@/components/marketing/Hero";
-import { HowItWorks } from "@/components/marketing/HowItWorks";
-import { Newsletter } from "@/components/marketing/Newsletter";
-import { Pricing } from "@/components/marketing/Pricing";
-import { ScrollToTop } from "@/components/marketing/ScrollToTop";
-import { Services } from "@/components/marketing/Services";
-import { Sponsors } from "@/components/marketing/Sponsors";
-import { Team } from "@/components/marketing/Team";
-import { CaseStudies } from "@/components/marketing/CaseStudies";
+import { CaseStudies } from "@/components/marketing/components/case-studies";
+import { HowItWorks } from "@/components/marketing/components/how-it-works";
+import { Pricing } from "@/components/marketing/components/pricing";
+import { Sponsors } from "@/components/marketing/components/sponsors";
+import { Cta } from "@/components/marketing/components/cta";
+import { ScrollToTop } from "@/components/marketing/components/scroll-to-top";
+import { Hero } from "@/components/marketing/components/hero";
 import Script from "next/script";
+
+//add seo
 
 function Home() {
   return (
