@@ -18,6 +18,11 @@ import { LawAssistantLogo } from "./_components/marketing/assets/LawAssistantLog
 export const metadata: Metadata = {
   title: "CodeX | Law Assistant AI",
   description: "CodeX Dashboard",
+  openGraph: {
+    title: "CodeX | Law Assistant AI",
+    description: "CodeX Dashboard",
+    type: "website",
+  },
 };
 
 const fontSans = FontSans({
