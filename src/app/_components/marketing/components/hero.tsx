@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
-import { HeroCards } from "./HeroCards";
+import { HeroCards } from "./hero-cards";
 import { CalendarIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 
@@ -48,7 +48,7 @@ export const Hero = () => {
               variant: "outline",
             })}`}
           >
-            Book
+            Book Demo
             <CalendarIcon className="ml-2 h-5 w-5" />
           </a>
         </div>
