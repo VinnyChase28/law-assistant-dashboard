@@ -13,7 +13,7 @@ import { Navbar } from "./marketing/components/navbar";
 import { getServerAuthSession } from "src/server/auth";
 import { Home, NewspaperIcon } from "lucide-react";
 import Link from "next/link";
-import { LawAssistantLogo } from "./_components/marketing/assets/LawAssistantLogo";
+import { LawAssistantLogo } from "./marketing/assets/LawAssistantLogo";
 
 export const metadata: Metadata = {
   title: "CodeX | Law Assistant AI",
