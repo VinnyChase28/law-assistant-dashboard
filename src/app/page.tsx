@@ -14,12 +14,15 @@ import { Sponsors } from "@/components/marketing/Sponsors";
 import { Team } from "@/components/marketing/Team";
 import { CaseStudies } from "@/components/marketing/CaseStudies";
 import Script from "next/script";
+
 function Home() {
   return (
     <>
-        <Hero />
+      <Hero />
       <Sponsors />
       <CaseStudies />
+      <HowItWorks />
+      <Pricing />
       <Cta />
       <Script
         src="//js-na1.hs-scripts.com/40814956.js" // Your HubSpot Script Source

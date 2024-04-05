@@ -13,13 +13,12 @@ export const Cta = () => {
             Unlock the Power of
             <span className="bg-gradient-to-b from-primary/60 to-primary bg-clip-text text-transparent">
               {" "}
-              AI-Driven Legal Assistance{" "}
+              AI-Driven Compliance{" "}
             </span>
           </h2>
           <p className="mb-8 mt-4 text-xl text-muted-foreground lg:mb-0">
-            Experience the future of legal services with our cutting-edge AI
-            technology. Book a demo today and witness how our platform can
-            revolutionize your legal workflow.
+            Experience the future of compliance. Book a demo today and learn how
+            our platform can revolutionize your compliance workflow.
           </p>
         </div>
 
@@ -27,7 +26,7 @@ export const Cta = () => {
           <a
             href="https://calendly.com/vince-gauthier/30min?month=2024-03"
             target="_blank"
-            className={`w-full md:w-1/3 ${buttonVariants({
+            className={`w-full md:w-2/3 ${buttonVariants({
               variant: "default",
             })}`}
           >
@@ -35,8 +34,7 @@ export const Cta = () => {
             <CalendarIcon className="ml-2 h-5 w-5" />
           </a>
           <p className="mt-4 text-center text-sm md:text-right">
-            Discover the benefits of AI-powered legal assistance tailored to
-            your needs.
+            Discover the benefits of AI-powered compliance
           </p>
         </div>
       </div>
