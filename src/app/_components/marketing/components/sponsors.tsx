@@ -37,3 +37,4 @@ export const Sponsors = () => {
     </section>
   );
 };
+
