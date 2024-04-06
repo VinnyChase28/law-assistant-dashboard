@@ -1,5 +1,6 @@
 import { createClient } from "contentful";
 import FeatureShowcase from "./feature-showcase";
+import HeroFeatures from "../hero/hero-features";
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID ?? "",
@@ -7,14 +8,14 @@ const client = createClient({
 });
 
 interface FeatureListProps {
-  navigationCategory: string;
+  title: string;
 }
 
-const FeatureList = async ({ navigationCategory }: FeatureListProps) => {
+const FeatureList = async ({ title }: FeatureListProps) => {
   try {
     const response = await client.getEntries({
       content_type: "navigationItem",
-      "fields.title": navigationCategory,
+      "fields.slug": title,
       include: 2,
     });
 
@@ -29,6 +30,15 @@ const FeatureList = async ({ navigationCategory }: FeatureListProps) => {
 
     return (
       <>
+        <HeroFeatures
+          title={navigationItem?.fields.title as string}
+          slug={navigationItem?.fields.slug as string}
+          description="Test"
+          imageSrc="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
+          imageAlt="Test"
+          primaryButtonText="Test"
+          primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
+        />
         {features.map((feature: any, index: number) => (
           <FeatureShowcase
             key={index}
