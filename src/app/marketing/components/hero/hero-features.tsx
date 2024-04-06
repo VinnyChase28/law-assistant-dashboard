@@ -5,8 +5,6 @@ interface HeroFeaturesProps {
   description: string;
   primaryButtonText: string;
   primaryButtonLink: string;
-  secondaryButtonText: string;
-  secondaryButtonLink: string;
   imageSrc: string;
   imageAlt: string;
 }
@@ -16,8 +14,6 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
   description,
   primaryButtonText,
   primaryButtonLink,
-  secondaryButtonText,
-  secondaryButtonLink,
   imageSrc,
   imageAlt,
 }) => {

@@ -60,8 +60,6 @@ export default function PlatformOverview() {
 "
         primaryButtonText="REQUEST A DEMO"
         primaryButtonLink="https://calendly.com/vince-gauthier/30min"
-        secondaryButtonText="Learn more"
-        secondaryButtonLink="/features"
         imageSrc="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
         imageAlt="Hero Features"
       />
