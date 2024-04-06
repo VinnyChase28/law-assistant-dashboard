@@ -12,7 +12,7 @@ const features: FeatureProps[] = [
     icon: <HeartPulse />,
     title: "Compliance Monitoring",
     description:
-      "We continuously scan a your data sources and regulatory databases in your jurisdiction to ensure the most up-to-date compliance docs are readily available.",
+      "We continuously scan your data sources and regulatory databases of your choice to ensure the most up-to-date compliance information is available to you.",
   },
 
   {

@@ -61,7 +61,7 @@ export default async function RootLayout({
             <TooltipProvider>
               {/* Main content */}
               {session ? (
-                <header className="flex w-full items-center justify-between px-4 px-4 py-2 shadow-md">
+                <header className="flex w-full items-center justify-between py-2 shadow-md">
                   <MainNavigation />
 
                   {/* This Link component for Home icon now has margin-left:auto to push everything to the right */}
