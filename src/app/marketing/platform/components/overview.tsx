@@ -59,7 +59,7 @@ export default function PlatformOverview() {
         description="Deploy, power, and optimize Contact Center Automation from a single platform.
 "
         primaryButtonText="REQUEST A DEMO"
-        primaryButtonLink="/demo"
+        primaryButtonLink="https://calendly.com/vince-gauthier/30min"
         secondaryButtonText="Learn more"
         secondaryButtonLink="/features"
         imageSrc="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
