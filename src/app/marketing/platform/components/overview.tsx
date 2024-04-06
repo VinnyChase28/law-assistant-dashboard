@@ -54,6 +54,17 @@ export default function PlatformOverview() {
 
   return (
     <>
+      <HeroFeatures
+        title="One conversation engine, infinite scale"
+        description="Deploy, power, and optimize Contact Center Automation from a single platform.
+"
+        primaryButtonText="REQUEST A DEMO"
+        primaryButtonLink="/demo"
+        secondaryButtonText="Learn more"
+        secondaryButtonLink="/features"
+        imageSrc="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
+        imageAlt="Hero Features"
+      />
       <Section
         id={1}
         title="Platform overview"
