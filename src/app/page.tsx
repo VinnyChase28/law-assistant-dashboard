@@ -5,7 +5,7 @@ import { Pricing } from "src/app/marketing/components/pricing";
 import { Sponsors } from "src/app/marketing/components/sponsors";
 import { Cta } from "src/app/marketing/components/cta";
 import { ScrollToTop } from "src/app/marketing/components/scroll-to-top";
-import { Hero } from "src/app/marketing/components/hero";
+import { Hero } from "./marketing/components/home-hero/hero";
 import Script from "next/script";
 
 //add seo

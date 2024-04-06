@@ -1,5 +1,3 @@
-// Photos from https://citizenofnowhe.re/lines-of-the-city
-
 "use client";
 import { useRef } from "react";
 import {
@@ -14,7 +12,15 @@ function useParallax(value: MotionValue<number>, distance: number) {
   return useTransform(value, [0, 1], [-distance, distance]);
 }
 
-function Image({ id }: { id: number }) {
+function Section({
+  id,
+  title,
+  description,
+}: {
+  id: number;
+  title: string;
+  description: string;
+}) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref });
   const y = useParallax(scrollYProgress, 300);
@@ -23,13 +29,10 @@ function Image({ id }: { id: number }) {
     <section className="perspective-[500px] relative flex h-screen snap-center items-center justify-center">
       <div
         ref={ref}
-        className="relative mx-5 h-[400px] max-h-[90vh] w-[300px] overflow-hidden bg-white"
+        className="relative mx-5 h-[400px] max-h-[90vh] w-[300px] overflow-hidden"
       >
-        <img
-          className="absolute bottom-0 left-0 right-0 top-0 h-full w-full"
-          src={`/${id}.jpg`}
-          alt="A London skyscraper"
-        />
+        <h2 className="text-4xl font-bold">{title}</h2>
+        <p className="mt-4">{description}</p>
       </div>
       <motion.h2
         className="absolute left-[calc(50%+130px)] m-0 text-7xl font-bold leading-tight tracking-tighter text-[var(--accent)]"
@@ -39,7 +42,7 @@ function Image({ id }: { id: number }) {
   );
 }
 
-export default function App() {
+export default function PlatformOverview() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -49,13 +52,30 @@ export default function App() {
 
   return (
     <>
-      {[1, 2, 3, 4, 5].map((image) => (
-        <Image key={image} id={image} />
-      ))}
+      <Section
+        id={1}
+        title="Platform overview"
+        description="One conversation engine, infinite scale. Deploy, power, and optimize Contact Center Automation from a single platform."
+      />
+      <Section
+        id={2}
+        title="Contact Center Automation"
+        description="Everything you need to automate your contact center in one platform."
+      />
+      <Section
+        id={3}
+        title="Out-of-the box and custom integrations"
+        description="Whether it's one of the industry-leading CCaaS platforms or a homegrown CRM, we seamlessly integrate to quickly deploy in weeks instead of months or years."
+      />
       <motion.div
         className="fixed bottom-24 left-0 right-0 h-[5px] bg-[var(--accent)]"
         style={{ scaleX }}
       />
+      <div className="fixed bottom-10 left-1/2 -translate-x-1/2 transform">
+        <button className="rounded-full bg-[var(--accent)] px-6 py-3 font-bold text-white">
+          REQUEST A DEMO
+        </button>
+      </div>
     </>
   );
 }
