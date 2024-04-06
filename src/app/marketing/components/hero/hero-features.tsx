@@ -18,8 +18,8 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
   imageAlt,
 }) => {
   return (
-    <section className="rounded shadow-lg shadow-[#6366F1]">
-      <div className="mx-auto grid max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
+    <section className="rounded shadow-lg shadow-black/10 dark:shadow-white/10">
+      <div className="mx-auto grid max-w-screen-xl px-8 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
         <div className="mr-auto place-self-center lg:col-span-7">
           <h1 className="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl xl:text-6xl">
             {title}
