@@ -9,7 +9,6 @@ import {
 } from "framer-motion";
 
 interface FeatureShowcaseProps {
-  id: number;
   title: string;
   description: string;
 }
@@ -19,7 +18,6 @@ function useParallax(value: MotionValue<number>, distance: number) {
 }
 
 const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
-  id,
   title,
   description,
 }) => {
@@ -39,7 +37,7 @@ const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
       <motion.h2
         className="absolute left-[calc(50%+130px)] m-0 text-7xl font-bold leading-tight tracking-tighter text-[var(--accent)]"
         style={{ y }}
-      >{`#00${id}`}</motion.h2>
+      >{`#00${1}`}</motion.h2>
     </section>
   );
 };
