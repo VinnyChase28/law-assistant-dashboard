@@ -8,6 +8,8 @@ import {
   MotionValue,
 } from "framer-motion";
 
+import HeroFeatures from "../../components/hero/hero-features";
+
 function useParallax(value: MotionValue<number>, distance: number) {
   return useTransform(value, [0, 1], [-distance, distance]);
 }

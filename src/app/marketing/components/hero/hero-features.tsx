@@ -45,3 +45,5 @@ const HeroFeatures = () => {
     </section>
   );
 };
+
+export default HeroFeatures;
