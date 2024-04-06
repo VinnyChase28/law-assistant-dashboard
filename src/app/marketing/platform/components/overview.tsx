@@ -58,7 +58,7 @@ export default function PlatformOverview() {
         title="One conversation engine, infinite scale"
         description="Deploy, power, and optimize Contact Center Automation from a single platform.
 "
-        primaryButtonText="REQUEST A DEMO"
+        primaryButtonText="Request a Demo"
         primaryButtonLink="https://calendly.com/vince-gauthier/30min"
         imageSrc="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
         imageAlt="Hero Features"
