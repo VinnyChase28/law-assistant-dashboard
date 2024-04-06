@@ -28,16 +28,20 @@ const FeatureList = async ({ title }: FeatureListProps) => {
     const navigationItem = response.items[0];
     const features: any = navigationItem?.fields.features;
 
+    console.log("imageSrc", navigationItem?.fields?.imageSrc);
     return (
       <>
         <HeroFeatures
           title={navigationItem?.fields.title as string}
           slug={navigationItem?.fields.slug as string}
-          description="Test"
-          imageSrc="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
-          imageAlt="Test"
-          primaryButtonText="Test"
-          primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
+          description={navigationItem?.fields.description as string}
+          imageSrc={
+            //@ts-expect-error contentful types are not correct
+            navigationItem?.fields?.imageSrc?.fields.file?.url as string
+          }
+          imageAlt={navigationItem?.fields.title as string}
+          primaryButtonText={navigationItem?.fields.button as string}
+          primaryButtonLink={navigationItem?.fields.link as string}
         />
         {features.map((feature: any, index: number) => (
           <FeatureShowcase
