@@ -43,6 +43,7 @@ const FeatureList = async ({ title }: FeatureListProps) => {
         {features.map((feature: any, index: number) => (
           <FeatureShowcase
             key={index}
+            index={index + 1}
             title={feature.title}
             description={feature.description}
           />

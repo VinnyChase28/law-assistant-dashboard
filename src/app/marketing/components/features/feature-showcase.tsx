@@ -11,6 +11,7 @@ import {
 interface FeatureShowcaseProps {
   title: string;
   description: string;
+  index: number;
 }
 
 function useParallax(value: MotionValue<number>, distance: number) {
@@ -20,6 +21,7 @@ function useParallax(value: MotionValue<number>, distance: number) {
 const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
   title,
   description,
+  index,
 }) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref });
@@ -37,7 +39,7 @@ const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
       <motion.h2
         className="absolute left-[calc(50%+130px)] m-0 text-7xl font-bold leading-tight tracking-tighter text-[var(--accent)]"
         style={{ y }}
-      >{`#00${1}`}</motion.h2>
+      >{`#00${index}`}</motion.h2>
     </section>
   );
 };

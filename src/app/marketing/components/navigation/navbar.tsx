@@ -17,7 +17,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
 import {
   UserIcon,
   Menu,
@@ -25,22 +24,14 @@ import {
   PenTool,
   HelpCircle,
   Phone,
-  CreditCard,
-  User,
   FileText,
-  Mic,
   Mail,
   Briefcase,
-  Send,
   Puzzle,
   Book,
   Megaphone,
   Play,
   DollarSign,
-  ShieldCheck,
-  Calculator,
-  Video,
-  Lock,
   Award,
   Eye,
   Search,
@@ -60,7 +51,7 @@ import { cn } from "@/lib/utils";
 const platformItems = [
   {
     title: "Overview",
-    href: "/platform/overview",
+    href: "/marketing/platform/overview",
     description: "AI-powered compliance assistance for all your needs",
     icon: PenTool,
   },
