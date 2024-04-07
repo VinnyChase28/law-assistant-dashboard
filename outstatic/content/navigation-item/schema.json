@@ -71,6 +71,13 @@
       "fieldType": "String",
       "dataType": "string",
       "title": "Feature Four"
+    },
+    "featureOneDescription": {
+      "required": false,
+      "description": "",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "featureOneDescription"
     }
   }
 }
