@@ -19,8 +19,6 @@ const FeatureList = async ({ title }: FeatureListProps) => {
       include: 2,
     });
 
-    console.log("response", response.items[0]);
-
     if (response.items.length === 0) {
       return null;
     }
@@ -28,12 +26,11 @@ const FeatureList = async ({ title }: FeatureListProps) => {
     const navigationItem = response.items[0];
     const features: any = navigationItem?.fields.features;
 
-    console.log("imageSrc", navigationItem?.fields?.imageSrc);
     return (
       <>
         <HeroFeatures
           title={navigationItem?.fields.title as string}
-          slug={navigationItem?.fields.slug as string}
+          headline={navigationItem?.fields.headline as string}
           description={navigationItem?.fields.description as string}
           imageSrc={
             //@ts-expect-error contentful types are not correct

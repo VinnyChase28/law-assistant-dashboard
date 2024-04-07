@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "src/app/_components/ui/separator";
+import { Calendar } from "lucide-react";
 interface HeroFeaturesProps {
   title: string;
-  slug: string;
+  headline: string;
   description: string;
   primaryButtonText: string;
   primaryButtonLink: string;
@@ -12,7 +13,7 @@ interface HeroFeaturesProps {
 
 const HeroFeatures: React.FC<HeroFeaturesProps> = ({
   title,
-  slug,
+  headline,
   description,
   primaryButtonText,
   primaryButtonLink,
@@ -23,9 +24,9 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
     <section>
       <div className="mx-auto grid max-w-screen-xl px-8 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
         <div className="mr-auto place-self-center lg:col-span-7">
-          <p>{slug}</p>
+          <p>{title}</p>
           <h1 className="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl xl:text-6xl">
-            {title}
+            {headline}
           </h1>
           <p className="mb-6 max-w-2xl text-lg font-normal text-gray-500 dark:text-gray-400 lg:mb-8">
             {description}
@@ -35,6 +36,7 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
               <a href={primaryButtonLink} target="_blank">
                 {primaryButtonText}
               </a>
+              <Calendar className="ml-2 h-5 w-5" />
             </Button>
           </div>
         </div>
