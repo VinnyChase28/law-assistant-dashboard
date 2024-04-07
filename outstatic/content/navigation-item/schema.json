@@ -22,6 +22,13 @@
       "fieldType": "String",
       "dataType": "string",
       "title": "Description"
+    },
+    "type": {
+      "required": true,
+      "description": "ie. platform (cetegory of nav items)",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Type"
     }
   }
 }
