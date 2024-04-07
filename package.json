@@ -54,7 +54,6 @@
     "clsx": "^2.0.0",
     "cmdk": "^1.0.0",
     "compromise": "^14.10.1",
-    "contentful": "^10.8.7",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.0.25",
     "inngest": "^3.16.1",

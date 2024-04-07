@@ -1,12 +1,8 @@
-import { createClient } from "contentful";
+// feature-list.tsx
+import { promises as fs } from "fs";
+import path from "path";
 import FeatureShowcase from "./feature-showcase";
 import HeroFeatures from "../hero/hero-features";
-
-
-const client = createClient({
-  space: process.env.CONTENTFUL_SPACE_ID ?? "",
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN ?? "",
-});
 
 interface FeatureListProps {
   title: string;
@@ -14,40 +10,53 @@ interface FeatureListProps {
 
 const FeatureList = async ({ title }: FeatureListProps) => {
   try {
-    const response = await client.getEntries({
-      content_type: "navigationItem",
-      "fields.slug": title,
-      include: 2,
-    });
-
-    if (response.items.length === 0) {
-      return null;
-    }
-
-    const navigationItem = response.items[0];
-    const features: any = navigationItem?.fields.features;
+    const filePath = path.join(
+      process.cwd(),
+      "outstatic",
+      "content",
+      "navigation-item",
+      "schema.json",
+    );
+    const fileContents = await fs.readFile(filePath, "utf8");
+    const navigationItem = JSON.parse(fileContents);
 
     return (
       <>
         <HeroFeatures
-          title={navigationItem?.fields.title as string}
-          headline={navigationItem?.fields.headline as string}
-          description={navigationItem?.fields.description as string}
-          primaryButtonText={navigationItem?.fields.button as string}
-          primaryButtonLink={navigationItem?.fields.link as string}
+          title={navigationItem.properties.title.title}
+          headline={navigationItem.properties.headline.title}
+          description={navigationItem.properties.description.title}
+          primaryButtonText={navigationItem.properties.button.title}
+          primaryButtonLink={navigationItem.properties.buttonLink.description}
         />
-        {features.map((feature: any, index: number) => (
+        {navigationItem.properties.featureOne.title && (
           <FeatureShowcase
-            key={index}
-            index={index}
-            title={feature.title}
-            description={feature.description}
+            index={0}
+            feature={navigationItem.properties.featureOne.title}
           />
-        ))}
+        )}
+        {navigationItem.properties.featureTwo.title && (
+          <FeatureShowcase
+            index={1}
+            feature={navigationItem.properties.featureTwo.title}
+          />
+        )}
+        {navigationItem.properties.featureThree.title && (
+          <FeatureShowcase
+            index={2}
+            feature={navigationItem.properties.featureThree.title}
+          />
+        )}
+        {navigationItem.properties.featureFour.title && (
+          <FeatureShowcase
+            index={3}
+            feature={navigationItem.properties.featureFour.title}
+          />
+        )}
       </>
     );
   } catch (error) {
-    console.error("Error fetching navigation item:", error);
+    console.error("Error reading navigation item schema:", error);
     return null;
   }
 };
