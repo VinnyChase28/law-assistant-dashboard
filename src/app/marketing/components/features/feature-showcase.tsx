@@ -1,12 +1,7 @@
 "use client";
 import { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useSpring,
-  useTransform,
-  MotionValue,
-} from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+
 
 interface FeatureShowcaseProps {
   title: string;
@@ -37,7 +32,7 @@ const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
         <p className="mt-4">{description}</p>
       </div>
       <motion.h2
-        className="absolute left-[calc(50%+130px)] m-0 text-7xl font-bold leading-tight tracking-tighter text-[var(--accent)]"
+        className="text-gra absolute left-[calc(50%+130px)] m-0 text-7xl font-bold leading-tight tracking-tighter text-[var(--accent)]"
         style={{ y }}
       >{`#00${index}`}</motion.h2>
     </section>

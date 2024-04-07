@@ -6,12 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "lucide-react";
 import particles from "/videos/particles.mp4";
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-
-const BackgroundVideo = dynamic(() => import("next-video/background-video"), {
-  ssr: false,
-  loading: () => null,
-});
+import BackgroundVideo from "next-video/background-video";
 
 interface HeroFeaturesProps {
   title: string;
@@ -19,8 +14,6 @@ interface HeroFeaturesProps {
   description: string;
   primaryButtonText: string;
   primaryButtonLink: string;
-  imageSrc: string;
-  imageAlt: string;
 }
 
 const HeroFeatures: React.FC<HeroFeaturesProps> = ({
@@ -37,7 +30,7 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
 
   const videoVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 2 } },
+    visible: { opacity: 1, transition: { duration: 1.5 } },
   };
   return (
     <motion.div initial="hidden" animate="visible" variants={videoVariants}>

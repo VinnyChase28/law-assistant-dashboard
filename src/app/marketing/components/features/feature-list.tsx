@@ -2,6 +2,7 @@ import { createClient } from "contentful";
 import FeatureShowcase from "./feature-showcase";
 import HeroFeatures from "../hero/hero-features";
 
+
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID ?? "",
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN ?? "",
@@ -32,18 +33,13 @@ const FeatureList = async ({ title }: FeatureListProps) => {
           title={navigationItem?.fields.title as string}
           headline={navigationItem?.fields.headline as string}
           description={navigationItem?.fields.description as string}
-          imageSrc={
-            //@ts-expect-error contentful types are not correct
-            navigationItem?.fields?.imageSrc?.fields.file?.url as string
-          }
-          imageAlt={navigationItem?.fields.title as string}
           primaryButtonText={navigationItem?.fields.button as string}
           primaryButtonLink={navigationItem?.fields.link as string}
         />
         {features.map((feature: any, index: number) => (
           <FeatureShowcase
             key={index}
-            index={index + 1}
+            index={index}
             title={feature.title}
             description={feature.description}
           />
