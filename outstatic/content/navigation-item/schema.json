@@ -1,0 +1,76 @@
+{
+  "title": "navigation-item",
+  "type": "object",
+  "properties": {
+    "title": {
+      "required": true,
+      "description": "the title ie. Platform Overview",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Title"
+    },
+    "headline": {
+      "required": true,
+      "description": "Ex: One compliance engine, infinite scale",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Headline"
+    },
+    "description": {
+      "required": true,
+      "description": "Launch, power, and refine Compliance Automation from a single platform.",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Description"
+    },
+    "type": {
+      "required": true,
+      "description": "ie. platform (cetegory of nav items)",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Type"
+    },
+    "button": {
+      "required": true,
+      "description": "ie. Request Demo",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Button"
+    },
+    "buttonLink": {
+      "required": true,
+      "description": "https://calendly.com/vince-gauthier/30min?month=2024-04",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Button Link"
+    },
+    "featureOne": {
+      "required": false,
+      "description": "",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Feature One"
+    },
+    "featureTwo": {
+      "required": false,
+      "description": "",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Feature Two"
+    },
+    "featureThree": {
+      "required": false,
+      "description": "",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Feature Three"
+    },
+    "featureFour": {
+      "required": false,
+      "description": "",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Feature Four"
+    }
+  }
+}
