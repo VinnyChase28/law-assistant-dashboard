@@ -1,6 +1,7 @@
 // feature-list.tsx
 import { promises as fs } from "fs";
 import path from "path";
+import matter from "gray-matter";
 import FeatureShowcase from "./feature-showcase";
 import HeroFeatures from "../hero/hero-features";
 
@@ -15,48 +16,38 @@ const FeatureList = async ({ title }: FeatureListProps) => {
       "outstatic",
       "content",
       "navigation-item",
-      "schema.json",
+      "test.md",
     );
     const fileContents = await fs.readFile(filePath, "utf8");
-    const navigationItem = JSON.parse(fileContents);
+
+    const { data: frontmatter } = matter(fileContents);
+    console.log(frontmatter);
 
     return (
       <>
         <HeroFeatures
-          title={navigationItem.properties.title.title}
-          headline={navigationItem.properties.headline.title}
-          description={navigationItem.properties.description.title}
-          primaryButtonText={navigationItem.properties.button.title}
-          primaryButtonLink={navigationItem.properties.buttonLink.description}
+          title={frontmatter.title}
+          headline={frontmatter.headline}
+          description={frontmatter.description}
+          primaryButtonText={frontmatter.button}
+          primaryButtonLink={frontmatter.buttonLink}
         />
-        {navigationItem.properties.featureOne.title && (
-          <FeatureShowcase
-            index={0}
-            feature={navigationItem.properties.featureOne.title}
-          />
+        {frontmatter.featureOne && (
+          <FeatureShowcase index={0} feature={frontmatter.featureOne} />
         )}
-        {navigationItem.properties.featureTwo.title && (
-          <FeatureShowcase
-            index={1}
-            feature={navigationItem.properties.featureTwo.title}
-          />
+        {frontmatter.featureTwo && (
+          <FeatureShowcase index={1} feature={frontmatter.featureTwo} />
         )}
-        {navigationItem.properties.featureThree.title && (
-          <FeatureShowcase
-            index={2}
-            feature={navigationItem.properties.featureThree.title}
-          />
+        {frontmatter.featureThree && (
+          <FeatureShowcase index={2} feature={frontmatter.featureThree} />
         )}
-        {navigationItem.properties.featureFour.title && (
-          <FeatureShowcase
-            index={3}
-            feature={navigationItem.properties.featureFour.title}
-          />
+        {frontmatter.featureFour && (
+          <FeatureShowcase index={3} feature={frontmatter.featureFour} />
         )}
       </>
     );
   } catch (error) {
-    console.error("Error reading navigation item schema:", error);
+    console.error("Error reading test.md file:", error);
     return null;
   }
 };
