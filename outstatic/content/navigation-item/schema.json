@@ -10,7 +10,7 @@
       "title": "Title"
     },
     "headline": {
-      "required": false,
+      "required": true,
       "description": "Ex: One compliance engine, infinite scale",
       "fieldType": "String",
       "dataType": "string",
