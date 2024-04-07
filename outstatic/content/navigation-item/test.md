@@ -1,6 +1,6 @@
 ---
 title: 'Test'
-status: 'draft'
+status: 'published'
 author:
   name: 'Vincent Gauthier'
   picture: 'https://avatars.githubusercontent.com/u/50678382?v=4'
