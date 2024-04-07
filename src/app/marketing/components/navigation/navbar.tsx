@@ -41,6 +41,13 @@ import {
   Calculator,
   Video,
   Lock,
+  Award,
+  Eye,
+  Search,
+  Folder,
+  BookOpen,
+  AlertTriangle,
+  Gift,
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { ModeToggle } from "../mode-toggle";
@@ -54,161 +61,122 @@ const platformItems = [
   {
     title: "Overview",
     href: "/platform/overview",
-    description: "One engine for all your support channels",
+    description: "AI-powered compliance assistance for all your needs",
     icon: PenTool,
   },
   {
     title: "How it Works",
     href: "/platform/how-it-works",
-    description: "Automation that works with your existing systems",
+    description: "Seamless integration with your existing systems",
     icon: HelpCircle,
   },
   {
-    title: "Why Replicant",
-    href: "/platform/why-replicant",
-    description: "The leader in Contact Center Automation",
-    icon: Phone,
+    title: "Why CodeX",
+    href: "/platform/why-codex",
+    description: "The leader in AI-powered compliance solutions",
+    icon: Award,
   },
   {
     title: "Integrations",
     href: "/platform/integrations",
-    description: "Explore our most common integrations",
+    description: "Explore our integrations with popular legal databases",
     icon: Puzzle,
   },
 ];
-
 const useCasesItems = [
   {
-    title: "Appointments & Scheduling",
-    href: "/use-cases/appointments-scheduling",
-    description: "",
-    icon: Calendar,
+    title: "Regulatory Monitoring",
+    href: "/use-cases/regulatory-monitoring",
+    description: "Stay up-to-date with the latest regulations",
+    icon: Eye,
   },
   {
-    title: "Dispatch Service Requests",
-    href: "/use-cases/dispatch-service-requests",
-    description: "",
-    icon: Send,
+    title: "Compliance Research",
+    href: "/use-cases/compliance-research",
+    description: "Find relevant compliance information quickly",
+    icon: Search,
   },
   {
-    title: "First Notice of Loss",
-    href: "/use-cases/first-notice-of-loss",
-    description: "",
+    title: "Compliance Reporting",
+    href: "/use-cases/compliance-reporting",
+    description: "Generate comprehensive compliance reports",
     icon: FileText,
   },
   {
-    title: "Frequently Asked Questions",
-    href: "/use-cases/faq",
-    description: "",
-    icon: HelpCircle,
+    title: "Policy Management",
+    href: "/use-cases/policy-management",
+    description: "Manage and distribute compliance policies effectively",
+    icon: Folder,
   },
   {
-    title: "Outbound Calling Reminders",
-    href: "/use-cases/outbound-calling-reminders",
-    description: "",
-    icon: Phone,
+    title: "Compliance Training",
+    href: "/use-cases/compliance-training",
+    description: "Deliver engaging compliance training to your team",
+    icon: BookOpen,
   },
   {
-    title: "Account & Order Management",
-    href: "/use-cases/account-order-management",
-    description: "",
-    icon: User,
-  },
-  {
-    title: "Authentication",
-    href: "/use-cases/authentication",
-    description: "",
-    icon: Lock,
-  },
-  {
-    title: "Billing & Payments",
-    href: "/use-cases/billing-payments",
-    description: "",
-    icon: CreditCard,
-  },
-  {
-    title: "Call Routing",
-    href: "/use-cases/call-routing",
-    description: "",
-    icon: Phone,
+    title: "Risk Assessment",
+    href: "/use-cases/risk-assessment",
+    description: "Identify and mitigate compliance risks proactively",
+    icon: AlertTriangle,
   },
 ];
-
 const resourcesItems = [
   {
-    title: "Dialed In Podcast",
-    href: "/resources/podcast",
-    description: "",
-    icon: Mic,
-  },
-  {
-    title: "Blog",
+    title: "Compliance Blog",
     href: "/resources/blog",
-    description: "",
+    description: "Insights and updates on compliance trends",
     icon: FileText,
   },
   {
-    title: "Guides & Reports",
-    href: "/resources/guides-reports",
-    description: "",
+    title: "Compliance Guides",
+    href: "/resources/guides",
+    description: "In-depth guides on key compliance topics",
     icon: Book,
   },
   {
-    title: "Events & Webinars",
+    title: "Webinars & Events",
     href: "/resources/events-webinars",
-    description: "",
+    description: "Learn from compliance experts online and in-person",
     icon: Calendar,
   },
   {
     title: "Case Studies",
     href: "/resources/case-studies",
-    description: "",
+    description: "See how CodeX helps organizations stay compliant",
     icon: FileText,
   },
   {
-    title: "Newsletter",
+    title: "Compliance Newsletter",
     href: "/resources/newsletter",
-    description: "",
+    description: "Get the latest compliance news delivered to your inbox",
     icon: Mail,
   },
 ];
-
 const getStartedItems = [
   {
-    title: "Interactive Demo",
-    href: "/get-started/demo",
-    description: "",
+    title: "Request a Demo",
+    href: "/get-started/request-demo",
+    description: "See CodeX in action with a personalized demo",
     icon: Play,
   },
   {
     title: "Pricing",
     href: "/get-started/pricing",
-    description: "",
+    description: "Choose the right plan for your compliance needs",
     icon: DollarSign,
   },
   {
-    title: "Money Back Guarantee",
-    href: "/get-started/guarantee",
-    description: "",
-    icon: ShieldCheck,
+    title: "Free Trial",
+    href: "/get-started/free-trial",
+    description: "Get started with CodeX risk-free",
+    icon: Gift,
   },
   {
-    title: "ROI Calculator",
-    href: "/get-started/roi-calculator",
-    description: "",
-    icon: Calculator,
-  },
-  {
-    title: "Talk to Sales",
-    href: "/get-started/sales",
-    description: "",
+    title: "Contact Sales",
+    href: "/get-started/contact-sales",
+    description: "Discuss your compliance needs with our experts",
     icon: Phone,
-  },
-  {
-    title: "Watch a Demo",
-    href: "/get-started/watch-demo",
-    description: "",
-    icon: Video,
   },
 ];
 
@@ -216,25 +184,25 @@ const companyItems = [
   {
     title: "About",
     href: "/company/about",
-    description: "",
+    description: "Learn about our mission and team",
     icon: Briefcase,
   },
   {
     title: "Careers",
     href: "/company/careers",
-    description: "",
+    description: "Join us in revolutionizing compliance with AI",
     icon: Briefcase,
   },
   {
     title: "Press",
     href: "/company/press",
-    description: "",
+    description: "Read the latest news and press releases about CodeX",
     icon: Megaphone,
   },
   {
     title: "Contact Us",
     href: "/company/contact",
-    description: "",
+    description: "Get in touch with our team",
     icon: Mail,
   },
 ];
@@ -331,36 +299,16 @@ export const Navbar = () => {
                         </NavigationMenuTrigger>
                         <NavigationMenuContent>
                           <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                            <ListItem
-                              title="Interactive Demo"
-                              href="/get-started/demo"
-                              icon={Play}
-                            />
-                            <ListItem
-                              title="Pricing"
-                              href="/get-started/pricing"
-                              icon={DollarSign}
-                            />
-                            <ListItem
-                              title="Money Back Guarantee"
-                              href="/get-started/guarantee"
-                              icon={ShieldCheck}
-                            />
-                            <ListItem
-                              title="ROI Calculator"
-                              href="/get-started/roi-calculator"
-                              icon={Calculator}
-                            />
-                            <ListItem
-                              title="Talk to Sales"
-                              href="/get-started/sales"
-                              icon={Phone}
-                            />
-                            <ListItem
-                              title="Watch a Demo"
-                              href="/get-started/watch-demo"
-                              icon={Video}
-                            />
+                            {getStartedItems.map((item) => (
+                              <ListItem
+                                key={item.title}
+                                title={item.title}
+                                href={item.href}
+                                icon={item.icon}
+                              >
+                                {item.description}
+                              </ListItem>
+                            ))}
                           </ul>
                         </NavigationMenuContent>
                       </NavigationMenuItem>
@@ -374,7 +322,6 @@ export const Navbar = () => {
                                 title={item.title}
                                 href={item.href}
                                 icon={item.icon}
-                                
                               >
                                 {item.description}
                               </ListItem>
@@ -444,11 +391,7 @@ export const Navbar = () => {
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuLink href="/customers">
-                    Customers
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
+
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Get Started</NavigationMenuTrigger>
                   <NavigationMenuContent>
