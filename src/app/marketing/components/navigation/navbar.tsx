@@ -8,7 +8,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "./navigation-menu";
 import {
   Sheet,
@@ -57,19 +56,19 @@ const platformItems = [
   },
   {
     title: "How it Works",
-    href: "/platform/how-it-works",
+    href: "/marketing/platform/how-it-works",
     description: "Seamless integration with your existing systems",
     icon: HelpCircle,
   },
   {
     title: "Why CodeX",
-    href: "/platform/why-codex",
+    href: "/marketing/platform/why-codex",
     description: "The leader in AI-powered compliance solutions",
     icon: Award,
   },
   {
     title: "Integrations",
-    href: "/platform/integrations",
+    href: "/marketing/platform/integrations",
     description: "Explore our integrations with popular legal databases",
     icon: Puzzle,
   },

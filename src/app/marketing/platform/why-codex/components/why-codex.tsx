@@ -1,9 +1,9 @@
 import FeatureList from "../../../components/features/feature-list";
 
-export default function Overview() {
+export default function WhyCodex() {
   return (
     <>
-      <FeatureList slug="how-it-works" />
+      <FeatureList slug="why-codex" />
     </>
   );
 }
