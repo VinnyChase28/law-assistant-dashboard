@@ -68,6 +68,7 @@
     "next-video": "^0.17.3",
     "next-videos": "^1.4.1",
     "openai-edge": "^1.2.2",
+    "outstatic": "^1.4.7",
     "pdf-parse": "^1.1.1",
     "puppeteer": "^19.7.2",
     "react": "18.2.0",
