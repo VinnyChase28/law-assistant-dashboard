@@ -15,6 +15,13 @@
       "fieldType": "String",
       "dataType": "string",
       "title": "Headline"
+    },
+    "description": {
+      "required": true,
+      "description": "Launch, power, and refine Compliance Automation from a single platform.",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Description"
     }
   }
 }
