@@ -9,8 +9,6 @@ interface FeatureListProps {
   title: string;
 }
 
-//this is jank and not generally typesafe. I just need a simple CMS soultion for now
-
 const FeatureList = async ({ title }: FeatureListProps) => {
   try {
     const filePath = path.join(
@@ -28,7 +26,8 @@ const FeatureList = async ({ title }: FeatureListProps) => {
       .map(([key, value]) => ({
         title: value,
         description: frontmatter[`${key}Description`],
-      }));
+      }))
+      .filter((feature) => feature.description !== undefined);
 
     return (
       <>
