@@ -8,6 +8,13 @@
       "fieldType": "String",
       "dataType": "string",
       "title": "Title"
+    },
+    "headline": {
+      "required": false,
+      "description": "Ex: One compliance engine, infinite scale",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Headline"
     }
   }
 }
