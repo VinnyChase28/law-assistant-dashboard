@@ -3,7 +3,8 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 
 interface FeatureShowcaseProps {
-  feature: string;
+  title: string;
+  description: string;
   index: number;
 }
 
@@ -12,7 +13,8 @@ function useParallax(value: MotionValue<number>, distance: number) {
 }
 
 const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
-  feature,
+  title,
+  description,
   index,
 }) => {
   const ref = useRef(null);
@@ -25,7 +27,8 @@ const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
         ref={ref}
         className="relative mx-5 h-[400px] max-h-[90vh] w-[300px] overflow-hidden"
       >
-        <h2 className="text-4xl font-bold">{feature}</h2>
+        <h2 className="text-4xl font-bold">{title}</h2>
+        <p className="mt-4">{description}</p>
       </div>
       <motion.h2
         className="text-gra absolute left-[calc(50%+130px)] m-0 text-7xl font-bold leading-tight tracking-tighter text-[var(--accent)]"

@@ -9,6 +9,8 @@ interface FeatureListProps {
   title: string;
 }
 
+//this is jank and not generally typesafe. I just need a simple CMS soultion for now
+
 const FeatureList = async ({ title }: FeatureListProps) => {
   try {
     const filePath = path.join(
@@ -19,9 +21,14 @@ const FeatureList = async ({ title }: FeatureListProps) => {
       "test.md",
     );
     const fileContents = await fs.readFile(filePath, "utf8");
-
     const { data: frontmatter } = matter(fileContents);
-    console.log(frontmatter);
+
+    const features = Object.entries(frontmatter)
+      .filter(([key]) => key.startsWith("feature"))
+      .map(([key, value]) => ({
+        title: value,
+        description: frontmatter[`${key}Description`],
+      }));
 
     return (
       <>
@@ -32,18 +39,14 @@ const FeatureList = async ({ title }: FeatureListProps) => {
           primaryButtonText={frontmatter.button}
           primaryButtonLink={frontmatter.buttonLink}
         />
-        {frontmatter.featureOne && (
-          <FeatureShowcase index={0} feature={frontmatter.featureOne} />
-        )}
-        {frontmatter.featureTwo && (
-          <FeatureShowcase index={1} feature={frontmatter.featureTwo} />
-        )}
-        {frontmatter.featureThree && (
-          <FeatureShowcase index={2} feature={frontmatter.featureThree} />
-        )}
-        {frontmatter.featureFour && (
-          <FeatureShowcase index={3} feature={frontmatter.featureFour} />
-        )}
+        {features.map((feature, index) => (
+          <FeatureShowcase
+            key={index}
+            index={index}
+            title={feature.title}
+            description={feature.description}
+          />
+        ))}
       </>
     );
   } catch (error) {
