@@ -40,9 +40,8 @@ export const HeroCards = () => {
 
         <CardContent className="pb-2 text-center">
           <p>
-            We love feedback. If you have any questions, comments or
-            suggestions, please feel free to reach out to us, or join the
-            conversation.
+            If you have any questions, comments or suggestions, please feel free
+            to reach out to us, or join the conversation.
           </p>
         </CardContent>
 

@@ -31,6 +31,7 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
   const [documentType, setDocumentType] = useState<DocumentType>(
     "REGULATORY_FRAMEWORK",
   );
+  
   const inputFileRef = useRef<HTMLInputElement>(null);
   const insertFileMetadata = api.file.insertFileMetadata.useMutation();
   const sendDocumentDataForProcessingToInngest =

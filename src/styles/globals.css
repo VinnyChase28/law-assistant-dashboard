@@ -207,3 +207,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+
+.full-page-section {
+  height: 100vh;
+}

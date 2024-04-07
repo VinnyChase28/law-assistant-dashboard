@@ -9,15 +9,20 @@ import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { MainNavigation } from "./_components/main-navigation";
 import { UserNav } from "./_components/user-nav";
-import { Navbar } from "./_components/marketing/Navbar";
+import Navbar from "./marketing/components/navigation/navbar";
 import { getServerAuthSession } from "src/server/auth";
 import { Home, NewspaperIcon } from "lucide-react";
 import Link from "next/link";
-import { LawAssistantLogo } from "./_components/marketing/assets/LawAssistantLogo";
+import { LawAssistantLogo } from "./marketing/assets/law-assistant-logo";
 
 export const metadata: Metadata = {
   title: "CodeX | Law Assistant AI",
   description: "CodeX Dashboard",
+  openGraph: {
+    title: "CodeX | Law Assistant AI",
+    description: "CodeX Dashboard",
+    type: "website",
+  },
 };
 
 const fontSans = FontSans({
@@ -56,7 +61,7 @@ export default async function RootLayout({
             <TooltipProvider>
               {/* Main content */}
               {session ? (
-                <header className="flex w-full items-center justify-between px-4 px-4 py-2 shadow-md">
+                <header className="flex w-full items-center justify-between py-2 shadow-md">
                   <MainNavigation />
 
                   {/* This Link component for Home icon now has margin-left:auto to push everything to the right */}

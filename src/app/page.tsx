@@ -1,38 +1,24 @@
 "use client";
-import { About } from "@/components/marketing/About";
-import { Cta } from "@/components/marketing/Cta";
-import { FAQ } from "@/components/marketing/FAQ";
-import { Features } from "@/components/marketing/Features";
-import { Footer } from "@/components/marketing/Footer";
-import { Hero } from "@/components/marketing/Hero";
-import { HowItWorks } from "@/components/marketing/HowItWorks";
-import { Newsletter } from "@/components/marketing/Newsletter";
-import { Pricing } from "@/components/marketing/Pricing";
-import { ScrollToTop } from "@/components/marketing/ScrollToTop";
-import { Services } from "@/components/marketing/Services";
-import { Sponsors } from "@/components/marketing/Sponsors";
-import { Team } from "@/components/marketing/Team";
-// import { Testimonials } from "@/components/marketing/Testimonials";
+import { CaseStudies } from "src/app/marketing/components/case-studies";
+import { HowItWorks } from "src/app/marketing/components/how-it-works";
+import { Pricing } from "src/app/marketing/components/pricing";
+import { Sponsors } from "src/app/marketing/components/sponsors";
+import { Cta } from "src/app/marketing/components/cta";
+import { ScrollToTop } from "src/app/marketing/components/scroll-to-top";
+import { Hero } from "./marketing/components/hero/hero-home";
 import Script from "next/script";
+
+//add seo
+
 function Home() {
   return (
     <>
       <Hero />
-      <Services />
-      <HowItWorks />
       <Sponsors />
+      <CaseStudies />
+      <HowItWorks />
       <Pricing />
-      {/* <Features /> */}
-      <About />
-
-      {/* <Cta /> */}
-      {/* <Testimonials /> */}
-      {/* <Team /> */}
-
-      {/* <Newsletter /> */}
-      {/* <FAQ /> */}
-      {/* <Footer /> */}
-      {/* HubSpot Chat Script */}
+      <Cta />
       <Script
         src="//js-na1.hs-scripts.com/40814956.js" // Your HubSpot Script Source
         id="hs-script-loader"

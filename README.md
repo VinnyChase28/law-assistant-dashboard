@@ -43,3 +43,41 @@ To get stripe running locally, use the following commands:
 2. Run `export $(grep -v '^#' .vercel/.env.production.local | xargs)` (this will use the prod creds). If you can do this, you're a trusted servant.
 3. npx prisma migrate deploy
 4. Close the the current terminal
+
+
+# Marketing site layout
+
+
+platform/
+- page.tsx
+- overview.tsx
+- why-lawassistant.tsx
+- how-it-works.tsx
+- integrations.tsx
+
+use-cases/
+- page.tsx
+- municipal-bylaws.tsx
+- real-estate-compliance.tsx
+- legal-research.tsx
+
+solutions/
+- page.tsx
+- municipalities.tsx
+- real-estate-firms.tsx
+- legal-professionals.tsx
+
+company/
+- page.tsx
+- about.tsx
+- careers.tsx
+- press.tsx
+- contact.tsx
+
+resources/
+- page.tsx
+- blog/
+-- page.tsx
+-- [slug].tsx
+- resource-library.tsx
+- faq.tsx
