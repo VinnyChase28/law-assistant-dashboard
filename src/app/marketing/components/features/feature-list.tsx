@@ -6,17 +6,17 @@ import FeatureShowcase from "./feature-showcase";
 import HeroFeatures from "../hero/hero-features";
 
 interface FeatureListProps {
-  title: string;
+  slug: string;
 }
 
-const FeatureList = async ({ title }: FeatureListProps) => {
+const FeatureList = async ({ slug }: FeatureListProps) => {
   try {
     const filePath = path.join(
       process.cwd(),
       "outstatic",
       "content",
       "navigation-item",
-      "test.md",
+      `${slug}.md`,
     );
     const fileContents = await fs.readFile(filePath, "utf8");
     const { data: frontmatter } = matter(fileContents);
