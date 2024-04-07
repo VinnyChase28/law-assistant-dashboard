@@ -1,5 +1,5 @@
 ---
-title: 'Test'
+title: 'Platform Overview'
 status: 'published'
 author:
   name: 'Vincent Gauthier'
