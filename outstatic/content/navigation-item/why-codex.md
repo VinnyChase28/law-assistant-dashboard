@@ -7,7 +7,7 @@ author:
 slug: 'why-codex'
 description: 'Discover the key advantages that set CodeX apart as the leading AI-powered compliance automation platform.'
 coverImage: ''
-headline: 'Expertise, cutting-edge technology, customization, and exceptional support'
+headline: 'The leader in Compliance Automation'
 type: 'platform'
 button: 'Request Demo'
 buttonLink: 'https://calendly.com/vince-gauthier/30min?month=2024-04'
