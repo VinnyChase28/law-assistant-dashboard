@@ -25,7 +25,7 @@ export const Hero = () => {
 
         <p className="mx-auto text-xl text-muted-foreground md:w-10/12 lg:mx-0">
           Harness the power of Generative AI with a Compliance Automation
-          platform that ensures regulatory compliance for the world's top
+          platform that ensures regulatory compliance for the world&apos;s top
           businesses.
         </p>
 

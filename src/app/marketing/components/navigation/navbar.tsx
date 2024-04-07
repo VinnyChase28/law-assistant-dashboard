@@ -198,7 +198,7 @@ const companyItems = [
   },
 ];
 
-export const Navbar = () => {
+const Navbar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { deleteAll } = useCheckedRowsStore();
@@ -457,6 +457,8 @@ export const Navbar = () => {
     </header>
   );
 };
+
+export default Navbar;
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
