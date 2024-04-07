@@ -1,0 +1,13 @@
+{
+  "title": "navigation-item",
+  "type": "object",
+  "properties": {
+    "title": {
+      "required": false,
+      "description": "the title ie. Platform Overview",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Title"
+    }
+  }
+}
