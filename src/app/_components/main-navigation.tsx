@@ -16,6 +16,7 @@ import {
 
 import { ModeToggle } from "@/components/dark-mode-toggle";
 import { api } from "src/trpc/react";
+
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Profile",
@@ -91,14 +92,14 @@ export function MainNavigation() {
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="Introduction">
-                Re-usable components built using Radix UI and Tailwind CSS.
+              <ListItem href="/help/documents" title="Installation">
+                Managing documents
               </ListItem>
-              <ListItem href="/docs/installation" title="Installation">
-                How to install dependencies and structure your app.
+              <ListItem href="/help/get-started" title="Introduction">
+                Getting started with the platform
               </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Typography">
-                Styles for headings, paragraphs, lists...etc
+              <ListItem href="/docs/primitives/prompts" title="Typography">
+                Useful prompts and tips
               </ListItem>
             </ul>
           </NavigationMenuContent>

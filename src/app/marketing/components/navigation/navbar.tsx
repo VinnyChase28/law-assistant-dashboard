@@ -17,9 +17,32 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { UserIcon } from "lucide-react";
+
+import {
+  UserIcon,
+  Menu,
+  Calendar,
+  PenTool,
+  HelpCircle,
+  Phone,
+  CreditCard,
+  User,
+  FileText,
+  Mic,
+  Mail,
+  Briefcase,
+  Send,
+  Puzzle,
+  Book,
+  Megaphone,
+  Play,
+  DollarSign,
+  ShieldCheck,
+  Calculator,
+  Video,
+  Lock,
+} from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
-import { Menu } from "lucide-react";
 import { ModeToggle } from "../mode-toggle";
 import { usePathname } from "next/navigation";
 import { LawAssistantLogo } from "../../assets/law-assistant-logo";
@@ -31,114 +54,188 @@ const platformItems = [
   {
     title: "Overview",
     href: "/platform/overview",
-    description: "Learn about our platform and its capabilities.",
+    description: "One engine for all your support channels",
+    icon: PenTool,
   },
   {
-    title: "Features",
-    href: "/platform/features",
-    description: "Explore the key features of our platform.",
+    title: "How it Works",
+    href: "/platform/how-it-works",
+    description: "Automation that works with your existing systems",
+    icon: HelpCircle,
+  },
+  {
+    title: "Why Replicant",
+    href: "/platform/why-replicant",
+    description: "The leader in Contact Center Automation",
+    icon: Phone,
   },
   {
     title: "Integrations",
     href: "/platform/integrations",
-    description: "Discover how our platform integrates with other tools.",
-  },
-  {
-    title: "Pricing",
-    href: "/platform/pricing",
-    description: "Find the right pricing plan for your needs.",
+    description: "Explore our most common integrations",
+    icon: Puzzle,
   },
 ];
 
-const solutionsItems = [
+const useCasesItems = [
   {
-    title: "Use Case 1",
-    href: "/solutions/use-case-1",
-    description: "Learn how our platform solves specific use case 1.",
+    title: "Appointments & Scheduling",
+    href: "/use-cases/appointments-scheduling",
+    description: "",
+    icon: Calendar,
   },
   {
-    title: "Use Case 2",
-    href: "/solutions/use-case-2",
-    description: "Discover how our platform addresses use case 2.",
+    title: "Dispatch Service Requests",
+    href: "/use-cases/dispatch-service-requests",
+    description: "",
+    icon: Send,
   },
   {
-    title: "Use Case 3",
-    href: "/solutions/use-case-3",
-    description: "Explore how our platform handles use case 3.",
+    title: "First Notice of Loss",
+    href: "/use-cases/first-notice-of-loss",
+    description: "",
+    icon: FileText,
   },
   {
-    title: "Custom Solutions",
-    href: "/solutions/custom",
-    description: "Learn about our custom solution offerings.",
-  },
-];
-
-const customersItems = [
-  {
-    title: "Case Studies",
-    href: "/customers/case-studies",
-    description: "Read success stories from our customers.",
+    title: "Frequently Asked Questions",
+    href: "/use-cases/faq",
+    description: "",
+    icon: HelpCircle,
   },
   {
-    title: "Testimonials",
-    href: "/customers/testimonials",
-    description: "See what our customers are saying about us.",
+    title: "Outbound Calling Reminders",
+    href: "/use-cases/outbound-calling-reminders",
+    description: "",
+    icon: Phone,
   },
   {
-    title: "Customer Support",
-    href: "/customers/support",
-    description: "Get help and support for your account.",
+    title: "Account & Order Management",
+    href: "/use-cases/account-order-management",
+    description: "",
+    icon: User,
   },
   {
-    title: "FAQ",
-    href: "/customers/faq",
-    description: "Find answers to frequently asked questions.",
+    title: "Authentication",
+    href: "/use-cases/authentication",
+    description: "",
+    icon: Lock,
+  },
+  {
+    title: "Billing & Payments",
+    href: "/use-cases/billing-payments",
+    description: "",
+    icon: CreditCard,
+  },
+  {
+    title: "Call Routing",
+    href: "/use-cases/call-routing",
+    description: "",
+    icon: Phone,
   },
 ];
 
 const resourcesItems = [
   {
+    title: "Dialed In Podcast",
+    href: "/resources/podcast",
+    description: "",
+    icon: Mic,
+  },
+  {
     title: "Blog",
     href: "/resources/blog",
-    description: "Read our latest blog posts and articles.",
+    description: "",
+    icon: FileText,
   },
   {
-    title: "Guides",
-    href: "/resources/guides",
-    description: "Explore our guides and tutorials.",
+    title: "Guides & Reports",
+    href: "/resources/guides-reports",
+    description: "",
+    icon: Book,
   },
   {
-    title: "Documentation",
-    href: "/resources/docs",
-    description: "Access our comprehensive documentation.",
+    title: "Events & Webinars",
+    href: "/resources/events-webinars",
+    description: "",
+    icon: Calendar,
   },
   {
-    title: "API Reference",
-    href: "/resources/api",
-    description: "Learn how to integrate with our API.",
+    title: "Case Studies",
+    href: "/resources/case-studies",
+    description: "",
+    icon: FileText,
+  },
+  {
+    title: "Newsletter",
+    href: "/resources/newsletter",
+    description: "",
+    icon: Mail,
+  },
+];
+
+const getStartedItems = [
+  {
+    title: "Interactive Demo",
+    href: "/get-started/demo",
+    description: "",
+    icon: Play,
+  },
+  {
+    title: "Pricing",
+    href: "/get-started/pricing",
+    description: "",
+    icon: DollarSign,
+  },
+  {
+    title: "Money Back Guarantee",
+    href: "/get-started/guarantee",
+    description: "",
+    icon: ShieldCheck,
+  },
+  {
+    title: "ROI Calculator",
+    href: "/get-started/roi-calculator",
+    description: "",
+    icon: Calculator,
+  },
+  {
+    title: "Talk to Sales",
+    href: "/get-started/sales",
+    description: "",
+    icon: Phone,
+  },
+  {
+    title: "Watch a Demo",
+    href: "/get-started/watch-demo",
+    description: "",
+    icon: Video,
   },
 ];
 
 const companyItems = [
   {
-    title: "About Us",
+    title: "About",
     href: "/company/about",
-    description: "Learn about our company and mission.",
+    description: "",
+    icon: Briefcase,
   },
   {
     title: "Careers",
     href: "/company/careers",
-    description: "Explore job opportunities at our company.",
+    description: "",
+    icon: Briefcase,
   },
   {
     title: "Press",
     href: "/company/press",
-    description: "Read our latest press releases and media coverage.",
+    description: "",
+    icon: Megaphone,
   },
   {
     title: "Contact Us",
     href: "/company/contact",
-    description: "Get in touch with our team.",
+    description: "",
+    icon: Mail,
   },
 ];
 
@@ -192,12 +289,13 @@ export const Navbar = () => {
                       <NavigationMenuItem>
                         <NavigationMenuTrigger>Platform</NavigationMenuTrigger>
                         <NavigationMenuContent>
-                          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px]">
                             {platformItems.map((item) => (
                               <ListItem
                                 key={item.title}
                                 title={item.title}
                                 href={item.href}
+                                icon={item.icon}
                               >
                                 {item.description}
                               </ListItem>
@@ -206,14 +304,15 @@ export const Navbar = () => {
                         </NavigationMenuContent>
                       </NavigationMenuItem>
                       <NavigationMenuItem>
-                        <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
+                        <NavigationMenuTrigger>Use Cases</NavigationMenuTrigger>
                         <NavigationMenuContent>
                           <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                            {solutionsItems.map((item) => (
+                            {useCasesItems.map((item) => (
                               <ListItem
                                 key={item.title}
                                 title={item.title}
                                 href={item.href}
+                                icon={item.icon}
                               >
                                 {item.description}
                               </ListItem>
@@ -222,28 +321,48 @@ export const Navbar = () => {
                         </NavigationMenuContent>
                       </NavigationMenuItem>
                       <NavigationMenuItem>
-                        <NavigationMenuTrigger>Customers</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                            {customersItems.map((item) => (
-                              <ListItem
-                                key={item.title}
-                                title={item.title}
-                                href={item.href}
-                              >
-                                {item.description}
-                              </ListItem>
-                            ))}
-                          </ul>
-                        </NavigationMenuContent>
-                      </NavigationMenuItem>
-                      <NavigationMenuItem>
-                        <NavigationMenuLink
-                          href="/auth/sign-in"
-                          className={navigationMenuTriggerStyle()}
-                        >
-                          Get Started
+                        <NavigationMenuLink href="/customers">
+                          Customers
                         </NavigationMenuLink>
+                      </NavigationMenuItem>
+                      <NavigationMenuItem>
+                        <NavigationMenuTrigger>
+                          Get Started
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                            <ListItem
+                              title="Interactive Demo"
+                              href="/get-started/demo"
+                              icon={Play}
+                            />
+                            <ListItem
+                              title="Pricing"
+                              href="/get-started/pricing"
+                              icon={DollarSign}
+                            />
+                            <ListItem
+                              title="Money Back Guarantee"
+                              href="/get-started/guarantee"
+                              icon={ShieldCheck}
+                            />
+                            <ListItem
+                              title="ROI Calculator"
+                              href="/get-started/roi-calculator"
+                              icon={Calculator}
+                            />
+                            <ListItem
+                              title="Talk to Sales"
+                              href="/get-started/sales"
+                              icon={Phone}
+                            />
+                            <ListItem
+                              title="Watch a Demo"
+                              href="/get-started/watch-demo"
+                              icon={Video}
+                            />
+                          </ul>
+                        </NavigationMenuContent>
                       </NavigationMenuItem>
                       <NavigationMenuItem>
                         <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
@@ -254,6 +373,8 @@ export const Navbar = () => {
                                 key={item.title}
                                 title={item.title}
                                 href={item.href}
+                                icon={item.icon}
+                                
                               >
                                 {item.description}
                               </ListItem>
@@ -270,6 +391,7 @@ export const Navbar = () => {
                                 key={item.title}
                                 title={item.title}
                                 href={item.href}
+                                icon={item.icon}
                               >
                                 {item.description}
                               </ListItem>
@@ -297,6 +419,7 @@ export const Navbar = () => {
                           key={item.title}
                           title={item.title}
                           href={item.href}
+                          icon={item.icon}
                         >
                           {item.description}
                         </ListItem>
@@ -305,14 +428,15 @@ export const Navbar = () => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>Use Cases</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {solutionsItems.map((item) => (
+                      {useCasesItems.map((item) => (
                         <ListItem
                           key={item.title}
                           title={item.title}
                           href={item.href}
+                          icon={item.icon}
                         >
                           {item.description}
                         </ListItem>
@@ -321,28 +445,26 @@ export const Navbar = () => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Customers</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {customersItems.map((item) => (
-                        <ListItem
-                          key={item.title}
-                          title={item.title}
-                          href={item.href}
-                        >
-                          {item.description}
-                        </ListItem>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuLink
-                    href="/auth/sign-in"
-                    className={navigationMenuTriggerStyle()}
-                  >
-                    Get Started
+                  <NavigationMenuLink href="/customers">
+                    Customers
                   </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>Get Started</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      {getStartedItems.map((item) => (
+                        <ListItem
+                          key={item.title}
+                          title={item.title}
+                          href={item.href}
+                          icon={item.icon}
+                        >
+                          {item.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
@@ -353,6 +475,7 @@ export const Navbar = () => {
                           key={item.title}
                           title={item.title}
                           href={item.href}
+                          icon={item.icon}
                         >
                           {item.description}
                         </ListItem>
@@ -369,6 +492,7 @@ export const Navbar = () => {
                           key={item.title}
                           title={item.title}
                           href={item.href}
+                          icon={item.icon}
                         >
                           {item.description}
                         </ListItem>
@@ -402,8 +526,8 @@ export const Navbar = () => {
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
+  React.ComponentPropsWithoutRef<"a"> & { icon: React.ElementType }
+>(({ className, title, children, icon: Icon, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -415,7 +539,10 @@ const ListItem = React.forwardRef<
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
+          <div className="flex items-center space-x-2">
+            <Icon className="h-4 w-4" />
+            <div className="text-sm font-medium leading-none">{title}</div>
+          </div>
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
@@ -424,4 +551,3 @@ const ListItem = React.forwardRef<
     </li>
   );
 });
-ListItem.displayName = "ListItem";
