@@ -26,10 +26,6 @@ To get stripe running locally, use the following commands:
 
 `npm i && npm run dev`
 
-"Error: Invalid URL: undefined/dashboard?session_id={CHECKOUT_SESSION_ID}. URLs must begin with http or https.
-    at StripeError.generate (webpack-internal:///(rsc)/./node_modules/stripe/esm/Error.js:23:20)
-    at res.toJSON.then._Error_js__WEBPACK_IMPORTED_MODULE_0__.StripeAPIError.message (webpack-internal:///(rsc)/./node_modules/stripe/esm/RequestSender.js:109:82)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)"
     
 ## Prisma
 
