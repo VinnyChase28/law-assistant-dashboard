@@ -1,6 +1,6 @@
 {
   "commit": "23abadeee7b52300ffd4252aaa679f85d16a785a",
-  "generated": "2024-04-08T02:37:28.783Z",
+  "generated": "2024-04-08T02:44:13.661Z",
   "metadata": [
     {
       "__outstatic": {
@@ -125,7 +125,7 @@
     {
       "__outstatic": {
         "commit": "23abadeee7b52300ffd4252aaa679f85d16a785a",
-        "hash": "4211305450",
+        "hash": "87862200",
         "path": "outstatic/content/blog/why-we-launched-codex-lawassistant-ai.md"
       },
       "author": {
