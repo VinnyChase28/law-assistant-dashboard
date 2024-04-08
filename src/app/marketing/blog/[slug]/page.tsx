@@ -37,7 +37,7 @@ export default async function BlogPostPage({
               ? new Date(post.publishedAt).toLocaleDateString()
               : "N/A"}
           </div>
-          <Markdown markdownText={post?.content || ""} />
+          <Markdown markdownText={post?.content ?? ""} />
         </article>
       </div>
     </BlogAnimations>
