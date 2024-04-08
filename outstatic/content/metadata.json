@@ -1,0 +1,144 @@
+{
+  "commit": "8f4bd1e0f951e6885297a8a89dc96e50cd31bc6b",
+  "generated": "Mon, 08 Apr 2024 01:39:47 GMT",
+  "metadata": [
+    {
+      "__outstatic": {
+        "commit": "39495f48c4606b8b48d39d33843168fbbc920076",
+        "hash": "236269662",
+        "path": "outstatic/content/blog/why-we-launched-codex-lawassistant-ai.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-08T00:14:57.541Z",
+      "slug": "why-we-launched-codex-lawassistant-ai",
+      "status": "published",
+      "title": "Why we launched Codex | LawAssistant AI"
+    },
+    {
+      "__outstatic": {
+        "commit": "533b61b7c2ad489ab1514d3fbc70f06341b406ad",
+        "hash": "1119919781",
+        "path": "outstatic/content/navigation-item/why-codex.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "button": "Request Demo",
+      "buttonLink": "https://calendly.com/vince-gauthier/30min?month=2024-04",
+      "collection": "navigation-item",
+      "coverImage": "",
+      "description": "Discover the key advantages that set CodeX apart as the leading AI-powered compliance automation platform.",
+      "featureFour": "Exceptional Support",
+      "featureFourDescription": "We pride ourselves on providing exceptional customer support. Our dedicated team is always ready to assist you, ensuring a smooth and successful implementation of CodeX in your organization.",
+      "featureOne": "Expertise and Experience",
+      "featureOneDescription": "With years of experience in the compliance industry, our team of experts has developed a platform that addresses the unique challenges faced by businesses. Trust in our deep understanding of compliance complexities.",
+      "featureThree": "Customizable and Scalable",
+      "featureThreeDescription": "Our platform is designed to adapt to your organization's specific requirements. Whether you're a small business or a large enterprise, CodeX can scale to meet your compliance needs.",
+      "featureTwo": "Cutting-Edge Technology",
+      "featureTwoDescription": "CodeX leverages the latest advancements in Generative AI to deliver unparalleled accuracy and efficiency in compliance automation. Stay ahead of the curve with our innovative solutions.",
+      "headline": "The leader in Compliance Automation",
+      "publishedAt": "2024-04-07T22:45:38.320Z",
+      "slug": "why-codex",
+      "status": "published",
+      "title": "Why CodeX",
+      "type": "platform"
+    },
+    {
+      "__outstatic": {
+        "commit": "6d553c55985c6cf087a59aab26e41bf677b4dcaf",
+        "hash": "363734047",
+        "path": "outstatic/content/navigation-item/overview.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "button": "Request Demo",
+      "buttonLink": "Https://calendly.com/vince-gauthier/30min?month=2024-04",
+      "collection": "navigation-item",
+      "coverImage": "",
+      "description": "Launch, power, and refine Compliance Automation from a single platform.",
+      "featureFour": "Out-of-the box and custom integrations",
+      "featureFourDescription": "Wether its an existing CRM or knowledge base, we seamlessly integrate to virtually any public and private legal database.",
+      "featureOne": "Find and prevent compliance issues",
+      "featureOneDescription": "Find compliance issues, and prevent them before they happen with our GenAI-powered platform.",
+      "featureThree": "Self-service tools",
+      "featureThreeDescription": "Add a chat to your website to give visitors answers to compliance questions, rather than information.",
+      "featureTwo": "A real-time analytics dashboard",
+      "featureTwoDescription": "Get visibility into compliance trends and analyze insights from chats, FAQ's, reports and more.",
+      "headline": "One compliance engine, infinite scale",
+      "publishedAt": "2024-04-07T18:35:36.813Z",
+      "slug": "overview",
+      "status": "published",
+      "title": "Platform Overview",
+      "type": "platform "
+    },
+    {
+      "__outstatic": {
+        "commit": "ac3436b0ed661510272fe15c54e0f226c42b0ede",
+        "hash": "3079508579",
+        "path": "outstatic/content/navigation-item/integrations.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "button": "View Integrations",
+      "buttonLink": "/platform/integrations",
+      "collection": "navigation-item",
+      "coverImage": "",
+      "description": "Explore how CodeX integrates with popular legal databases, document management systems, collaboration tools, and more to enhance your compliance workflow.",
+      "featureFour": "Custom Integrations",
+      "featureFourDescription": "We understand that every organization has unique needs. Our team can work with you to develop custom integrations, ensuring CodeX fits perfectly into your existing technology stack.",
+      "featureOne": "Legal Databases",
+      "featureOneDescription": "CodeX seamlessly integrates with popular legal databases, giving you access to a vast repository of compliance information. Stay informed and up-to-date with the latest regulations and guidelines.",
+      "featureThree": "Collaboration Tools",
+      "featureThreeDescription": "Enhance collaboration among your compliance team by integrating CodeX with your preferred communication and project management tools. Foster a culture of compliance through seamless collaboration.",
+      "featureTwo": "Document Management System",
+      "featureTwoDescription": "Streamline your compliance document management by integrating CodeX with your existing systems. Ensure all your compliance-related documents are organized, secure, and easily accessible.",
+      "headline": "Connect CodeX with your existing tools and databases",
+      "publishedAt": "2024-04-07T23:05:17.861Z",
+      "slug": "integrations",
+      "status": "published",
+      "title": "Integrations",
+      "type": "platform"
+    },
+    {
+      "__outstatic": {
+        "commit": "1fa49b510d59aea43fa7ca004f16cf5eb1e8a75a",
+        "hash": "394859253",
+        "path": "outstatic/content/navigation-item/how-it-works.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "button": "Request Demo",
+      "buttonLink": "https://calendly.com/vince-gauthier/30min?month=2024-04",
+      "collection": "navigation-item",
+      "coverImage": "",
+      "description": "Automation that enhances your existing processes",
+      "featureFour": "Comprehensive Reporting",
+      "featureFourDescription": "Generate detailed compliance reports tailored to your organization's needs. CodeX provides a clear overview of your compliance status, highlighting potential issues and areas for improvement.",
+      "featureOne": "Seamless Integration",
+      "featureOneDescription": "Integrate CodeX with your existing systems and workflows effortlessly. Our platform is designed to work alongside your current tools, ensuring a smooth transition to AI-powered compliance.",
+      "featureThree": "Intelligent Retrieval",
+      "featureThreeDescription": "Our advanced AI algorithms enable you and your website visitors to find specific compliance information, guidelines, and legal interpretations instantly. Save time and resources with our intelligent search capabilities.",
+      "featureTwo": "Continuous Monitoring",
+      "featureTwoDescription": "CodeX continuously scans your data sources and regulatory databases, keeping you up-to-date with the latest compliance information. Stay ahead of potential issues and maintain a proactive approach to compliance.",
+      "headline": "Unlock a better compliance workflow",
+      "publishedAt": "2024-04-07T22:27:54.341Z",
+      "slug": "how-it-works",
+      "status": "published",
+      "title": "How it Works",
+      "type": "platform"
+    }
+  ]
+}
