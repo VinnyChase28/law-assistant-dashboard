@@ -113,8 +113,8 @@ const useCasesItems = [
 ];
 const resourcesItems = [
   {
-    title: "Compliance Blog",
-    href: "/resources/blog",
+    title: "Blog",
+    href: "/marketing/blog",
     description: "Insights and updates on compliance trends",
     icon: FileText,
   },
