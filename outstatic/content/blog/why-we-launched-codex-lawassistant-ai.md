@@ -6,7 +6,7 @@ author:
   picture: 'https://avatars.githubusercontent.com/u/50678382?v=4'
 slug: 'why-we-launched-codex-lawassistant-ai'
 description: ''
-coverImage: ''
+coverImage: '/images/compliance-blog-M4ND.jpg'
 publishedAt: '2024-04-08T00:14:57.541Z'
 ---
 

@@ -1,6 +1,6 @@
 {
-  "commit": "23abadeee7b52300ffd4252aaa679f85d16a785a",
-  "generated": "2024-04-08T02:44:13.661Z",
+  "commit": "78429247833fdcd6ed3551cd8dc477179bf735f0",
+  "generated": "2024-04-08T02:55:57.980Z",
   "metadata": [
     {
       "__outstatic": {
@@ -124,8 +124,8 @@
     },
     {
       "__outstatic": {
-        "commit": "23abadeee7b52300ffd4252aaa679f85d16a785a",
-        "hash": "87862200",
+        "commit": "78429247833fdcd6ed3551cd8dc477179bf735f0",
+        "hash": "3163284498",
         "path": "outstatic/content/blog/why-we-launched-codex-lawassistant-ai.md"
       },
       "author": {
@@ -133,7 +133,7 @@
         "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
       },
       "collection": "blog",
-      "coverImage": "",
+      "coverImage": "/images/compliance-blog-M4ND.jpg",
       "description": "",
       "publishedAt": "2024-04-08T00:14:57.541Z",
       "slug": "why-we-launched-codex-lawassistant-ai",
