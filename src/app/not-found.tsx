@@ -11,7 +11,7 @@ export default function NotFound() {
         </div>
 
         <p className="mt-4 text-xl text-gray-600">
-          We're still building this page
+          We&apos;re still building this page
         </p>
         <p className="mt-2 text-gray-500">Check back later!</p>
       </div>

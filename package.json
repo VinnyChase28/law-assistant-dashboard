@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "postbuild": "next-sitemap",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "dev": "next dev & npx next-video sync -w",
@@ -63,6 +64,7 @@
     "micro": "^10.0.1",
     "next": "^14.0.3",
     "next-auth": "^4.24.5",
+    "next-sitemap": "^4.2.3",
     "next-themes": "^0.3.0",
     "next-video": "^0.17.3",
     "next-videos": "^1.4.1",
