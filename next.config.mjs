@@ -18,6 +18,7 @@ const config = {
 
     return config;
   },
+  transpilePackages: ["lucide-react"], // add this
 };
 
 export default withNextVideo(config);
