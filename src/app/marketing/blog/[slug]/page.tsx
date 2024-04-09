@@ -9,14 +9,6 @@ export default async function BlogPostPage({
   params: { slug: string };
 }) {
   console.log(`Fetching blog post with slug: ${params.slug}`);
-  const post = await getDocumentBySlug("blog", params.slug, [
-    "title",
-    "content",
-    "publishedAt",
-    "coverImage",
-  ]);
-
-  console.log("Fetched post:", post);
 
   try {
     const post = await getDocumentBySlug("blog", params.slug, [
