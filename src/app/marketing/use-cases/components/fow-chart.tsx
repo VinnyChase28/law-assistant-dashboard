@@ -61,8 +61,6 @@ const Flowchart: React.FC<FlowchartProps> = ({
 
   return (
     <div style={{ width: "100%", height: "600px" }}>
-      {" "}
-      {/* Adjusted container size */}
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -71,15 +69,16 @@ const Flowchart: React.FC<FlowchartProps> = ({
         onConnect={onConnect}
         fitView
         className="react-flow"
-        nodeTypes={nodeTypes} // Use the defined nodeTypes here
+        zoomOnScroll={false}
+        nodesDraggable={false}
+        nodesConnectable={false}
+        elementsSelectable={false}
+        nodeTypes={nodeTypes}
         defaultEdgeOptions={{
           type: "smoothstep",
           animated: true,
-          
         }}
-      >
-        <Controls />
-      </ReactFlow>
+      />
     </div>
   );
 };
