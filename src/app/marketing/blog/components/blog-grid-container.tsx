@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "src/app/_components/ui/button";
 import { motion } from "framer-motion";
 import {
   Card,
@@ -9,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "src/app/_components/ui/button";
 
 const cardVariants = {
   initial: { opacity: 0, scale: 0.8 },
@@ -24,7 +24,6 @@ type BlogGridContainerProps = {
   }[];
 };
 
-
 export default function BlogGridContainer({ posts }: BlogGridContainerProps) {
   return (
     <div className="grid grid-cols-1 justify-items-center gap-8 p-6 py-20 sm:grid-cols-2 lg:grid-cols-3">
@@ -35,14 +34,21 @@ export default function BlogGridContainer({ posts }: BlogGridContainerProps) {
           initial="initial"
           animate="animate"
           whileHover="hover"
-          className="h-50 w-full" // Set a fixed width and height
+          className="h-50 relative w-full overflow-hidden rounded-lg" // Ensure overflow is hidden and rounded corners
         >
-          <Card className="flex h-full flex-col">
+          {/* Background gradient effect */}
+          <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-pink-600 to-purple-600 opacity-75 blur transition-opacity duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
+
+          {/* Card content */}
+          <Card className="relative z-10 flex h-full flex-col rounded-lg bg-black bg-opacity-80">
+            {" "}
+            {/* Adjust background and rounding */}
             <CardHeader>
-              <CardTitle>{post.title}</CardTitle>
+              <CardTitle className="text-white">{post.title}</CardTitle>{" "}
+              {/* Adjust text color */}
             </CardHeader>
             <CardContent className="flex-1">
-              <CardDescription>
+              <CardDescription className="text-gray-300">
                 Published on {new Date(post.publishedAt).toLocaleDateString()}
               </CardDescription>
             </CardContent>
