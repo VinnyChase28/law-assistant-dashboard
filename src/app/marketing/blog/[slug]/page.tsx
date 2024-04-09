@@ -1,47 +1,24 @@
-import fs from "fs/promises";
-import path from "path";
-import matter from "gray-matter";
+import { getDocumentBySlug, getDocumentPaths } from "outstatic/server";
 import BlogAnimations from "../components/blog-animations";
 import Markdown from "src/app/_components/markdown";
 import Image from "next/image";
 
-// Define the type for your post
-type BlogPost = {
-  title: string;
-  content: string;
-  publishedAt: string;
-  coverImage: string;
-};
+export const dynamic = "force-static";
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export async function generateStaticParams() {
+  console.log(getDocumentPaths("blog"));
+  return getDocumentPaths("blog");
+}
 
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   try {
-    // Construct the file path
-    const filePath = path.join(
-      process.cwd(),
-      "outstatic",
+    const post = await getDocumentBySlug("blog", params.slug, [
+      "title",
       "content",
-      "blog",
-      `${params.slug}.md`,
-    );
+      "publishedAt",
+      "coverImage",
+    ]);
 
-    // Read the file contents
-    const fileContents = await fs.readFile(filePath, "utf8");
-
-    // Parse the file contents
-    const { data, content } = matter(fileContents);
-
-    // Construct the post object
-    const post: BlogPost = {
-      title: data.title,
-      content: content,
-      publishedAt: data.publishedAt,
-      coverImage: data.coverImage,
-    };
     return (
       <BlogAnimations>
         <div className="container mx-auto px-4 py-10">
