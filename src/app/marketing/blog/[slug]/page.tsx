@@ -3,7 +3,6 @@ import BlogAnimations from "../components/blog-animations";
 import Markdown from "src/app/_components/markdown";
 import Image from "next/image";
 
-export const dynamic = "force-static";
 
 export default async function BlogPostPage({
   params,
