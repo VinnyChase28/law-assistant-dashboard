@@ -24,7 +24,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
   const MemoizedIcon = useMemo(() => {
     // Ensure that the icon name exists in the dynamicIconImports map
     if (data.icon in dynamicIconImports) {
-      return <Icon name={data.icon} size={48} />;
+      return <Icon name={data.icon} size={36} />;
     }
     // Optionally, return a default icon or null if the specified icon doesn't exist
     return null;
