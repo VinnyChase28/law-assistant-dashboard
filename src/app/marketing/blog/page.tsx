@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 
 export default async function BlogPage() {
   const posts = await getDocuments("blog", ["title", "slug", "publishedAt"]);
-
+  console.log(posts);
   return (
     <div className="container mx-auto px-4">
       <h1 className="mb-8 text-4xl font-bold">Blog</h1>
