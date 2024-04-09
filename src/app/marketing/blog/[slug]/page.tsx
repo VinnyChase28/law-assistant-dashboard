@@ -8,12 +8,11 @@ import Markdown from "src/app/_components/markdown";
 import Image from "next/image";
 
 export const dynamic = "force-static";
-export const dynamicParams = false;
 
 
 export async function generateStaticParams() {
-  console.log(getDocumentSlugs("blog"));
-  return getDocumentSlugs("blog");
+  const slugs = await getDocumentSlugs("blog");
+  return slugs.map((slug) => ({ params: { slug } }));
 }
 
 export default async function BlogPostPage({
