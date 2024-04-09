@@ -1,3 +1,4 @@
+"use client";
 import Flowchart from "src/app/marketing/components/flow-chart/fow-chart";
 import {
   startingPositions,
@@ -21,7 +22,7 @@ const config: FlowchartConfig = {
       data: {
         title: "Input",
         description:
-          "Transaction records, AML laws, internal compliance checklists",
+          "Employee communications, HR policies, legal regulations on workplace conduct",
         icon: "file-plus",
       },
     },
@@ -38,7 +39,7 @@ const config: FlowchartConfig = {
       data: {
         title: "Data Sources",
         description:
-          "Financial software like QuickBooks, regulatory websites, Google Docs",
+          "Communications on Slack/Teams, HR policies on Workday/intranet, legal regulations in databases",
         icon: "layout-template",
       },
     },
@@ -52,25 +53,25 @@ const config: FlowchartConfig = {
       data: {
         title: "Codex",
         description:
-          "Screen transactions against AML laws and checklists using pattern recognition",
+          "Analyze communications for policy violations, respecting privacy and ethics",
         icon: "code",
       },
     },
     {
-      id: "alerts",
+      id: "communication-trends",
       type: "customNode",
       position: {
         x: startingPositions.startXBelow,
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Alerts",
-        description: "Alerts on suspicious transactions",
-        icon: "bell",
+        title: "Communication Trends",
+        description: "Automated reports on communication trends",
+        icon: "bar-chart-2",
       },
     },
     {
-      id: "investigation-reports",
+      id: "flagged-messages",
       type: "customNode",
       position: {
         x:
@@ -80,13 +81,13 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Investigation Reports",
-        description: "Detailed reports for further investigation",
-        icon: "file-text",
+        title: "Flagged Messages",
+        description: "Flagged messages for HR review",
+        icon: "flag",
       },
     },
     {
-      id: "compliance-dashboard",
+      id: "policy-refinement",
       type: "customNode",
       position: {
         x:
@@ -96,42 +97,46 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Compliance Dashboard",
-        description: "Compliance status dashboards",
-        icon: "bar-chart-2",
+        title: "Policy Refinement",
+        description: "Anonymized summaries for training or policy refinement",
+        icon: "edit-3",
       },
     },
   ],
   initialEdges: [
     { id: "e-input-process", source: "input", target: "process" },
     { id: "e-data-sources-process", source: "data-sources", target: "process" },
-    { id: "e-process-alerts", source: "process", target: "alerts" },
     {
-      id: "e-process-investigation-reports",
+      id: "e-process-communication-trends",
       source: "process",
-      target: "investigation-reports",
+      target: "communication-trends",
     },
     {
-      id: "e-process-compliance-dashboard",
+      id: "e-process-flagged-messages",
       source: "process",
-      target: "compliance-dashboard",
+      target: "flagged-messages",
+    },
+    {
+      id: "e-process-policy-refinement",
+      source: "process",
+      target: "policy-refinement",
     },
   ],
 };
 
-const FlowChartFinancial= () => {
+const FlowChartHrPolicy = () => {
   return (
     <div className="container mx-auto p-8">
       <HeroFeatures
-        title="Compliance Monitoring"
-        headline="Monitoring for Financial Transactions"
-        description="CodeX enhances your ability to monitor transactions, ensuring compliance with AML laws and internal guidelines."
+        title="Policy Compliance"
+        headline="Policy Compliance Automation"
+        description="CodeX leverages advanced analytics to monitor public communications, ensuring adherence to HR policies and legal standards."
         primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
-        primaryButtonText="Discover More"
+        primaryButtonText="Explore Solutions"
       />
       <Flowchart config={config} />
     </div>
   );
 };
 
-export default FlowChartFinancial;
+export default FlowChartHrPolicy;

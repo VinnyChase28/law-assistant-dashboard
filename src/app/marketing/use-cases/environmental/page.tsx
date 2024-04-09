@@ -1,11 +1,11 @@
-import FlowChartRealEstate from "./components/flow-chart-environmental";
+import FlowChartEnvironmental from "./components/flow-chart-environmental";
 import { Cta } from "../../components/cta";
 
 export default function EnvironmentalPage() {
   return (
     <div>
       <main>
-        <FlowChartRealEstate />
+        <FlowChartEnvironmental />
         <Cta />
       </main>
     </div>
