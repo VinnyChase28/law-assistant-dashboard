@@ -1,8 +1,17 @@
-import { getDocumentBySlug, getDocumentPaths } from "outstatic/server";
+import fs from "fs/promises";
+import path from "path";
+import matter from "gray-matter";
 import BlogAnimations from "../components/blog-animations";
 import Markdown from "src/app/_components/markdown";
 import Image from "next/image";
 
+// Define the type for your post
+type BlogPost = {
+  title: string;
+  content: string;
+  publishedAt: string;
+  coverImage: string;
+};
 
 export default async function BlogPostPage({
   params,
@@ -12,12 +21,29 @@ export default async function BlogPostPage({
   console.log(`Fetching blog post with slug: ${params.slug}`);
 
   try {
-    const post = await getDocumentBySlug("blog", params.slug, [
-      "title",
+    // Construct the file path
+    const filePath = path.join(
+      process.cwd(),
+      "outstatic",
       "content",
-      "publishedAt",
-      "coverImage",
-    ]);
+      "blog",
+      `${params.slug}.md`,
+    );
+
+    // Read the file contents
+    const fileContents = await fs.readFile(filePath, "utf8");
+
+    // Parse the file contents
+    const { data, content } = matter(fileContents);
+
+    // Construct the post object
+    const post: BlogPost = {
+      title: data.title,
+      content: content,
+      publishedAt: data.publishedAt,
+      coverImage: data.coverImage,
+    };
+
     console.log("Fetched post:", post);
 
     return (
@@ -53,7 +79,6 @@ export default async function BlogPostPage({
   }
 }
 
-export async function generateStaticParams() {
-  return getDocumentPaths("blog");
-}
-
+// export async function generateStaticParams() {
+//   return getDocumentPaths("blog");
+// }
