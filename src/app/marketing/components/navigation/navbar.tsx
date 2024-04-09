@@ -390,7 +390,6 @@ const Navbar = () => {
                           title={item.title}
                           href={item.href}
                           icon={item.icon}
-                          className="cursor-pointer"
                         >
                           {item.description}
                         </ListItem>
@@ -400,6 +399,7 @@ const Navbar = () => {
                         title="Free Trial"
                         icon={Gift}
                         onClick={signInWithAuth0}
+                        className="hover:cursor-pointer"
                       >
                         Get started with CodeX risk-free
                       </ListItem>
