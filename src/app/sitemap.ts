@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: "http://localhost:3000/marketing/platform/how-it-works",
+      url: "https://lawassistant.ai/marketing/platform/how-it-works",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
