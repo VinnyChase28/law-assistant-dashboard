@@ -8,7 +8,7 @@ import { ScrollToTop } from "src/app/marketing/components/scroll-to-top";
 import { Hero } from "./marketing/components/hero/hero-home";
 import Script from "next/script";
 import Image from "next/image";
-import FlowChartList from "./marketing/use-cases/components/flow-chart-list";
+import FlowChartList from "./marketing/components/flow-chart/flow-chart-list";
 
 
 function Home() {

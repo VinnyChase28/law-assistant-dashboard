@@ -1,4 +1,4 @@
-import Flowchart from "./components/fow-chart";
+import Flowchart from "../components/flow-chart/fow-chart";
 import { Node, Edge } from "reactflow";
 
 const pageWidth = 1920; // Width of the page in pixels
