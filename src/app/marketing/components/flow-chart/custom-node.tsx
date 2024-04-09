@@ -32,7 +32,9 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
         <div className="mt-2 flex justify-center">
           <Icon name={data.icon as keyof typeof dynamicIconImports} size={36} />
         </div>
-        <CardDescription className="mt-2">{data.description}</CardDescription>
+        <CardDescription className="mt-2 text-center">
+          {data.description}
+        </CardDescription>
       </CardHeader>
 
       <Handle

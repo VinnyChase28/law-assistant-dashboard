@@ -22,8 +22,7 @@ const config: FlowchartConfig = {
       position: { x: startingPositions.startXAbove, y: 5 },
       data: {
         title: "Input",
-        description:
-          "Environmental impact assessments, federal and state regulations, project specifications",
+        description: "Project plans and specs",
         icon: "file-plus",
       },
     },
@@ -39,8 +38,7 @@ const config: FlowchartConfig = {
       },
       data: {
         title: "Data Sources",
-        description:
-          "Assessments in Trello, regulations on agency websites, specs via Slack/Teams",
+        description: "Environmental regulations",
         icon: "layout-template",
       },
     },
