@@ -22,7 +22,7 @@ const nodeTypes = {
 };
 
 interface FlowchartProps {
-  config: FlowchartConfig; // Use the config object
+  config: FlowchartConfig;
 }
 
 const Flowchart: React.FC<FlowchartProps> = ({ config }) => {
@@ -58,6 +58,7 @@ const Flowchart: React.FC<FlowchartProps> = ({ config }) => {
   return (
     <div style={{ width: "100%", height: "700px" }} className="py-10">
       <ReactFlow
+        style={{ pointerEvents: "none" }} // Add this line
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
@@ -66,6 +67,9 @@ const Flowchart: React.FC<FlowchartProps> = ({ config }) => {
         fitView
         className="react-flow"
         zoomOnScroll={false}
+        panOnScroll={false} // Disable panning on scroll
+        zoomOnDoubleClick={false} // Disable zooming on double click
+        panOnDrag={false} // Disable panning on drag
         nodesDraggable={false}
         nodesConnectable={false}
         elementsSelectable={false}
