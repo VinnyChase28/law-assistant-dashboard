@@ -5,6 +5,7 @@ import matter from "gray-matter";
 import FeatureShowcase from "./feature-showcase";
 import HeroFeatures from "../hero/hero-features";
 import { Cta } from "../cta";
+import particles from "../../../public/videos/particles.mp4";
 
 interface FeatureListProps {
   slug: string;
@@ -38,6 +39,7 @@ const FeatureList = async ({ slug }: FeatureListProps) => {
           description={frontmatter.description}
           primaryButtonText={frontmatter.button}
           primaryButtonLink={frontmatter.buttonLink}
+          videoSrc={particles}
         />
         {features.map((feature, index) => (
           <FeatureShowcase

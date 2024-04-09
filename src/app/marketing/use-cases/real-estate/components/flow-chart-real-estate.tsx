@@ -5,7 +5,7 @@ import {
   FlowchartConfig,
 } from "src/app/marketing/components/flow-chart/flow-chart-config";
 import HeroFeatures from "src/app/marketing/components/hero/hero-features";
-
+import stars from "/videos/stars.mp4";
 const config: FlowchartConfig = {
   pageWidth: startingPositions.pageWidth,
   nodesAboveCodeX: startingPositions.nodesAboveCodeX,
@@ -130,6 +130,7 @@ const FlowChartRealEstate = () => {
         description="CodeX helps you automate compliance processes, reduce risks, and save time."
         primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
         primaryButtonText="Get Started"
+        videoSrc={stars}
       />
       <Flowchart config={config} />
     </div>

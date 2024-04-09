@@ -5,6 +5,7 @@ import {
   FlowchartConfig,
 } from "src/app/marketing/components/flow-chart/flow-chart-config";
 import HeroFeatures from "src/app/marketing/components/hero/hero-features";
+import stars from "/videos/stars.mp4";
 
 const config: FlowchartConfig = {
   pageWidth: startingPositions.pageWidth,
@@ -131,6 +132,7 @@ const FlowChartSoftwareCompliance = () => {
         description="CodeX automates the process of comparing your source code against industry best practices and company standards, helping identify areas for improvement and potential issues."
         primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
         primaryButtonText="Learn More"
+        videoSrc={stars}
       />
       <Flowchart config={config} />
     </div>

@@ -4,9 +4,9 @@
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "lucide-react";
-import particles from "/videos/particles.mp4";
 import { motion } from "framer-motion";
 import BackgroundVideo from "next-video/background-video";
+import { Asset } from "next-video/dist/assets.js";
 
 interface HeroFeaturesProps {
   title: string;
@@ -14,6 +14,7 @@ interface HeroFeaturesProps {
   description: string;
   primaryButtonText: string;
   primaryButtonLink: string;
+  videoSrc: Asset;
 }
 
 const HeroFeatures: React.FC<HeroFeaturesProps> = ({
@@ -22,6 +23,7 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
   description,
   primaryButtonText,
   primaryButtonLink,
+  videoSrc,
 }) => {
   const textVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -34,7 +36,7 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
   };
   return (
     <motion.div initial="hidden" animate="visible" variants={videoVariants}>
-      <BackgroundVideo src={particles}>
+      <BackgroundVideo src={videoSrc}>
         <section className="relative">
           <div className="mx-auto grid max-w-screen-xl px-8 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
             <div className="mr-auto place-self-center lg:col-span-7">
