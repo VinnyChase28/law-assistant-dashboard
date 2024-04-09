@@ -15,7 +15,7 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 
 import CustomNode from "./custom-node";
-import FlowchartConfig from "./flow-chart-config"; // Import the type
+import { FlowchartConfig } from "./flow-chart-config";
 
 const nodeTypes = {
   customNode: CustomNode,

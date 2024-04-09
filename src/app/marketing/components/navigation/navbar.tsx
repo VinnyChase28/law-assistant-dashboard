@@ -74,7 +74,7 @@ const platformItems = [
 ];
 const useCasesItems = [
   {
-    title: "Real Estate Compliance Check",
+    title: "Real Estate",
     href: "/marketing/use-cases/real-estate",
     description:
       "Ensure real estate projects adhere to zoning and building bylaws",

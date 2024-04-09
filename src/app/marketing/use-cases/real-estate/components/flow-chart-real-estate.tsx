@@ -1,7 +1,9 @@
 "use client";
-import Flowchart from "./fow-chart";
-import { startingPositions, FlowchartConfig } from "./flow-chart-config";
-
+import Flowchart from "src/app/marketing/components/flow-chart/fow-chart";
+import {
+  startingPositions,
+  FlowchartConfig,
+} from "src/app/marketing/components/flow-chart/flow-chart-config";
 
 const config: FlowchartConfig = {
   pageWidth: startingPositions.pageWidth,
@@ -137,7 +139,7 @@ const config: FlowchartConfig = {
   ],
 };
 
-const FlowChartHome = () => {
+const FlowChartRealEstate = () => {
   return (
     <div className="container mx-auto p-8">
       <Flowchart config={config} />
@@ -145,4 +147,4 @@ const FlowChartHome = () => {
   );
 };
 
-export default FlowChartHome;
+export default FlowChartRealEstate;
