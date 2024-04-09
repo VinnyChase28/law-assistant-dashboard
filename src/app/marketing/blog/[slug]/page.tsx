@@ -18,7 +18,6 @@ export default async function BlogPostPage({
 }: {
   params: { slug: string };
 }) {
-  console.log(`Fetching blog post with slug: ${params.slug}`);
 
   try {
     // Construct the file path
@@ -43,9 +42,6 @@ export default async function BlogPostPage({
       publishedAt: data.publishedAt,
       coverImage: data.coverImage,
     };
-
-    console.log("Fetched post:", post);
-
     return (
       <BlogAnimations>
         <div className="container mx-auto px-4 py-10">
@@ -78,7 +74,3 @@ export default async function BlogPostPage({
     return <div>Failed to load the blog post.</div>;
   }
 }
-
-// export async function generateStaticParams() {
-//   return getDocumentPaths("blog");
-// }
