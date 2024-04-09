@@ -155,14 +155,14 @@ const getStartedItems = [
   },
   {
     title: "Pricing",
-    href: "/get-started/pricing",
+    href: "/marketing/pricing",
     description: "Choose the right plan for your compliance needs",
     icon: DollarSign,
   },
 
   {
     title: "Contact Sales",
-    href: "/get-started/contact-sales",
+    href: "https://calendly.com/vince-gauthier/30min?month=2024-04",
     description: "Discuss your compliance needs with our experts",
     icon: Phone,
   },
