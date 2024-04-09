@@ -1,6 +1,6 @@
 // Flowchart.js
 "use client";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import ReactFlow, {
   addEdge,
   applyEdgeChanges,
@@ -30,6 +30,15 @@ const Flowchart: React.FC<FlowchartProps> = ({
   initialNodes,
   initialEdges,
 }) => {
+  useEffect(() => {
+    const reactFlowAttributionLink = document.querySelector(
+      'a[href="https://reactflow.dev"]',
+    );
+    if (reactFlowAttributionLink) {
+      reactFlowAttributionLink.remove();
+    }
+  }, []);
+
   const [nodes, setNodes] = useState<Node[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
 
@@ -51,7 +60,9 @@ const Flowchart: React.FC<FlowchartProps> = ({
   );
 
   return (
-    <div className="h-screen w-full">
+    <div style={{ width: "100%", height: "600px" }}>
+      {" "}
+      {/* Adjusted container size */}
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -64,6 +75,7 @@ const Flowchart: React.FC<FlowchartProps> = ({
         defaultEdgeOptions={{
           type: "smoothstep",
           animated: true,
+          
         }}
       >
         <Controls />

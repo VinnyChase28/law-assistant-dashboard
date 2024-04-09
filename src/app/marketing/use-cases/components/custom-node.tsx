@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Handle, Position } from "reactflow";
 import {
   Card,
@@ -20,24 +20,17 @@ interface CustomNodeProps {
 }
 
 const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
-  // Memoize the Icon component
-  const MemoizedIcon = useMemo(() => {
-    // Ensure that the icon name exists in the dynamicIconImports map
-    if (data.icon in dynamicIconImports) {
-      return <Icon name={data.icon} size={36} />;
-    }
-    // Optionally, return a default icon or null if the specified icon doesn't exist
-    return null;
-  }, [data.icon]); // Depend on data.icon to recompute the memoized value when the icon changes
-
   return (
-    <Card className="rounded-md border">
-      <CardHeader className="flex flex-col items-center justify-center">
+    <Card
+      className="rounded-md border"
+      style={{ width: "275px", height: "150px" }}
+    >
+      <CardHeader className="flex h-full flex-col items-center justify-center">
         <CardTitle className="text-center text-lg font-bold">
           {data.title}
         </CardTitle>
         <div className="mt-2 flex justify-center">
-          {MemoizedIcon} {/* Render the memoized icon */}
+          <Icon name={data.icon as keyof typeof dynamicIconImports} size={36} />
         </div>
         <CardDescription className="mt-2">{data.description}</CardDescription>
       </CardHeader>

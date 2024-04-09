@@ -8,8 +8,8 @@ import { ScrollToTop } from "src/app/marketing/components/scroll-to-top";
 import { Hero } from "./marketing/components/hero/hero-home";
 import Script from "next/script";
 import Image from "next/image";
+import FlowChartList from "./marketing/use-cases/components/flow-chart-list";
 
-//add seo
 
 function Home() {
   return (
@@ -17,22 +17,17 @@ function Home() {
       <Hero />
       <Sponsors />
       <CaseStudies />
-      <Image
-        src="/images/workflow.png"
-        alt="compliance workflow"
-        width={1920}
-        height={1080}
-      />
+      <FlowChartList />
       <HowItWorks />
       <Pricing />
       <Cta />
 
       <Script
-        src="//js-na1.hs-scripts.com/40814956.js" // Your HubSpot Script Source
+        src="//js-na1.hs-scripts.com/40814956.js"
         id="hs-script-loader"
         async
         defer
-        strategy="lazyOnload" // Loads the script after the page has finished loading
+        strategy="lazyOnload"
       />
       <ScrollToTop />
     </>

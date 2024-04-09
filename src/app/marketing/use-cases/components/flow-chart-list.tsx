@@ -1,4 +1,4 @@
-import Flowchart from "./components/fow-chart";
+import Flowchart from "./fow-chart";
 import { Node, Edge } from "reactflow";
 
 const pageWidth = 1920; // Width of the page in pixels
@@ -135,7 +135,7 @@ const initialEdges: Edge[] = [
   // Add the rest of the edges connecting "CodeX" to the other output nodes...
 ];
 
-const FlowChartPage = () => {
+const FlowChartList = () => {
   return (
     <div className="container mx-auto p-8">
       <Flowchart initialNodes={initialNodes} initialEdges={initialEdges} />
@@ -143,4 +143,4 @@ const FlowChartPage = () => {
   );
 };
 
-export default FlowChartPage;
+export default FlowChartList;
