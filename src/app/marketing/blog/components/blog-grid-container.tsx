@@ -24,9 +24,10 @@ type BlogGridContainerProps = {
   }[];
 };
 
+
 export default function BlogGridContainer({ posts }: BlogGridContainerProps) {
   return (
-    <div className="grid grid-cols-1 justify-items-center gap-8 p-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 justify-items-center gap-8 p-6 py-20 sm:grid-cols-2 lg:grid-cols-3">
       {posts.map((post) => (
         <motion.div
           key={post.slug}
@@ -34,12 +35,13 @@ export default function BlogGridContainer({ posts }: BlogGridContainerProps) {
           initial="initial"
           animate="animate"
           whileHover="hover"
+          className="h-50 w-full" // Set a fixed width and height
         >
-          <Card>
+          <Card className="flex h-full flex-col">
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex-1">
               <CardDescription>
                 Published on {new Date(post.publishedAt).toLocaleDateString()}
               </CardDescription>
