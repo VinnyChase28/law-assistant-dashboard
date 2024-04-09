@@ -4,6 +4,7 @@ import path from "path";
 import matter from "gray-matter";
 import FeatureShowcase from "./feature-showcase";
 import HeroFeatures from "../hero/hero-features";
+import { Cta } from "../cta";
 
 interface FeatureListProps {
   slug: string;
@@ -46,6 +47,7 @@ const FeatureList = async ({ slug }: FeatureListProps) => {
             description={feature.description}
           />
         ))}
+        <Cta />
       </>
     );
   } catch (error) {
