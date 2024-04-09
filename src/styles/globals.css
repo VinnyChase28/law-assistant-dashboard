@@ -213,3 +213,8 @@
 .full-page-section {
   height: 100vh;
 }
+
+.react-flow-attribution {
+  display: none;
+}
+

@@ -7,8 +7,7 @@ import { Cta } from "src/app/marketing/components/cta";
 import { ScrollToTop } from "src/app/marketing/components/scroll-to-top";
 import { Hero } from "./marketing/components/hero/hero-home";
 import Script from "next/script";
-
-//add seo
+import FlowChartHome from "./marketing/components/flow-chart/flow-chart-home";
 
 function Home() {
   return (
@@ -16,15 +15,16 @@ function Home() {
       <Hero />
       <Sponsors />
       <CaseStudies />
+      <FlowChartHome />
       <HowItWorks />
       <Pricing />
       <Cta />
       <Script
-        src="//js-na1.hs-scripts.com/40814956.js" // Your HubSpot Script Source
+        src="//js-na1.hs-scripts.com/40814956.js"
         id="hs-script-loader"
         async
         defer
-        strategy="lazyOnload" // Loads the script after the page has finished loading
+        strategy="lazyOnload"
       />
       <ScrollToTop />
     </>

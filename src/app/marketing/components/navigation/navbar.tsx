@@ -32,11 +32,10 @@ import {
   Play,
   DollarSign,
   Award,
-  Eye,
+  Home,
   Search,
   Folder,
-  BookOpen,
-  AlertTriangle,
+  Code,
   Gift,
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -75,42 +74,46 @@ const platformItems = [
 ];
 const useCasesItems = [
   {
-    title: "Regulatory Monitoring",
-    href: "/use-cases/regulatory-monitoring",
-    description: "Stay up-to-date with the latest regulations",
-    icon: Eye,
+    title: "Real Estate",
+    href: "/marketing/use-cases/real-estate",
+    description:
+      "Ensure real estate projects adhere to zoning and building bylaws",
+    icon: Home,
   },
   {
-    title: "Compliance Research",
-    href: "/use-cases/compliance-research",
-    description: "Find relevant compliance information quickly",
+    title: "Contracts",
+    href: "/marketing/use-cases/contracts",
+    description: "Analyze contracts for deviations from standards and policies",
     icon: Search,
   },
   {
-    title: "Compliance Reporting",
-    href: "/use-cases/compliance-reporting",
-    description: "Generate comprehensive compliance reports",
+    title: "Environmental",
+    href: "/marketing/use-cases/environmental",
+    description:
+      "Assess projects against environmental regulations and standards",
     icon: FileText,
   },
   {
-    title: "Policy Management",
-    href: "/use-cases/policy-management",
-    description: "Manage and distribute compliance policies effectively",
+    title: "Financial",
+    href: "/marketing/use-cases/financial",
+    description: "Detect suspicious transactions and ensure AML law compliance",
+    icon: DollarSign,
+  },
+  {
+    title: "HR Policy",
+    href: "/marketing/use-cases/hr-policy",
+    description:
+      "Monitor communications for HR policy adherence and conduct issues",
     icon: Folder,
   },
   {
-    title: "Compliance Training",
-    href: "/use-cases/compliance-training",
-    description: "Deliver engaging compliance training to your team",
-    icon: BookOpen,
-  },
-  {
-    title: "Risk Assessment",
-    href: "/use-cases/risk-assessment",
-    description: "Identify and mitigate compliance risks proactively",
-    icon: AlertTriangle,
+    title: "Best Practices",
+    href: "/marketing/use-cases/software",
+    description: "Verify code against best practices and company standards",
+    icon: Code,
   },
 ];
+
 const resourcesItems = [
   {
     title: "Blog",
