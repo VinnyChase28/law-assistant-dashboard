@@ -15,21 +15,17 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 
 import CustomNode from "./custom-node";
+import FlowchartConfig from "./flow-chart-config"; // Import the type
 
-// Define nodeTypes outside of the Flowchart component
 const nodeTypes = {
   customNode: CustomNode,
 };
 
-type FlowchartProps = {
-  initialNodes: Node[];
-  initialEdges: Edge[];
-};
+interface FlowchartProps {
+  config: FlowchartConfig; // Use the config object
+}
 
-const Flowchart: React.FC<FlowchartProps> = ({
-  initialNodes,
-  initialEdges,
-}) => {
+const Flowchart: React.FC<FlowchartProps> = ({ config }) => {
   useEffect(() => {
     const reactFlowAttributionLink = document.querySelector(
       'a[href="https://reactflow.dev"]',
@@ -39,8 +35,8 @@ const Flowchart: React.FC<FlowchartProps> = ({
     }
   }, []);
 
-  const [nodes, setNodes] = useState<Node[]>(initialNodes);
-  const [edges, setEdges] = useState<Edge[]>(initialEdges);
+  const [nodes, setNodes] = useState<Node[]>(config.initialNodes);
+  const [edges, setEdges] = useState<Edge[]>(config.initialEdges);
 
   const onNodesChange = useCallback(
     (changes: NodeChange[]) =>

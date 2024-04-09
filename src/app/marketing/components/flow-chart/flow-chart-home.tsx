@@ -1,5 +1,7 @@
-import Flowchart from "../components/flow-chart/fow-chart";
+"use client";
+import Flowchart from "./fow-chart";
 import { Node, Edge } from "reactflow";
+import FlowchartConfig from "./flow-chart-config";
 
 const pageWidth = 1920; // Width of the page in pixels
 const nodesAboveCodeX = 2; // Number of nodes above CodeX
@@ -8,8 +10,7 @@ const nodeWidth = 275; // Width of each node in pixels
 const nodeHeight = 150; // Height of each node in pixels
 const horizontalSpacing = 50; // Horizontal spacing between nodes in pixels
 const verticalSpacing = 50; // Vertical spacing between nodes in pixels
-const baseYPosition = 5 + (nodeHeight + verticalSpacing) * 4; // Y position of the nodes branching out from CodeX
-const baseYPositionBelow = 5 + (nodeHeight + verticalSpacing) * 2;
+const baseYPositionBelow = 5 + (nodeHeight + verticalSpacing) * 2; // Y position of the nodes branching out from CodeX
 
 // Calculate the starting x position for the nodes above CodeX
 const startXAbove =
@@ -135,12 +136,26 @@ const initialEdges: Edge[] = [
   // Add the rest of the edges connecting "CodeX" to the other output nodes...
 ];
 
-const FlowChartPage = () => {
+//add the above values to a new FlowchartConfig object
+
+const config: FlowchartConfig = {
+  pageWidth,
+  nodesAboveCodeX,
+  nodesBelowCodeX,
+  nodeWidth,
+  nodeHeight,
+  horizontalSpacing,
+  verticalSpacing,
+  initialNodes,
+  initialEdges,
+};
+
+const FlowChartHome = () => {
   return (
     <div className="container mx-auto p-8">
-      <Flowchart initialNodes={initialNodes} initialEdges={initialEdges} />
+      <Flowchart config={config} />
     </div>
   );
 };
 
-export default FlowChartPage;
+export default FlowChartHome;

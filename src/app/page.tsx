@@ -7,9 +7,7 @@ import { Cta } from "src/app/marketing/components/cta";
 import { ScrollToTop } from "src/app/marketing/components/scroll-to-top";
 import { Hero } from "./marketing/components/hero/hero-home";
 import Script from "next/script";
-import Image from "next/image";
-import FlowChartList from "./marketing/components/flow-chart/flow-chart-list";
-
+import FlowChartHome from "./marketing/components/flow-chart/flow-chart-home";
 
 function Home() {
   return (
@@ -17,11 +15,10 @@ function Home() {
       <Hero />
       <Sponsors />
       <CaseStudies />
-      <FlowChartList />
+      <FlowChartHome />
       <HowItWorks />
       <Pricing />
       <Cta />
-
       <Script
         src="//js-na1.hs-scripts.com/40814956.js"
         id="hs-script-loader"
