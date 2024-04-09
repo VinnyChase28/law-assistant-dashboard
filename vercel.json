@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "next.config.mjs",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/marketing/blog/([^/]+)",
+      "dest": "/home/vince/projects/law-assistant-dashboard/src/app/marketing/blog/[slug]/page.tsx?slug=$1",
+      "continue": true
+    },
+    {
+      "src": "/(.*)",
+      "headers": {
+        "cache-control": "s-maxage=1, stale-while-revalidate"
+      }
+    }
+  ],
+  "staticFiles": {
+    "headers": [
+      {
+        "source": "/outstatic/content/blog/(.*)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=0, must-revalidate"
+          }
+        ]
+      }
+    ]
+  }
+}
