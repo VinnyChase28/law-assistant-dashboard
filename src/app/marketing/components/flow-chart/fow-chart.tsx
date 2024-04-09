@@ -56,7 +56,7 @@ const Flowchart: React.FC<FlowchartProps> = ({ config }) => {
   );
 
   return (
-    <div style={{ width: "100%", height: "600px" }}>
+    <div style={{ width: "100%", height: "700px" }} className="py-10">
       <ReactFlow
         nodes={nodes}
         edges={edges}

@@ -4,6 +4,7 @@ import {
   startingPositions,
   FlowchartConfig,
 } from "src/app/marketing/components/flow-chart/flow-chart-config";
+import HeroFeatures from "src/app/marketing/components/hero/hero-features";
 
 const config: FlowchartConfig = {
   pageWidth: startingPositions.pageWidth,
@@ -14,14 +15,13 @@ const config: FlowchartConfig = {
   horizontalSpacing: startingPositions.horizontalSpacing,
   verticalSpacing: startingPositions.verticalSpacing,
   initialNodes: [
-    // Nodes above CodeX
     {
       id: "input",
       type: "customNode",
       position: { x: startingPositions.startXAbove, y: 5 },
       data: {
         title: "Input",
-        description: "Documents, Emails, Web Pages",
+        description: "Proposals, Emails, Questions",
         icon: "file-plus",
       },
     },
@@ -36,27 +36,24 @@ const config: FlowchartConfig = {
         y: 5,
       },
       data: {
-        title: "Sources",
-        description: "Regulations, Policies, Contracts",
+        title: "Data Sources",
+        description: "Zoning & Building bylaws",
         icon: "layout-template",
       },
     },
-
-    // CodeX node
     {
-      id: "codex",
+      id: "process",
       type: "customNode",
       position: {
         x: (startingPositions.pageWidth - startingPositions.nodeWidth) / 2,
         y: 5 + startingPositions.nodeHeight + startingPositions.verticalSpacing,
       },
       data: {
-        title: "CodeX",
-        description: "Analyse and Extract Insights",
+        title: "Codex",
+        description: "Compare proposals against bylaws",
         icon: "code",
       },
     },
-    // Nodes below CodeX
     {
       id: "compliance-report",
       type: "customNode",
@@ -66,12 +63,12 @@ const config: FlowchartConfig = {
       },
       data: {
         title: "Compliance Report",
-        description: "Full compliance report in any format",
+        description: "Compliance reports",
         icon: "file-text",
       },
     },
     {
-      id: "highlighted-contract",
+      id: "recommendations",
       type: "customNode",
       position: {
         x:
@@ -81,13 +78,13 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Highlighted Contract",
-        description: "Key clauses and risks highlighted",
-        icon: "file-search",
+        title: "Recommendations",
+        description: "Recommended actions",
+        icon: "lightbulb",
       },
     },
     {
-      id: "environmental-compliance",
+      id: "data-visualization",
       type: "customNode",
       position: {
         x:
@@ -97,44 +94,29 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Environmental Compliance",
-        description: "Environmental compliance reports",
-        icon: "trending-up",
+        title: "Data Visualization",
+        description: "Visualize compliance data",
+        icon: "bar-chart-2",
       },
     },
   ],
   initialEdges: [
-    { id: "e-input-data-sources", source: "input", target: "codex" },
-    { id: "e-data-sources-codex", source: "data-sources", target: "codex" },
+    { id: "e-input-process", source: "input", target: "process" },
+    { id: "e-data-sources-process", source: "data-sources", target: "process" },
     {
-      id: "e-codex-compliance-report",
-      source: "codex",
+      id: "e-process-compliance-report",
+      source: "process",
       target: "compliance-report",
     },
     {
-      id: "e-codex-highlighted-contract",
-      source: "codex",
-      target: "highlighted-contract",
+      id: "e-process-recommendations",
+      source: "process",
+      target: "recommendations",
     },
     {
-      id: "e-codex-environmental-compliance",
-      source: "codex",
-      target: "environmental-compliance",
-    },
-    {
-      id: "e-codex-suspicious-transactions",
-      source: "codex",
-      target: "suspicious-transactions",
-    },
-    {
-      id: "e-codex-communication-trends",
-      source: "codex",
-      target: "communication-trends",
-    },
-    {
-      id: "e-codex-best-practices",
-      source: "codex",
-      target: "best-practices",
+      id: "e-process-data-visualization",
+      source: "process",
+      target: "data-visualization",
     },
   ],
 };
@@ -142,6 +124,13 @@ const config: FlowchartConfig = {
 const FlowChartRealEstate = () => {
   return (
     <div className="container mx-auto p-8">
+      <HeroFeatures
+        title="Real Estate"
+        headline="Compliance Automation for Real Estate "
+        description="CodeX helps you automate compliance processes, reduce risks, and save time."
+        primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
+        primaryButtonText="Get Started"
+      />
       <Flowchart config={config} />
     </div>
   );
