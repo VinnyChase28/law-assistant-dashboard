@@ -35,7 +35,7 @@ const pricingList: PricingProps[] = [
     buttonText: "Start Free Trial",
     benefitList: [
       "AI Assistant",
-      "Self-service embed code",
+      "Self-service chat bot",
       "Report Drafting",
       "Document Management",
       "Up to 50 documents",
@@ -53,7 +53,7 @@ const pricingList: PricingProps[] = [
     title: "Enterprise",
     popular: 0,
     buttonText: "Contact Us",
-    benefitList: ["Tailored workflows", "Fine-tuned models"],
+    benefitList: ["Pro Features", "Tailored workflows", "Fine-tuned models"],
   },
 ];
 
