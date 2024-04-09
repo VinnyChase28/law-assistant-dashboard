@@ -149,7 +149,7 @@ const resourcesItems = [
 const getStartedItems = [
   {
     title: "Request a Demo",
-    href: "/get-started/request-demo",
+    href: "https://calendly.com/vince-gauthier/30min?month=2024-04",
     description: "See CodeX in action with a personalized demo",
     icon: Play,
   },
@@ -196,7 +196,6 @@ const companyItems = [
 ];
 
 const Navbar = () => {
-  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { deleteAll } = useCheckedRowsStore();
 
