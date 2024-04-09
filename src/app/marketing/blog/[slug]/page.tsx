@@ -4,15 +4,17 @@ import Markdown from "src/app/_components/markdown";
 import Image from "next/image";
 
 export const dynamic = "force-static";
-export const dynamicParams = true;
-
 
 export async function generateStaticParams() {
   console.log(getDocumentPaths("blog"));
   return getDocumentPaths("blog");
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   try {
     const post = await getDocumentBySlug("blog", params.slug, [
       "title",
@@ -20,6 +22,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       "publishedAt",
       "coverImage",
     ]);
+
+    console.log(post);
 
     return (
       // <BlogAnimations>
