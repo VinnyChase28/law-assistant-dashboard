@@ -159,12 +159,7 @@ const getStartedItems = [
     description: "Choose the right plan for your compliance needs",
     icon: DollarSign,
   },
-  {
-    title: "Free Trial",
-    href: "/get-started/free-trial",
-    description: "Get started with CodeX risk-free",
-    icon: Gift,
-  },
+
   {
     title: "Contact Sales",
     href: "/get-started/contact-sales",
@@ -395,10 +390,19 @@ const Navbar = () => {
                           title={item.title}
                           href={item.href}
                           icon={item.icon}
+                          className="cursor-pointer"
                         >
                           {item.description}
                         </ListItem>
                       ))}
+
+                      <ListItem
+                        title="Free Trial"
+                        icon={Gift}
+                        onClick={signInWithAuth0}
+                      >
+                        Get started with CodeX risk-free
+                      </ListItem>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
