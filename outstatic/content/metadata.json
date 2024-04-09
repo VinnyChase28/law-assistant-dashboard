@@ -1,7 +1,25 @@
 {
-  "commit": "0bf37bd41805a86f94aec45326083114b46e1496",
-  "generated": "2024-04-08T03:25:50.169Z",
+  "commit": "0811828845c466fdedea6ddbb35eaade5af1f822",
+  "generated": "Tue, 09 Apr 2024 17:26:03 GMT",
   "metadata": [
+    {
+      "__outstatic": {
+        "commit": "ac8a51c300090d64782c8b489397e1104eb4f68b",
+        "hash": "4191057958",
+        "path": "outstatic/content/blog/test.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-08T02:43:43.830Z",
+      "slug": "test",
+      "status": "published",
+      "title": "Test"
+    },
     {
       "__outstatic": {
         "commit": "533b61b7c2ad489ab1514d3fbc70f06341b406ad",
@@ -124,7 +142,7 @@
     },
     {
       "__outstatic": {
-        "commit": "78429247833fdcd6ed3551cd8dc477179bf735f0",
+        "commit": "1801452d7afaa25abe86f39aff451ec902eb5b17",
         "hash": "3163284498",
         "path": "outstatic/content/blog/why-we-launched-codex-lawassistant-ai.md"
       },
@@ -139,24 +157,6 @@
       "slug": "why-we-launched-codex-lawassistant-ai",
       "status": "published",
       "title": "Why we launched Codex | LawAssistant AI"
-    },
-    {
-      "__outstatic": {
-        "commit": "0bf37bd41805a86f94aec45326083114b46e1496",
-        "hash": "4191057958",
-        "path": "outstatic/content/blog/test.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "collection": "blog",
-      "coverImage": "",
-      "description": "",
-      "publishedAt": "2024-04-08T02:43:43.830Z",
-      "slug": "test",
-      "status": "published",
-      "title": "Test"
     }
   ]
 }
