@@ -6,7 +6,7 @@ author:
   picture: 'https://avatars.githubusercontent.com/u/50678382?v=4'
 slug: '5-ways-genai-is-revolutionizing-compliance-automation'
 description: ''
-coverImage: ''
+coverImage: '/images/injury-law-kzOD.jpg'
 publishedAt: '2024-04-10T15:48:26.504Z'
 ---
 

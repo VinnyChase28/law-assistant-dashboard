@@ -1,6 +1,6 @@
 {
   "commit": "c4e9b28c8bd269ee76eafb0c131c8b65d58e4d8d",
-  "generated": "2024-04-10T16:39:33.756Z",
+  "generated": "2024-04-10T16:42:23.756Z",
   "metadata": [
     {
       "__outstatic": {
@@ -143,7 +143,7 @@
     {
       "__outstatic": {
         "commit": "c4e9b28c8bd269ee76eafb0c131c8b65d58e4d8d",
-        "hash": "1480425800",
+        "hash": "2055390908",
         "path": "outstatic/content/blog/5-ways-genai-is-revolutionizing-compliance-automation.md"
       },
       "author": {
@@ -151,7 +151,7 @@
         "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
       },
       "collection": "blog",
-      "coverImage": "",
+      "coverImage": "/images/injury-law-kzOD.jpg",
       "description": "",
       "publishedAt": "2024-04-10T15:48:26.504Z",
       "slug": "5-ways-genai-is-revolutionizing-compliance-automation",
