@@ -9,7 +9,6 @@ import BlogAnimations from "../components/blog-animations";
 
 export async function generateStaticParams() {
   const posts = getDocumentSlugs("blog");
-  console.log(posts);
   return posts.map((slug) => ({ slug }));
 }
 
@@ -44,6 +43,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <Markdown markdownText={content ?? ""} />
           </article>
         </div>
+        
       </BlogAnimations>
   );
 }
