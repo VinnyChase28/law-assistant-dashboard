@@ -1,5 +1,7 @@
 import { getDocumentSlugs, getDocumentBySlug } from "outstatic/server";
 
+export const dynamic = 'force-static';
+
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
   const posts = getDocumentSlugs("blog");
