@@ -4,7 +4,7 @@ status: 'published'
 author:
   name: 'Vincent Gauthier'
   picture: 'https://avatars.githubusercontent.com/u/50678382?v=4'
-slug: 'why-we-launched-codex-lawassistant-ai'
+slug: 'compliance-automation'
 description: ''
 coverImage: '/images/compliance-blog-M4ND.jpg'
 publishedAt: '2024-04-08T00:14:57.541Z'

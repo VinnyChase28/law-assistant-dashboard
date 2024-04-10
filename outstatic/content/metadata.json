@@ -1,6 +1,6 @@
 {
-  "commit": "46611a89a0d2f86746a53d8c1b235769495f9026",
-  "generated": "2024-04-10T04:04:55.714Z",
+  "commit": "2de61afe493e3fe37109cb5ac025f66ba3fee275",
+  "generated": "2024-04-10T04:06:18.655Z",
   "metadata": [
     {
       "__outstatic": {
@@ -124,9 +124,9 @@
     },
     {
       "__outstatic": {
-        "commit": "46611a89a0d2f86746a53d8c1b235769495f9026",
-        "hash": "3523209321",
-        "path": "outstatic/content/blog/why-we-launched-codex-lawassistant-ai.md"
+        "commit": "2de61afe493e3fe37109cb5ac025f66ba3fee275",
+        "hash": "262242093",
+        "path": "outstatic/content/blog/compliance-automation.md"
       },
       "author": {
         "name": "Vincent Gauthier",
@@ -136,7 +136,7 @@
       "coverImage": "/images/compliance-blog-M4ND.jpg",
       "description": "",
       "publishedAt": "2024-04-08T00:14:57.541Z",
-      "slug": "why-we-launched-codex-lawassistant-ai",
+      "slug": "compliance-automation",
       "status": "published",
       "title": "CodeX"
     }
