@@ -1,6 +1,6 @@
 {
   "commit": "01bafeaa80c570ee580ae57ce81f00bab37d38f3",
-  "generated": "2024-04-10T04:13:46.831Z",
+  "generated": "2024-04-10T04:41:52.101Z",
   "metadata": [
     {
       "__outstatic": {
@@ -125,7 +125,7 @@
     {
       "__outstatic": {
         "commit": "01bafeaa80c570ee580ae57ce81f00bab37d38f3",
-        "hash": "262242093",
+        "hash": "3255508121",
         "path": "outstatic/content/blog/compliance-automation.md"
       },
       "author": {
@@ -138,7 +138,7 @@
       "publishedAt": "2024-04-08T00:14:57.541Z",
       "slug": "compliance-automation",
       "status": "published",
-      "title": "CodeX"
+      "title": "What is Compliance Automation?"
     }
   ]
 }
