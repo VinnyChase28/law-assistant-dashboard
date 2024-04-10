@@ -1,6 +1,6 @@
 {
-  "commit": "01bafeaa80c570ee580ae57ce81f00bab37d38f3",
-  "generated": "2024-04-10T04:41:52.101Z",
+  "commit": "5f6a05db9b447ed6f8f7f6d0db2bca5b10b746b6",
+  "generated": "2024-04-10T16:31:59.315Z",
   "metadata": [
     {
       "__outstatic": {
@@ -139,6 +139,24 @@
       "slug": "compliance-automation",
       "status": "published",
       "title": "What is Compliance Automation?"
+    },
+    {
+      "__outstatic": {
+        "commit": "5f6a05db9b447ed6f8f7f6d0db2bca5b10b746b6",
+        "hash": "3474155258",
+        "path": "outstatic/content/blog/5-ways-genai-is-revolutionizing-compliance-automation.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-10T15:48:26.504Z",
+      "slug": "5-ways-genai-is-revolutionizing-compliance-automation",
+      "status": "published",
+      "title": "5 Ways GenAI is Revolutionizing Compliance Automation"
     }
   ]
 }
