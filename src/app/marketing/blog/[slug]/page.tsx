@@ -23,7 +23,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <div>
       <h1>{post?.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: post?.content || "" }} />
+      <div dangerouslySetInnerHTML={{ __html: post?.content ?? "" }} />
     </div>
   );
 
