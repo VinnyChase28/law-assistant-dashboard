@@ -40,4 +40,4 @@ The integration of GenAI into compliance processes is not just an innovation; it
 
 ## 
 
-Are you ready to harness the power of GenAI for your compliance needs? Explore how our solutions can transform your compliance processes, making them more efficient and less prone to error. Visit [lawassistant.ai](http://lawassistant.ai) to learn more and take the first step towards a future where compliance is no longer a burden but a competitive advantage.
+Are you ready to harness the power of GenAI for your compliance needs? Explore how our solutions can transform your compliance processes, making them more efficient and less prone to error. Visit [lawassistant.ai](https://lawassistant.ai) to learn more and take the first step towards a future where compliance is no longer a burden but a competitive advantage.
