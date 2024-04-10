@@ -1,25 +1,7 @@
 {
-  "commit": "47bb239db6be3b287589d3f8830e53ae5fbcab46",
-  "generated": "2024-04-10T01:42:18.878Z",
+  "commit": "27341459ba2b23cfba3ea47e0dc8cfc50c13d84b",
+  "generated": "2024-04-10T03:55:34.631Z",
   "metadata": [
-    {
-      "__outstatic": {
-        "commit": "ac8a51c300090d64782c8b489397e1104eb4f68b",
-        "hash": "4191057958",
-        "path": "outstatic/content/blog/test.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "collection": "blog",
-      "coverImage": "",
-      "description": "",
-      "publishedAt": "2024-04-08T02:43:43.830Z",
-      "slug": "test",
-      "status": "published",
-      "title": "Test"
-    },
     {
       "__outstatic": {
         "commit": "533b61b7c2ad489ab1514d3fbc70f06341b406ad",
