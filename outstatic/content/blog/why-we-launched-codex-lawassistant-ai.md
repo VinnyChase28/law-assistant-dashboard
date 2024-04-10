@@ -54,4 +54,4 @@ LLMs are susceptible to biases present in their training data, which can lead to
 
 ### **Codex in Compliance Automation**
 
-[Codex](lawassistant.ai) represents a specialized application of Generative AI in compliance automation. The broader landscape of compliance automation is characterized by a diverse array of LLMs and Generative AI systems, each contributing unique capabilities to the overarching goal of simplifying and fortifying compliance efforts across industries.
+[Codex](https://lawassistant.ai) represents a specialized application of Generative AI in compliance automation. The broader landscape of compliance automation is characterized by a diverse array of LLMs and Generative AI systems, each contributing unique capabilities to the overarching goal of simplifying and fortifying compliance efforts across industries.
