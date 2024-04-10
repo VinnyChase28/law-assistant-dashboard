@@ -1,6 +1,7 @@
 import { getDocumentSlugs, getDocumentBySlug } from "outstatic/server";
-
-export const dynamic = 'force-static';
+import matter from 'gray-matter';
+import path from 'path';
+import { promises as fs } from 'fs';
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
@@ -8,26 +9,26 @@ export async function generateStaticParams() {
   console.log(posts);
   return posts.map((slug) => ({ slug }));
 }
-// Multiple versions of this page will be statically generated
-// using the `params` returned by `generateStaticParams`
+
+
+
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
-  console.log(slug);
-  const post = await getDocumentBySlug('blog', params.slug, [
-    'title',
-    'author',
-    'content',
-    'coverImage',
-    'publishedAt',
-  ]);
-  console.log(post);
+
+  // Construct the full path to the markdown file
+  const filePath = path.join(process.cwd(), 'outstatic', 'content', 'blog', `${slug}.md`);
+  const fileContents = await fs.readFile(filePath, 'utf8');
+
+  // Parse the markdown file content
+  const { data: frontMatter, content } = matter(fileContents);
+
+  // Here, you can convert `content` from markdown to HTML as needed
 
   return (
     <div>
-      <h1>{post?.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: post?.content ?? "" }} />
+      <h1>{frontMatter.title}</h1>
+      {/* Render the markdown content as HTML */}
+      <div dangerouslySetInnerHTML={{ __html: content }} />
     </div>
   );
-
-  
 }
