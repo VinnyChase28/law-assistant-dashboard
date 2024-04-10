@@ -1,6 +1,6 @@
 {
-  "commit": "0811828845c466fdedea6ddbb35eaade5af1f822",
-  "generated": "Tue, 09 Apr 2024 17:26:03 GMT",
+  "commit": "47bb239db6be3b287589d3f8830e53ae5fbcab46",
+  "generated": "2024-04-10T01:42:18.878Z",
   "metadata": [
     {
       "__outstatic": {
@@ -142,8 +142,8 @@
     },
     {
       "__outstatic": {
-        "commit": "1801452d7afaa25abe86f39aff451ec902eb5b17",
-        "hash": "3163284498",
+        "commit": "47bb239db6be3b287589d3f8830e53ae5fbcab46",
+        "hash": "3518563979",
         "path": "outstatic/content/blog/why-we-launched-codex-lawassistant-ai.md"
       },
       "author": {
@@ -156,7 +156,7 @@
       "publishedAt": "2024-04-08T00:14:57.541Z",
       "slug": "why-we-launched-codex-lawassistant-ai",
       "status": "published",
-      "title": "Why we launched Codex | LawAssistant AI"
+      "title": "CodeX"
     }
   ]
 }
