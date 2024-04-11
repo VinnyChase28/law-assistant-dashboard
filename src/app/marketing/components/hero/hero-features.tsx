@@ -1,4 +1,3 @@
-//images.ctfassets.net/hd6t5mkdkzjx/6dXSr7rF1vAwxwg1UjitTE/d12070b66b19e60ea510eaa6394bff6f/files.jpg imageSrc
 
 "use client";
 
