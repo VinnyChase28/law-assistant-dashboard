@@ -30,7 +30,7 @@ async function getBlogPostUrls(): Promise<
     return {
       url: `https://lawassistant.ai/marketing/blog/${slug}`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "monthly",
       priority: 0.8,
     };
   });
