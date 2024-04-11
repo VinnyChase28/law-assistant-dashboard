@@ -1,4 +1,4 @@
-import { getDocumentSlugs, getDocumentBySlug } from "outstatic/server";
+import { getDocumentSlugs } from "outstatic/server";
 import matter from 'gray-matter';
 import path from 'path';
 import { promises as fs } from 'fs';
@@ -43,7 +43,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <Markdown markdownText={content ?? ""} />
           </article>
         </div>
-        
       </BlogAnimations>
   );
 }
