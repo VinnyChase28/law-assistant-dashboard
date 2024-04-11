@@ -1,6 +1,6 @@
 {
-  "commit": "c4e9b28c8bd269ee76eafb0c131c8b65d58e4d8d",
-  "generated": "2024-04-10T16:42:23.756Z",
+  "commit": "a269312f8783b145ec4e42650333511060a9f21f",
+  "generated": "2024-04-11T16:38:33.888Z",
   "metadata": [
     {
       "__outstatic": {
@@ -157,6 +157,24 @@
       "slug": "5-ways-genai-is-revolutionizing-compliance-automation",
       "status": "published",
       "title": "5 Ways GenAI is Revolutionizing Compliance Automation"
+    },
+    {
+      "__outstatic": {
+        "commit": "a269312f8783b145ec4e42650333511060a9f21f",
+        "hash": "1024458277",
+        "path": "outstatic/content/blog/ai-and-compliance-transforming-the-role-of-compliance-officers.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/signature-E2OT.jpg",
+      "description": "",
+      "publishedAt": "2024-04-11T15:51:50.001Z",
+      "slug": "ai-and-compliance-transforming-the-role-of-compliance-officers",
+      "status": "published",
+      "title": "AI and Compliance: Transforming the Role of Compliance Officers"
     }
   ]
 }
