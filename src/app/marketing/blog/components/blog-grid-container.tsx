@@ -37,7 +37,7 @@ export default function BlogGridContainer({ posts }: BlogGridContainerProps) {
           className="h-50 relative w-full overflow-hidden rounded-lg" // Ensure overflow is hidden and rounded corners
         >
           {/* Background gradient effect */}
-          <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-pink-600 to-purple-600 opacity-75 blur transition-opacity duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
+          <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-pink-600 to-indigo-600 opacity-75 blur transition-opacity duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
 
           {/* Card content */}
           <Card className="relative z-10 flex h-full flex-col rounded-lg bg-black bg-opacity-80">

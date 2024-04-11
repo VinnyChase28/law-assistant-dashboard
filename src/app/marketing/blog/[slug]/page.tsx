@@ -7,6 +7,38 @@ import Image
  from "next/image";
 import BlogAnimations from "../components/blog-animations";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = params;
+  const filePath = path.join(
+    process.cwd(),
+    "outstatic",
+    "content",
+    "blog",
+    `${slug}.md`,
+  );
+  const fileContents = await fs.readFile(filePath, "utf8");
+  const { data: frontMatter } = matter(fileContents);
+
+  // Return a metadata object with dynamic values based on the blog post content
+  return {
+    title: frontMatter.title,
+    description: frontMatter.description,
+    openGraph: {
+      images: [
+        {
+          url: frontMatter.coverImage,
+          alt: frontMatter.title,
+        },
+      ],
+    },
+    // Add any other metadata fields as needed
+  };
+}
+
 export async function generateStaticParams() {
   const posts = getDocumentSlugs("blog");
   return posts.map((slug) => ({ slug }));
