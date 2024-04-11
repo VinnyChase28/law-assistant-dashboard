@@ -70,5 +70,3 @@ For those seeking to learn more about compliance automation and AI, resources in
 AI is reshaping the compliance landscape, offering opportunities for compliance officers to enhance their roles and contribute to their organizations' success. By embracing AI, compliance professionals can stay ahead of the curve, ensuring that their companies remain compliant in an efficient and effective manner.
 
 For compliance officers ready to take the next step in leveraging AI for their operations, consider exploring AI-powered solutions that can automate and optimize your compliance processes. Discover how AI can transform your compliance strategy by visiting [lawassistant.ai](http://lawassistant.ai) for a demo or consultation.
-
-- 

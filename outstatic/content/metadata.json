@@ -1,6 +1,6 @@
 {
   "commit": "68130f29e2a3e14f5a33534f961ced8fd65eb4ba",
-  "generated": "2024-04-11T16:40:01.060Z",
+  "generated": "2024-04-11T16:43:45.069Z",
   "metadata": [
     {
       "__outstatic": {
@@ -161,7 +161,7 @@
     {
       "__outstatic": {
         "commit": "68130f29e2a3e14f5a33534f961ced8fd65eb4ba",
-        "hash": "4219240939",
+        "hash": "2392607588",
         "path": "outstatic/content/blog/ai-and-compliance-transforming-the-role-of-compliance-officers.md"
       },
       "author": {
