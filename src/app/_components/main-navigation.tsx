@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import { ModeToggle } from "@/components/dark-mode-toggle";
-import { api } from "src/trpc/react";
+
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -42,7 +42,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function MainNavigation() {
   return (
-    <NavigationMenu>
+    <NavigationMenu className="pl-3">
       <ModeToggle />
       <NavigationMenuList>
         <NavigationMenuItem>
