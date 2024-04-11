@@ -1,7 +1,43 @@
 {
-  "commit": "68130f29e2a3e14f5a33534f961ced8fd65eb4ba",
-  "generated": "2024-04-11T16:44:47.128Z",
+  "commit": "cc929599dcfe5fb60b34a67f32fb019760aa8a99",
+  "generated": "Thu, 11 Apr 2024 17:10:55 GMT",
   "metadata": [
+    {
+      "__outstatic": {
+        "commit": "148f0ab06151feeaf479440015c49d5cfeeb4374",
+        "hash": "1194574422",
+        "path": "outstatic/content/blog/ai-and-compliance-transforming-the-role-of-compliance-officers.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/signature-E2OT.jpg",
+      "description": "",
+      "publishedAt": "2024-04-11T15:51:50.001Z",
+      "slug": "ai-and-compliance-transforming-the-role-of-compliance-officers",
+      "status": "published",
+      "title": "AI and Compliance: Transforming the Role of Compliance Officers"
+    },
+    {
+      "__outstatic": {
+        "commit": "a3ac0b9e6bb55b88b78a625b11fb94c97d1bd7ba",
+        "hash": "2055390908",
+        "path": "outstatic/content/blog/5-ways-genai-is-revolutionizing-compliance-automation.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/injury-law-kzOD.jpg",
+      "description": "",
+      "publishedAt": "2024-04-10T15:48:26.504Z",
+      "slug": "5-ways-genai-is-revolutionizing-compliance-automation",
+      "status": "published",
+      "title": "5 Ways GenAI is Revolutionizing Compliance Automation"
+    },
     {
       "__outstatic": {
         "commit": "533b61b7c2ad489ab1514d3fbc70f06341b406ad",
@@ -124,7 +160,7 @@
     },
     {
       "__outstatic": {
-        "commit": "01bafeaa80c570ee580ae57ce81f00bab37d38f3",
+        "commit": "3fec172662c75290568b30248c05f1587c9707b6",
         "hash": "3255508121",
         "path": "outstatic/content/blog/compliance-automation.md"
       },
@@ -139,42 +175,6 @@
       "slug": "compliance-automation",
       "status": "published",
       "title": "What is Compliance Automation?"
-    },
-    {
-      "__outstatic": {
-        "commit": "c4e9b28c8bd269ee76eafb0c131c8b65d58e4d8d",
-        "hash": "2055390908",
-        "path": "outstatic/content/blog/5-ways-genai-is-revolutionizing-compliance-automation.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "collection": "blog",
-      "coverImage": "/images/injury-law-kzOD.jpg",
-      "description": "",
-      "publishedAt": "2024-04-10T15:48:26.504Z",
-      "slug": "5-ways-genai-is-revolutionizing-compliance-automation",
-      "status": "published",
-      "title": "5 Ways GenAI is Revolutionizing Compliance Automation"
-    },
-    {
-      "__outstatic": {
-        "commit": "68130f29e2a3e14f5a33534f961ced8fd65eb4ba",
-        "hash": "1194574422",
-        "path": "outstatic/content/blog/ai-and-compliance-transforming-the-role-of-compliance-officers.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "collection": "blog",
-      "coverImage": "/images/signature-E2OT.jpg",
-      "description": "",
-      "publishedAt": "2024-04-11T15:51:50.001Z",
-      "slug": "ai-and-compliance-transforming-the-role-of-compliance-officers",
-      "status": "published",
-      "title": "AI and Compliance: Transforming the Role of Compliance Officers"
     }
   ]
 }
