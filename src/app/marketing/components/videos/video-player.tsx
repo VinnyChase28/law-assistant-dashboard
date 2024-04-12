@@ -2,12 +2,12 @@ import React from "react";
 import MuxPlayer from "@mux/mux-player-react";
 
 interface VideoPlayerProps {
-  streamType: "on-demand" | "live"; // You can add more types if needed
+  streamType: "on-demand" | "live";
   playbackId: string;
-  metadataVideoTitle?: string; // Optional prop
-  metadataViewerUserId?: string; // Optional prop
-  primaryColor?: string; // Optional prop with default value
-  secondaryColor?: string; // Optional prop with default value
+  metadataVideoTitle?: string;
+  metadataViewerUserId?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
 }
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
@@ -19,14 +19,18 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   secondaryColor = "#000000",
 }) => {
   return (
-    <MuxPlayer
-      streamType={streamType}
-      playbackId={playbackId}
-      metadataVideoTitle={metadataVideoTitle}
-      metadataViewerUserId={metadataViewerUserId}
-      primaryColor={primaryColor}
-      secondaryColor={secondaryColor}
-    />
+    <div className="max-w-screen-3xl mx-auto">
+      <MuxPlayer
+        streamType={streamType}
+        playbackId={playbackId}
+        metadata={{
+          videoTitle: metadataVideoTitle,
+          viewerUserId: metadataViewerUserId,
+        }}
+        primaryColor={primaryColor}
+        secondaryColor={secondaryColor}
+      />
+    </div>
   );
 };
 
