@@ -1,6 +1,6 @@
 {
-  "commit": "cc929599dcfe5fb60b34a67f32fb019760aa8a99",
-  "generated": "Thu, 11 Apr 2024 17:10:55 GMT",
+  "commit": "a7f5f0d962158c6be8e66e4fa8906a7de4338800",
+  "generated": "2024-04-12T06:47:59.560Z",
   "metadata": [
     {
       "__outstatic": {
@@ -160,8 +160,8 @@
     },
     {
       "__outstatic": {
-        "commit": "3fec172662c75290568b30248c05f1587c9707b6",
-        "hash": "3255508121",
+        "commit": "a7f5f0d962158c6be8e66e4fa8906a7de4338800",
+        "hash": "3880549097",
         "path": "outstatic/content/blog/compliance-automation.md"
       },
       "author": {
