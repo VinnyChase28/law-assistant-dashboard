@@ -19,7 +19,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   secondaryColor = "#000000",
 }) => {
   return (
-    <div className="max-w-screen-3xl mx-auto">
+    <div className="mmd:container md:mx-auto">
       <MuxPlayer
         streamType={streamType}
         playbackId={playbackId}

@@ -14,10 +14,10 @@ function HomeContainer() {
   return (
     <>
       <Hero />
-      <VideoPlayer
+      {/* <VideoPlayer
         streamType="on-demand"
         playbackId="ELHiDecJkhfF5JJ4wUDte8JKR4NCY02Azb1iKQhXPVBQ"
-      />
+      /> */}
       <Sponsors />
       <CaseStudies />
       <FlowChartHome />
