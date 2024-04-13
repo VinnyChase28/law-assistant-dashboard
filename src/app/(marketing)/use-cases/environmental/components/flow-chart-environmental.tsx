@@ -1,10 +1,12 @@
-import Flowchart from "src/app/marketing/components/flow-chart/fow-chart";
+"use client";
+import Flowchart from "src/app/(marketing)/components/flow-chart/fow-chart";
 import {
   startingPositions,
   FlowchartConfig,
-} from "src/app/marketing/components/flow-chart/flow-chart-config";
-import HeroFeatures from "src/app/marketing/components/hero/hero-features";
+} from "src/app/(marketing)/components/flow-chart/flow-chart-config";
+import HeroFeatures from "src/app/(marketing)/components/hero/hero-features";
 import stars from "/videos/stars.mp4";
+
 const config: FlowchartConfig = {
   pageWidth: startingPositions.pageWidth,
   nodesAboveCodeX: startingPositions.nodesAboveCodeX,
@@ -20,8 +22,7 @@ const config: FlowchartConfig = {
       position: { x: startingPositions.startXAbove, y: 5 },
       data: {
         title: "Input",
-        description:
-          "Transaction records, AML laws, internal compliance checklists",
+        description: "Project plans and specs",
         icon: "file-plus",
       },
     },
@@ -37,8 +38,7 @@ const config: FlowchartConfig = {
       },
       data: {
         title: "Data Sources",
-        description:
-          "Financial software like QuickBooks, regulatory websites, Google Docs",
+        description: "Environmental regulations",
         icon: "layout-template",
       },
     },
@@ -52,25 +52,26 @@ const config: FlowchartConfig = {
       data: {
         title: "Codex",
         description:
-          "Screen transactions against AML laws and checklists using pattern recognition",
+          "Cross-reference assessments with regulations and specs to evaluate compliance",
         icon: "code",
       },
     },
     {
-      id: "alerts",
+      id: "compliance-report",
       type: "customNode",
       position: {
         x: startingPositions.startXBelow,
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Alerts",
-        description: "Alerts on suspicious transactions",
-        icon: "bell",
+        title: "Compliance Report",
+        description:
+          "Reports detailing potential impacts, compliance gaps, and mitigation strategies",
+        icon: "file-text",
       },
     },
     {
-      id: "investigation-reports",
+      id: "mitigation-strategies",
       type: "customNode",
       position: {
         x:
@@ -80,13 +81,13 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Investigation Reports",
-        description: "Detailed reports for further investigation",
-        icon: "file-text",
+        title: "Mitigation Strategies",
+        description: "Strategies to address and mitigate environmental impacts",
+        icon: "settings",
       },
     },
     {
-      id: "compliance-dashboard",
+      id: "impact-visualization",
       type: "customNode",
       position: {
         x:
@@ -96,8 +97,9 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Compliance Dashboard",
-        description: "Compliance status dashboards",
+        title: "Impact Visualization",
+        description:
+          "Visual representation of environmental impacts and compliance status",
         icon: "bar-chart-2",
       },
     },
@@ -105,29 +107,33 @@ const config: FlowchartConfig = {
   initialEdges: [
     { id: "e-input-process", source: "input", target: "process" },
     { id: "e-data-sources-process", source: "data-sources", target: "process" },
-    { id: "e-process-alerts", source: "process", target: "alerts" },
     {
-      id: "e-process-investigation-reports",
+      id: "e-process-compliance-report",
       source: "process",
-      target: "investigation-reports",
+      target: "compliance-report",
     },
     {
-      id: "e-process-compliance-dashboard",
+      id: "e-process-mitigation-strategies",
       source: "process",
-      target: "compliance-dashboard",
+      target: "mitigation-strategies",
+    },
+    {
+      id: "e-process-impact-visualization",
+      source: "process",
+      target: "impact-visualization",
     },
   ],
 };
 
-const FlowChartFinancial= () => {
+const FlowChartEnvironmental = () => {
   return (
     <div className="container mx-auto p-8">
       <HeroFeatures
-        title="Compliance Monitoring"
-        headline="Monitoring for Financial Transactions"
-        description="CodeX enhances your ability to monitor transactions, ensuring compliance with AML laws and internal guidelines."
+        title="Environmental Compliance"
+        headline="Environmental Compliance Automation"
+        description="CodeX simplifies the process of ensuring your projects meet environmental standards and regulations."
         primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
-        primaryButtonText="Discover More"
+        primaryButtonText="Learn More"
         videoSrc={stars}
       />
       <Flowchart config={config} />
@@ -135,4 +141,4 @@ const FlowChartFinancial= () => {
   );
 };
 
-export default FlowChartFinancial;
+export default FlowChartEnvironmental;

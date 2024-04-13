@@ -1,4 +1,4 @@
-import HomeContainer from "./marketing/components/home/home-container";
+import HomeContainer from "./(marketing)/components/home/home-container";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

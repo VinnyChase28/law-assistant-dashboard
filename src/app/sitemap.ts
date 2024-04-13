@@ -28,14 +28,13 @@ async function getBlogPostUrls(): Promise<
   return filenames.map((filename) => {
     const slug = filename.replace(/\.md$/, ""); // Correctly define 'slug' here
     return {
-      url: `https://lawassistant.ai/marketing/blog/${slug}`,
+      url: `https://lawassistant.ai/blog/${slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     };
   });
 }
-
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogPostUrls = await getBlogPostUrls();
@@ -47,25 +46,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
     {
-      url: "https://lawassistant.ai/marketing/platform/overview",
+      url: "https://lawassistant.ai/platform/overview",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: "https://lawassistant.ai/marketing/platform/how-it-works",
+      url: "https://lawassistant.ai/platform/how-it-works",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: "https://lawassistant.ai/marketing/platform/why-codex",
+      url: "https://lawassistant.ai/platform/why-codex",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: "https://lawassistant.ai/marketing/platform/integrations",
+      url: "https://lawassistant.ai/platform/integrations",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,

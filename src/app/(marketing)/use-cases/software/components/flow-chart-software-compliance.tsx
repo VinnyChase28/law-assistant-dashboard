@@ -1,10 +1,10 @@
 "use client";
-import Flowchart from "src/app/marketing/components/flow-chart/fow-chart";
+import Flowchart from "src/app/(marketing)/components/flow-chart/fow-chart";
 import {
   startingPositions,
   FlowchartConfig,
-} from "src/app/marketing/components/flow-chart/flow-chart-config";
-import HeroFeatures from "src/app/marketing/components/hero/hero-features";
+} from "src/app/(marketing)/components/flow-chart/flow-chart-config";
+import HeroFeatures from "src/app/(marketing)/components/hero/hero-features";
 import stars from "/videos/stars.mp4";
 
 const config: FlowchartConfig = {
@@ -22,8 +22,7 @@ const config: FlowchartConfig = {
       position: { x: startingPositions.startXAbove, y: 5 },
       data: {
         title: "Input",
-        description:
-          "Employee communications, HR policies, legal regulations on workplace conduct",
+        description: "Source code, URL's",
         icon: "file-plus",
       },
     },
@@ -40,7 +39,7 @@ const config: FlowchartConfig = {
       data: {
         title: "Data Sources",
         description:
-          "Communications on Slack/Teams, HR policies on Workday/intranet, legal regulations in databases",
+          "Software development best practices, company coding standards",
         icon: "layout-template",
       },
     },
@@ -53,26 +52,25 @@ const config: FlowchartConfig = {
       },
       data: {
         title: "Codex",
-        description:
-          "Analyze communications for policy violations, respecting privacy and ethics",
+        description: "Check code for compliance",
         icon: "code",
       },
     },
     {
-      id: "communication-trends",
+      id: "compliance-reports",
       type: "customNode",
       position: {
         x: startingPositions.startXBelow,
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Communication Trends",
-        description: "Automated reports on communication trends",
-        icon: "bar-chart-2",
+        title: "Compliance Reports",
+        description: "Reports on compliance",
+        icon: "file-text",
       },
     },
     {
-      id: "flagged-messages",
+      id: "code-improvement",
       type: "customNode",
       position: {
         x:
@@ -82,13 +80,13 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Flagged Messages",
-        description: "Flagged messages for HR review",
-        icon: "flag",
+        title: "Code Improvement",
+        description: "Code improvement suggestions",
+        icon: "code",
       },
     },
     {
-      id: "policy-refinement",
+      id: "security-quality-issues",
       type: "customNode",
       position: {
         x:
@@ -98,9 +96,9 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Policy Refinement",
-        description: "Anonymized summaries for training or policy refinement",
-        icon: "edit-3",
+        title: "Security & Quality Issues",
+        description: "Identify threats",
+        icon: "shield",
       },
     },
   ],
@@ -108,32 +106,32 @@ const config: FlowchartConfig = {
     { id: "e-input-process", source: "input", target: "process" },
     { id: "e-data-sources-process", source: "data-sources", target: "process" },
     {
-      id: "e-process-communication-trends",
+      id: "e-process-compliance-reports",
       source: "process",
-      target: "communication-trends",
+      target: "compliance-reports",
     },
     {
-      id: "e-process-flagged-messages",
+      id: "e-process-code-improvement",
       source: "process",
-      target: "flagged-messages",
+      target: "code-improvement",
     },
     {
-      id: "e-process-policy-refinement",
+      id: "e-process-security-quality-issues",
       source: "process",
-      target: "policy-refinement",
+      target: "security-quality-issues",
     },
   ],
 };
 
-const FlowChartHrPolicy = () => {
+const FlowChartSoftwareCompliance = () => {
   return (
     <div className="container mx-auto p-8">
       <HeroFeatures
-        title="Policy Compliance"
-        headline="Policy Compliance Automation"
-        description="CodeX leverages advanced analytics to monitor public communications, ensuring adherence to HR policies and legal standards."
+        title="Software Development Compliance"
+        headline="Ensuring Compliance with Industry Standards in Software Development"
+        description="CodeX automates the process of comparing your source code against industry best practices and company standards, helping identify areas for improvement and potential issues."
         primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
-        primaryButtonText="Explore Solutions"
+        primaryButtonText="Learn More"
         videoSrc={stars}
       />
       <Flowchart config={config} />
@@ -141,4 +139,4 @@ const FlowChartHrPolicy = () => {
   );
 };
 
-export default FlowChartHrPolicy;
+export default FlowChartSoftwareCompliance;

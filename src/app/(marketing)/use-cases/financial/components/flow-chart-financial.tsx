@@ -1,12 +1,10 @@
-"use client";
-import Flowchart from "src/app/marketing/components/flow-chart/fow-chart";
+import Flowchart from "src/app/(marketing)/components/flow-chart/fow-chart";
 import {
   startingPositions,
   FlowchartConfig,
-} from "src/app/marketing/components/flow-chart/flow-chart-config";
-import HeroFeatures from "src/app/marketing/components/hero/hero-features";
+} from "src/app/(marketing)/components/flow-chart/flow-chart-config";
+import HeroFeatures from "src/app/(marketing)/components/hero/hero-features";
 import stars from "/videos/stars.mp4";
-
 const config: FlowchartConfig = {
   pageWidth: startingPositions.pageWidth,
   nodesAboveCodeX: startingPositions.nodesAboveCodeX,
@@ -22,7 +20,8 @@ const config: FlowchartConfig = {
       position: { x: startingPositions.startXAbove, y: 5 },
       data: {
         title: "Input",
-        description: "Source code, URL's",
+        description:
+          "Transaction records, AML laws, internal compliance checklists",
         icon: "file-plus",
       },
     },
@@ -39,7 +38,7 @@ const config: FlowchartConfig = {
       data: {
         title: "Data Sources",
         description:
-          "Software development best practices, company coding standards",
+          "Financial software like QuickBooks, regulatory websites, Google Docs",
         icon: "layout-template",
       },
     },
@@ -52,25 +51,26 @@ const config: FlowchartConfig = {
       },
       data: {
         title: "Codex",
-        description: "Check code for compliance",
+        description:
+          "Screen transactions against AML laws and checklists using pattern recognition",
         icon: "code",
       },
     },
     {
-      id: "compliance-reports",
+      id: "alerts",
       type: "customNode",
       position: {
         x: startingPositions.startXBelow,
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Compliance Reports",
-        description: "Reports on compliance",
-        icon: "file-text",
+        title: "Alerts",
+        description: "Alerts on suspicious transactions",
+        icon: "bell",
       },
     },
     {
-      id: "code-improvement",
+      id: "investigation-reports",
       type: "customNode",
       position: {
         x:
@@ -80,13 +80,13 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Code Improvement",
-        description: "Code improvement suggestions",
-        icon: "code",
+        title: "Investigation Reports",
+        description: "Detailed reports for further investigation",
+        icon: "file-text",
       },
     },
     {
-      id: "security-quality-issues",
+      id: "compliance-dashboard",
       type: "customNode",
       position: {
         x:
@@ -96,42 +96,38 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Security & Quality Issues",
-        description: "Identify threats",
-        icon: "shield",
+        title: "Compliance Dashboard",
+        description: "Compliance status dashboards",
+        icon: "bar-chart-2",
       },
     },
   ],
   initialEdges: [
     { id: "e-input-process", source: "input", target: "process" },
     { id: "e-data-sources-process", source: "data-sources", target: "process" },
+    { id: "e-process-alerts", source: "process", target: "alerts" },
     {
-      id: "e-process-compliance-reports",
+      id: "e-process-investigation-reports",
       source: "process",
-      target: "compliance-reports",
+      target: "investigation-reports",
     },
     {
-      id: "e-process-code-improvement",
+      id: "e-process-compliance-dashboard",
       source: "process",
-      target: "code-improvement",
-    },
-    {
-      id: "e-process-security-quality-issues",
-      source: "process",
-      target: "security-quality-issues",
+      target: "compliance-dashboard",
     },
   ],
 };
 
-const FlowChartSoftwareCompliance = () => {
+const FlowChartFinancial = () => {
   return (
     <div className="container mx-auto p-8">
       <HeroFeatures
-        title="Software Development Compliance"
-        headline="Ensuring Compliance with Industry Standards in Software Development"
-        description="CodeX automates the process of comparing your source code against industry best practices and company standards, helping identify areas for improvement and potential issues."
+        title="Compliance Monitoring"
+        headline="Monitoring for Financial Transactions"
+        description="CodeX enhances your ability to monitor transactions, ensuring compliance with AML laws and internal guidelines."
         primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
-        primaryButtonText="Learn More"
+        primaryButtonText="Discover More"
         videoSrc={stars}
       />
       <Flowchart config={config} />
@@ -139,4 +135,4 @@ const FlowChartSoftwareCompliance = () => {
   );
 };
 
-export default FlowChartSoftwareCompliance;
+export default FlowChartFinancial;

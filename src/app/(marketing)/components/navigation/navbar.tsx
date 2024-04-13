@@ -49,25 +49,25 @@ import { cn } from "@/lib/utils";
 const platformItems = [
   {
     title: "Overview",
-    href: "/marketing/platform/overview",
+    href: "/platform/overview",
     description: "AI-powered compliance assistance for all your needs",
     icon: PenTool,
   },
   {
     title: "How it Works",
-    href: "/marketing/platform/how-it-works",
+    href: "/platform/how-it-works",
     description: "Seamless integration with your existing systems",
     icon: HelpCircle,
   },
   {
     title: "Why CodeX",
-    href: "/marketing/platform/why-codex",
+    href: "/platform/why-codex",
     description: "The leader in AI-powered compliance solutions",
     icon: Award,
   },
   {
     title: "Integrations",
-    href: "/marketing/platform/integrations",
+    href: "/platform/integrations",
     description: "Explore our integrations with popular legal databases",
     icon: Puzzle,
   },
@@ -75,40 +75,40 @@ const platformItems = [
 const useCasesItems = [
   {
     title: "Real Estate",
-    href: "/marketing/use-cases/real-estate",
+    href: "/use-cases/real-estate",
     description:
       "Ensure real estate projects adhere to zoning and building bylaws",
     icon: Home,
   },
   {
     title: "Contracts",
-    href: "/marketing/use-cases/contracts",
+    href: "/use-cases/contracts",
     description: "Analyze contracts for deviations from standards and policies",
     icon: Search,
   },
   {
     title: "Environmental",
-    href: "/marketing/use-cases/environmental",
+    href: "/use-cases/environmental",
     description:
       "Assess projects against environmental regulations and standards",
     icon: FileText,
   },
   {
     title: "Financial",
-    href: "/marketing/use-cases/financial",
+    href: "/use-cases/financial",
     description: "Detect suspicious transactions and ensure AML law compliance",
     icon: DollarSign,
   },
   {
     title: "HR Policy",
-    href: "/marketing/use-cases/hr-policy",
+    href: "/use-cases/hr-policy",
     description:
       "Monitor communications for HR policy adherence and conduct issues",
     icon: Folder,
   },
   {
     title: "Best Practices",
-    href: "/marketing/use-cases/software",
+    href: "/use-cases/software",
     description: "Verify code against best practices and company standards",
     icon: Code,
   },
@@ -117,7 +117,7 @@ const useCasesItems = [
 const resourcesItems = [
   {
     title: "Blog",
-    href: "/marketing/blog",
+    href: "/blog",
     description: "Insights and updates on compliance trends",
     icon: FileText,
   },
@@ -155,7 +155,7 @@ const getStartedItems = [
   },
   {
     title: "Pricing",
-    href: "/marketing/pricing",
+    href: "/pricing",
     description: "Choose the right plan for your compliance needs",
     icon: DollarSign,
   },

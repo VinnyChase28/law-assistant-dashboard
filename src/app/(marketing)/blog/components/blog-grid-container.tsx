@@ -54,7 +54,7 @@ export default function BlogGridContainer({ posts }: BlogGridContainerProps) {
             </CardContent>
             <CardFooter>
               <Button variant="outline">
-                <a href={`/marketing/blog/${post.slug}`}>Read More</a>
+                <a href={`/blog/${post.slug}`}>Read More</a>
               </Button>
             </CardFooter>
           </Card>

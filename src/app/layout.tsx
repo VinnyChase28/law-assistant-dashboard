@@ -9,11 +9,11 @@ import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { MainNavigation } from "./_components/main-navigation";
 import { UserNav } from "./_components/user-nav";
-import Navbar from "./marketing/components/navigation/navbar";
+import Navbar from "./(marketing)/components/navigation/navbar";
 import { getServerAuthSession } from "src/server/auth";
 import { Home, NewspaperIcon } from "lucide-react";
 import Link from "next/link";
-import { LawAssistantLogo } from "./marketing/assets/law-assistant-logo";
+import { LawAssistantLogo } from "./(marketing)/assets/law-assistant-logo";
 
 export const metadata: Metadata = {
   title: "CodeX | Law Assistant AI",

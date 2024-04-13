@@ -1,11 +1,11 @@
 "use client";
-import Flowchart from "src/app/marketing/components/flow-chart/fow-chart";
+import Flowchart from "src/app/(marketing)/components/flow-chart/fow-chart";
 import {
   startingPositions,
   FlowchartConfig,
-} from "src/app/marketing/components/flow-chart/flow-chart-config";
-import HeroFeatures from "src/app/marketing/components/hero/hero-features";
-import stars from "/videos/stars.mp4";
+} from "src/app/(marketing)/components/flow-chart/flow-chart-config";
+import HeroFeatures from "src/app/(marketing)/components/hero/hero-features";
+import particles from "/videos/particles.mp4";
 
 const config: FlowchartConfig = {
   pageWidth: startingPositions.pageWidth,
@@ -22,7 +22,8 @@ const config: FlowchartConfig = {
       position: { x: startingPositions.startXAbove, y: 5 },
       data: {
         title: "Input",
-        description: "Project plans and specs",
+        description:
+          "Draft contracts, industry-standard contracts, company policies",
         icon: "file-plus",
       },
     },
@@ -38,7 +39,8 @@ const config: FlowchartConfig = {
       },
       data: {
         title: "Data Sources",
-        description: "Environmental regulations",
+        description:
+          "Contracts via email or Google Drive, standard templates on SharePoint",
         icon: "layout-template",
       },
     },
@@ -52,26 +54,26 @@ const config: FlowchartConfig = {
       data: {
         title: "Codex",
         description:
-          "Cross-reference assessments with regulations and specs to evaluate compliance",
+          "Analyze contracts against templates and policies using vector embeddings",
         icon: "code",
       },
     },
     {
-      id: "compliance-report",
+      id: "highlighted-contract",
       type: "customNode",
       position: {
         x: startingPositions.startXBelow,
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Compliance Report",
+        title: "Highlighted Contract",
         description:
-          "Reports detailing potential impacts, compliance gaps, and mitigation strategies",
+          "Contracts indicating deviations with suggestions for alignment",
         icon: "file-text",
       },
     },
     {
-      id: "mitigation-strategies",
+      id: "alignment-suggestions",
       type: "customNode",
       position: {
         x:
@@ -81,13 +83,14 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Mitigation Strategies",
-        description: "Strategies to address and mitigate environmental impacts",
-        icon: "settings",
+        title: "Alignment Suggestions",
+        description:
+          "Suggestions for contract alignment with standards and policies",
+        icon: "lightbulb",
       },
     },
     {
-      id: "impact-visualization",
+      id: "contract-visualization",
       type: "customNode",
       position: {
         x:
@@ -97,9 +100,8 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Impact Visualization",
-        description:
-          "Visual representation of environmental impacts and compliance status",
+        title: "Contract Visualization",
+        description: "Visualize contract deviations and alignments",
         icon: "bar-chart-2",
       },
     },
@@ -108,37 +110,37 @@ const config: FlowchartConfig = {
     { id: "e-input-process", source: "input", target: "process" },
     { id: "e-data-sources-process", source: "data-sources", target: "process" },
     {
-      id: "e-process-compliance-report",
+      id: "e-process-highlighted-contract",
       source: "process",
-      target: "compliance-report",
+      target: "highlighted-contract",
     },
     {
-      id: "e-process-mitigation-strategies",
+      id: "e-process-alignment-suggestions",
       source: "process",
-      target: "mitigation-strategies",
+      target: "alignment-suggestions",
     },
     {
-      id: "e-process-impact-visualization",
+      id: "e-process-contract-visualization",
       source: "process",
-      target: "impact-visualization",
+      target: "contract-visualization",
     },
   ],
 };
 
-const FlowChartEnvironmental = () => {
+const FlowChartContract = () => {
   return (
     <div className="container mx-auto p-8">
       <HeroFeatures
-        title="Environmental Compliance"
-        headline="Environmental Compliance Automation"
-        description="CodeX simplifies the process of ensuring your projects meet environmental standards and regulations."
+        title="Contract Compliance"
+        headline="Contract Compliance Automation"
+        description="CodeX streamlines your contract review process, ensuring compliance and alignment with industry standards."
         primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
-        primaryButtonText="Learn More"
-        videoSrc={stars}
+        primaryButtonText="Schedule a Review"
+        videoSrc={particles}
       />
       <Flowchart config={config} />
     </div>
   );
 };
 
-export default FlowChartEnvironmental;
+export default FlowChartContract;

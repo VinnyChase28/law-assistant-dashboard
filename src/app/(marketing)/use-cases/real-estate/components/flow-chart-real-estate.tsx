@@ -1,12 +1,11 @@
 "use client";
-import Flowchart from "src/app/marketing/components/flow-chart/fow-chart";
+import Flowchart from "src/app/(marketing)/components/flow-chart/fow-chart";
 import {
   startingPositions,
   FlowchartConfig,
-} from "src/app/marketing/components/flow-chart/flow-chart-config";
-import HeroFeatures from "src/app/marketing/components/hero/hero-features";
-import particles from "/videos/particles.mp4";
-
+} from "src/app/(marketing)/components/flow-chart/flow-chart-config";
+import HeroFeatures from "src/app/(marketing)/components/hero/hero-features";
+import stars from "/videos/stars.mp4";
 const config: FlowchartConfig = {
   pageWidth: startingPositions.pageWidth,
   nodesAboveCodeX: startingPositions.nodesAboveCodeX,
@@ -22,8 +21,7 @@ const config: FlowchartConfig = {
       position: { x: startingPositions.startXAbove, y: 5 },
       data: {
         title: "Input",
-        description:
-          "Draft contracts, industry-standard contracts, company policies",
+        description: "Proposals, Emails, Questions",
         icon: "file-plus",
       },
     },
@@ -39,8 +37,7 @@ const config: FlowchartConfig = {
       },
       data: {
         title: "Data Sources",
-        description:
-          "Contracts via email or Google Drive, standard templates on SharePoint",
+        description: "Zoning & Building bylaws",
         icon: "layout-template",
       },
     },
@@ -53,27 +50,25 @@ const config: FlowchartConfig = {
       },
       data: {
         title: "Codex",
-        description:
-          "Analyze contracts against templates and policies using vector embeddings",
+        description: "Compare proposals against bylaws",
         icon: "code",
       },
     },
     {
-      id: "highlighted-contract",
+      id: "compliance-report",
       type: "customNode",
       position: {
         x: startingPositions.startXBelow,
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Highlighted Contract",
-        description:
-          "Contracts indicating deviations with suggestions for alignment",
+        title: "Compliance Report",
+        description: "Compliance reports",
         icon: "file-text",
       },
     },
     {
-      id: "alignment-suggestions",
+      id: "recommendations",
       type: "customNode",
       position: {
         x:
@@ -83,14 +78,13 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Alignment Suggestions",
-        description:
-          "Suggestions for contract alignment with standards and policies",
+        title: "Recommendations",
+        description: "Recommended actions",
         icon: "lightbulb",
       },
     },
     {
-      id: "contract-visualization",
+      id: "data-visualization",
       type: "customNode",
       position: {
         x:
@@ -100,8 +94,8 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Contract Visualization",
-        description: "Visualize contract deviations and alignments",
+        title: "Data Visualization",
+        description: "Visualize compliance data",
         icon: "bar-chart-2",
       },
     },
@@ -110,37 +104,37 @@ const config: FlowchartConfig = {
     { id: "e-input-process", source: "input", target: "process" },
     { id: "e-data-sources-process", source: "data-sources", target: "process" },
     {
-      id: "e-process-highlighted-contract",
+      id: "e-process-compliance-report",
       source: "process",
-      target: "highlighted-contract",
+      target: "compliance-report",
     },
     {
-      id: "e-process-alignment-suggestions",
+      id: "e-process-recommendations",
       source: "process",
-      target: "alignment-suggestions",
+      target: "recommendations",
     },
     {
-      id: "e-process-contract-visualization",
+      id: "e-process-data-visualization",
       source: "process",
-      target: "contract-visualization",
+      target: "data-visualization",
     },
   ],
 };
 
-const FlowChartContract = () => {
+const FlowChartRealEstate = () => {
   return (
     <div className="container mx-auto p-8">
       <HeroFeatures
-        title="Contract Compliance"
-        headline="Contract Compliance Automation"
-        description="CodeX streamlines your contract review process, ensuring compliance and alignment with industry standards."
+        title="Real Estate"
+        headline="Compliance Automation for Real Estate "
+        description="CodeX helps you automate compliance processes, reduce risks, and save time."
         primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
-        primaryButtonText="Schedule a Review"
-        videoSrc={particles}
+        primaryButtonText="Get Started"
+        videoSrc={stars}
       />
       <Flowchart config={config} />
     </div>
   );
 };
 
-export default FlowChartContract;
+export default FlowChartRealEstate;
