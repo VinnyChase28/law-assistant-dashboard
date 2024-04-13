@@ -2,10 +2,10 @@
 import { promises as fs } from "fs";
 import path from "path";
 import matter from "gray-matter";
-import FeatureShowcase from "./feature-showcase";
-import HeroFeatures from "../hero/hero-features";
-import { Cta } from "../cta";
 import particles from "/videos/particles.mp4";
+import FeatureShowcase from "@/marketing/components/features/feature-showcase";
+import HeroFeatures from "@/marketing/components/hero/hero-features";
+import { Cta } from "@/marketing/components/cta";
 
 interface FeatureListProps {
   slug: string;

@@ -1,5 +1,5 @@
 import FlowChartHrPolicy from "./components/flow-chart-hr";
-import { Cta } from "../../components/cta";
+import { Cta } from "../../_components/cta";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

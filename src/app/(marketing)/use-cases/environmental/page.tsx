@@ -1,5 +1,5 @@
 import FlowChartEnvironmental from "./components/flow-chart-environmental";
-import { Cta } from "../../components/cta";
+import { Cta } from "../../_components/cta";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Environmental Compliance - Eco-Friendly Solutions",

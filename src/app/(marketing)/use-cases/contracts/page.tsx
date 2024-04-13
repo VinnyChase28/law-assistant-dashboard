@@ -1,5 +1,5 @@
 import FlowChartContract from "./components/flow-chart-contracts";
-import { Cta } from "../../components/cta";
+import { Cta } from "../../_components/cta";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

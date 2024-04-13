@@ -1,5 +1,5 @@
-import { Pricing } from "../components/pricing";
-import { Cta } from "../components/cta";
+import { Pricing } from "../_components/pricing";
+import { Cta } from "../_components/cta";
 
 import { Metadata } from "next";
 

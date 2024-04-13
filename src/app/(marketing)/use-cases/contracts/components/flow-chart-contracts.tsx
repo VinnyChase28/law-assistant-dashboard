@@ -1,10 +1,10 @@
 "use client";
-import Flowchart from "src/app/(marketing)/components/flow-chart/fow-chart";
+import Flowchart from "src/app/(marketing)/_components/flow-chart/fow-chart";
 import {
   startingPositions,
   FlowchartConfig,
-} from "src/app/(marketing)/components/flow-chart/flow-chart-config";
-import HeroFeatures from "src/app/(marketing)/components/hero/hero-features";
+} from "src/app/(marketing)/_components/flow-chart/flow-chart-config";
+import HeroFeatures from "src/app/(marketing)/_components/hero/hero-features";
 import particles from "/videos/particles.mp4";
 
 const config: FlowchartConfig = {

@@ -1,5 +1,5 @@
 import FlowChartSoftwareCompliance from "./components/flow-chart-software-compliance";
-import { Cta } from "../../components/cta";
+import { Cta } from "../../_components/cta";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

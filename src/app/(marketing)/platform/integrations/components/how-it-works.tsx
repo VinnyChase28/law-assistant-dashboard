@@ -1,6 +1,4 @@
-import FeatureList from "../../../components/features/feature-list";
-
-
+import FeatureList from "../../../_components/features/feature-list";
 
 export default function Integrations() {
   return (

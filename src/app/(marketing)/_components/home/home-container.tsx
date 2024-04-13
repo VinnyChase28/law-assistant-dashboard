@@ -1,14 +1,13 @@
 "use client";
-import { CaseStudies } from "src/app/(marketing)/components/case-studies";
-import { HowItWorks } from "src/app/(marketing)/components/how-it-works";
-import { Pricing } from "src/app/(marketing)/components/pricing";
-import { Sponsors } from "src/app/(marketing)/components/sponsors";
-import { Cta } from "src/app/(marketing)/components/cta";
-import { ScrollToTop } from "src/app/(marketing)/components/scroll-to-top";
-import { Hero } from "../hero/hero-home";
+import { CaseStudies } from "@/marketing/components/case-studies";
+import { HowItWorks } from "@/marketing/components/how-it-works";
+import { Pricing } from "@/marketing/components/pricing";
+import { Sponsors } from "@/marketing/components/sponsors";
+import { Cta } from "@/marketing/components/cta";
+import { ScrollToTop } from "@/marketing/components/scroll-to-top";
+import { Hero } from "@/marketing/components/hero/hero-home";
+import FlowChartHome from "@/marketing/components/flow-chart/flow-chart-home";
 import Script from "next/script";
-import FlowChartHome from "../flow-chart/flow-chart-home";
-import VideoPlayer from "../videos/video-player";
 
 function HomeContainer() {
   return (

@@ -1,5 +1,5 @@
 import FlowChartFinancial from "./components/flow-chart-financial";
-import { Cta } from "../../components/cta";
+import { Cta } from "../../_components/cta";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
