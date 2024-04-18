@@ -71,14 +71,7 @@ export default async function RootLayout({
                       {/* Added span around text for better control */}
                     </div>
                   </Link>
-                  <Link href="/blog" passHref>
-                    <div className="flex items-center">
-                      <NewspaperIcon />
-                      <span className="ml-2">Blog</span>
 
-                      {/* Added span around text for better control */}
-                    </div>
-                  </Link>
                   <UserNav />
                 </header>
               ) : (
