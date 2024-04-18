@@ -101,16 +101,28 @@ export const stripeRouter = createTRPCRouter({
       where: { userId: ctx.session.user.id },
     });
 
+    // Assuming you have a Stripe client instance named `stripe`
     const subscriptions = await stripe.subscriptions.list({
       customer: stripeCustomer?.stripeCustomerId,
     });
 
-    if (subscriptions.data.length === 0) {
-      return null; // No subcription found
+    console.log(subscriptions);
+
+    // Filter the subscriptions to only include those with the matching userId in metadata
+    const filteredSubscriptions = subscriptions.data.filter((subscription) => {
+      return subscription.metadata.userId === ctx.session.user.id;
+    });
+
+    console.log(filteredSubscriptions);
+
+    // If no matching subscriptions are found, return null
+    if (filteredSubscriptions.length === 0) {
+      return null;
     }
 
-    // Directly use the first subscription in the array
-    const subscription = subscriptions?.data[0];
+    // You can now work with the filtered list of subscriptions
+    // For example, if you want to use the first subscription:
+    const subscription = filteredSubscriptions[0];
 
     return {
       id: subscription?.id,

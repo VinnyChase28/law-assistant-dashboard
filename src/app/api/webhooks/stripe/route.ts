@@ -62,22 +62,27 @@ export async function POST(req: Request) {
       case "checkout.session.completed": {
         const session = event.data.object;
         const userId = session.metadata?.userId;
-        const customerStripeId = session.customer as string;
-
         if (!userId) {
+          console.error("User ID not found in session metadata");
           return new Response("User ID not found in session metadata", {
             status: 400,
           });
         }
-
-        const stripeCustomer = await upsertStripeCustomer(
-          userId,
-          customerStripeId,
-        );
-        const subscription = await stripe.subscriptions.retrieve(
-          session.subscription as string,
-        );
-        await upsertSubscription(subscription, stripeCustomer.id);
+      
+        const customerStripeId = session.customer as string;
+        try {
+          const stripeCustomer = await upsertStripeCustomer(
+            userId,
+            customerStripeId,
+          );
+          const subscription = await stripe.subscriptions.retrieve(
+            session.subscription as string,
+          );
+          await upsertSubscription(subscription, stripeCustomer.id);
+        } catch (error) {
+          console.error("Error processing checkout.session.completed", error);
+          return new Response("Error processing event", { status: 500 });
+        }
         break;
       }
 
