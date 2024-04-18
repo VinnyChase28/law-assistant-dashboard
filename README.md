@@ -42,17 +42,6 @@ To get stripe running locally, use the following commands:
 4. Close the the current terminal
 
 
-# Marketing site layout
-
-
-
-resources/
-- page.tsx
-- blog/
--- page.tsx
--- [slug].tsx
-- resource-library.tsx
-- faq.tsx
 
 ## SEO
 
