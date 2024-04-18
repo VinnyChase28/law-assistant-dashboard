@@ -1,6 +1,6 @@
 {
-  "commit": "a7f5f0d962158c6be8e66e4fa8906a7de4338800",
-  "generated": "2024-04-12T06:47:59.560Z",
+  "commit": "7e487aee95c6abba9ec446237dacf9dd56bdc32e",
+  "generated": "2024-04-18T02:36:32.303Z",
   "metadata": [
     {
       "__outstatic": {
@@ -175,6 +175,24 @@
       "slug": "compliance-automation",
       "status": "published",
       "title": "What is Compliance Automation?"
+    },
+    {
+      "__outstatic": {
+        "commit": "7e487aee95c6abba9ec446237dacf9dd56bdc32e",
+        "hash": "2126614240",
+        "path": "outstatic/content/blog/what-is-retrieval-augmented-generation.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/retreival-augmented-generation-kzNj.jpg",
+      "description": "",
+      "publishedAt": "2024-04-18T01:47:25.018Z",
+      "slug": "what-is-retrieval-augmented-generation",
+      "status": "published",
+      "title": "What is Retrieval Augmented Generation?"
     }
   ]
 }
