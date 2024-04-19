@@ -1,6 +1,6 @@
 {
-  "commit": "2fac063d8532891499cfd9cdcc9120862f18d7f3",
-  "generated": "Fri, 19 Apr 2024 05:52:11 GMT",
+  "commit": "34a19986265f5e3f14bede423e11b5840654ccb9",
+  "generated": "2024-04-19T06:05:49.989Z",
   "metadata": [
     {
       "__outstatic": {
@@ -211,6 +211,25 @@
       "slug": "what-is-retrieval-augmented-generation",
       "status": "published",
       "title": "What is Retrieval Augmented Generation?"
+    },
+    {
+      "__outstatic": {
+        "commit": "34a19986265f5e3f14bede423e11b5840654ccb9",
+        "hash": "518795509",
+        "path": "outstatic/content/jobs/staff-software-engineer-machine-learning.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Engineering",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:22:31.680Z",
+      "slug": "staff-software-engineer-machine-learning",
+      "status": "published",
+      "title": "Staff Software Engineer - Machine Learning"
     }
   ]
 }
