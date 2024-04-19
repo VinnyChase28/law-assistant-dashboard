@@ -35,7 +35,7 @@ export default function BlogSectionsContainer({
   const postsByCategory = posts.reduce(
     (acc, post) => {
       const { category } = post;
-      acc[category] = acc[category] || [];
+      acc[category] = acc[category] ?? [];
       acc[category]?.push(post);
       return acc;
     },

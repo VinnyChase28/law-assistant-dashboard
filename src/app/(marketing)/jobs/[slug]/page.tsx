@@ -4,7 +4,7 @@ import path from "path";
 import { promises as fs } from "fs";
 import Markdown from "src/app/_components/markdown";
 import Image from "next/image";
-import BlogAnimations from "../components/blog-animations";
+import BlogAnimations from "../components/jobs-animations";
 
 export async function generateMetadata({
   params,

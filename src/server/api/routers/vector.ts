@@ -140,10 +140,10 @@ export const vectorRouter = createTRPCRouter({
               include: { file: true },
             });
 
-          let topKResultsForAllPages = [];
+          const topKResultsForAllPages = [];
 
           // Construct a JSON object for the top-k results of the current page
-          let topKResults = {
+          const topKResults = {
             compliancePageNumber: subsection.pageNumber,
             regulatoryDocuments: regulatoryTextSubsections.map((r) => ({
               fileId: r.fileId,
