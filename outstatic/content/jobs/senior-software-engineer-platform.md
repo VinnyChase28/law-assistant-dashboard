@@ -7,7 +7,7 @@ author:
 slug: 'senior-software-engineer-platform'
 description: ''
 coverImage: ''
-category: ''
+category: 'Engineering'
 publishedAt: '2024-04-19T05:28:19.070Z'
 ---
 

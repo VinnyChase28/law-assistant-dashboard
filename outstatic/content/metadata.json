@@ -1,6 +1,6 @@
 {
-  "commit": "1b51fbdf5c46c3a5dad2f5c8335cd3aff760fd28",
-  "generated": "2024-04-19T06:11:26.376Z",
+  "commit": "54e2b60b1180fc8dfcdeddc9292a7a3d26bb420e",
+  "generated": "2024-04-19T06:13:00.111Z",
   "metadata": [
     {
       "__outstatic": {
@@ -233,15 +233,15 @@
     },
     {
       "__outstatic": {
-        "commit": "1b51fbdf5c46c3a5dad2f5c8335cd3aff760fd28",
-        "hash": "3405267930",
+        "commit": "54e2b60b1180fc8dfcdeddc9292a7a3d26bb420e",
+        "hash": "430537147",
         "path": "outstatic/content/jobs/senior-software-engineer-platform.md"
       },
       "author": {
         "name": "Vincent Gauthier",
         "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
       },
-      "category": "",
+      "category": "Engineering",
       "collection": "jobs",
       "coverImage": "",
       "description": "",
