@@ -1,6 +1,6 @@
 {
-  "commit": "a9f308a4ea476e8fabb8c7b804558d41dac50619",
-  "generated": "2024-04-19T06:14:45.976Z",
+  "commit": "5dafd5c674dc0fa60e0227f10436073fc8e37c12",
+  "generated": "2024-04-19T06:17:06.378Z",
   "metadata": [
     {
       "__outstatic": {
@@ -268,6 +268,25 @@
       "slug": "senior-front-end-engineer-next-js",
       "status": "published",
       "title": "Senior Front-End Engineer - Next.js"
+    },
+    {
+      "__outstatic": {
+        "commit": "5dafd5c674dc0fa60e0227f10436073fc8e37c12",
+        "hash": "3741977013",
+        "path": "outstatic/content/jobs/product.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Product",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:34:51.146Z",
+      "slug": "product",
+      "status": "published",
+      "title": "Product"
     }
   ]
 }
