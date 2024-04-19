@@ -1,7 +1,43 @@
 {
-  "commit": "637a6eec133edcbf7e8c4139c4e96217bcc49c1c",
-  "generated": "2024-04-19T03:42:52.142Z",
+  "commit": "b2dc39288564ef498e764c7529f8c334f134c4da",
+  "generated": "2024-04-19T06:24:41.940Z",
   "metadata": [
+    {
+      "__outstatic": {
+        "commit": "486e1182043562727072ad40bbaf4a9fb73bc5c3",
+        "hash": "107986389",
+        "path": "outstatic/content/blog/retrieval-augmented-generation-a-solution-for-design-compliance.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/austin-curtis-8yftfxuk3f8-unsplash-Y4Mj.jpg",
+      "description": "",
+      "publishedAt": "2024-04-19T02:30:11.909Z",
+      "slug": "retrieval-augmented-generation-a-solution-for-design-compliance",
+      "status": "published",
+      "title": "Retrieval-Augmented Generation: A Solution for Design Compliance"
+    },
+    {
+      "__outstatic": {
+        "commit": "b5db66d284324fd8018457633b4d07abefa95fdf",
+        "hash": "3880549097",
+        "path": "outstatic/content/blog/compliance-automation.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/compliance-blog-M4ND.jpg",
+      "description": "",
+      "publishedAt": "2024-04-08T00:14:57.541Z",
+      "slug": "compliance-automation",
+      "status": "published",
+      "title": "What is Compliance Automation?"
+    },
     {
       "__outstatic": {
         "commit": "148f0ab06151feeaf479440015c49d5cfeeb4374",
@@ -160,25 +196,7 @@
     },
     {
       "__outstatic": {
-        "commit": "a7f5f0d962158c6be8e66e4fa8906a7de4338800",
-        "hash": "3880549097",
-        "path": "outstatic/content/blog/compliance-automation.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "collection": "blog",
-      "coverImage": "/images/compliance-blog-M4ND.jpg",
-      "description": "",
-      "publishedAt": "2024-04-08T00:14:57.541Z",
-      "slug": "compliance-automation",
-      "status": "published",
-      "title": "What is Compliance Automation?"
-    },
-    {
-      "__outstatic": {
-        "commit": "7e487aee95c6abba9ec446237dacf9dd56bdc32e",
+        "commit": "751b6f07c29297d4b26da14f8be2db30b0571f8c",
         "hash": "2126614240",
         "path": "outstatic/content/blog/what-is-retrieval-augmented-generation.md"
       },
@@ -196,21 +214,117 @@
     },
     {
       "__outstatic": {
-        "commit": "637a6eec133edcbf7e8c4139c4e96217bcc49c1c",
-        "hash": "107986389",
-        "path": "outstatic/content/blog/retrieval-augmented-generation-a-solution-for-design-compliance.md"
+        "commit": "34a19986265f5e3f14bede423e11b5840654ccb9",
+        "hash": "518795509",
+        "path": "outstatic/content/jobs/staff-software-engineer-machine-learning.md"
       },
       "author": {
         "name": "Vincent Gauthier",
         "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
       },
-      "collection": "blog",
-      "coverImage": "/images/austin-curtis-8yftfxuk3f8-unsplash-Y4Mj.jpg",
+      "category": "Engineering",
+      "collection": "jobs",
+      "coverImage": "",
       "description": "",
-      "publishedAt": "2024-04-19T02:30:11.909Z",
-      "slug": "retrieval-augmented-generation-a-solution-for-design-compliance",
+      "publishedAt": "2024-04-19T05:22:31.680Z",
+      "slug": "staff-software-engineer-machine-learning",
       "status": "published",
-      "title": "Retrieval-Augmented Generation: A Solution for Design Compliance"
+      "title": "Staff Software Engineer - Machine Learning"
+    },
+    {
+      "__outstatic": {
+        "commit": "54e2b60b1180fc8dfcdeddc9292a7a3d26bb420e",
+        "hash": "430537147",
+        "path": "outstatic/content/jobs/senior-software-engineer-platform.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Engineering",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:28:19.070Z",
+      "slug": "senior-software-engineer-platform",
+      "status": "published",
+      "title": "Senior Software Engineer - Platform"
+    },
+    {
+      "__outstatic": {
+        "commit": "03c43da782d1d0c68efc7ac568828d68cec2e9ba",
+        "hash": "334417969",
+        "path": "outstatic/content/jobs/product.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Product",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:34:51.146Z",
+      "slug": "product",
+      "status": "published",
+      "title": "Head of Product"
+    },
+    {
+      "__outstatic": {
+        "commit": "e736ca43e721f590b09adbc72a336444592bfff0",
+        "hash": "729602746",
+        "path": "outstatic/content/jobs/business-development-representative.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Revenue",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:38:40.895Z",
+      "slug": "business-development-representative",
+      "status": "published",
+      "title": "Business Development Representative"
+    },
+    {
+      "__outstatic": {
+        "commit": "dbd2646022216713166e812b4e9aaa2652ad7366",
+        "hash": "4133205382",
+        "path": "outstatic/content/jobs/senior-front-end-engineer-next-js.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Engineering",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:31:18.316Z",
+      "slug": "senior-front-end-engineer-next-js",
+      "status": "published",
+      "title": "Senior Front-End Engineer"
+    },
+    {
+      "__outstatic": {
+        "commit": "b2dc39288564ef498e764c7529f8c334f134c4da",
+        "hash": "903247354",
+        "path": "outstatic/content/jobs/software-engineer-ii-platform.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Engineering",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:40:33.736Z",
+      "slug": "software-engineer-ii-platform",
+      "status": "published",
+      "title": "Software Engineer II - Platform"
     }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "title": "jobs",
+  "type": "object",
+  "properties": {
+    "category": {
+      "required": false,
+      "description": "Category",
+      "fieldType": "String",
+      "dataType": "string",
+      "title": "Category"
+    }
+  }
+}
