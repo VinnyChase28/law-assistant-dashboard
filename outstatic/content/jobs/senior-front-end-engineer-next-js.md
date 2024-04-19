@@ -7,7 +7,7 @@ author:
 slug: 'senior-front-end-engineer-next-js'
 description: ''
 coverImage: ''
-category: ''
+category: 'Engineering'
 publishedAt: '2024-04-19T05:31:18.316Z'
 ---
 
