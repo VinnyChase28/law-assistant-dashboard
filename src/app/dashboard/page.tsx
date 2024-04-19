@@ -17,7 +17,7 @@ import {
 
 import { api } from "src/trpc/server";
 import { Separator } from "@/components/ui/separator";
-
+import { CardsStats } from "./charts/card-stats";
 interface StatCardProps {
   title: string;
   icon: JSX.Element;
@@ -47,6 +47,8 @@ export default async function Dashboard() {
       {/* ... (rest of the component) */}
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         {/* ... (stat cards) */}
+        <CardsStats />
+        {/* ... (rest of the component) */}
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
           <Card className="xl:col-span-2">
             <CardHeader className="flex flex-row items-center">
