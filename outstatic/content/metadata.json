@@ -1,6 +1,6 @@
 {
-  "commit": "7e487aee95c6abba9ec446237dacf9dd56bdc32e",
-  "generated": "2024-04-18T02:36:32.303Z",
+  "commit": "637a6eec133edcbf7e8c4139c4e96217bcc49c1c",
+  "generated": "2024-04-19T03:42:52.142Z",
   "metadata": [
     {
       "__outstatic": {
@@ -193,6 +193,24 @@
       "slug": "what-is-retrieval-augmented-generation",
       "status": "published",
       "title": "What is Retrieval Augmented Generation?"
+    },
+    {
+      "__outstatic": {
+        "commit": "637a6eec133edcbf7e8c4139c4e96217bcc49c1c",
+        "hash": "107986389",
+        "path": "outstatic/content/blog/retrieval-augmented-generation-a-solution-for-design-compliance.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/austin-curtis-8yftfxuk3f8-unsplash-Y4Mj.jpg",
+      "description": "",
+      "publishedAt": "2024-04-19T02:30:11.909Z",
+      "slug": "retrieval-augmented-generation-a-solution-for-design-compliance",
+      "status": "published",
+      "title": "Retrieval-Augmented Generation: A Solution for Design Compliance"
     }
   ]
 }
