@@ -21,7 +21,7 @@ We are seeking a proactive and driven Business Development Representative to joi
 
 ### **Key Responsibilities:**
 
-- **Lead Generation:** Identify and cultivate potential leads through cold calling, networking, and social selling strategies[6](https://mailshake.com/blog/business-development-representative/).
+- **Lead Generation:** Identify and cultivate potential leads through cold calling, networking, and social selling strategies.
 - **Market Research:** Conduct thorough research to understand market trends and identify new business opportunities.
 - **Client Engagement:** Initiate contact with potential clients to establish relationships and present our AI solutions tailored to their compliance needs.
 - **Sales Support:** Assist in the development and execution of sales strategies to meet or exceed sales targets.
