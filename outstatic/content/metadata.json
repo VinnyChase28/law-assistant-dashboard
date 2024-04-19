@@ -1,6 +1,6 @@
 {
-  "commit": "5dafd5c674dc0fa60e0227f10436073fc8e37c12",
-  "generated": "2024-04-19T06:17:06.378Z",
+  "commit": "03c43da782d1d0c68efc7ac568828d68cec2e9ba",
+  "generated": "2024-04-19T06:18:51.867Z",
   "metadata": [
     {
       "__outstatic": {
@@ -271,8 +271,8 @@
     },
     {
       "__outstatic": {
-        "commit": "5dafd5c674dc0fa60e0227f10436073fc8e37c12",
-        "hash": "3741977013",
+        "commit": "03c43da782d1d0c68efc7ac568828d68cec2e9ba",
+        "hash": "334417969",
         "path": "outstatic/content/jobs/product.md"
       },
       "author": {
@@ -286,7 +286,7 @@
       "publishedAt": "2024-04-19T05:34:51.146Z",
       "slug": "product",
       "status": "published",
-      "title": "Product"
+      "title": "Head of Product"
     }
   ]
 }

@@ -1,5 +1,5 @@
 ---
-title: 'Product'
+title: 'Head of Product'
 status: 'published'
 author:
   name: 'Vincent Gauthier'
@@ -17,16 +17,16 @@ CodeX is a trailblazer in the realm of compliance automation, utilizing artifici
 
 ### **Job Description:**
 
-We are in search of a visionary Product Director with a proven track record in crafting compelling product visions for AI-driven solutions. The ideal candidate will possess a unique blend of business and technical acumen, a big-picture vision, and the drive to make that vision a reality. As a Product Director at CodeX, you will lead the strategic direction of our AI products, from conception to launch, ensuring they meet market needs and exceed customer expectations.
+We are in search of a Head of Product with a proven track record in crafting compelling product visions for AI-driven solutions. The ideal candidate will possess a unique blend of business and technical acumen, a big-picture vision, and the drive to make that vision a reality. As a Head of Product at CodeX, you will lead the strategic direction of our AI products, from conception to launch, ensuring they meet market needs and exceed customer expectations.
 
 ### **Key Responsibilities:**
 
 - **Product Vision and Strategy:** Develop and articulate a clear vision for AI products, aligning with the company's strategic goals and market opportunities.
 - **Roadmap Development:** Create and maintain a product roadmap, prioritizing features and initiatives that align with the product vision and business objectives.
-- **Cross-Functional Leadership:** Collaborate with engineering, marketing, sales, and customer support teams to ensure successful product development and go-[to-market strateg](http://strategies.Market)ies.
+- **Cross-Functional Leadership:** Collaborate with engineering, marketing, sales, and customer support teams to ensure successful product development and go-to-market strategies.
 - **Market Analysis:** Conduct market research to identify customer needs, market trends, and competitive landscape to inform product strategy.
 - **Stakeholder Management:** Engage with customers, partners, and internal stakeholders to gather feedback and build consensus around the product vision and roadmap.
-- **Performance Metrics:** Define and analyze key performance indicators to evaluate product success and info[rm future devel](http://priorities.Team)opment priorities.
+- **Performance Metrics:** Define and analyze key performance indicators to evaluate product success and inform future development priorities.
 - **Team Building and Mentorship:** Lead and grow a team of product managers and analysts, fostering a culture of innovation and continuous improvement.
 
 ### **Required Qualifications and Skills:**
@@ -52,4 +52,4 @@ We are in search of a visionary Product Director with a proven track record in c
 
 ### **Application Process:**
 
-To apply for the role of Product Director, please submit your resume along with a cover letter that highlights your experience in creating product visions for AI products. Include examples of successful AI products you have led and the impact they have had on the [market.At](http://market.At) CodeX, we are eager to welcome a Product Director who shares our passion for innovation and has the vision to lead our AI products into the future. We look forward to exploring how your leadership and expertise can help us continue to redefine the landscape of compliance automation.
+To apply for the role of Head of Product, please submit your resume along with a cover letter that highlights your experience in creating product visions for AI products. Include examples of successful AI products you have led and the impact they have had on the market. At CodeX, we are eager to welcome a Head of Product who shares our passion for innovation and has the vision to lead our AI products into the future. We look forward to exploring how your leadership and expertise can help us continue to redefine the landscape of compliance automation.
