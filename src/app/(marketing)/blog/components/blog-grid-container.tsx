@@ -41,11 +41,10 @@ export default function BlogGridContainer({ posts }: BlogGridContainerProps) {
             {" "}
             {/* Adjust background and rounding */}
             <CardHeader>
-              <CardTitle className="text-white">{post.title}</CardTitle>{" "}
-              {/* Adjust text color */}
+              <CardTitle>{post.title}</CardTitle> {/* Adjust text color */}
             </CardHeader>
             <CardContent className="flex-1">
-              <CardDescription className="text-gray-300">
+              <CardDescription>
                 Published on {new Date(post.publishedAt).toLocaleDateString()}
               </CardDescription>
             </CardContent>
