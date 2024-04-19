@@ -4,7 +4,7 @@
   "properties": {
     "category": {
       "required": false,
-      "description": "Engineering",
+      "description": "Category",
       "fieldType": "String",
       "dataType": "string",
       "title": "Category"
