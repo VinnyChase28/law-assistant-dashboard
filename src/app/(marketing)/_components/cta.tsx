@@ -24,7 +24,7 @@ export const Cta = () => {
 
         <div className="lg:col-start-2">
           <a
-            href="https://calendly.com/vince-gauthier/30min?month=2024-03"
+            href="https://cal.com/vincent-gauthier-yxbpaz/30min"
             target="_blank"
             className={`w-full md:w-2/3 ${buttonVariants({
               variant: "default",
