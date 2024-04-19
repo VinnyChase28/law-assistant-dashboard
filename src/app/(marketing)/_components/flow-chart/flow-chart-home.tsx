@@ -95,8 +95,8 @@ const config: FlowchartConfig = {
         y: startingPositions.baseYPositionBelow,
       },
       data: {
-        title: "Environmental Compliance",
-        description: "Environmental compliance reports",
+        title: "Analytics",
+        description: "Compliance trends over time",
         icon: "trending-up",
       },
     },

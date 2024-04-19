@@ -39,7 +39,7 @@ To get stripe running locally, use the following commands:
 1. Open a new terminal window
 2. Run `export $(grep -v '^#' .vercel/.env.production.local | xargs)` (this will use the prod creds). If you can do this, you're a trusted servant.
 3. npx prisma migrate deploy
-4. Close the the current terminal
+4. Close the the current terminal -> Important! you dont want to be using prod creds locally. 
 
 
 

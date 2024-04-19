@@ -2,9 +2,10 @@ import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { z } from "zod";
 import { pinecone } from "src/utils/pinecone";
+import { prisma } from "src/utils/prisma";
+import { File, TextSubsection } from "@prisma/client";
 
 export const vectorRouter = createTRPCRouter({
-  
   // Vector Search Query Scoped by user ID
   vectorSearch: protectedProcedure
     .input(
@@ -89,7 +90,6 @@ export const vectorRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const { fileId } = input;
-      // Retrieve all TextSubsections for the given COMPLIANCE_SUBMISSION document
       const textSubsections = await ctx.db.textSubsection.findMany({
         where: { fileId, file: { documentType: "COMPLIANCE_SUBMISSION" } },
         include: { file: true },
@@ -105,7 +105,6 @@ export const vectorRouter = createTRPCRouter({
       }
 
       const index = await pinecone.index(process.env.PINECONE_INDEX ?? "");
-
       const results = await Promise.all(
         textSubsections.map(async (subsection) => {
           const userNamespace = index.namespace(subsection.file.userId);
@@ -115,7 +114,6 @@ export const vectorRouter = createTRPCRouter({
             throw new Error("Vector ID not found for TextSubsection.");
           }
 
-          // Retrieve the COMPLIANCE_SUBMISSION vectors from Pinecone
           const vectorResponse = await userNamespace.fetch([vectorId]);
           const vector = vectorResponse.records[vectorId]?.values;
 
@@ -125,17 +123,14 @@ export const vectorRouter = createTRPCRouter({
             );
           }
 
-          // Perform a Pinecone search for similar vectors within REGULATORY_FRAMEWORK documents
           const queryResponse = await userNamespace.query({
             vector: vector,
-            topK: 3, //TODO: this will need to be adjusted based on number of docs and pages currently stored for an account. max 128k context though, so there should be an upper limit
+            topK: 3,
             filter: { documentType: { $eq: "REGULATORY_FRAMEWORK" } },
             includeMetadata: true,
           });
 
-          // Retrieve the corresponding TextSubsections for the top matches
           const matchedIds = queryResponse.matches.map((match) => match.id);
-
           const regulatoryTextSubsections =
             await ctx.db.textSubsection.findMany({
               where: {
@@ -145,6 +140,56 @@ export const vectorRouter = createTRPCRouter({
               include: { file: true },
             });
 
+          let topKResultsForAllPages = [];
+
+          // Construct a JSON object for the top-k results of the current page
+          let topKResults = {
+            compliancePageNumber: subsection.pageNumber,
+            regulatoryDocuments: regulatoryTextSubsections.map((r) => ({
+              fileId: r.fileId,
+              documentName: r.file.name,
+              pageNumber: r.pageNumber,
+            })),
+          };
+
+          // Add the top-k results for the current page to the array
+          topKResultsForAllPages.push(topKResults);
+
+          // Log the task in FileTaskHistory
+          const fileTaskHistory = await ctx.db.fileTaskHistory.create({
+            data: {
+              fileId: subsection.fileId,
+              userId: ctx.session.user.id,
+              documentType: "COMPLIANCE_SUBMISSION",
+              usedAt: new Date(),
+              topKResults: topKResultsForAllPages,
+            },
+          });
+
+          // After creating the FileTaskHistory, create related FileTaskDocument records
+          for (const r of regulatoryTextSubsections) {
+            // Check if the FileTaskDocument already exists
+            const existingFileTaskDocument =
+              await ctx.db.fileTaskDocument.findUnique({
+                where: {
+                  taskHistoryId_fileId: {
+                    taskHistoryId: fileTaskHistory.id,
+                    fileId: r.fileId,
+                  },
+                },
+              });
+
+            // If it doesn't exist, create a new FileTaskDocument
+            if (!existingFileTaskDocument) {
+              await ctx.db.fileTaskDocument.create({
+                data: {
+                  taskHistoryId: fileTaskHistory.id,
+                  fileId: r.fileId,
+                },
+              });
+            }
+          }
+
           return {
             complianceSubmission: {
               fileId: subsection.fileId,
@@ -152,14 +197,12 @@ export const vectorRouter = createTRPCRouter({
               textData: subsection.text,
               pageNumber: subsection.pageNumber,
             },
-            regulatoryFramework: regulatoryTextSubsections.map(
-              (regulatorySubsection) => ({
-                fileId: regulatorySubsection.fileId,
-                documentName: regulatorySubsection.file.name,
-                textData: regulatorySubsection.text,
-                pageNumber: regulatorySubsection.pageNumber,
-              }),
-            ),
+            regulatoryFramework: regulatoryTextSubsections.map((r) => ({
+              fileId: r.fileId,
+              documentName: r.file.name,
+              textData: r.text,
+              pageNumber: r.pageNumber,
+            })),
           };
         }),
       );
@@ -167,3 +210,4 @@ export const vectorRouter = createTRPCRouter({
       return { data: results };
     }),
 });
+
