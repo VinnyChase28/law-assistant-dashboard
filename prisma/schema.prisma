@@ -8,22 +8,6 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-model Task {
-  id          String            @id @default(cuid())
-  title       String
-  status      String
-  label       String
-  cost        String
-  category    String
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  userId      String?
-  fileHistory FileTaskHistory[]
-  user        User?             @relation(fields: [userId], references: [id])
-
-  @@index([userId])
-}
-
 model Favorite {
   id     String @id @default(cuid())
   fileId Int    @unique
@@ -37,35 +21,36 @@ model Favorite {
 }
 
 model File {
-  id               Int               @id @default(autoincrement())
+  id               Int                @id @default(autoincrement())
   name             String
   blobUrl          String?
   fileType         String?
   fileSize         String?
   finalReport      String?
   processingStatus processingStatus
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
   userId           String
-  access           FileAccess        @default(PRIVATE)
+  access           FileAccess         @default(PRIVATE)
   documentType     DocumentType?
   reportData       Json?
   dataSubsections  DataSubsection[]
   favorites        Favorite?
   taskHistory      FileTaskHistory[]
   textSubsections  TextSubsection[]
-  labelId          String?          
-  label            Label?            @relation(fields: [labelId], references: [id]) 
+  labelId          String?
+  label            Label?             @relation(fields: [labelId], references: [id])
+  FileTaskDocument FileTaskDocument[]
 
   @@index([userId])
 }
 
 model Label {
-  id        String   @id @default(cuid())
-  text      String   @db.VarChar(20) 
-  userId    String            
-  user      User     @relation(fields: [userId], references: [id])
-  files     File[]  
+  id     String @id @default(cuid())
+  text   String @db.VarChar(20)
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  files  File[]
 
   @@index([userId], name: "idx_label_userId")
   @@index([text, userId], name: "idx_label_text_userId")
@@ -98,16 +83,25 @@ model DataSubsection {
 }
 
 model FileTaskHistory {
-  id     String   @id @default(cuid())
-  fileId Int
-  taskId String
-  userId String
-  usedAt DateTime @default(now())
-  file   File     @relation(fields: [fileId], references: [id])
-  task   Task     @relation(fields: [taskId], references: [id])
-  user   User     @relation(fields: [userId], references: [id])
+  id              String   @id @default(cuid())
+  fileId          Int
+  userId          String
+  usedAt          DateTime @default(now())
+  documentType    DocumentType
+  relatedDocuments FileTaskDocument[]
+  topKResults     Json? // New field to store top-k results
+  file            File     @relation(fields: [fileId], references: [id])
+  user            User     @relation(fields: [userId], references: [id])
 
-  @@index([fileId, taskId, userId])
+  @@index([fileId, userId])
+}
+model FileTaskDocument {
+  taskHistoryId String
+  fileId        Int
+  file          File            @relation(fields: [fileId], references: [id])
+  taskHistory   FileTaskHistory @relation(fields: [taskHistoryId], references: [id])
+
+  @@id([taskHistoryId, fileId])
 }
 
 model ChatSession {
@@ -133,8 +127,6 @@ model ChatMessage {
   @@index([chatSessionId])
 }
 
-
-
 model Usage {
   id           Int      @id @default(autoincrement())
   userId       String
@@ -158,7 +150,6 @@ model User {
   favorites       Favorite?
   fileTaskHistory FileTaskHistory[]
   sessions        Session[]
-  tasks           Task[]
   ChatSession     ChatSession[]
   StripeCustomer  StripeCustomer?
   SocialLink      SocialLink[]
@@ -205,22 +196,22 @@ model Account {
 }
 
 model StripeCustomer {
-  id               String        @id @default(cuid())
-  stripeCustomerId String        @unique
-  userId           String?       @unique
-  user             User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  id               String         @id @default(cuid())
+  stripeCustomerId String         @unique
+  userId           String?        @unique
+  user             User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
   Subscription     Subscription[]
 }
 
 model Subscription {
-  id                   String          @id @default(cuid())
-  stripeSubscriptionId String          @unique
+  id                   String             @id @default(cuid())
+  stripeSubscriptionId String             @unique
   customerId           String
   status               SubscriptionStatus
   priceIds             String[]
-  createdAt            DateTime        @default(now())
-  updatedAt            DateTime        @updatedAt
-  stripeCustomer       StripeCustomer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+  stripeCustomer       StripeCustomer     @relation(fields: [customerId], references: [id], onDelete: Cascade)
 
   @@index([customerId])
 }

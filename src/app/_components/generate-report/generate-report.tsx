@@ -44,7 +44,7 @@ const CreateReportComponent = () => {
     api.file.createComplianceReportMetadata.useMutation();
   const sendComplianceReportToInngest =
     api.llm.sendComplianceReportToInngest.useMutation();
-  const w = api.file.setFileStatus.useMutation();
+
 
   const handleCreateReportClick = async () => {
     if (!selectedComplianceSubmission) {
@@ -70,7 +70,6 @@ const CreateReportComponent = () => {
         id: reportMetadata.id,
       });
 
-      //we need to go to home page ('/') if we click View
       toast({
         title: "Compliance Report Started",
         description: `The compliance data has been sent to CodeX. A new report will be available in the Reports tab.`,

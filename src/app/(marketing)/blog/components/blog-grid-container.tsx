@@ -36,19 +36,15 @@ export default function BlogGridContainer({ posts }: BlogGridContainerProps) {
           whileHover="hover"
           className="h-50 relative w-full overflow-hidden rounded-lg" // Ensure overflow is hidden and rounded corners
         >
-          {/* Background gradient effect */}
-          <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-pink-600 to-indigo-600 opacity-75 blur transition-opacity duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
-
           {/* Card content */}
-          <Card className="relative z-10 flex h-full flex-col rounded-lg bg-black bg-opacity-80">
+          <Card className="relative z-10 flex h-full flex-col rounded-lg">
             {" "}
             {/* Adjust background and rounding */}
             <CardHeader>
-              <CardTitle className="text-white">{post.title}</CardTitle>{" "}
-              {/* Adjust text color */}
+              <CardTitle>{post.title}</CardTitle> {/* Adjust text color */}
             </CardHeader>
             <CardContent className="flex-1">
-              <CardDescription className="text-gray-300">
+              <CardDescription>
                 Published on {new Date(post.publishedAt).toLocaleDateString()}
               </CardDescription>
             </CardContent>

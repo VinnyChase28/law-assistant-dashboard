@@ -36,8 +36,44 @@ async function getBlogPostUrls(): Promise<
   });
 }
 
+//so the same as /blog but for /jobs
+
+async function getJobPostUrls(): Promise<
+  Array<{
+    url: string;
+    lastModified: Date;
+    changeFrequency:
+      | "weekly"
+      | "daily"
+      | "always"
+      | "hourly"
+      | "monthly"
+      | "yearly"
+      | "never";
+    priority: number;
+  }>
+> {
+  const jobDirectory = path.join(
+    process.cwd(),
+    "outstatic",
+    "content",
+    "jobs",
+  );
+  const filenames = await fs.readdir(jobDirectory);
+  return filenames.map((filename) => {
+    const slug = filename.replace(/\.md$/, ""); // Correctly define 'slug' here
+    return {
+      url: `https://lawassistant.ai/jobs/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    };
+  });
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogPostUrls = await getBlogPostUrls();
+  const jobPostUrls = await getJobPostUrls();
   return [
     {
       url: "https://lawassistant.ai",
@@ -119,5 +155,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     ...blogPostUrls,
+    ...jobPostUrls,
   ];
 }

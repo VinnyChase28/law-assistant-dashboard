@@ -5,6 +5,7 @@ import { vectorRouter } from "./routers/vector";
 import { llmRouter } from "./routers/llm";
 import { chatRouter } from "./routers/chat";
 import { stripeRouter } from "./routers/stripe";
+import { activity } from "./routers/activity";
 
 /**
  * This is the primary router for our server.
@@ -19,6 +20,7 @@ export const appRouter = createTRPCRouter({
   chat: chatRouter,
   user: userRouter,
   stripe: stripeRouter,
+  activity: activity,
 });
 
 // export type definition of API

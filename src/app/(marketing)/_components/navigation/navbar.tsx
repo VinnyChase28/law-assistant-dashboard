@@ -122,12 +122,6 @@ const resourcesItems = [
     icon: FileText,
   },
   {
-    title: "Compliance Guides",
-    href: "/resources/guides",
-    description: "In-depth guides on key compliance topics",
-    icon: Book,
-  },
-  {
     title: "Webinars & Events",
     href: "/resources/events-webinars",
     description: "Learn from compliance experts online and in-person",
@@ -177,7 +171,7 @@ const companyItems = [
   },
   {
     title: "Careers",
-    href: "/company/careers",
+    href: "/jobs",
     description: "Join us in revolutionizing compliance with AI",
     icon: Briefcase,
   },
