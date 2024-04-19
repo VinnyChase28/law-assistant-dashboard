@@ -96,7 +96,7 @@ export default async function Dashboard() {
               </div>
             </CardHeader>
             <Separator />
-            <CardContent className="grid gap-8">
+            <CardContent className="grid gap-8 pt-6">
               {chatHistory?.map((session) => (
                 <div key={session.id} className="flex flex-col gap-2">
                   <h3 className="text-lg font-bold">
