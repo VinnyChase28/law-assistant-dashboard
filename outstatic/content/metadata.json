@@ -1,6 +1,6 @@
 {
-  "commit": "54e2b60b1180fc8dfcdeddc9292a7a3d26bb420e",
-  "generated": "2024-04-19T06:13:00.111Z",
+  "commit": "954619850f351ad9ba391da1f8f08db01448ce90",
+  "generated": "2024-04-19T06:14:32.817Z",
   "metadata": [
     {
       "__outstatic": {
@@ -249,6 +249,25 @@
       "slug": "senior-software-engineer-platform",
       "status": "published",
       "title": "Senior Software Engineer - Platform"
+    },
+    {
+      "__outstatic": {
+        "commit": "954619850f351ad9ba391da1f8f08db01448ce90",
+        "hash": "3407623855",
+        "path": "outstatic/content/jobs/senior-front-end-engineer-next-js.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:31:18.316Z",
+      "slug": "senior-front-end-engineer-next-js",
+      "status": "published",
+      "title": "Senior Front-End Engineer - Next.js"
     }
   ]
 }
