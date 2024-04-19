@@ -1,5 +1,5 @@
 ---
-title: 'Senior Front-End Engineer - Next.js'
+title: 'Senior Front-End Engineer'
 status: 'published'
 author:
   name: 'Vincent Gauthier'

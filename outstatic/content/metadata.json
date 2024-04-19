@@ -1,6 +1,6 @@
 {
-  "commit": "e736ca43e721f590b09adbc72a336444592bfff0",
-  "generated": "2024-04-19T06:21:45.337Z",
+  "commit": "dbd2646022216713166e812b4e9aaa2652ad7366",
+  "generated": "2024-04-19T06:22:10.306Z",
   "metadata": [
     {
       "__outstatic": {
@@ -252,25 +252,6 @@
     },
     {
       "__outstatic": {
-        "commit": "a9f308a4ea476e8fabb8c7b804558d41dac50619",
-        "hash": "2117411683",
-        "path": "outstatic/content/jobs/senior-front-end-engineer-next-js.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "category": "Engineering",
-      "collection": "jobs",
-      "coverImage": "",
-      "description": "",
-      "publishedAt": "2024-04-19T05:31:18.316Z",
-      "slug": "senior-front-end-engineer-next-js",
-      "status": "published",
-      "title": "Senior Front-End Engineer - Next.js"
-    },
-    {
-      "__outstatic": {
         "commit": "03c43da782d1d0c68efc7ac568828d68cec2e9ba",
         "hash": "334417969",
         "path": "outstatic/content/jobs/product.md"
@@ -306,6 +287,25 @@
       "slug": "business-development-representative",
       "status": "published",
       "title": "Business Development Representative"
+    },
+    {
+      "__outstatic": {
+        "commit": "dbd2646022216713166e812b4e9aaa2652ad7366",
+        "hash": "4133205382",
+        "path": "outstatic/content/jobs/senior-front-end-engineer-next-js.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Engineering",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:31:18.316Z",
+      "slug": "senior-front-end-engineer-next-js",
+      "status": "published",
+      "title": "Senior Front-End Engineer"
     }
   ]
 }
