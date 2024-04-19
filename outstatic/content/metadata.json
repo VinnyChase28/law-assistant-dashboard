@@ -1,6 +1,6 @@
 {
-  "commit": "15f992f02f083ee015888d7e99eecb180b6cf30d",
-  "generated": "2024-04-19T03:31:05.084Z",
+  "commit": "637a6eec133edcbf7e8c4139c4e96217bcc49c1c",
+  "generated": "2024-04-19T03:42:52.142Z",
   "metadata": [
     {
       "__outstatic": {
@@ -196,8 +196,8 @@
     },
     {
       "__outstatic": {
-        "commit": "15f992f02f083ee015888d7e99eecb180b6cf30d",
-        "hash": "3796149730",
+        "commit": "637a6eec133edcbf7e8c4139c4e96217bcc49c1c",
+        "hash": "107986389",
         "path": "outstatic/content/blog/retrieval-augmented-generation-a-solution-for-design-compliance.md"
       },
       "author": {
@@ -209,7 +209,7 @@
       "description": "",
       "publishedAt": "2024-04-19T02:30:11.909Z",
       "slug": "retrieval-augmented-generation-a-solution-for-design-compliance",
-      "status": "draft",
+      "status": "published",
       "title": "Retrieval-Augmented Generation: A Solution for Design Compliance"
     }
   ]
