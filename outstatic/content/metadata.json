@@ -1,6 +1,6 @@
 {
-  "commit": "d58278e0c04a7e8d89b52a17d628295effdb095b",
-  "generated": "2024-04-19T06:11:17.784Z",
+  "commit": "1b51fbdf5c46c3a5dad2f5c8335cd3aff760fd28",
+  "generated": "2024-04-19T06:11:26.376Z",
   "metadata": [
     {
       "__outstatic": {
@@ -233,8 +233,8 @@
     },
     {
       "__outstatic": {
-        "commit": "d58278e0c04a7e8d89b52a17d628295effdb095b",
-        "hash": "15002203",
+        "commit": "1b51fbdf5c46c3a5dad2f5c8335cd3aff760fd28",
+        "hash": "3405267930",
         "path": "outstatic/content/jobs/senior-software-engineer-platform.md"
       },
       "author": {

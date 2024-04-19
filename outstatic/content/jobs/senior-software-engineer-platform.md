@@ -11,8 +11,6 @@ category: ''
 publishedAt: '2024-04-19T05:28:19.070Z'
 ---
 
-## **Job Title: Senior Software Engineer - Platform (Backend Services)**
-
 ### **Company Overview:**
 
 CodeX is a leader in the field of compliance automation, utilizing state-of-the-art machine learning and artificial intelligence to streamline and enhance compliance processes. Our commitment to innovation and excellence has positioned us as a trusted partner for businesses seeking to navigate the complexities of regulatory compliance.
