@@ -171,7 +171,7 @@ const companyItems = [
   },
   {
     title: "Careers",
-    href: "/company/careers",
+    href: "/jobs",
     description: "Join us in revolutionizing compliance with AI",
     icon: Briefcase,
   },
