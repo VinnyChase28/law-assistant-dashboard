@@ -1,6 +1,6 @@
 {
-  "commit": "34a19986265f5e3f14bede423e11b5840654ccb9",
-  "generated": "2024-04-19T06:05:49.989Z",
+  "commit": "d58278e0c04a7e8d89b52a17d628295effdb095b",
+  "generated": "2024-04-19T06:11:17.784Z",
   "metadata": [
     {
       "__outstatic": {
@@ -230,6 +230,25 @@
       "slug": "staff-software-engineer-machine-learning",
       "status": "published",
       "title": "Staff Software Engineer - Machine Learning"
+    },
+    {
+      "__outstatic": {
+        "commit": "d58278e0c04a7e8d89b52a17d628295effdb095b",
+        "hash": "15002203",
+        "path": "outstatic/content/jobs/senior-software-engineer-platform.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:28:19.070Z",
+      "slug": "senior-software-engineer-platform",
+      "status": "published",
+      "title": "Senior Software Engineer - Platform"
     }
   ]
 }
