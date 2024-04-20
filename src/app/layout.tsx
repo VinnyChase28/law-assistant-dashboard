@@ -1,16 +1,11 @@
 import { cookies } from "next/headers";
 import "src/styles/globals.css";
-import { Inter as FontSans } from "next/font/google";
-import { cn } from "src/lib/utils";
 import { TRPCReactProvider } from "src/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
-import { MainNavigation } from "./_components/main-navigation";
-import { UserNav } from "./_components/user-nav";
-import Navbar from "./(marketing)/_components/navigation/navbar";
-import { getServerAuthSession } from "src/server/auth";
+import Navbar from "@/marketing/components/navigation/navbar";
 
 
 export const metadata: Metadata = {
@@ -24,12 +19,7 @@ export const metadata: Metadata = {
 };
 
 // Define `RootLayout` as a server component
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <head>
@@ -44,6 +34,9 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <TooltipProvider>
+              <header className="flex items-center justify-between bg-background/80 p-4">
+                <Navbar />
+              </header>
               <main className="flex w-full flex-1 flex-col">{children}</main>
               <Toaster />
             </TooltipProvider>

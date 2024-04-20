@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
-import { DataTable } from "src/app/dashboard/files/components/data-table";
-import { columns } from "src/app/dashboard/files/components/columns";
+import { DataTable } from "./data-table";
+import { columns } from "./columns";
 import { api } from "src/trpc/react";
 import { DocumentType } from "@prisma/client";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -45,4 +45,3 @@ export default function TableContainer({
 
   return <DataTable data={filteredFiles} columns={columns} />;
 }
-

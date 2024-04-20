@@ -46,7 +46,6 @@ import { useCheckedRowsStore } from "src/store/store";
 import { signIn } from "next-auth/react";
 import { cn } from "@/lib/utils";
 
-
 const platformItems = [
   {
     title: "Overview",
@@ -191,6 +190,9 @@ const companyItems = [
 ];
 
 const Navbar = () => {
+  const pathname = usePathname();
+  const isOnDashboardRoute = pathname.includes("/dashboard");
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { deleteAll } = useCheckedRowsStore();
 
@@ -200,6 +202,10 @@ const Navbar = () => {
     await signIn("auth0", {
       callbackUrl: "/dashboard",
     });
+  }
+
+  if (isOnDashboardRoute) {
+    return null;
   }
 
   return (
