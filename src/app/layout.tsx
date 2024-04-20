@@ -34,9 +34,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             disableTransitionOnChange
           >
             <TooltipProvider>
-              <header className="flex items-center justify-between bg-background/80 p-4">
-                <Navbar />
-              </header>
+              <Navbar />
+
               <main className="flex w-full flex-1 flex-col">{children}</main>
               <Toaster />
             </TooltipProvider>
