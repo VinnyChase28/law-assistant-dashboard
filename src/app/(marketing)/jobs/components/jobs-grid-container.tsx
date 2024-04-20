@@ -55,7 +55,7 @@ export default function BlogSectionsContainer({
         <section key={category} className="mb-12 last:mb-0">
           <h2 className="mb-6 text-2xl font-bold">{category}</h2>
           <Separator />
-          <div className="flex flex-wrap justify-center gap-8">
+          <div className="flex flex-wrap gap-8">
             {postsByCategory[category]?.map((post) => (
               <motion.div
                 key={post.slug}
