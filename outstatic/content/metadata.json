@@ -1,7 +1,25 @@
 {
-  "commit": "b2dc39288564ef498e764c7529f8c334f134c4da",
-  "generated": "2024-04-19T06:24:41.940Z",
+  "commit": "14a5617874304522e67676e85fc6585dcc24772b",
+  "generated": "Sat, 20 Apr 2024 00:14:25 GMT",
   "metadata": [
+    {
+      "__outstatic": {
+        "commit": "751b6f07c29297d4b26da14f8be2db30b0571f8c",
+        "hash": "2126614240",
+        "path": "outstatic/content/blog/what-is-retrieval-augmented-generation.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/retreival-augmented-generation-kzNj.jpg",
+      "description": "",
+      "publishedAt": "2024-04-18T01:47:25.018Z",
+      "slug": "what-is-retrieval-augmented-generation",
+      "status": "published",
+      "title": "What is Retrieval Augmented Generation?"
+    },
     {
       "__outstatic": {
         "commit": "486e1182043562727072ad40bbaf4a9fb73bc5c3",
@@ -73,6 +91,101 @@
       "slug": "5-ways-genai-is-revolutionizing-compliance-automation",
       "status": "published",
       "title": "5 Ways GenAI is Revolutionizing Compliance Automation"
+    },
+    {
+      "__outstatic": {
+        "commit": "77c39d83a37d1a769bc315a0467dce5b2672afae",
+        "hash": "903247354",
+        "path": "outstatic/content/jobs/software-engineer-ii-platform.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Engineering",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:40:33.736Z",
+      "slug": "software-engineer-ii-platform",
+      "status": "published",
+      "title": "Software Engineer II - Platform"
+    },
+    {
+      "__outstatic": {
+        "commit": "f6e855c24a27d9e8099c193589fb490860576945",
+        "hash": "430537147",
+        "path": "outstatic/content/jobs/senior-software-engineer-platform.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Engineering",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:28:19.070Z",
+      "slug": "senior-software-engineer-platform",
+      "status": "published",
+      "title": "Senior Software Engineer - Platform"
+    },
+    {
+      "__outstatic": {
+        "commit": "c4cd521f62d1bb0f223108f28a5ed0f7fa000e2f",
+        "hash": "4133205382",
+        "path": "outstatic/content/jobs/senior-front-end-engineer-next-js.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Engineering",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:31:18.316Z",
+      "slug": "senior-front-end-engineer-next-js",
+      "status": "published",
+      "title": "Senior Front-End Engineer"
+    },
+    {
+      "__outstatic": {
+        "commit": "356ce513085c429e90d5aa9c1f8e1f48359b7e6a",
+        "hash": "334417969",
+        "path": "outstatic/content/jobs/product.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Product",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:34:51.146Z",
+      "slug": "product",
+      "status": "published",
+      "title": "Head of Product"
+    },
+    {
+      "__outstatic": {
+        "commit": "13eba7517f45d88c624e9117dc8d7e6aace6f621",
+        "hash": "729602746",
+        "path": "outstatic/content/jobs/business-development-representative.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "category": "Revenue",
+      "collection": "jobs",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-19T05:38:40.895Z",
+      "slug": "business-development-representative",
+      "status": "published",
+      "title": "Business Development Representative"
     },
     {
       "__outstatic": {
@@ -196,25 +309,7 @@
     },
     {
       "__outstatic": {
-        "commit": "751b6f07c29297d4b26da14f8be2db30b0571f8c",
-        "hash": "2126614240",
-        "path": "outstatic/content/blog/what-is-retrieval-augmented-generation.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "collection": "blog",
-      "coverImage": "/images/retreival-augmented-generation-kzNj.jpg",
-      "description": "",
-      "publishedAt": "2024-04-18T01:47:25.018Z",
-      "slug": "what-is-retrieval-augmented-generation",
-      "status": "published",
-      "title": "What is Retrieval Augmented Generation?"
-    },
-    {
-      "__outstatic": {
-        "commit": "34a19986265f5e3f14bede423e11b5840654ccb9",
+        "commit": "fe9716c7b13461ee330bf6a55ce0a87bef75c277",
         "hash": "518795509",
         "path": "outstatic/content/jobs/staff-software-engineer-machine-learning.md"
       },
@@ -230,101 +325,6 @@
       "slug": "staff-software-engineer-machine-learning",
       "status": "published",
       "title": "Staff Software Engineer - Machine Learning"
-    },
-    {
-      "__outstatic": {
-        "commit": "54e2b60b1180fc8dfcdeddc9292a7a3d26bb420e",
-        "hash": "430537147",
-        "path": "outstatic/content/jobs/senior-software-engineer-platform.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "category": "Engineering",
-      "collection": "jobs",
-      "coverImage": "",
-      "description": "",
-      "publishedAt": "2024-04-19T05:28:19.070Z",
-      "slug": "senior-software-engineer-platform",
-      "status": "published",
-      "title": "Senior Software Engineer - Platform"
-    },
-    {
-      "__outstatic": {
-        "commit": "03c43da782d1d0c68efc7ac568828d68cec2e9ba",
-        "hash": "334417969",
-        "path": "outstatic/content/jobs/product.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "category": "Product",
-      "collection": "jobs",
-      "coverImage": "",
-      "description": "",
-      "publishedAt": "2024-04-19T05:34:51.146Z",
-      "slug": "product",
-      "status": "published",
-      "title": "Head of Product"
-    },
-    {
-      "__outstatic": {
-        "commit": "e736ca43e721f590b09adbc72a336444592bfff0",
-        "hash": "729602746",
-        "path": "outstatic/content/jobs/business-development-representative.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "category": "Revenue",
-      "collection": "jobs",
-      "coverImage": "",
-      "description": "",
-      "publishedAt": "2024-04-19T05:38:40.895Z",
-      "slug": "business-development-representative",
-      "status": "published",
-      "title": "Business Development Representative"
-    },
-    {
-      "__outstatic": {
-        "commit": "dbd2646022216713166e812b4e9aaa2652ad7366",
-        "hash": "4133205382",
-        "path": "outstatic/content/jobs/senior-front-end-engineer-next-js.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "category": "Engineering",
-      "collection": "jobs",
-      "coverImage": "",
-      "description": "",
-      "publishedAt": "2024-04-19T05:31:18.316Z",
-      "slug": "senior-front-end-engineer-next-js",
-      "status": "published",
-      "title": "Senior Front-End Engineer"
-    },
-    {
-      "__outstatic": {
-        "commit": "b2dc39288564ef498e764c7529f8c334f134c4da",
-        "hash": "903247354",
-        "path": "outstatic/content/jobs/software-engineer-ii-platform.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "category": "Engineering",
-      "collection": "jobs",
-      "coverImage": "",
-      "description": "",
-      "publishedAt": "2024-04-19T05:40:33.736Z",
-      "slug": "software-engineer-ii-platform",
-      "status": "published",
-      "title": "Software Engineer II - Platform"
     }
   ]
 }
