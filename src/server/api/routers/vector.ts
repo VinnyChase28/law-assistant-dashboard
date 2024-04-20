@@ -1,9 +1,8 @@
-import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { z } from "zod";
+
+import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 import { pinecone } from "src/utils/pinecone";
-import { prisma } from "src/utils/prisma";
-import { File, TextSubsection } from "@prisma/client";
 
 export const vectorRouter = createTRPCRouter({
   // Vector Search Query Scoped by user ID

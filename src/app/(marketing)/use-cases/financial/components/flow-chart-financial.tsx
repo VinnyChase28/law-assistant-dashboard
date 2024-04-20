@@ -1,9 +1,10 @@
 import Flowchart from "src/app/(marketing)/_components/flow-chart/fow-chart";
 import {
   startingPositions,
-  FlowchartConfig,
+  type FlowchartConfig,
 } from "src/app/(marketing)/_components/flow-chart/flow-chart-config";
 import HeroFeatures from "src/app/(marketing)/_components/hero/hero-features";
+
 import stars from "/videos/stars.mp4";
 const config: FlowchartConfig = {
   pageWidth: startingPositions.pageWidth,
@@ -126,7 +127,7 @@ const FlowChartFinancial = () => {
         title="Compliance Monitoring"
         headline="Monitoring for Financial Transactions"
         description="CodeX enhances your ability to monitor transactions, ensuring compliance with AML laws and internal guidelines."
-        primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
+        primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
         primaryButtonText="Discover More"
         videoSrc={stars}
       />

@@ -1,11 +1,12 @@
 
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Calendar } from "lucide-react";
 import { motion } from "framer-motion";
+import { Calendar } from "lucide-react";
 import BackgroundVideo from "next-video/background-video";
-import { Asset } from "next-video/dist/assets.js";
+import { type Asset } from "next-video/dist/assets.js";
+
+import { Button } from "@/components/ui/button";
 
 interface HeroFeaturesProps {
   title: string;

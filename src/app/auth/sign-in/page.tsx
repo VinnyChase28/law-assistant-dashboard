@@ -1,6 +1,6 @@
-import { Metadata } from "next";
-import Image from "next/image";
+import { type Metadata } from "next";
 import Link from "next/link";
+
 import { UserAuthForm } from "./user-auth-form";
 
 export const metadata: Metadata = {

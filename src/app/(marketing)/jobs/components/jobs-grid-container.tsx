@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+
 import {
   Card,
   CardContent,
@@ -8,8 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "src/app/_components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "src/app/_components/ui/button";
 
 const cardVariants = {
   initial: { opacity: 0, scale: 0.8 },
@@ -54,7 +55,7 @@ export default function BlogSectionsContainer({
         <section key={category} className="mb-12 last:mb-0">
           <h2 className="mb-6 text-2xl font-bold">{category}</h2>
           <Separator />
-          <div className="flex flex-wrap justify-center gap-8">
+          <div className="flex flex-wrap gap-8">
             {postsByCategory[category]?.map((post) => (
               <motion.div
                 key={post.slug}

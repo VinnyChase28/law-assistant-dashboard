@@ -1,4 +1,5 @@
 import { getDocuments } from "outstatic/server";
+
 import BlogGridContainer from "./components/blog-grid-container";
 
 export const dynamic = "force-static";

@@ -1,9 +1,14 @@
 "use client";
 
 import React, { useState, useRef } from "react";
+
 import { upload } from "@vercel/blob/client";
-import { api } from "src/trpc/react";
+
 import { Button } from "@/components/ui/button";
+import { api } from "src/trpc/react";
+
+import AlertComponent from "../alert";
+import { IconSpinner } from "../ui/icons";
 import {
   Select,
   SelectTrigger,
@@ -13,9 +18,7 @@ import {
   SelectGroup,
   SelectLabel,
 } from "../ui/select";
-import AlertComponent from "../alert";
 import { useToast } from "../ui/use-toast";
-import { IconSpinner } from "../ui/icons";
 
 
 type DocumentType = "REGULATORY_FRAMEWORK" | "COMPLIANCE_SUBMISSION";

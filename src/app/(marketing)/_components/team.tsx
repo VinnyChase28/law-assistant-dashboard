@@ -1,3 +1,6 @@
+import { Facebook, Instagram, Linkedin } from "lucide-react";
+import Image from "next/image";
+
 import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -7,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
 
 interface TeamProps {
   imageUrl: string;
@@ -107,7 +109,7 @@ export const Team = () => {
               className="relative mt-8 flex flex-col items-center justify-center bg-muted/50"
             >
               <CardHeader className="mt-8 flex items-center justify-center pb-2">
-                <img
+                <Image
                   src={imageUrl}
                   alt={`${name} ${position}`}
                   className="absolute -top-12 aspect-square h-24 w-24 rounded-full object-cover"

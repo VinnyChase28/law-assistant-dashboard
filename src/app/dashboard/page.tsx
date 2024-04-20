@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
+import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -14,10 +14,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import { api } from "src/trpc/server";
-import { Separator } from "@/components/ui/separator";
+
 import { CardsStats } from "./charts/card-stats";
+
+
+export const dynamic = "force-dynamic";
 interface StatCardProps {
   title: string;
   icon: JSX.Element;

@@ -1,5 +1,6 @@
-import { type Metadata } from "next";
 import { Text } from "@tremor/react";
+import { type Metadata } from "next";
+
 import TabbedTables from "./components/tabbed-tables";
 
 export const metadata: Metadata = {

@@ -1,9 +1,11 @@
 "use client";
-import PDFViewer from "@/components/pdf-viewer";
 import { useEffect, useState } from "react";
+
 import { useSearchParams } from "next/navigation";
-import { api } from "src/trpc/react";
+
+import PDFViewer from "@/components/pdf-viewer";
 import Markdown from "src/app/_components/markdown";
+import { api } from "src/trpc/react";
 
 export default function FileViewerPage() {
   const searchParams = useSearchParams();

@@ -1,5 +1,7 @@
+import { Check, Linkedin } from "lucide-react";
+import { signIn } from "next-auth/react";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -9,8 +11,6 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
-import { Check, Linkedin } from "lucide-react";
-import { signIn } from "next-auth/react";
 
 export const HeroCards = () => {
   return (

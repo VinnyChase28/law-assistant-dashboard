@@ -1,10 +1,10 @@
+import { DocumentType } from "@prisma/client";
+import { processingStatus } from "@prisma/client";
 import {
   CheckCircledIcon,
   CrossCircledIcon,
   StopwatchIcon,
 } from "@radix-ui/react-icons";
-import { DocumentType } from "@prisma/client";
-import { processingStatus } from "@prisma/client";
 import { Search, Scale, Columns } from "lucide-react";
 
 const documentTypes = [

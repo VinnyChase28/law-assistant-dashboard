@@ -1,5 +1,3 @@
-import { type ToggleWithTextProps } from "./types";
-import { Toggle } from "../ui/toggle";
 
 export const TypingIndicator = () => {
   return (

@@ -1,6 +1,8 @@
-import FlowChartContract from "./components/flow-chart-contracts";
+import { type Metadata } from "next";
+
 import { Cta } from "../../_components/cta";
-import { Metadata } from "next";
+
+import FlowChartContract from "./components/flow-chart-contracts";
 
 export const metadata: Metadata = {
   title: "Contracts Compliance - Simplify Your Legal Processes",

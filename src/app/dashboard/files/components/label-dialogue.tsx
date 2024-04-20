@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Dialog,
   DialogContent,
@@ -7,8 +8,9 @@ import {
   DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { LabelForm } from "./label-form"; // Import the LabelForm component
 import { Button } from "src/app/_components/ui/button";
+
+import { LabelForm } from "./label-form"; // Import the LabelForm component
 
 export function LabelDialog() {
   return (

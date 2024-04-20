@@ -1,6 +1,6 @@
 import { complianceReport } from "./functions/compliance-reports";
-import { calculateDailyUsage } from "./functions/usage";
 import { processDocument } from "./functions/subsections-embeddings";
+import { calculateDailyUsage } from "./functions/usage";
 
 
 export const functions = [

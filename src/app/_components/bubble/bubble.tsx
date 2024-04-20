@@ -1,6 +1,10 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
+
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
+import { ArrowLeft } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,12 +12,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator"; // Import Separator
+
+import AlertComponent from "../alert";
 import VectorSearchComponent from "../chat/chat-docs";
 import CreateReportComponent from "../generate-report/generate-report";
-import { ArrowLeft } from "lucide-react";
-import AlertComponent from "../alert";
 import { Badge } from "../ui/badge";
 
 const ChatBubble = () => {

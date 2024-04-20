@@ -1,6 +1,8 @@
-import FlowChartRealEstate from "./components/flow-chart-real-estate";
+import { type Metadata } from "next";
+
 import { Cta } from "../../_components/cta";
-import { Metadata } from "next";
+
+import FlowChartRealEstate from "./components/flow-chart-real-estate";
 
 export const metadata: Metadata = {
   title: "Real Estate Compliance - Optimize Property Management",

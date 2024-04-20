@@ -1,6 +1,8 @@
-import FlowChartHrPolicy from "./components/flow-chart-hr";
+import { type Metadata } from "next";
+
 import { Cta } from "../../_components/cta";
-import { Metadata } from "next";
+
+import FlowChartHrPolicy from "./components/flow-chart-hr";
 
 export const metadata: Metadata = {
   title: "HR Policy Compliance - Streamline HR Processes",

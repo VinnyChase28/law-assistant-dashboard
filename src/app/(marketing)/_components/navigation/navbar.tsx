@@ -1,6 +1,35 @@
 "use client";
 import React, { useState } from "react";
+
+import {
+  Menu,
+  Gift,
+} from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { signIn } from "next-auth/react";
+
+import AuthButtonWrapper from "@/components/navigation/sign-in-out";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+import { useCheckedRowsStore } from "src/store/store";
+
+import { ModeToggle } from "../../../_components/mode-toggle";
+import {
+  platformItems,
+  useCasesItems,
+  resourcesItems,
+  getStartedItems,
+  companyItems,
+} from "../../_config/nav";
+import { LawAssistantLogo } from "../../assets/law-assistant-logo";
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,187 +38,12 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "./navigation-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  UserIcon,
-  Menu,
-  Calendar,
-  PenTool,
-  HelpCircle,
-  Phone,
-  FileText,
-  Mail,
-  Briefcase,
-  Puzzle,
-  Book,
-  Megaphone,
-  Play,
-  DollarSign,
-  Award,
-  Home,
-  Search,
-  Folder,
-  Code,
-  Gift,
-} from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { ModeToggle } from "../mode-toggle";
-import { usePathname } from "next/navigation";
-import { LawAssistantLogo } from "../../assets/law-assistant-logo";
-import { useCheckedRowsStore } from "src/store/store";
-import { signIn } from "next-auth/react";
-import { cn } from "@/lib/utils";
 
-const platformItems = [
-  {
-    title: "Overview",
-    href: "/platform/overview",
-    description: "AI-powered compliance assistance for all your needs",
-    icon: PenTool,
-  },
-  {
-    title: "How it Works",
-    href: "/platform/how-it-works",
-    description: "Seamless integration with your existing systems",
-    icon: HelpCircle,
-  },
-  {
-    title: "Why CodeX",
-    href: "/platform/why-codex",
-    description: "The leader in AI-powered compliance solutions",
-    icon: Award,
-  },
-  {
-    title: "Integrations",
-    href: "/platform/integrations",
-    description: "Explore our integrations with popular legal databases",
-    icon: Puzzle,
-  },
-];
-const useCasesItems = [
-  {
-    title: "Real Estate",
-    href: "/use-cases/real-estate",
-    description:
-      "Ensure real estate projects adhere to zoning and building bylaws",
-    icon: Home,
-  },
-  {
-    title: "Contracts",
-    href: "/use-cases/contracts",
-    description: "Analyze contracts for deviations from standards and policies",
-    icon: Search,
-  },
-  {
-    title: "Environmental",
-    href: "/use-cases/environmental",
-    description:
-      "Assess projects against environmental regulations and standards",
-    icon: FileText,
-  },
-  {
-    title: "Financial",
-    href: "/use-cases/financial",
-    description: "Detect suspicious transactions and ensure AML law compliance",
-    icon: DollarSign,
-  },
-  {
-    title: "HR Policy",
-    href: "/use-cases/hr-policy",
-    description:
-      "Monitor communications for HR policy adherence and conduct issues",
-    icon: Folder,
-  },
-  {
-    title: "Best Practices",
-    href: "/use-cases/software",
-    description: "Verify code against best practices and company standards",
-    icon: Code,
-  },
-];
-
-const resourcesItems = [
-  {
-    title: "Blog",
-    href: "/blog",
-    description: "Insights and updates on compliance trends",
-    icon: FileText,
-  },
-  {
-    title: "Webinars & Events",
-    href: "/resources/events-webinars",
-    description: "Learn from compliance experts online and in-person",
-    icon: Calendar,
-  },
-  {
-    title: "Case Studies",
-    href: "/resources/case-studies",
-    description: "See how CodeX helps organizations stay compliant",
-    icon: FileText,
-  },
-  {
-    title: "Compliance Newsletter",
-    href: "/resources/newsletter",
-    description: "Get the latest compliance news delivered to your inbox",
-    icon: Mail,
-  },
-];
-const getStartedItems = [
-  {
-    title: "Request a Demo",
-    href: "https://calendly.com/vince-gauthier/30min?month=2024-04",
-    description: "See CodeX in action with a personalized demo",
-    icon: Play,
-  },
-  {
-    title: "Pricing",
-    href: "/pricing",
-    description: "Choose the right plan for your compliance needs",
-    icon: DollarSign,
-  },
-
-  {
-    title: "Contact Sales",
-    href: "https://calendly.com/vince-gauthier/30min?month=2024-04",
-    description: "Discuss your compliance needs with our experts",
-    icon: Phone,
-  },
-];
-
-const companyItems = [
-  {
-    title: "About",
-    href: "/company/about",
-    description: "Learn about our mission and team",
-    icon: Briefcase,
-  },
-  {
-    title: "Careers",
-    href: "/jobs",
-    description: "Join us in revolutionizing compliance with AI",
-    icon: Briefcase,
-  },
-  {
-    title: "Press",
-    href: "/company/press",
-    description: "Read the latest news and press releases about CodeX",
-    icon: Megaphone,
-  },
-  {
-    title: "Contact Us",
-    href: "/company/contact",
-    description: "Get in touch with our team",
-    icon: Mail,
-  },
-];
 
 const Navbar = () => {
+  const pathname = usePathname();
+  const isOnDashboardRoute = pathname.includes("/dashboard");
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { deleteAll } = useCheckedRowsStore();
 
@@ -199,6 +53,10 @@ const Navbar = () => {
     await signIn("auth0", {
       callbackUrl: "/dashboard",
     });
+  }
+
+  if (isOnDashboardRoute) {
+    return null;
   }
 
   return (
@@ -438,16 +296,7 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden gap-2 md:flex">
-            <div
-              className={`border ${buttonVariants({
-                variant: "secondary",
-              })} cursor-pointer`}
-              role="button"
-              onClick={signInWithAuth0}
-            >
-              <UserIcon className="mr-2 h-5 w-5" />
-              Sign In
-            </div>
+            <AuthButtonWrapper />
 
             <ModeToggle />
           </div>

@@ -1,9 +1,11 @@
-import { inngest } from "../client";
-import nlp from "compromise";
 import { OpenAIEmbeddings } from "@langchain/openai";
-import { prisma } from "src/utils/prisma";
-import { pinecone } from "src/utils/pinecone";
+import nlp from "compromise";
+
 import { api } from "src/trpc/server";
+import { pinecone } from "src/utils/pinecone";
+import { prisma } from "src/utils/prisma";
+
+import { inngest } from "../client";
 
 interface ProcessDocumentEventData {
   fileId: number;

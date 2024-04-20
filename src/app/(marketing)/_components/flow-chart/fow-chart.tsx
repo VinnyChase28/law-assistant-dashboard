@@ -1,21 +1,21 @@
 // Flowchart.js
 "use client";
 import React, { useState, useCallback, useEffect } from "react";
+
 import ReactFlow, {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
-  Controls,
-  Edge,
-  Node,
-  NodeChange,
-  EdgeChange,
-  Connection,
+  type Edge,
+  type Node,
+  type NodeChange,
+  type EdgeChange,
+  type Connection,
 } from "reactflow";
 import "reactflow/dist/style.css";
 
 import CustomNode from "./custom-node";
-import { FlowchartConfig } from "./flow-chart-config";
+import { type FlowchartConfig } from "./flow-chart-config";
 
 const nodeTypes = {
   customNode: CustomNode,

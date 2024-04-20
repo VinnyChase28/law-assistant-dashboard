@@ -1,4 +1,4 @@
-import { BarList, Bold, Card, Flex, Text, Title } from "@tremor/react";
+import { BarList, Card, Text, Title } from "@tremor/react";
 
 const costSavingsData = [
   {

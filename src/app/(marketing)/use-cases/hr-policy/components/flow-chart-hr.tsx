@@ -2,9 +2,10 @@
 import Flowchart from "src/app/(marketing)/_components/flow-chart/fow-chart";
 import {
   startingPositions,
-  FlowchartConfig,
+  type FlowchartConfig,
 } from "src/app/(marketing)/_components/flow-chart/flow-chart-config";
 import HeroFeatures from "src/app/(marketing)/_components/hero/hero-features";
+
 import stars from "/videos/stars.mp4";
 
 const config: FlowchartConfig = {
@@ -132,7 +133,7 @@ const FlowChartHrPolicy = () => {
         title="Policy Compliance"
         headline="Policy Compliance Automation"
         description="CodeX leverages advanced analytics to monitor public communications, ensuring adherence to HR policies and legal standards."
-        primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
+        primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
         primaryButtonText="Explore Solutions"
         videoSrc={stars}
       />

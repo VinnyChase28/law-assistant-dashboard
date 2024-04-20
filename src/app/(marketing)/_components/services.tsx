@@ -4,9 +4,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { MagnifierIcon, WalletIcon, ChartIcon } from "./icons";
 
-import Image from "next/image";
+import { MagnifierIcon, ChartIcon } from "./icons";
+
 
 interface ServiceProps {
   title: string;
