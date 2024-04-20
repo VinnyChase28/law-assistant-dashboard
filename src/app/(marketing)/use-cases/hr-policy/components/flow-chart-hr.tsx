@@ -132,7 +132,7 @@ const FlowChartHrPolicy = () => {
         title="Policy Compliance"
         headline="Policy Compliance Automation"
         description="CodeX leverages advanced analytics to monitor public communications, ensuring adherence to HR policies and legal standards."
-        primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
+        primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
         primaryButtonText="Explore Solutions"
         videoSrc={stars}
       />

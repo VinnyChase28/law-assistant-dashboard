@@ -132,7 +132,7 @@ const FlowChartEnvironmental = () => {
         title="Environmental Compliance"
         headline="Environmental Compliance Automation"
         description="CodeX simplifies the process of ensuring your projects meet environmental standards and regulations."
-        primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
+        primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
         primaryButtonText="Learn More"
         videoSrc={stars}
       />

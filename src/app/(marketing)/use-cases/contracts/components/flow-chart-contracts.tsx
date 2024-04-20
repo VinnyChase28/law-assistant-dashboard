@@ -134,7 +134,7 @@ const FlowChartContract = () => {
         title="Contract Compliance"
         headline="Contract Compliance Automation"
         description="CodeX streamlines your contract review process, ensuring compliance and alignment with industry standards."
-        primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
+        primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
         primaryButtonText="Schedule a Review"
         videoSrc={particles}
       />

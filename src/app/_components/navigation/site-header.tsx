@@ -21,7 +21,7 @@ export function SiteHeader() {
           </div>
           <nav className="flex items-center">
             <Link
-              href={siteConfig.links.github}
+              href={siteConfig.links.linkedIn}
               target="_blank"
               rel="noreferrer"
             >
@@ -33,7 +33,7 @@ export function SiteHeader() {
                   "w-9 px-0",
                 )}
               >
-                <Icons.gitHub className="h-4 w-4" />
+                <Icons.linkedIn className="h-4 w-4" />
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>

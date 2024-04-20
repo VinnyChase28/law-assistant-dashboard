@@ -130,7 +130,7 @@ const FlowChartSoftwareCompliance = () => {
         title="Software Development Compliance"
         headline="Ensuring Compliance with Industry Standards in Software Development"
         description="CodeX automates the process of comparing your source code against industry best practices and company standards, helping identify areas for improvement and potential issues."
-        primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
+        primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
         primaryButtonText="Learn More"
         videoSrc={stars}
       />

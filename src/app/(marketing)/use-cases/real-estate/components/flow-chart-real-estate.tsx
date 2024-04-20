@@ -128,7 +128,7 @@ const FlowChartRealEstate = () => {
         title="Real Estate"
         headline="Compliance Automation for Real Estate "
         description="CodeX helps you automate compliance processes, reduce risks, and save time."
-        primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
+        primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
         primaryButtonText="Get Started"
         videoSrc={stars}
       />

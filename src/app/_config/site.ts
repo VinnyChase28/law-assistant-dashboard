@@ -1,12 +1,12 @@
 export const siteConfig = {
-  name: "shadcn/ui",
-  url: "https://ui.shadcn.com",
-  ogImage: "https://ui.shadcn.com/og.jpg",
+  name: "CodeX",
+  url: "https://lawassistant.ai",
+  ogImage: "",
   description:
-    "Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.",
+    "Law Assistant AI is a compliance automation platform that helps businesses to automate their legal and compliance processes.",
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn-ui/ui",
+    twitter: "https://twitter.com/LawAssistantAI",
+    linkedIn: "https://www.linkedin.com/company/law-assistant-ai/",
   },
 };
 

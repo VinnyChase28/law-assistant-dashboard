@@ -45,6 +45,7 @@ import { LawAssistantLogo } from "../../assets/law-assistant-logo";
 import { useCheckedRowsStore } from "src/store/store";
 import { signIn } from "next-auth/react";
 import { cn } from "@/lib/utils";
+import AuthButtonWrapper from "@/components/navigation/sign-in-out";
 
 const platformItems = [
   {
@@ -99,19 +100,6 @@ const useCasesItems = [
     description: "Detect suspicious transactions and ensure AML law compliance",
     icon: DollarSign,
   },
-  {
-    title: "HR Policy",
-    href: "/use-cases/hr-policy",
-    description:
-      "Monitor communications for HR policy adherence and conduct issues",
-    icon: Folder,
-  },
-  {
-    title: "Best Practices",
-    href: "/use-cases/software",
-    description: "Verify code against best practices and company standards",
-    icon: Code,
-  },
 ];
 
 const resourcesItems = [
@@ -143,7 +131,7 @@ const resourcesItems = [
 const getStartedItems = [
   {
     title: "Request a Demo",
-    href: "https://calendly.com/vince-gauthier/30min?month=2024-04",
+    href: "https://cal.com/vincent-gauthier-yxbpaz/30min",
     description: "See CodeX in action with a personalized demo",
     icon: Play,
   },
@@ -156,7 +144,7 @@ const getStartedItems = [
 
   {
     title: "Contact Sales",
-    href: "https://calendly.com/vince-gauthier/30min?month=2024-04",
+    href: "https://cal.com/vincent-gauthier-yxbpaz/30min",
     description: "Discuss your compliance needs with our experts",
     icon: Phone,
   },
@@ -445,16 +433,7 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden gap-2 md:flex">
-            <div
-              className={`border ${buttonVariants({
-                variant: "secondary",
-              })} cursor-pointer`}
-              role="button"
-              onClick={signInWithAuth0}
-            >
-              <UserIcon className="mr-2 h-5 w-5" />
-              Sign In
-            </div>
+            <AuthButtonWrapper />
 
             <ModeToggle />
           </div>

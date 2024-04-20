@@ -126,7 +126,7 @@ const FlowChartFinancial = () => {
         title="Compliance Monitoring"
         headline="Monitoring for Financial Transactions"
         description="CodeX enhances your ability to monitor transactions, ensuring compliance with AML laws and internal guidelines."
-        primaryButtonLink="https://calendly.com/vince-gauthier/30min?month=2024-04"
+        primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
         primaryButtonText="Discover More"
         videoSrc={stars}
       />
