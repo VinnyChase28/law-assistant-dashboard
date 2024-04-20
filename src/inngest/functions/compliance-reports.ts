@@ -16,9 +16,7 @@ export const complianceReport = inngest.createFunction(
 
     const allViolationsPromises = event.data.data.map(async (item) => {
       const { complianceSubmission, regulatoryFramework } = item;
-      console.log("complianceSubmission", complianceSubmission);
-      console.log("regulatoryFramework", regulatoryFramework);
-
+  
       // Process each regulation in parallel for the current compliance submission
       const violationsPromises = regulatoryFramework.map((regulation) =>
         findViolations(complianceSubmission, regulation),

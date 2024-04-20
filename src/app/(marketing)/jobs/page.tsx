@@ -21,7 +21,6 @@ export default async function JobsPage() {
     allPosts = [...allPosts, ...categoryPosts];
   }
 
-  console.log(allPosts);
 
   return (
     <div className="container mx-auto px-4">

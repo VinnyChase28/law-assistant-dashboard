@@ -106,14 +106,14 @@ export const stripeRouter = createTRPCRouter({
       customer: stripeCustomer?.stripeCustomerId,
     });
 
-    console.log(subscriptions);
+
 
     // Filter the subscriptions to only include those with the matching userId in metadata
     const filteredSubscriptions = subscriptions.data.filter((subscription) => {
       return subscription.metadata.userId === ctx.session.user.id;
     });
 
-    console.log(filteredSubscriptions);
+
 
     // If no matching subscriptions are found, return null
     if (filteredSubscriptions.length === 0) {
