@@ -39,12 +39,13 @@ import {
   Gift,
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
-import { ModeToggle } from "../mode-toggle";
+import { ModeToggle } from "../../../_components/mode-toggle";
 import { usePathname } from "next/navigation";
 import { LawAssistantLogo } from "../../assets/law-assistant-logo";
 import { useCheckedRowsStore } from "src/store/store";
 import { signIn } from "next-auth/react";
 import { cn } from "@/lib/utils";
+
 
 const platformItems = [
   {

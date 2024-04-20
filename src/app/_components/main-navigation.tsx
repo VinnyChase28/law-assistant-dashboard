@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import { ModeToggle } from "@/components/dark-mode-toggle";
-
+import { LawAssistantLogo } from "../(marketing)/assets/law-assistant-logo";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -42,9 +42,10 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function MainNavigation() {
   return (
-    <NavigationMenu className="pl-3">
+    <NavigationMenu className="flex w-full justify-center">
       <ModeToggle />
-      <NavigationMenuList>
+      <NavigationMenuList className="flex items-center space-x-4">
+        {/* Dashboard */}
         <NavigationMenuItem>
           <Link href="/dashboard" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
@@ -52,11 +53,18 @@ export function MainNavigation() {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+        {/* Files */}
         <NavigationMenuItem>
           <Link href="/dashboard/files" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Files
             </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        {/* Logo */}
+        <NavigationMenuItem>
+          <Link href="/" passHref className="flex items-center justify-center">
+            <LawAssistantLogo />
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>

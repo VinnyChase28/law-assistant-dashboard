@@ -23,13 +23,6 @@ function HomeContainer() {
       <HowItWorks />
       <Pricing />
       <Cta />
-      <Script
-        src="//js-na1.hs-scripts.com/40814956.js"
-        id="hs-script-loader"
-        async
-        defer
-        strategy="lazyOnload"
-      />
       <ScrollToTop />
     </>
   );
