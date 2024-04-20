@@ -32,6 +32,7 @@ const config = {
     "@typescript-eslint/no-unnecessary-type-assertion": "off",
     "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
     "@typescript-eslint/no-unescaped-entities": "off",
+    "@typescript-eslint/no-base-to-string": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {
