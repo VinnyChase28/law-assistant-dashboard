@@ -1,10 +1,14 @@
-import { getDocumentSlugs } from "outstatic/server";
-import matter from 'gray-matter';
-import path from 'path';
 import { promises as fs } from 'fs';
-import Markdown from "src/app/_components/markdown";
+import path from 'path';
+
+import matter from 'gray-matter';
 import Image
  from "next/image";
+import { getDocumentSlugs } from "outstatic/server";
+
+import Markdown from "src/app/_components/markdown";
+
+
 import BlogAnimations from "../components/blog-animations";
 
 export async function generateMetadata({

@@ -1,6 +1,35 @@
 "use client";
 import React, { useState } from "react";
+
+import {
+  Menu,
+  Gift,
+} from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { signIn } from "next-auth/react";
+
+import AuthButtonWrapper from "@/components/navigation/sign-in-out";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+import { useCheckedRowsStore } from "src/store/store";
+
+import { ModeToggle } from "../../../_components/mode-toggle";
+import {
+  platformItems,
+  useCasesItems,
+  resourcesItems,
+  getStartedItems,
+  companyItems,
+} from "../../_config/nav";
+import { LawAssistantLogo } from "../../assets/law-assistant-logo";
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,32 +38,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "./navigation-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  Menu,
-  Gift,
-} from "lucide-react";
-
-import { ModeToggle } from "../../../_components/mode-toggle";
-import { usePathname } from "next/navigation";
-import { LawAssistantLogo } from "../../assets/law-assistant-logo";
-import { useCheckedRowsStore } from "src/store/store";
-import { signIn } from "next-auth/react";
-import { cn } from "@/lib/utils";
-import AuthButtonWrapper from "@/components/navigation/sign-in-out";
-import {
-  platformItems,
-  useCasesItems,
-  resourcesItems,
-  getStartedItems,
-  companyItems,
-} from "../../_config/nav";
 
 
 const Navbar = () => {

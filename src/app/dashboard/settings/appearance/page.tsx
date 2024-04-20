@@ -1,4 +1,5 @@
 import { Separator } from "@/components/ui/separator";
+
 import { ThemeSelector } from "./appearance-form";
 
 export default function SettingsAppearancePage() {

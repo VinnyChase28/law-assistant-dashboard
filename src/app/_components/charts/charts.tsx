@@ -1,10 +1,11 @@
 "use client";
 
-import { Card, Grid } from "@tremor/react";
-import ComplianceTrendChart from "./line-chart";
-import { SideBarList } from "./bar-list";
-import UsageCircle from "./usage-circle";
+import { Grid } from "@tremor/react";
+
 import DocumentAreaChart from "./area-chart";
+import { SideBarList } from "./bar-list";
+import ComplianceTrendChart from "./line-chart";
+import UsageCircle from "./usage-circle";
 
 export default function ChartsContainer() {
   return (

@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { SessionProvider, useSession } from "next-auth/react";
+
+import { Button } from "../ui/button";
 
 export default function AuthButtonWrapper() {
   return (

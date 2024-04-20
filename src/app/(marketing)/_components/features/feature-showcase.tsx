@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 
 interface FeatureShowcaseProps {
   title: string;

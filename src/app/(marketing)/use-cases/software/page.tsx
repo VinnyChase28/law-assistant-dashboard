@@ -1,6 +1,8 @@
-import FlowChartSoftwareCompliance from "./components/flow-chart-software-compliance";
+import { type Metadata } from "next";
+
 import { Cta } from "../../_components/cta";
-import { Metadata } from "next";
+
+import FlowChartSoftwareCompliance from "./components/flow-chart-software-compliance";
 
 export const metadata: Metadata = {
   title: "Software Compliance - Ensure Software Integrity",

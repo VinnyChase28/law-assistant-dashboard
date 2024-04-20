@@ -1,7 +1,8 @@
-import { Pricing } from "../_components/pricing";
-import { Cta } from "../_components/cta";
+import { type Metadata } from "next";
 
-import { Metadata } from "next";
+import { Cta } from "../_components/cta";
+import { Pricing } from "../_components/pricing";
+
 
 export const metadata: Metadata = {
   title: "Pricing",

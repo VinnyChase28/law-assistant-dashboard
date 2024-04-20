@@ -1,7 +1,9 @@
 import React from "react";
+
+import { type Metadata } from "next";
+
 import WhyCodex from "./components/why-codex";
 
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Why CodeX - Leading Compliance Automation Platform",

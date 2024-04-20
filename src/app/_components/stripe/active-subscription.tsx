@@ -1,7 +1,9 @@
 "use client";
 
-import { TimerIcon, StarIcon } from "@radix-ui/react-icons";
 import { useState, useEffect } from "react";
+
+import { TimerIcon, StarIcon } from "@radix-ui/react-icons";
+
 import {
   Card,
   CardContent,
@@ -9,11 +11,11 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import { api } from "src/trpc/react";
 
 import { AlertDialogComponent } from "../alert-dialogue";
-import { api } from "src/trpc/react";
-import { toast } from "../ui/use-toast";
 import { IconSpinner } from "../ui/icons";
+import { toast } from "../ui/use-toast";
 
 export function SubscriptionManager({ subscription }: any) {
   const [isCanceled, setIsCanceled] = useState<boolean | null>(null);

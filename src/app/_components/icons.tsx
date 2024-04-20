@@ -1,4 +1,3 @@
-import { Linkedin } from "lucide-react";
 
 type IconProps = React.HTMLAttributes<SVGElement>;
 

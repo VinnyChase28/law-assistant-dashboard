@@ -1,16 +1,20 @@
 "use client";
 import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
+
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkBreaks from "remark-breaks";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { api } from "src/trpc/react";
-import { useChatWithDocsStore, useChatSessionStore } from "src/store/store";
-import { type ChatMessage } from "./types";
-import { TypingIndicator } from "./helpers";
+
 import { IconSpinner } from "@/components/ui/icons";
-import { DropdownMenuCheckboxes } from "./dropdown-menu";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useChatWithDocsStore, useChatSessionStore } from "src/store/store";
 import { useCheckedRowsStore } from "src/store/store";
+import { api } from "src/trpc/react";
+
+import { DropdownMenuCheckboxes } from "./dropdown-menu";
+import { TypingIndicator } from "./helpers";
+import { type ChatMessage } from "./types";
+
 
 const VectorSearchComponent: React.FC = () => {
   const [inputMessage, setInputMessage] = useState("");

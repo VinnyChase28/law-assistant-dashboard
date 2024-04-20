@@ -1,6 +1,6 @@
 "use client";
+import { startingPositions, type FlowchartConfig } from "./flow-chart-config";
 import Flowchart from "./fow-chart";
-import { startingPositions, FlowchartConfig } from "./flow-chart-config";
 
 
 const config: FlowchartConfig = {

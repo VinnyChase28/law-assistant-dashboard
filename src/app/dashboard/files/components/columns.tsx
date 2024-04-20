@@ -1,13 +1,14 @@
 "use client";
 
 import { type ColumnDef, type Table, type Row } from "@tanstack/react-table";
+
 import { Checkbox } from "@/components/ui/checkbox";
-import { type File } from "./schema";
 import { DataTableColumnHeader } from "src/app/dashboard/files/components/data-table-column-header";
-import { DataTableRowActions } from "./data-table-row-actions";
 import { useCheckedRowsStore } from "src/store/store";
+
 import { statuses, documentTypes } from "./data";
-import { api } from "src/trpc/react";
+import { DataTableRowActions } from "./data-table-row-actions";
+import { type File } from "./schema";
 
 interface SelectAllCheckboxHeaderProps {
   table: Table<File>;

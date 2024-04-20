@@ -1,7 +1,7 @@
-import { MetadataRoute } from "next";
 import { promises as fs } from "fs";
-
 import path from "path";
+
+import { type MetadataRoute } from "next";
 
 async function getBlogPostUrls(): Promise<
   Array<{

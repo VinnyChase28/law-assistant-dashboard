@@ -1,8 +1,9 @@
+import { type SubscriptionStatus } from "@prisma/client";
 import { headers } from "next/headers";
-import Stripe from "stripe";
-import { stripe } from "src/utils/stripe"; // Ensure this path is correct
+import type Stripe from "stripe";
+
 import { prisma } from "src/utils/prisma"; // Ensure this path is correct
-import { SubscriptionStatus } from "@prisma/client";
+import { stripe } from "src/utils/stripe"; // Ensure this path is correct
 
 // Helper function to upsert StripeCustomer
 async function upsertStripeCustomer(userId: string, customerStripeId: string) {

@@ -1,25 +1,25 @@
-import { cookies } from "next/headers";
-import "src/styles/globals.css";
-import { TRPCReactProvider } from "src/trpc/react";
-import { ThemeProvider } from "@/components/theme-provider";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
-import Navbar from "@/marketing/components/navigation/navbar";
+import { cookies } from "next/headers";
 
+import "src/styles/globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import Navbar from "@/marketing/components/navigation/navbar";
+import { TRPCReactProvider } from "src/trpc/react";
 
 export const metadata: Metadata = {
-  title: "CodeX | Law Assistant AI",
-  description: "CodeX Dashboard",
-  openGraph: {
-    title: "CodeX | Law Assistant AI",
-    description: "CodeX Dashboard",
-    type: "website",
-  },
+  title: "Codex | Law Assistant AI",
+  description:
+    "Compliance automation platform that helps businesses to automate their legal and compliance processes.",
+  metadataBase: new URL("https://lawassistant.ai"),
 };
 
-// Define `RootLayout` as a server component
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <head>

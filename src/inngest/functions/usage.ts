@@ -1,5 +1,6 @@
-import { inngest } from "../client";
 import { prisma } from "src/utils/prisma";
+
+import { inngest } from "../client";
 
 export const calculateDailyUsage = inngest.createFunction(
   { id: "calculate-daily-usage" },

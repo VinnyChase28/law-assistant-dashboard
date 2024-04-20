@@ -1,6 +1,8 @@
-import FlowChartFinancial from "./components/flow-chart-financial";
+import { type Metadata } from "next";
+
 import { Cta } from "../../_components/cta";
-import { Metadata } from "next";
+
+import FlowChartFinancial from "./components/flow-chart-financial";
 
 export const metadata: Metadata = {
   title: "Financial Compliance - Secure Financial Operations",

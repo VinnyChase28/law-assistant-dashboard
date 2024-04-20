@@ -1,5 +1,6 @@
-import ReactMarkdown from "react-markdown";
 import React from "react";
+
+import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 //create a type for the props
 type MarkdownProps = {

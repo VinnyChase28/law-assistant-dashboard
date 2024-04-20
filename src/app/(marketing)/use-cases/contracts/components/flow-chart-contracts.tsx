@@ -2,9 +2,10 @@
 import Flowchart from "src/app/(marketing)/_components/flow-chart/fow-chart";
 import {
   startingPositions,
-  FlowchartConfig,
+  type FlowchartConfig,
 } from "src/app/(marketing)/_components/flow-chart/flow-chart-config";
 import HeroFeatures from "src/app/(marketing)/_components/hero/hero-features";
+
 import particles from "/videos/particles.mp4";
 
 const config: FlowchartConfig = {

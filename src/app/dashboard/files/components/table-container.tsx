@@ -1,12 +1,13 @@
 "use client";
 import { useEffect } from "react";
-import { DataTable } from "./data-table";
-import { columns } from "./columns";
-import { api } from "src/trpc/react";
-import { DocumentType } from "@prisma/client";
-import { Skeleton } from "@/components/ui/skeleton";
+
+import { type DocumentType } from "@prisma/client";
+
 import { useFilesStore } from "src/store/store";
-import { IconSpinner } from "src/app/_components/ui/icons";
+import { api } from "src/trpc/react";
+
+import { columns } from "./columns";
+import { DataTable } from "./data-table";
 
 export default function TableContainer({
   documentType,

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -24,10 +25,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import { DataTablePagination } from "src/app/dashboard/files/components/data-table-pagination";
-import { DataTableToolbar } from "./data-table-toolbar";
 import { useCheckedRowsStore } from "src/store/store";
+
+import { DataTableToolbar } from "./data-table-toolbar";
 
 interface DataTableProps<TData extends { id: number }, TValue> {
   columns: ColumnDef<TData, TValue>[];

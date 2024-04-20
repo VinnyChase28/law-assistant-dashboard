@@ -1,11 +1,12 @@
-import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
-import { stripe } from "src/utils/stripe";
+import { z } from "zod";
+
 import { prisma } from "src/utils/prisma";
+import { stripe } from "src/utils/stripe";
+
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 
-const url = process.env.URL ?? "http://localhost:3000";
 
 export const stripeRouter = createTRPCRouter({
   getSubscriptionCheckoutURL: protectedProcedure.query(async ({ ctx }) => {

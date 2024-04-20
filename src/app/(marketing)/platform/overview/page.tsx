@@ -1,6 +1,8 @@
 import React from "react";
+
+import { type Metadata } from "next";
+
 import Overview from "./components/overview";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Platform Overview - CodeX Compliance Engine",

@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+
 import { useRouter } from "next/navigation";
-import { api } from "src/trpc/react";
+
 import { CheckboxWithText } from "@/components/checkbox-with-text";
+import { api } from "src/trpc/react";
 
 export default function TermsAndConditions() {
   const [accepted, setAccepted] = useState(false);

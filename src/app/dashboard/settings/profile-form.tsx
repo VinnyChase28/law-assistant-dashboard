@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Trash2 } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
-import { api } from "src/trpc/react";
 
+import { SkeletonAbstract } from "@/components/skeleton-abstract";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,11 +19,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { Label } from "@/components/ui/label";
-import { Trash2 } from "lucide-react";
-import { SkeletonAbstract } from "@/components/skeleton-abstract";
+import { api } from "src/trpc/react";
 
 const profileFormSchema = z.object({
   name: z

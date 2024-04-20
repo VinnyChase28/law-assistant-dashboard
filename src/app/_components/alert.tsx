@@ -1,6 +1,8 @@
 import React from "react";
-import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
+
 import { Info, StopCircle } from "lucide-react";
+
+import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
 
 // Define the allowed icon types as a TypeScript union type
 type IconType = "info" | "stopCircle";

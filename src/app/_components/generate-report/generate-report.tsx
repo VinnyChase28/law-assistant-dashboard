@@ -1,19 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import { api } from "src/trpc/react";
-import { Button } from "../ui/button";
-import { useCheckedRowsStore, useFilesStore } from "src/store/store";
+
 import { type File } from "@prisma/client";
+
 import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
-import { IconSpinner } from "../ui/icons";
+import { useCheckedRowsStore, useFilesStore } from "src/store/store";
+import { api } from "src/trpc/react";
+
 import AlertComponent from "../alert";
+import { Button } from "../ui/button";
+import { IconSpinner } from "../ui/icons";
 
 const CreateReportComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast(); // Initialize useToast
-  const router = useRouter();
   const { checkedRows } = useCheckedRowsStore();
 
   const { files } = useFilesStore();
@@ -26,7 +27,6 @@ const CreateReportComponent = () => {
     (file: any) =>
       file.documentType === "REGULATORY_FRAMEWORK" && checkedRows[file.id],
   );
-
 
   const hasSingleComplianceSubmission =
     selectedComplianceSubmission &&
@@ -44,7 +44,6 @@ const CreateReportComponent = () => {
     api.file.createComplianceReportMetadata.useMutation();
   const sendComplianceReportToInngest =
     api.llm.sendComplianceReportToInngest.useMutation();
-
 
   const handleCreateReportClick = async () => {
     if (!selectedComplianceSubmission) {

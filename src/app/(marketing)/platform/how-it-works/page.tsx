@@ -1,7 +1,9 @@
 import React from "react";
+
+import { type Metadata } from "next";
+
 import HowItWorks from "./components/how-it-works";
 
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "How It Works - CodeX Compliance Automation",

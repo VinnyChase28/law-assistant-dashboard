@@ -1,13 +1,16 @@
 import Link from "next/link";
 
-import { siteConfig } from "src/app/_config/site";
-import { cn } from "@/lib/utils";
-import { CommandMenu } from "./command-menu";
 import { Icons } from "@/components/icons";
-import { MainNav } from "./main-nav";
-import { MobileNav } from "./mobile-nav";
+import { cn } from "@/lib/utils";
+import { siteConfig } from "src/app/_config/site";
+
 import { ModeToggle } from "../dark-mode-toggle";
 import { buttonVariants } from "../ui/button";
+
+import { CommandMenu } from "./command-menu";
+import { MainNav } from "./main-nav";
+import { MobileNav } from "./mobile-nav";
+
 
 export function SiteHeader() {
   return (

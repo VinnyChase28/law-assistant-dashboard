@@ -2,10 +2,11 @@
 
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
+import { signIn } from "next-auth/react";
+
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
+import { cn } from "@/lib/utils";
 import { useCheckedRowsStore } from "src/store/store";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}

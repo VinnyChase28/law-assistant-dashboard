@@ -1,5 +1,6 @@
+import { type Metadata } from "next";
+
 import HomeContainer from "./(marketing)/_components/home/home-container";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "CodeX - AI-Powered Compliance Automation Platform",

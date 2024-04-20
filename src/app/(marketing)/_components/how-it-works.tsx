@@ -1,6 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PlaneIcon } from "lucide-react";
 import { Paperclip, HeartPulse } from "lucide-react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 interface FeatureProps {
   icon: JSX.Element;
   title: string;

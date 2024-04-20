@@ -1,7 +1,6 @@
 export const siteConfig = {
   name: "CodeX",
   url: "https://lawassistant.ai",
-  ogImage: "",
   description:
     "Law Assistant AI is a compliance automation platform that helps businesses to automate their legal and compliance processes.",
   links: {

@@ -1,4 +1,4 @@
-import { Node, Edge } from "reactflow";
+import { type Node, type Edge } from "reactflow";
 
 
 export type StartingPositions = {

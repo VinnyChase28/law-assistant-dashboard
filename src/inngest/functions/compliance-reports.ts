@@ -1,7 +1,7 @@
-import { inngest } from "../client";
 import { openai } from "src/utils/openai";
 import { prisma } from "src/utils/prisma";
 
+import { inngest } from "../client";
 import { findViolations } from "../helpers/report-helpers";
 
 export enum Models {
