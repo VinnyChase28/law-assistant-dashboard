@@ -18,7 +18,7 @@ const Separator = React.forwardRef<
       visible: {
         scaleX: 1,
         transition: {
-          duration: 0.8,
+          duration: 1.5,
           ease: "easeInOut",
         },
       },
@@ -29,7 +29,7 @@ const Separator = React.forwardRef<
         initial="hidden"
         animate="visible"
         variants={variants}
-        style={{ originX: 0 }} // Animation origin set to the left
+        style={{ originX: 0 }}
       >
         <SeparatorPrimitive.Root
           ref={ref}

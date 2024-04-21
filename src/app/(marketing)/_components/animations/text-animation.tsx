@@ -11,8 +11,8 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({ text, baseDelay = 0 }) => {
     visible: (i: number) => ({
       opacity: 1,
       transition: {
-        duration: 0.25,
-        delay: baseDelay + i * 0.2,
+        duration: 0.1, // Reduced from 0.25s to 0.1s
+        delay: baseDelay + i * 0.1, // Reduced from 0.2s to 0.1s
       },
     }),
   };
