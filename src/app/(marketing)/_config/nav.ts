@@ -122,7 +122,7 @@ export const getStartedItems = [
 export const companyItems = [
   {
     title: "About",
-    href: "/company/about",
+    href: "about",
     description: "Learn about our mission and team",
     icon: Briefcase,
   },

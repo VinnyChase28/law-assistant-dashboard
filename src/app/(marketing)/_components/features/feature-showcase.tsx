@@ -1,7 +1,7 @@
 "use client";
 import { useRef } from "react";
+
 import {
-  motion,
   useScroll,
   useTransform,
   useMotionValue,
@@ -10,8 +10,9 @@ import {
 } from "framer-motion";
 
 // Import AnimatedText
-import AnimatedText from "../animations/text-animation";
 import { Separator } from "src/app/_components/ui/separator";
+
+import AnimatedText from "../animations/text-animation";
 
 interface FeatureShowcaseProps {
   title: string;
