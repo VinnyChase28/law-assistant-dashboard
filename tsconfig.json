@@ -28,12 +28,21 @@
     "paths": {
       "@/*": ["src/*"],
       "@components/*": ["src/app/_components/*"],
-      "@utils": ["src/lib/utils"],
-      "@lib/*": ["src/lib/*"],
       "@marketing/*": ["src/app/(marketing)/*"],
       "@marketing/components/*": ["src/app/(marketing)/_components/*"],
+      "@cms/*": ["src/app/(cms)/*"],
       "@dashboard/*": ["src/app/dashboard/*"],
-      "@hooks/*": ["src/app/hooks/*"]
+      "@lib/*": ["src/lib/*"],
+      "@utils": ["src/lib/utils"],
+      "@assets/*": ["src/assets/*"],
+      "@styles/*": ["src/styles/*"],
+      "@types/*": ["src/types/*"],
+      "@inngest/*": ["src/inngest/*"],
+      "@inngest/functions/*": ["src/inngest/functions/*"],
+      "@store/*": ["src/store/*"],
+      "@trpc/*": ["src/trpc/*"],
+      "@server/*": ["src/server/*"],
+      "@helpers/*": ["src/helpers/*"]
     }
   },
   "include": [

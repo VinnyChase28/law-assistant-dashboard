@@ -81,13 +81,13 @@ export const resourcesItems = [
   },
   {
     title: "Webinars & Events",
-    href: "/resources/events-webinars",
+    href: "/events-webinars",
     description: "Learn from compliance experts online and in-person",
     icon: Calendar,
   },
   {
     title: "Case Studies",
-    href: "/resources/case-studies",
+    href: "/case-studies",
     description: "See how CodeX helps organizations stay compliant",
     icon: Pencil,
   },
@@ -135,13 +135,13 @@ export const companyItems = [
   },
   {
     title: "Press",
-    href: "/company/press",
+    href: "/press",
     description: "Read the latest news and press releases about CodeX",
     icon: Megaphone,
   },
   {
     title: "Contact Us",
-    href: "/company/contact",
+    href: "/contact",
     description: "Get in touch with our team",
     icon: Mail,
   },

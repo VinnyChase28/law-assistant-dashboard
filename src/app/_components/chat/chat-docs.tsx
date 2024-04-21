@@ -50,7 +50,7 @@ const VectorSearchComponent: React.FC = () => {
     useEffect(() => {
       if (messages) {
         setChatMessages(
-          messages.map((msg) => ({
+          messages.map((msg: any) => ({
             role: msg.role === "USER" ? "Me" : "CodeX",
             content: msg.content,
             isFinal: true,
@@ -102,7 +102,7 @@ const VectorSearchComponent: React.FC = () => {
         });
         prompt = await generateDocumentPrompt.mutateAsync({
           userQuery: inputMessage,
-          pages: searchResults.map((result) => ({
+          pages: searchResults.map((result: any) => ({
             fileName: result.fileName,
             textData: result.textData,
             pageNumber: result.pageNumber,
