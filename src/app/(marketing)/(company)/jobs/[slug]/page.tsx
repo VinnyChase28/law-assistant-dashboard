@@ -8,7 +8,7 @@ import { getDocumentSlugs } from "outstatic/server";
 import Markdown from "src/app/_components/markdown";
 
 
-import BlogAnimations from "../components/jobs-animations";
+import BlogAnimations from "../../../_components/jobs/jobs-animations";
 
 export async function generateMetadata({
   params,

@@ -1,6 +1,6 @@
 import { load } from "outstatic/server";
 
-import BlogGridContainer from "./components/jobs-grid-container";
+import BlogGridContainer from "../../_components/jobs/jobs-grid-container";
 
 export const dynamic = "force-static";
 

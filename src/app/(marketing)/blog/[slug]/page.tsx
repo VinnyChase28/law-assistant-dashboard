@@ -9,7 +9,7 @@ import { getDocumentSlugs } from "outstatic/server";
 import Markdown from "src/app/_components/markdown";
 
 
-import BlogAnimations from "../components/blog-animations";
+import BlogAnimations from "../../_components/blog/blog-animations";
 
 export async function generateMetadata({
   params,
