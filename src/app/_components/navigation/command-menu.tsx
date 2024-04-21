@@ -13,6 +13,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 
+import { cn } from "@/lib/utils";
 import {
   CommandDialog,
   CommandEmpty,
@@ -22,7 +23,6 @@ import {
   CommandList,
   CommandSeparator,
 } from "@components/ui/command";
-import { cn } from "@/lib/utils";
 import { docsConfig } from "src/app/_config/docs";
 
 import { Button } from "../ui/button";

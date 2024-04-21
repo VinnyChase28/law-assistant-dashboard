@@ -1,6 +1,5 @@
 import { type Metadata } from "next";
 
-import { Cta } from "../../_components/cta";
 
 import FlowChartEnvironmental from "./components/flow-chart-environmental";
 export const metadata: Metadata = {
@@ -13,7 +12,6 @@ export default function EnvironmentalPage() {
     <div>
       <main>
         <FlowChartEnvironmental />
-        <Cta />
       </main>
     </div>
   );

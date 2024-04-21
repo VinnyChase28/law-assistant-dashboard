@@ -1,6 +1,5 @@
 import { type Metadata } from "next";
 
-import { Cta } from "../../_components/cta";
 
 import FlowChartContract from "./components/flow-chart-contracts";
 
@@ -15,7 +14,6 @@ export default function ContractPage() {
     <div>
       <main>
         <FlowChartContract />
-        <Cta />
       </main>
     </div>
   );

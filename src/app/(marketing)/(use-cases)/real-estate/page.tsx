@@ -1,6 +1,5 @@
 import { type Metadata } from "next";
 
-import { Cta } from "../../_components/cta";
 
 import FlowChartRealEstate from "./components/flow-chart-real-estate";
 
@@ -14,7 +13,6 @@ export default function RealEsatePage() {
     <div>
       <main>
         <FlowChartRealEstate />
-        <Cta />
       </main>
     </div>
   );

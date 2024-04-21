@@ -1,6 +1,5 @@
 import { type Metadata } from "next";
 
-import { Cta } from "../../_components/cta";
 
 import FlowChartHrPolicy from "./components/flow-chart-hr";
 
@@ -15,7 +14,6 @@ export default function HrPolicyPage() {
     <div>
       <main>
         <FlowChartHrPolicy />
-        <Cta />
       </main>
     </div>
   );

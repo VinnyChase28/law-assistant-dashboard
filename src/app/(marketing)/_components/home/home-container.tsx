@@ -1,6 +1,5 @@
 "use client";
 import { CaseStudies } from "@marketing/components/case-studies";
-import { Cta } from "@marketing/components/cta";
 import FlowChartHome from "@marketing/components/flow-chart/flow-chart-home";
 import { Hero } from "@marketing/components/hero/hero-home";
 import { HowItWorks } from "@marketing/components/how-it-works";
@@ -21,7 +20,7 @@ function HomeContainer() {
       <FlowChartHome />
       <HowItWorks />
       <Pricing />
-      <Cta />
+
       <ScrollToTop />
     </>
   );

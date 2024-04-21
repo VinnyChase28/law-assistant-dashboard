@@ -1,6 +1,5 @@
 import { type Metadata } from "next";
 
-import { Cta } from "../../_components/cta";
 
 import FlowChartSoftwareCompliance from "./components/flow-chart-software-compliance";
 
@@ -15,7 +14,6 @@ export default function SoftwarePage() {
     <div>
       <main>
         <FlowChartSoftwareCompliance />
-        <Cta />
       </main>
     </div>
   );

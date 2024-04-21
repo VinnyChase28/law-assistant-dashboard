@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import { Icons } from "@components/icons";
 import { cn } from "@/lib/utils";
+import { Icons } from "@components/icons";
 import { siteConfig } from "src/app/_config/site";
 
 import { ModeToggle } from "../dark-mode-toggle";

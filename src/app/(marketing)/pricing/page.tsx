@@ -1,6 +1,5 @@
 import { type Metadata } from "next";
 
-import { Cta } from "../_components/cta";
 import { Pricing } from "../_components/pricing";
 
 
@@ -14,7 +13,6 @@ export default function PricingPage() {
     <div>
       <main>
         <Pricing />
-        <Cta />
       </main>
     </div>
   );

@@ -1,6 +1,5 @@
 import { type Metadata } from "next";
 
-import { Cta } from "../../_components/cta";
 
 import FlowChartFinancial from "./components/flow-chart-financial";
 
@@ -15,7 +14,6 @@ export default function FinancialPage() {
     <div>
       <main>
         <FlowChartFinancial />
-        <Cta />
       </main>
     </div>
   );

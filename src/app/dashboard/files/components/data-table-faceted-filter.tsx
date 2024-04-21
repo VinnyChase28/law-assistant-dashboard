@@ -4,6 +4,7 @@ import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { Separator } from "@radix-ui/react-separator";
 import { type Column } from "@tanstack/react-table";
 
+import { cn } from "@/lib/utils";
 import { Badge } from "@components/ui/badge";
 import { Button } from "@components/ui/button";
 import {
@@ -20,7 +21,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@components/ui/popover";
-import { cn } from "@/lib/utils";
 
 
 interface DataTableFacetedFilterProps<TData, TValue> {
