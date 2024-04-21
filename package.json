@@ -8,7 +8,7 @@
     "db:studio": "prisma studio",
     "dev": "next dev & npx next-video sync -w",
     "postinstall": "prisma generate",
-    "lint": "next lint",
+    "lint": "npx eslint --fix 'src/**/*.{ts,tsx}'",
     "start": "next start"
   },
   "dependencies": {
