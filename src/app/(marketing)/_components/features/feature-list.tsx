@@ -47,7 +47,7 @@ const FeatureList = async ({ slug }: FeatureListProps) => {
         {features.map((feature, index) => (
           <FeatureShowcase
             key={index}
-            index={index}
+
             title={feature.title}
             description={feature.description}
           />

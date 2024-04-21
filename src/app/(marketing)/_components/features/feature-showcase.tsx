@@ -1,12 +1,21 @@
 "use client";
 import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useInView,
+  type MotionValue,
+} from "framer-motion";
 
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+// Import AnimatedText
+import AnimatedText from "../animations/text-animation";
+import { Separator } from "src/app/_components/ui/separator";
 
 interface FeatureShowcaseProps {
   title: string;
   description: string;
-  index: number;
 }
 
 function useParallax(value: MotionValue<number>, distance: number) {
@@ -16,26 +25,38 @@ function useParallax(value: MotionValue<number>, distance: number) {
 const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
   title,
   description,
-  index,
 }) => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref });
-  const y = useParallax(scrollYProgress, 300);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  const ref = useRef<HTMLDivElement>(null);
+  const y = useMotionValue(0);
+  const opacity = useMotionValue(0);
+
+  // Handling scroll and applying transforms
+  const { scrollYProgress } = useScroll();
+  const yTransform = useParallax(scrollYProgress, 300);
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
+  yTransform.onChange((v) => y.set(v));
+  opacityTransform.onChange((v) => opacity.set(v));
+
+  const inView = useInView(ref);
 
   return (
-    <section className="perspective-[500px] relative flex h-screen snap-center items-center justify-center">
-      <div
-        ref={ref}
-        className="relative z-10 mx-5 h-[400px] max-h-[90vh] w-[300px] overflow-hidden"
-      >
+    <section
+      ref={ref}
+      className="perspective-[500px] relative flex h-screen snap-center items-center justify-center"
+    >
+      <div className="relative z-10 mx-5 h-[400px] max-h-[90vh] w-[300px] overflow-hidden">
         <h2 className="text-4xl font-bold">{title}</h2>
-        <p className="mt-4">{description}</p>
+        {/* Conditionally render AnimatedText if inView */}
+        {inView ? (
+          <div>
+            <AnimatedText text={description} baseDelay={0} />
+            <Separator />
+          </div>
+        ) : (
+          <p className="mt-4">{description}</p>
+        )}
       </div>
-      <motion.h2
-        className="absolute left-[calc(50%+130px)] m-0 text-7xl font-bold leading-tight tracking-tighter text-gray-300"
-        style={{ y, opacity, zIndex: -1 }}
-      >{`#00${index + 1}`}</motion.h2>
     </section>
   );
 };
