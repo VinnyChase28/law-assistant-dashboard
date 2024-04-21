@@ -4,7 +4,7 @@ import { type Metadata } from "next";
 import TabbedTables from "./components/tabbed-tables";
 
 export const metadata: Metadata = {
-  title: "Add Files",
+  title: "Files",
   description: "Add files to your account",
 };
 
