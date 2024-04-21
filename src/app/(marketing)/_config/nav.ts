@@ -13,6 +13,7 @@ import {
   Phone,
   Briefcase,
   Megaphone,
+  Pencil,
 } from "lucide-react";
 
 export const platformItems = [
@@ -88,11 +89,11 @@ export const resourcesItems = [
     title: "Case Studies",
     href: "/resources/case-studies",
     description: "See how CodeX helps organizations stay compliant",
-    icon: FileText,
+    icon: Pencil,
   },
   {
-    title: "Compliance Newsletter",
-    href: "/resources/newsletter",
+    title: "Newsletter",
+    href: "/newsletter",
     description: "Get the latest compliance news delivered to your inbox",
     icon: Mail,
   },
@@ -122,7 +123,7 @@ export const getStartedItems = [
 export const companyItems = [
   {
     title: "About",
-    href: "about",
+    href: "/about",
     description: "Learn about our mission and team",
     icon: Briefcase,
   },
