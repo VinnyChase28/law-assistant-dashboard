@@ -7,7 +7,7 @@ export default function ComplianceSection() {
         <div className="grid gap-10 md:grid-cols-2">
           <div className="space-y-4">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Simplifying Compliance in Urban Development
+              Simplifying Compliance
             </h2>
             <p className=" md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               Designed for real estate and compliance professionals, our

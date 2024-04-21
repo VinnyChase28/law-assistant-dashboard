@@ -19,25 +19,25 @@ import {
 export const platformItems = [
   {
     title: "Overview",
-    href: "/platform/overview",
+    href: "/overview",
     description: "AI-powered compliance assistance for all your needs",
     icon: PenTool,
   },
   {
     title: "How it Works",
-    href: "/platform/how-it-works",
+    href: "/how-it-works",
     description: "Seamless integration with your existing systems",
     icon: HelpCircle,
   },
   {
     title: "Why CodeX",
-    href: "/platform/why-codex",
+    href: "/why-codex",
     description: "The leader in AI-powered compliance solutions",
     icon: Award,
   },
   {
     title: "Integrations",
-    href: "/platform/integrations",
+    href: "/integrations",
     description: "Explore our integrations with popular legal databases",
     icon: Puzzle,
   },
@@ -46,27 +46,27 @@ export const platformItems = [
 export const useCasesItems = [
   {
     title: "Real Estate",
-    href: "/use-cases/real-estate",
+    href: "/real-estate",
     description:
       "Ensure real estate projects adhere to zoning and building bylaws",
     icon: Home,
   },
   {
     title: "Contracts",
-    href: "/use-cases/contracts",
+    href: "/contracts",
     description: "Analyze contracts for deviations from standards and policies",
     icon: Search,
   },
   {
     title: "Environmental",
-    href: "/use-cases/environmental",
+    href: "/environmental",
     description:
       "Assess projects against environmental regulations and standards",
     icon: FileText,
   },
   {
     title: "Financial",
-    href: "/use-cases/financial",
+    href: "/financial",
     description: "Detect suspicious transactions and ensure AML law compliance",
     icon: DollarSign,
   },
