@@ -1,6 +1,6 @@
 {
-  "commit": "650480bcc116d6b5d804ec4f2474b0f01b918dac",
-  "generated": "2024-04-21T21:33:50.202Z",
+  "commit": "8ff7836c5c2aae6a0aef521eabb913b3ce322ae6",
+  "generated": "2024-04-21T22:35:23.553Z",
   "metadata": [
     {
       "__outstatic": {
@@ -343,6 +343,24 @@
       "slug": "privacy-policy",
       "status": "published",
       "title": "Privacy Policy"
+    },
+    {
+      "__outstatic": {
+        "commit": "8ff7836c5c2aae6a0aef521eabb913b3ce322ae6",
+        "hash": "2272025475",
+        "path": "outstatic/content/privacy-and-terms/term-of-use.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "privacy-and-terms",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-21T21:49:33.390Z",
+      "slug": "term-of-use",
+      "status": "published",
+      "title": "Term of Use"
     }
   ]
 }
