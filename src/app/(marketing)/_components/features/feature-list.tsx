@@ -6,9 +6,9 @@ import matter from "gray-matter";
 
 import particles from "/videos/particles.mp4";
 
-import { Cta } from "@/marketing/components/cta";
-import FeatureShowcase from "@/marketing/components/features/feature-showcase";
-import HeroFeatures from "@/marketing/components/hero/hero-features";
+import { Cta } from "@marketing/components/cta";
+import FeatureShowcase from "@marketing/components/features/feature-showcase";
+import HeroFeatures from "@marketing/components/hero/hero-features";
 
 interface FeatureListProps {
   slug: string;

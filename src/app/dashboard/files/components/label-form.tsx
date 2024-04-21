@@ -7,11 +7,11 @@ import { Trash2 } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormItem } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@components/ui/button";
+import { Form, FormControl, FormItem } from "@components/ui/form";
+import { Input } from "@components/ui/input";
+import { Label } from "@components/ui/label";
+import { useToast } from "@components/ui/use-toast";
 import { Separator } from "src/app/_components/ui/separator";
 import { api } from "src/trpc/react";
 const labelFormSchema = z.object({

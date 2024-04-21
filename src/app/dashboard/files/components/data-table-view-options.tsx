@@ -3,7 +3,7 @@
 import { MixerHorizontalIcon } from "@radix-ui/react-icons";
 import { type Table } from "@tanstack/react-table";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +12,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuCheckboxItem,
   DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
+} from "@components/ui/dropdown-menu";
 
 const columnDisplayNameMap: { [key: string]: string } = {
   documentType: "Type",

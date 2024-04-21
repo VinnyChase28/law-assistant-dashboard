@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { useSearchParams } from "next/navigation";
 
-import PDFViewer from "@/components/pdf-viewer";
+import PDFViewer from "@components/pdf-viewer";
 import Markdown from "src/app/_components/markdown";
 import { api } from "src/trpc/react";
 

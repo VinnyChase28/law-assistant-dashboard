@@ -4,8 +4,8 @@ import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { Separator } from "@radix-ui/react-separator";
 import { type Column } from "@tanstack/react-table";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@components/ui/badge";
+import { Button } from "@components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -14,12 +14,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command";
+} from "@components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@components/ui/popover";
 import { cn } from "@/lib/utils";
 
 

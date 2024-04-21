@@ -5,7 +5,7 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { Icons } from "@/components/icons";
+import { Icons } from "@components/icons";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "src/app/_config/site";
 

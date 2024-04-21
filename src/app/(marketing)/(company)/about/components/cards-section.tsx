@@ -1,6 +1,6 @@
 import { CheckIcon, HeartIcon, TextIcon, Users } from "lucide-react";
 
-import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
+import { CardTitle, CardHeader, CardContent, Card } from "@components/ui/card";
 
 export default function CardsSection() {
   return (

@@ -1,14 +1,14 @@
 import Image from "next/image";
 import { type StaticImageData } from "next/image";
 
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@components/ui/badge";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@components/ui/card";
 
 import image from "../../assets/growth.png";
 import image4 from "../../assets/looking-ahead.png";

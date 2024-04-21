@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@components/ui/button";
 const TermsOfUse = () => {
   return (
     <div className="mx-auto max-w-4xl px-4 pt-8">

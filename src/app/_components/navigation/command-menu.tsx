@@ -21,7 +21,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command";
+} from "@components/ui/command";
 import { cn } from "@/lib/utils";
 import { docsConfig } from "src/app/_config/docs";
 

@@ -1,4 +1,4 @@
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
+import { AvatarImage, AvatarFallback, Avatar } from "@components/ui/avatar";
 
 export default function LeadershipTeamSection() {
   return (

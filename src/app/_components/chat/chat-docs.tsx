@@ -5,8 +5,8 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkBreaks from "remark-breaks";
 
-import { IconSpinner } from "@/components/ui/icons";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { IconSpinner } from "@components/ui/icons";
+import { ScrollArea } from "@components/ui/scroll-area";
 import { useChatWithDocsStore, useChatSessionStore } from "src/store/store";
 import { useCheckedRowsStore } from "src/store/store";
 import { api } from "src/trpc/react";

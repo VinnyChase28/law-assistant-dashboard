@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogDescription,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@components/ui/dialog";
 import { Button } from "src/app/_components/ui/button";
 
 import { LabelForm } from "./label-form"; // Import the LabelForm component

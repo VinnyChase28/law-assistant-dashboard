@@ -6,14 +6,14 @@ import {
 } from "@radix-ui/react-icons";
 import { type Table } from "@tanstack/react-table";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@components/ui/select";
 import { useCheckedRowsStore } from "src/store/store"; // Adjust the import path as needed
 import { useFilesStore } from "src/store/store";
 

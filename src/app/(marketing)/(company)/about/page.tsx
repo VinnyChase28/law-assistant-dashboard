@@ -1,6 +1,6 @@
 
 
-import { Cta } from "@/marketing/components/cta";
+import { Cta } from "@marketing/components/cta";
 
 import ComplianceSection from "./components/compliance-section";
 import LeadershipTeamSection from "./components/leadership-section";

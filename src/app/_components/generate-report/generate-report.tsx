@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { type File } from "@prisma/client";
 
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@components/ui/use-toast";
 import { useCheckedRowsStore, useFilesStore } from "src/store/store";
 import { api } from "src/trpc/react";
 

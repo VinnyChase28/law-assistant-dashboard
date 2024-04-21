@@ -1,5 +1,5 @@
-import ChatBubble from "@/components/bubble/bubble";
-import { SiteHeader } from "@/components/navigation/site-header";
+import ChatBubble from "@components/bubble/bubble";
+import { SiteHeader } from "@components/navigation/site-header";
 
 export default function DashboardLayout({
   children,

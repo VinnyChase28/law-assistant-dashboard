@@ -1,6 +1,6 @@
 import { DocumentType } from "@prisma/client";
 
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@components/ui/tabs";
 import AddFiles from "src/app/_components/input/add-files";
 
 import TableContainer from "./table-container";

@@ -26,13 +26,14 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "src/*": ["./src/*"],
-      "@/components/*": ["src/app/_components/*"],
-      "@/lib/utils": ["src/lib/utils"],
-      "@/lib/*": ["src/lib/*"],
-      "@/app/*": ["src/app/*"],
-      "@/marketing/*": ["src/app/(marketing)/*"],
-      "@/marketing/components/*": ["src/app/(marketing)/_components/*"]
+      "@/*": ["src/*"],
+      "@components/*": ["src/app/_components/*"],
+      "@utils": ["src/lib/utils"],
+      "@lib/*": ["src/lib/*"],
+      "@marketing/*": ["src/app/(marketing)/*"],
+      "@marketing/components/*": ["src/app/(marketing)/_components/*"],
+      "@dashboard/*": ["src/app/dashboard/*"],
+      "@hooks/*": ["src/app/hooks/*"]
     }
   },
   "include": [

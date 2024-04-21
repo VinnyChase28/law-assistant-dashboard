@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
+} from "@components/ui/dropdown-menu";
 
 type DropdownMenuCheckboxesProps = {
   onStartNewChat: () => void;

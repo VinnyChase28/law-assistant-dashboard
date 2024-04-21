@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { CheckboxWithText } from "@/components/checkbox-with-text";
+import { CheckboxWithText } from "@components/checkbox-with-text";
 import { api } from "src/trpc/react";
 
 export default function TermsAndConditions() {

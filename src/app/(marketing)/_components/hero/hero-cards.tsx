@@ -1,8 +1,8 @@
 import { Check, Linkedin } from "lucide-react";
 import { signIn } from "next-auth/react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@components/ui/avatar";
+import { Button, buttonVariants } from "@components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
   CardFooter,
-} from "@/components/ui/card";
+} from "@components/ui/card";
 
 export const HeroCards = () => {
   return (

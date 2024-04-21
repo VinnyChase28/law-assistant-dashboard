@@ -8,8 +8,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+} from "@components/ui/card";
+import { Separator } from "@components/ui/separator";
 import { Button } from "src/app/_components/ui/button";
 
 const cardVariants = {

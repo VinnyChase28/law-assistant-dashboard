@@ -7,8 +7,8 @@ import { Trash2 } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { SkeletonAbstract } from "@/components/skeleton-abstract";
-import { Button } from "@/components/ui/button";
+import { SkeletonAbstract } from "@components/skeleton-abstract";
+import { Button } from "@components/ui/button";
 import {
   Form,
   FormControl,
@@ -17,11 +17,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
+} from "@components/ui/form";
+import { Input } from "@components/ui/input";
+import { Label } from "@components/ui/label";
+import { Textarea } from "@components/ui/textarea";
+import { useToast } from "@components/ui/use-toast";
 import { api } from "src/trpc/react";
 
 const profileFormSchema = z.object({

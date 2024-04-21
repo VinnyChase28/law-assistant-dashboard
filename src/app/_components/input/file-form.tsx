@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 
 import { upload } from "@vercel/blob/client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@components/ui/button";
 import { api } from "src/trpc/react";
 
 import AlertComponent from "../alert";
