@@ -82,7 +82,7 @@ export async function UserNav() {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <AuthButton />
+        <AuthButton session={session} />
       )}
     </>
   );
