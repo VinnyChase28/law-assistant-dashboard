@@ -1,3 +1,4 @@
+"use client";
 import { CalendarIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 
@@ -5,6 +6,7 @@ import { Button } from "@components/ui/button";
 import { buttonVariants } from "@components/ui/button";
 
 import { HeroCards } from "./hero-cards";
+import Link from "next/link";
 
 export const Hero = () => {
   return (
@@ -32,6 +34,7 @@ export const Hero = () => {
         </p>
 
         <div className="space-y-4 md:space-x-4 md:space-y-0">
+          <Link href="/dashboard"> </Link>
           <Button
             onClick={() => {
               signIn("auth0", {

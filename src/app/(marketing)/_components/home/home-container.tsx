@@ -1,4 +1,3 @@
-"use client";
 import { CaseStudies } from "@marketing/components/case-studies";
 import FlowChartHome from "@marketing/components/flow-chart/flow-chart-home";
 import { Hero } from "@marketing/components/hero/hero-home";
@@ -10,16 +9,14 @@ import { Sponsors } from "@marketing/components/sponsors";
 import { Cta } from "../cta";
 import { Footer } from "../footer";
 import Navbar from "../navigation/navbar";
+import { getServerAuthSession } from "@/server/auth";
 
-function HomeContainer() {
+async function HomeContainer() {
+  const session = await getServerAuthSession();
   return (
     <>
-      <Navbar />
+      <Navbar session={session} />
       <Hero />
-      {/* <VideoPlayer
-        streamType="on-demand"
-        playbackId="ELHiDecJkhfF5JJ4wUDte8JKR4NCY02Azb1iKQhXPVBQ"
-      /> */}
       <Sponsors />
       <CaseStudies />
       <FlowChartHome />
@@ -27,8 +24,6 @@ function HomeContainer() {
       <Pricing />
       <Cta />
       <Footer />
-
-      <ScrollToTop />
     </>
   );
 }
