@@ -46,7 +46,7 @@ export function DataTableToolbar<TData>({
           <DataTableFacetedFilter
             column={table.getColumn("label")}
             title="Label"
-            options={labels.map((label) => ({
+            options={labels.map((label: any) => ({
               label: label.text,
               value: label.id,
             }))}

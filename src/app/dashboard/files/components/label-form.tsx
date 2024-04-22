@@ -58,7 +58,7 @@ export function LabelForm() {
   useEffect(() => {
     if (labels) {
       setSavedLabels(
-        labels.map((label) => ({ id: label.id, name: label.text })),
+        labels.map((label: any) => ({ id: label.id, name: label.text })),
       );
     }
   }, [labels]);

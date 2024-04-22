@@ -36,7 +36,7 @@ export function DataTableRowActions<TData extends WithId>({
     onSuccess: () => {
       setFileDeleting(row.original.id, false);
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.error("Error deleting file:", error);
       setFileDeleting(row.original.id, false);
     },
@@ -98,7 +98,7 @@ export function DataTableRowActions<TData extends WithId>({
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            {labels?.map((label) => (
+            {labels?.map((label: any) => (
               <DropdownMenuItem
                 key={label.id}
                 onSelect={() => handleLabelAssignment(label.id)}

@@ -28,7 +28,7 @@ export default function NewsletterPage() {
               <Button type="submit">Subscribe</Button>
             </form>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              We care about your data in our
+              We care about your data in our{" "}
               <Link className="underline underline-offset-2" href="#">
                 privacy policy
               </Link>

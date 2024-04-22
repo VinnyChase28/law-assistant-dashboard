@@ -40,7 +40,6 @@
       "@inngest/*": ["src/inngest/*"],
       "@inngest/functions/*": ["src/inngest/functions/*"],
       "@store/*": ["src/store/*"],
-      "@trpc/*": ["src/trpc/*"],
       "@server/*": ["src/server/*"],
       "@helpers/*": ["src/helpers/*"]
     }
