@@ -30,6 +30,7 @@
       "@components/*": ["src/app/_components/*"],
       "@marketing/*": ["src/app/(marketing)/*"],
       "@marketing/components/*": ["src/app/(marketing)/_components/*"],
+      "@marketing/config/*": ["src/app/(marketing)/_config/*"],
       "@cms/*": ["src/app/(cms)/*"],
       "@dashboard/*": ["src/app/dashboard/*"],
       "@lib/*": ["src/lib/*"],
