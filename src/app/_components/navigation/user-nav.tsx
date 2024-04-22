@@ -14,7 +14,7 @@ import {
 } from "@components/ui/dropdown-menu";
 import { getServerAuthSession } from "src/server/auth";
 
-import AuthButton from "./sign-in-out";
+import AuthButton from "../../(marketing)/_components/sign-in-out";
 
 export async function UserNav() {
   const session = await getServerAuthSession();

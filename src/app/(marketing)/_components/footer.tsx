@@ -6,7 +6,6 @@ import {
   type NavItem,
 } from "@marketing/config/nav";
 
-import { LawAssistantLogo } from "../assets/law-assistant-logo";
 
 export const Footer = () => {
   const renderLinkSection = (title: string, items: NavItem[]) => (

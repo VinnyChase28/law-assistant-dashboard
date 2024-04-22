@@ -7,10 +7,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { type Session } from "next-auth";
 import { signIn } from "next-auth/react";
 
 import { cn } from "@/lib/utils";
-import AuthButtonWrapper from "@components/navigation/sign-in-out";
 import {
   Sheet,
   SheetContent,
@@ -29,6 +29,7 @@ import {
   companyItems,
 } from "../../_config/nav";
 import { LawAssistantLogo } from "../../assets/law-assistant-logo";
+import AuthButtonWrapper from "../sign-in-out";
 
 import {
   NavigationMenu,
@@ -39,8 +40,11 @@ import {
   NavigationMenuTrigger,
 } from "./navigation-menu";
 
+interface NavbarProps {
+  session: Session | null; // Include null because the session might not always be present
+}
 
-const Navbar = () => {
+const Navbar: React.FC<NavbarProps> = ({ session }) => {
   const pathname = usePathname();
   const isOnDashboardRoute = pathname.includes("/dashboard");
 
@@ -296,7 +300,7 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden gap-2 md:flex">
-            <AuthButtonWrapper />
+            <AuthButtonWrapper session={session} />
 
             <ModeToggle />
           </div>

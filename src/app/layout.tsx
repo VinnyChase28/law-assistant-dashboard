@@ -5,7 +5,6 @@ import "src/styles/globals.css";
 import { ThemeProvider } from "@components/theme-provider";
 import { Toaster } from "@components/ui/toaster";
 import { TooltipProvider } from "@components/ui/tooltip";
-import Navbar from "@marketing/components/navigation/navbar";
 import { TRPCReactProvider } from "src/trpc/react";
 
 
