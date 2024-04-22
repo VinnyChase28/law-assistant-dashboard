@@ -4,6 +4,6 @@ import { withMarkdown } from "@/app/_components/markdown/with-markdown";
 const TermUsePage = withMarkdown("privacy-and-terms");
 
 // Export the page component with the slug set to 'privacy-policy'
-export default function PrivacyPolicy() {
-  return <TermUsePage slug="terms-of-use" />;
+export default function TermOfUsePage() {
+  return <TermUsePage slug="term-of-use" />;
 }
