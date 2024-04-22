@@ -44,7 +44,7 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
               </h1>
 
               <p className="mb-6 max-w-2xl text-lg font-normal text-gray-300 lg:mb-8">
-                <AnimatedText text={description} />
+              {description}
               </p>
 
               <motion.div
