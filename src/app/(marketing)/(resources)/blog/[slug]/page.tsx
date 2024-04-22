@@ -7,7 +7,6 @@ import { getDocumentSlugs } from "outstatic/server";
 
 import Markdown from "src/app/_components/markdown";
 
-
 import ProgressAnimations from "@marketing/components/animations/progress-animation";
 
 export async function generateMetadata({
@@ -20,7 +19,7 @@ export async function generateMetadata({
     process.cwd(),
     "outstatic",
     "content",
-    "jobs",
+    "blog",
     `${slug}.md`,
   );
   const fileContents = await fs.readFile(filePath, "utf8");
@@ -43,8 +42,8 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const jobs = getDocumentSlugs("jobs");
-  return jobs.map((slug) => ({ slug }));
+  const posts = getDocumentSlugs("blog");
+  return posts.map((slug) => ({ slug }));
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
@@ -53,7 +52,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     process.cwd(),
     "outstatic",
     "content",
-    "jobs",
+    "blog",
     `${slug}.md`,
   );
   const fileContents = await fs.readFile(filePath, "utf8");
@@ -68,7 +67,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <div className="relative mb-8 aspect-video">
               <Image
                 src={frontMatter.coverImage}
-                alt={frontMatter?.title || "Job post cover image"}
+                alt={frontMatter?.title || "Blog post cover image"}
                 fill
                 style={{ objectFit: "cover" }}
                 className="rounded"

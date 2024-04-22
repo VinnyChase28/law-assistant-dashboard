@@ -29,7 +29,7 @@ type BlogSectionsContainerProps = {
   posts: PostType[];
 };
 
-export default function BlogSectionsContainer({
+export default function JobsSectionsContainer({
   posts,
 }: BlogSectionsContainerProps) {
   // Group posts by category

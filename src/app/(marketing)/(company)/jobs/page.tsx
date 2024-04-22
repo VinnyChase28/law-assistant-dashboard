@@ -1,6 +1,6 @@
 import { load } from "outstatic/server";
 
-import BlogGridContainer from "../../_components/jobs/jobs-grid-container";
+import JobsSectionsContainer from "../../_components/jobs/jobs-grid-container";
 
 export const dynamic = "force-static";
 
@@ -22,10 +22,9 @@ export default async function JobsPage() {
     allPosts = [...allPosts, ...categoryPosts];
   }
 
-
   return (
     <div className="container mx-auto px-4">
-      <BlogGridContainer posts={allPosts} />
+      <JobsSectionsContainer posts={allPosts} />
     </div>
   );
 }
