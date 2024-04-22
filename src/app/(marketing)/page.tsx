@@ -1,21 +1,23 @@
+import { type Metadata } from "next";
+
 import { CaseStudies } from "@marketing/components/case-studies";
+import { Cta } from "@marketing/components/cta";
 import FlowChartHome from "@marketing/components/flow-chart/flow-chart-home";
+import { Footer } from "@marketing/components/footer";
 import { Hero } from "@marketing/components/hero/hero-home";
 import { HowItWorks } from "@marketing/components/how-it-works";
 import { Pricing } from "@marketing/components/pricing";
-import { ScrollToTop } from "@marketing/components/scroll-to-top";
 import { Sponsors } from "@marketing/components/sponsors";
 
-import { Cta } from "../cta";
-import { Footer } from "../footer";
-import Navbar from "../navigation/navbar";
-import { getServerAuthSession } from "@/server/auth";
+export const metadata: Metadata = {
+  title: "CodeX - AI-Powered Compliance Automation Platform",
+  description:
+    "Revolutionize your compliance workflow with CodeX, the leading AI-powered platform designed to enhance compliance automation with cutting-edge technology and expert support.",
+};
 
-async function HomeContainer() {
-  const session = await getServerAuthSession();
+async function HomePage() {
   return (
     <>
-      <Navbar session={session} />
       <Hero />
       <Sponsors />
       <CaseStudies />
@@ -28,4 +30,4 @@ async function HomeContainer() {
   );
 }
 
-export default HomeContainer;
+export default HomePage;

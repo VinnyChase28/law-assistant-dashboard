@@ -12,7 +12,7 @@ async function getBlogPostUrls(): Promise<
       | "daily"
       | "always"
       | "hourly"
-      | "monthly"
+      | "weekly"
       | "yearly"
       | "never";
     priority: number;
@@ -30,7 +30,7 @@ async function getBlogPostUrls(): Promise<
     return {
       url: `https://lawassistant.ai/blog/${slug}`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.8,
     };
   });
@@ -47,7 +47,7 @@ async function getJobPostUrls(): Promise<
       | "daily"
       | "always"
       | "hourly"
-      | "monthly"
+      | "weekly"
       | "yearly"
       | "never";
     priority: number;
@@ -65,7 +65,7 @@ async function getJobPostUrls(): Promise<
     return {
       url: `https://lawassistant.ai/jobs/${slug}`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.7,
     };
   });
@@ -84,92 +84,92 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: "https://lawassistant.ai/overview",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: "https://lawassistant.ai/how-it-works",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: "https://lawassistant.ai/why-codex",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: "https://lawassistant.ai/integrations",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: "https://lawassistant.ai/privacy-policy",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: "https://lawassistant.ai/terms-of-use",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     // Adding use case pages with priority 0.8
     {
       url: "https://lawassistant.ai/contracts",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: "https://lawassistant.ai/environmental",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: "https://lawassistant.ai/financial",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: "https://lawassistant.ai/hr-policy",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: "https://lawassistant.ai/real-estate",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: "https://lawassistant.ai/software",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: "https://lawassistant.ai/about",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.7,
     },
     {
       url: "https://lawassistant.ai/accept-terms",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.7,
     },
     {
       url: "https://lawassistant.ai/newsletter",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.7,
     },
     ...blogPostUrls,
