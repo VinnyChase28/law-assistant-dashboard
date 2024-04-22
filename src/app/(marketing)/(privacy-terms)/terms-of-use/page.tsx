@@ -5,5 +5,5 @@ const TermUsePage = withMarkdown("privacy-and-terms");
 
 // Export the page component with the slug set to 'privacy-policy'
 export default function PrivacyPolicy() {
-  return <TermUsePage slug="privacy-policy" />;
+  return <TermUsePage slug="terms-of-use" />;
 }
