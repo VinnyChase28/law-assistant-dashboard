@@ -1,6 +1,6 @@
 {
   "commit": "5d763ac6f79425713eab17ee8c570070286532be",
-  "generated": "2024-04-22T01:59:52.918Z",
+  "generated": "2024-04-22T02:01:51.703Z",
   "metadata": [
     {
       "__outstatic": {
@@ -347,7 +347,7 @@
     {
       "__outstatic": {
         "commit": "5d763ac6f79425713eab17ee8c570070286532be",
-        "hash": "2272025475",
+        "hash": "2045636294",
         "path": "outstatic/content/privacy-and-terms/term-of-use.md"
       },
       "author": {
@@ -360,7 +360,7 @@
       "publishedAt": "2024-04-21T21:49:33.390Z",
       "slug": "term-of-use",
       "status": "published",
-      "title": "Term of Use"
+      "title": "Terms of Use"
     }
   ]
 }

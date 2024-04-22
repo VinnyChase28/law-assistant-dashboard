@@ -1,5 +1,5 @@
 ---
-title: 'Term of Use'
+title: 'Terms of Use'
 status: 'published'
 author:
   name: 'Vincent Gauthier'
