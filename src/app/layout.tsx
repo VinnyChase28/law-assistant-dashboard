@@ -35,10 +35,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <TooltipProvider>
-              <Navbar />
-
               <main className="flex w-full flex-1 flex-col">{children}</main>
-
               <Toaster />
             </TooltipProvider>
           </ThemeProvider>

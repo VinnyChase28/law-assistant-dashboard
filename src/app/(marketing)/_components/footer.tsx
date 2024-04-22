@@ -34,12 +34,6 @@ export const Footer = () => {
       <hr className="mx-auto w-11/12" />
 
       <section className="container grid grid-cols-2 gap-x-12 gap-y-8 py-20 md:grid-cols-4 xl:grid-cols-6">
-        <div className="col-span-full xl:col-span-2">
-          <a href="/" className="flex text-xl font-bold">
-            <LawAssistantLogo />
-          </a>
-        </div>
-
         {renderLinkSection("Platform", platformItems)}
         {renderLinkSection("Use Cases", useCasesItems)}
         {renderLinkSection("Resources", resourcesItems)}

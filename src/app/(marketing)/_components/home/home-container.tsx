@@ -9,10 +9,12 @@ import { Sponsors } from "@marketing/components/sponsors";
 
 import { Cta } from "../cta";
 import { Footer } from "../footer";
+import Navbar from "../navigation/navbar";
 
 function HomeContainer() {
   return (
     <>
+      <Navbar />
       <Hero />
       {/* <VideoPlayer
         streamType="on-demand"
