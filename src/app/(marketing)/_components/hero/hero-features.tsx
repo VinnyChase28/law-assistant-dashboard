@@ -7,7 +7,6 @@ import { type Asset } from "next-video/dist/assets.js";
 
 import { Button } from "@components/ui/button";
 
-import AnimatedText from "../animations/text-animation";
 
 interface HeroFeaturesProps {
   title: string;
