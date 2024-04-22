@@ -14,9 +14,17 @@ import {
   Briefcase,
   Megaphone,
   Pencil,
+  LucideIcon,
 } from "lucide-react";
 
-export const platformItems = [
+export type NavItem = {
+  title: string;
+  href: string;
+  description: string;
+  icon: LucideIcon;
+};
+
+export const platformItems: NavItem[] = [
   {
     title: "Overview",
     href: "/overview",
@@ -43,7 +51,7 @@ export const platformItems = [
   },
 ];
 
-export const useCasesItems = [
+export const useCasesItems: NavItem[]  = [
   {
     title: "Real Estate",
     href: "/real-estate",
@@ -72,7 +80,7 @@ export const useCasesItems = [
   },
 ];
 
-export const resourcesItems = [
+export const resourcesItems: NavItem[]  = [
   {
     title: "Blog",
     href: "/blog",
@@ -98,7 +106,7 @@ export const resourcesItems = [
     icon: Mail,
   },
 ];
-export const getStartedItems = [
+export const getStartedItems: NavItem[]  = [
   {
     title: "Request a Demo",
     href: "https://cal.com/vincent-gauthier-yxbpaz/30min",
@@ -120,7 +128,7 @@ export const getStartedItems = [
   },
 ];
 
-export const companyItems = [
+export const companyItems: NavItem[]  = [
   {
     title: "About",
     href: "/about",

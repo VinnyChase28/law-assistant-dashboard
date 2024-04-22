@@ -46,7 +46,7 @@ To get stripe running locally, use the following commands:
 ## SEO
 
 - run `tree -I 'node_modules|outstatic|videos'` to get the project structure as you improve SEO. 
-- or tree -d -I `'node_modules|outstatic|videos'` for just folder structures
+- or `tree -d -I 'node_modules|outstatic|videos'` for just folder structures
 - ensure all pages have metadata 
 
 

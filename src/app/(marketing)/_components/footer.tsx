@@ -4,12 +4,12 @@ import {
   useCasesItems,
   resourcesItems,
   getStartedItems,
-  companyItems,
+  NavItem,
 } from "@marketing/config/nav";
 import { LawAssistantLogo } from "../assets/law-assistant-logo";
 
 export const Footer = () => {
-  const renderLinkSection = (title, items) => (
+  const renderLinkSection = (title: string, items: NavItem[]) => (
     <div className="flex flex-col gap-2">
       <h3 className="text-lg font-bold">{title}</h3>
       {items.map((item) => (

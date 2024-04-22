@@ -6,6 +6,8 @@ import { HowItWorks } from "@marketing/components/how-it-works";
 import { Pricing } from "@marketing/components/pricing";
 import { ScrollToTop } from "@marketing/components/scroll-to-top";
 import { Sponsors } from "@marketing/components/sponsors";
+import { Cta } from "../cta";
+import { Footer } from "../footer";
 
 function HomeContainer() {
   return (
@@ -20,6 +22,8 @@ function HomeContainer() {
       <FlowChartHome />
       <HowItWorks />
       <Pricing />
+      <Cta />
+      <Footer />
 
       <ScrollToTop />
     </>

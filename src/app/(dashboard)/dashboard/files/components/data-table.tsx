@@ -25,7 +25,7 @@ import {
   TableHeader,
   TableRow,
 } from "@components/ui/table";
-import { DataTablePagination } from "src/app/dashboard/files/components/data-table-pagination";
+import { DataTablePagination } from "src/app/(dashboard)/dashboard/files/components/data-table-pagination";
 import { useCheckedRowsStore } from "src/store/store";
 
 import { DataTableToolbar } from "./data-table-toolbar";

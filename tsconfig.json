@@ -32,7 +32,7 @@
       "@marketing/components/*": ["src/app/(marketing)/_components/*"],
       "@marketing/config/*": ["src/app/(marketing)/_config/*"],
       "@cms/*": ["src/app/(cms)/*"],
-      "@dashboard/*": ["src/app/dashboard/*"],
+      "@dashboard/*": ["src/app/(dashboard)/dashboard/*"],
       "@lib/*": ["src/lib/*"],
       "@utils": ["src/lib/utils"],
       "@assets/*": ["src/assets/*"],
