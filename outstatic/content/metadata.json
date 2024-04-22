@@ -1,6 +1,6 @@
 {
-  "commit": "14a5617874304522e67676e85fc6585dcc24772b",
-  "generated": "Sat, 20 Apr 2024 00:14:25 GMT",
+  "commit": "8ff7836c5c2aae6a0aef521eabb913b3ce322ae6",
+  "generated": "2024-04-21T22:35:23.553Z",
   "metadata": [
     {
       "__outstatic": {
@@ -325,6 +325,42 @@
       "slug": "staff-software-engineer-machine-learning",
       "status": "published",
       "title": "Staff Software Engineer - Machine Learning"
+    },
+    {
+      "__outstatic": {
+        "commit": "650480bcc116d6b5d804ec4f2474b0f01b918dac",
+        "hash": "3278861829",
+        "path": "outstatic/content/privacy-and-terms/privacy-policy.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "privacy-and-terms",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-21T20:49:09.757Z",
+      "slug": "privacy-policy",
+      "status": "published",
+      "title": "Privacy Policy"
+    },
+    {
+      "__outstatic": {
+        "commit": "8ff7836c5c2aae6a0aef521eabb913b3ce322ae6",
+        "hash": "2272025475",
+        "path": "outstatic/content/privacy-and-terms/term-of-use.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "privacy-and-terms",
+      "coverImage": "",
+      "description": "",
+      "publishedAt": "2024-04-21T21:49:33.390Z",
+      "slug": "term-of-use",
+      "status": "published",
+      "title": "Term of Use"
     }
   ]
 }
