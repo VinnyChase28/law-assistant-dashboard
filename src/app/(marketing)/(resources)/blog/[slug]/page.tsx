@@ -37,7 +37,6 @@ export async function generateMetadata({
         },
       ],
     },
-    // Add any other metadata fields as needed
   };
 }
 
