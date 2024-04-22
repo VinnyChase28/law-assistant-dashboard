@@ -14,7 +14,7 @@ import {
   Briefcase,
   Megaphone,
   Pencil,
-  LucideIcon,
+  type LucideIcon,
 } from "lucide-react";
 
 export type NavItem = {

@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import { usePathname } from "next/navigation";
+
 import "src/styles/globals.css";
 import { ThemeProvider } from "@components/theme-provider";
 import { Toaster } from "@components/ui/toaster";
 import { TooltipProvider } from "@components/ui/tooltip";
-import { Cta } from "@marketing/components/cta";
 import Navbar from "@marketing/components/navigation/navbar";
 import { TRPCReactProvider } from "src/trpc/react";
-import { Footer } from "@marketing/components/footer";
 
 
 export const metadata: Metadata = {

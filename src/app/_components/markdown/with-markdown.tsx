@@ -1,6 +1,8 @@
-import path from "path";
 import fs from "fs/promises";
+import path from "path";
+
 import matter from "gray-matter";
+
 import Markdown from "src/app/_components/markdown"; // Adjust path as necessary
 
 // This higher-order function returns a page component for a given collection and slug

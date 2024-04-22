@@ -5,9 +5,9 @@ import matter from "gray-matter";
 import Image from "next/image";
 import { getDocumentSlugs } from "outstatic/server";
 
+import ProgressAnimations from "@marketing/components/animations/progress-animation";
 import Markdown from "src/app/_components/markdown";
 
-import ProgressAnimations from "@marketing/components/animations/progress-animation";
 
 export async function generateMetadata({
   params,

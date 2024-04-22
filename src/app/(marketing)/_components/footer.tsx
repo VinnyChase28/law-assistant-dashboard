@@ -1,11 +1,11 @@
-import { LogoIcon } from "./icons";
 import {
   platformItems,
   useCasesItems,
   resourcesItems,
   getStartedItems,
-  NavItem,
+  type NavItem,
 } from "@marketing/config/nav";
+
 import { LawAssistantLogo } from "../assets/law-assistant-logo";
 
 export const Footer = () => {
