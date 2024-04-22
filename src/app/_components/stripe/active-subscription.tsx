@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
+} from "@components/ui/card";
 import { api } from "src/trpc/react";
 
 import { AlertDialogComponent } from "../alert-dialogue";

@@ -26,13 +26,23 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "src/*": ["./src/*"],
-      "@/components/*": ["src/app/_components/*"],
-      "@/lib/utils": ["src/lib/utils"],
-      "@/lib/*": ["src/lib/*"],
-      "@/app/*": ["src/app/*"],
-      "@/marketing/*": ["src/app/(marketing)/*"],
-      "@/marketing/components/*": ["src/app/(marketing)/_components/*"]
+      "@/*": ["src/*"],
+      "@components/*": ["src/app/_components/*"],
+      "@marketing/*": ["src/app/(marketing)/*"],
+      "@marketing/components/*": ["src/app/(marketing)/_components/*"],
+      "@marketing/config/*": ["src/app/(marketing)/_config/*"],
+      "@cms/*": ["src/app/(cms)/*"],
+      "@dashboard/*": ["src/app/(dashboard)/dashboard/*"],
+      "@lib/*": ["src/lib/*"],
+      "@utils": ["src/lib/utils"],
+      "@assets/*": ["src/assets/*"],
+      "@styles/*": ["src/styles/*"],
+      "@types/*": ["src/types/*"],
+      "@inngest/*": ["src/inngest/*"],
+      "@inngest/functions/*": ["src/inngest/functions/*"],
+      "@store/*": ["src/store/*"],
+      "@server/*": ["src/server/*"],
+      "@helpers/*": ["src/helpers/*"]
     }
   },
   "include": [

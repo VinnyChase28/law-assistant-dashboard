@@ -6,9 +6,8 @@ import matter from "gray-matter";
 
 import particles from "/videos/particles.mp4";
 
-import { Cta } from "@/marketing/components/cta";
-import FeatureShowcase from "@/marketing/components/features/feature-showcase";
-import HeroFeatures from "@/marketing/components/hero/hero-features";
+import FeatureShowcase from "@marketing/components/features/feature-showcase";
+import HeroFeatures from "@marketing/components/hero/hero-features";
 
 interface FeatureListProps {
   slug: string;
@@ -47,12 +46,10 @@ const FeatureList = async ({ slug }: FeatureListProps) => {
         {features.map((feature, index) => (
           <FeatureShowcase
             key={index}
-            index={index}
             title={feature.title}
             description={feature.description}
           />
         ))}
-        <Cta />
       </>
     );
   } catch (error) {

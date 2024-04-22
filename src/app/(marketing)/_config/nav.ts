@@ -13,65 +13,74 @@ import {
   Phone,
   Briefcase,
   Megaphone,
+  Pencil,
+  type LucideIcon,
 } from "lucide-react";
 
-export const platformItems = [
+export type NavItem = {
+  title: string;
+  href: string;
+  description: string;
+  icon: LucideIcon;
+};
+
+export const platformItems: NavItem[] = [
   {
     title: "Overview",
-    href: "/platform/overview",
+    href: "/overview",
     description: "AI-powered compliance assistance for all your needs",
     icon: PenTool,
   },
   {
     title: "How it Works",
-    href: "/platform/how-it-works",
+    href: "/how-it-works",
     description: "Seamless integration with your existing systems",
     icon: HelpCircle,
   },
   {
     title: "Why CodeX",
-    href: "/platform/why-codex",
+    href: "/why-codex",
     description: "The leader in AI-powered compliance solutions",
     icon: Award,
   },
   {
     title: "Integrations",
-    href: "/platform/integrations",
+    href: "/integrations",
     description: "Explore our integrations with popular legal databases",
     icon: Puzzle,
   },
 ];
 
-export const useCasesItems = [
+export const useCasesItems: NavItem[]  = [
   {
     title: "Real Estate",
-    href: "/use-cases/real-estate",
+    href: "/real-estate",
     description:
       "Ensure real estate projects adhere to zoning and building bylaws",
     icon: Home,
   },
   {
     title: "Contracts",
-    href: "/use-cases/contracts",
+    href: "/contracts",
     description: "Analyze contracts for deviations from standards and policies",
     icon: Search,
   },
   {
     title: "Environmental",
-    href: "/use-cases/environmental",
+    href: "/environmental",
     description:
       "Assess projects against environmental regulations and standards",
     icon: FileText,
   },
   {
     title: "Financial",
-    href: "/use-cases/financial",
+    href: "/financial",
     description: "Detect suspicious transactions and ensure AML law compliance",
     icon: DollarSign,
   },
 ];
 
-export const resourcesItems = [
+export const resourcesItems: NavItem[]  = [
   {
     title: "Blog",
     href: "/blog",
@@ -80,24 +89,24 @@ export const resourcesItems = [
   },
   {
     title: "Webinars & Events",
-    href: "/resources/events-webinars",
+    href: "/events-webinars",
     description: "Learn from compliance experts online and in-person",
     icon: Calendar,
   },
   {
     title: "Case Studies",
-    href: "/resources/case-studies",
+    href: "/case-studies",
     description: "See how CodeX helps organizations stay compliant",
-    icon: FileText,
+    icon: Pencil,
   },
   {
-    title: "Compliance Newsletter",
-    href: "/resources/newsletter",
+    title: "Newsletter",
+    href: "/newsletter",
     description: "Get the latest compliance news delivered to your inbox",
     icon: Mail,
   },
 ];
-export const getStartedItems = [
+export const getStartedItems: NavItem[]  = [
   {
     title: "Request a Demo",
     href: "https://cal.com/vincent-gauthier-yxbpaz/30min",
@@ -119,10 +128,10 @@ export const getStartedItems = [
   },
 ];
 
-export const companyItems = [
+export const companyItems: NavItem[]  = [
   {
     title: "About",
-    href: "/company/about",
+    href: "/about",
     description: "Learn about our mission and team",
     icon: Briefcase,
   },
@@ -134,13 +143,13 @@ export const companyItems = [
   },
   {
     title: "Press",
-    href: "/company/press",
+    href: "/press",
     description: "Read the latest news and press releases about CodeX",
     icon: Megaphone,
   },
   {
     title: "Contact Us",
-    href: "/company/contact",
+    href: "/contact",
     description: "Get in touch with our team",
     icon: Mail,
   },

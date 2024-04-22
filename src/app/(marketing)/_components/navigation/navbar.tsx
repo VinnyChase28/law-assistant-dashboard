@@ -9,15 +9,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signIn } from "next-auth/react";
 
-import AuthButtonWrapper from "@/components/navigation/sign-in-out";
+import { cn } from "@/lib/utils";
+import AuthButtonWrapper from "@components/navigation/sign-in-out";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
+} from "@components/ui/sheet";
 import { useCheckedRowsStore } from "src/store/store";
 
 import { ModeToggle } from "../../../_components/mode-toggle";

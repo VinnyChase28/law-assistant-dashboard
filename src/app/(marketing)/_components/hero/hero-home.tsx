@@ -1,8 +1,8 @@
 import { CalendarIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 
-import { Button } from "@/components/ui/button";
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@components/ui/button";
+import { buttonVariants } from "@components/ui/button";
 
 import { HeroCards } from "./hero-cards";
 
