@@ -1,6 +1,6 @@
 {
   "commit": "94c5a5b13da6fb457ef19b76b5d57d8e6a3c4787",
-  "generated": "2024-04-23T08:26:41.690Z",
+  "generated": "2024-04-23T08:27:28.016Z",
   "metadata": [
     {
       "__outstatic": {
@@ -347,7 +347,7 @@
     {
       "__outstatic": {
         "commit": "94c5a5b13da6fb457ef19b76b5d57d8e6a3c4787",
-        "hash": "1267934418",
+        "hash": "958806311",
         "path": "outstatic/content/blog/compliance-automation.md"
       },
       "author": {
