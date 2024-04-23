@@ -27,6 +27,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
+      "@public/*": ["public/*"],
       "@components/*": ["src/app/_components/*"],
       "@marketing/*": ["src/app/(marketing)/*"],
       "@marketing/components/*": ["src/app/(marketing)/_components/*"],

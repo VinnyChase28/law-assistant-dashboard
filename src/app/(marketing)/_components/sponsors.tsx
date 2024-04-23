@@ -2,11 +2,11 @@
 
 import React from "react";
 
-import CenterCourt from "../../../public/CenterCourt.svg";
-import ConcordPacific from "../../../public/ConcordPacific.svg";
-import CrestonValley from "../../../public/CrestonValley.svg";
-import FairField from "../../../public/FairField.svg";
-import Provo from "../../../public/Provo.svg";
+import CenterCourt from "@public/images/logos/CenterCourt.svg";
+import ConcordPacific from "@public/images/logos/ConcordPacific.svg";
+import CrestonValley from "@public/images/logos/CrestonValley.svg";
+import FairField from "@public/images/logos/FairField.svg";
+import Provo from "@public/images/logos/Provo.svg";
 
 const logos = [CenterCourt, ConcordPacific, CrestonValley, FairField, Provo];
 
