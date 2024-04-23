@@ -8,7 +8,7 @@ export default function CardsSection() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">
-            Compliance Processes Automated
+            Reports generated
           </CardTitle>
           <TextIcon className="h-4 w-4 " />
         </CardHeader>
@@ -19,12 +19,12 @@ export default function CardsSection() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">
-            Collaborative Projects
+            Questions answered
           </CardTitle>
           <Users className="h-4 w-4 " />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">300+</div>
+          <div className="text-2xl font-bold">1.5MM+</div>
         </CardContent>
       </Card>
       <Card>
