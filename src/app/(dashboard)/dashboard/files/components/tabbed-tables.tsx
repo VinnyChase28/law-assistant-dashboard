@@ -5,12 +5,12 @@ import AddFiles from "src/app/_components/input/add-files";
 
 import TableContainer from "./table-container";
 
-
 export default function TabbedTables() {
   return (
     <div>
-      <Tabs defaultValue="regulatory_framework" className="w-full px-6 pt-6">
-        <div className="justify-left flex px-3">
+      <Tabs defaultValue="regulatory_framework" className="w-full px-6 pt-20">
+        {/* Updated the className to center everything inside this div */}
+        <div className="flex items-center justify-center px-3">
           <TabsList>
             <TabsTrigger value="regulatory_framework">Regulations</TabsTrigger>
             <TabsTrigger value="compliance_submission">Submissions</TabsTrigger>

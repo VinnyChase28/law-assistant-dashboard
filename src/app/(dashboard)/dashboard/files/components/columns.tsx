@@ -78,7 +78,8 @@ export const columns: ColumnDef<File>[] = [
       //@ts-expect-error label type is not defined in the schema
 
       const label = row.original.label;
-      return <Badge>{label ? label.text : ""}</Badge>;
+      return label ? <Badge>{label.text}</Badge> : null;
+    
     },
     filterFn: (row, id, value) => {
       //@ts-expect-error  //label type is not defined in the schema

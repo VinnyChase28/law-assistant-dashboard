@@ -171,18 +171,18 @@ export function LabelForm() {
           <Button
             type="button"
             variant="outline"
-            className="mt-2 w-full sm:w-auto"
+            className="mt-2 w-full pr-3 sm:w-auto"
             onClick={() => append({ name: "" })}
           >
-            Add Label
+            Add
           </Button>
           <Button
             variant="secondary"
             disabled={isSubmitting}
             type="submit"
-            className="w-full sm:w-auto"
+            className="w-full pl-4 sm:w-auto"
           >
-            Save Labels
+            Save
           </Button>
         </form>
       </Form>
