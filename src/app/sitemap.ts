@@ -12,7 +12,6 @@ async function getBlogPostUrls(): Promise<
       | "daily"
       | "always"
       | "hourly"
-      | "weekly"
       | "yearly"
       | "never";
     priority: number;
@@ -26,17 +25,16 @@ async function getBlogPostUrls(): Promise<
   );
   const filenames = await fs.readdir(blogDirectory);
   return filenames.map((filename) => {
-    const slug = filename.replace(/\.md$/, ""); // Correctly define 'slug' here
+    const slug = filename.replace(/\.md$/, ""); 
     return {
       url: `https://lawassistant.ai/blog/${slug}`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     };
-  });
+  })
 }
 
-//so the same as /blog but for /jobs
 
 async function getJobPostUrls(): Promise<
   Array<{
@@ -47,18 +45,12 @@ async function getJobPostUrls(): Promise<
       | "daily"
       | "always"
       | "hourly"
-      | "weekly"
       | "yearly"
       | "never";
     priority: number;
   }>
 > {
-  const jobDirectory = path.join(
-    process.cwd(),
-    "outstatic",
-    "content",
-    "jobs",
-  );
+  const jobDirectory = path.join(process.cwd(), "outstatic", "content", "jobs");
   const filenames = await fs.readdir(jobDirectory);
   return filenames.map((filename) => {
     const slug = filename.replace(/\.md$/, ""); // Correctly define 'slug' here
