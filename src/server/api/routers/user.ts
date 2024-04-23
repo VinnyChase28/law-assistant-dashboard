@@ -171,4 +171,18 @@ export const userRouter = createTRPCRouter({
         data: { acceptedTerms: input.accepted },
       });
     }),
+
+  // Query to check if the user has accepted the terms
+  hasAcceptedTerms: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.db.user.findUnique({
+      where: { id: ctx.session.user.id },
+      select: { acceptedTerms: true },
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return user.acceptedTerms;
+  }),
 });

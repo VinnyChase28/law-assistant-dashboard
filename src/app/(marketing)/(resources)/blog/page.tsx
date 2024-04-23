@@ -1,6 +1,7 @@
 import { getDocuments } from "outstatic/server";
 
-import BlogGridContainer from "../../_components/blog/blog-grid-container";
+import BlogGridContainer from "@marketing/components/blog/blog-grid-container";
+import BlogHero from "@marketing/components/blog/blog-hero";
 
 export const dynamic = "force-static";
 
@@ -9,6 +10,7 @@ export default async function BlogPage() {
 
   return (
     <div className="container mx-auto px-4">
+      <BlogHero />
       <BlogGridContainer posts={posts} />
     </div>
   );

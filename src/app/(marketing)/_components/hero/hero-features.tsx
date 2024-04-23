@@ -27,7 +27,7 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
 }) => {
   const videoVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 1.5 } },
+    visible: { opacity: 1, transition: { duration: 2.5 } },
   };
 
   return (

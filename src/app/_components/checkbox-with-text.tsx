@@ -1,10 +1,10 @@
-"use client";
+import React from "react"; // Ensure React is imported for JSX support
 
 import { Checkbox } from "@components/ui/checkbox";
 
 interface CheckboxWithTextProps {
   label: string;
-  description: string;
+  description: React.ReactNode; // Changed from string to React.ReactNode
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
 }
@@ -30,7 +30,10 @@ export function CheckboxWithText({
         >
           {label}
         </label>
-        <p className="text-sm text-muted-foreground">{description}</p>
+        <div className="text-sm text-muted-foreground">
+          {description}{" "}
+          {/* Changed from <p> to <div> to allow more complex structures */}
+        </div>
       </div>
     </div>
   );

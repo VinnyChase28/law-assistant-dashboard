@@ -15,9 +15,9 @@ export default function StorySection() {
               <p className="max-w-[700px]  md:text-xl/relaxed">
                 Our journey began in the vibrant city of Vancouver, where a
                 group of passionate individuals came together with a shared
-                vision. Inspired by the city&apos;s natural beauty and
-                entrepreneurial spirit, we set out to create something truly
-                remarkable.
+                vision to revolutionize compliance. Inspired by the city&apos;s
+                natural beauty and entrepreneurial spirit, we set out to create
+                something truly remarkable.
               </p>
             </div>
             <div className="relative h-[250px] w-full lg:w-1/2">
