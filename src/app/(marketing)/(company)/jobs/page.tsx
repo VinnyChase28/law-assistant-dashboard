@@ -1,6 +1,7 @@
 import { load } from "outstatic/server";
 
-import JobsSectionsContainer from "../../_components/jobs/jobs-grid-container";
+import JobsSectionsContainer from "@marketing/components/jobs/jobs-grid-container";
+import GenericHero from "@marketing/components/hero/hero-generic";
 
 export const dynamic = "force-static";
 
@@ -24,6 +25,10 @@ export default async function JobsPage() {
 
   return (
     <div className="container mx-auto px-4">
+      <GenericHero
+        title="Join Our Team"
+        description="We are always looking for talented individuals to join our team. Check out our open positions below."
+      />
       <JobsSectionsContainer posts={allPosts} />
     </div>
   );

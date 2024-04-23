@@ -2,9 +2,12 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-import { Button } from "@components/ui/button";
+interface BlogHeroProps {
+  title: string;
+  description: string;
+}
 
-export default function BlogHero() {
+export default function GenericHero({ title, description }: BlogHeroProps) {
   return (
     <section className="relative h-[500px] w-full overflow-hidden">
       <motion.div
@@ -15,7 +18,7 @@ export default function BlogHero() {
       >
         <Image
           alt="Background Image"
-          className="h-full w-full object-cover"
+          className="h-full w-full rounded-md object-cover"
           height="500"
           src="/images/black-bg.jpg"
           style={{
@@ -26,12 +29,8 @@ export default function BlogHero() {
         />
       </motion.div>
       <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-4 bg-black/40 p-4 text-center text-white">
-        <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl">News</h1>
-        <p className="max-w-xl text-lg sm:text-xl">
-          Join us on a journey through the compliance world, and get insights
-          into the latest automation trends.
-        </p>
-        <Button>Start Reading</Button>
+        <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl">{title}</h1>
+        <p className="max-w-xl text-lg sm:text-xl">{description}</p>
       </div>
     </section>
   );
