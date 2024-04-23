@@ -1,7 +1,7 @@
 import { load } from "outstatic/server";
 
-import JobsSectionsContainer from "@marketing/components/jobs/jobs-grid-container";
 import GenericHero from "@marketing/components/hero/hero-generic";
+import JobsSectionsContainer from "@marketing/components/jobs/jobs-grid-container";
 
 export const dynamic = "force-static";
 

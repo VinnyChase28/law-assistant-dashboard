@@ -1,6 +1,7 @@
 import { getDocuments } from "outstatic/server";
 
 import BlogGridContainer from "@marketing/components/blog/grid-container-blog";
+
 import GenericHero from "../../_components/hero/hero-generic";
 
 export const dynamic = "force-static";
