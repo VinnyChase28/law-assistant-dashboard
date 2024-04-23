@@ -1,6 +1,6 @@
 {
-  "commit": "54d7f5dba3623992bdf4f65589409c6310618c11",
-  "generated": "2024-04-23T08:22:58.106Z",
+  "commit": "94c5a5b13da6fb457ef19b76b5d57d8e6a3c4787",
+  "generated": "2024-04-23T08:25:37.611Z",
   "metadata": [
     {
       "__outstatic": {
@@ -19,24 +19,6 @@
       "slug": "what-is-retrieval-augmented-generation",
       "status": "published",
       "title": "What is Retrieval Augmented Generation?"
-    },
-    {
-      "__outstatic": {
-        "commit": "b5db66d284324fd8018457633b4d07abefa95fdf",
-        "hash": "3880549097",
-        "path": "outstatic/content/blog/compliance-automation.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "collection": "blog",
-      "coverImage": "/images/compliance-blog-M4ND.jpg",
-      "description": "",
-      "publishedAt": "2024-04-08T00:14:57.541Z",
-      "slug": "compliance-automation",
-      "status": "published",
-      "title": "What is Compliance Automation?"
     },
     {
       "__outstatic": {
@@ -361,6 +343,24 @@
       "slug": "retrieval-augmented-generation-a-solution-for-design-compliance",
       "status": "published",
       "title": "Retrieval-Augmented Generation: A Solution for Design Compliance"
+    },
+    {
+      "__outstatic": {
+        "commit": "94c5a5b13da6fb457ef19b76b5d57d8e6a3c4787",
+        "hash": "3484258852",
+        "path": "outstatic/content/blog/compliance-automation.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/compliance-blog-M4ND.jpg",
+      "description": "",
+      "publishedAt": "2024-04-08T00:14:57.541Z",
+      "slug": "compliance-automation",
+      "status": "published",
+      "title": "What is Compliance Automation?"
     }
   ]
 }
