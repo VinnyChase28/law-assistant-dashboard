@@ -5,10 +5,10 @@ import matter from "gray-matter";
 import Image from "next/image";
 import { getDocumentSlugs } from "outstatic/server";
 
+import { JobApplicationForm } from "@components/forms/form-jobs";
+import { Separator } from "@components/ui/separator";
 import ProgressAnimations from "@marketing/components/animations/progress-animation";
 import Markdown from "src/app/_components/markdown";
-
-
 
 export async function generateMetadata({
   params,
@@ -84,6 +84,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
           </div>
           <Markdown markdownText={content ?? ""} />
         </article>
+        <Separator />
+        <div className="mt-8">
+          <JobApplicationForm />
+        </div>
       </div>
     </>
   );
