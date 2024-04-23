@@ -2,6 +2,7 @@
 
 import { type ColumnDef, type Table, type Row } from "@tanstack/react-table";
 
+import { Badge } from "@components/ui/badge";
 import { Checkbox } from "@components/ui/checkbox";
 import { DataTableColumnHeader } from "src/app/(dashboard)/dashboard/files/components/data-table-column-header";
 import { useCheckedRowsStore } from "src/store/store";
@@ -77,7 +78,7 @@ export const columns: ColumnDef<File>[] = [
       //@ts-expect-error label type is not defined in the schema
 
       const label = row.original.label;
-      return <div>{label ? label.text : ""}</div>;
+      return <Badge>{label ? label.text : ""}</Badge>;
     },
     filterFn: (row, id, value) => {
       //@ts-expect-error  //label type is not defined in the schema

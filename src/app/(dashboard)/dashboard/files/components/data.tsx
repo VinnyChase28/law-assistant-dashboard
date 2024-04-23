@@ -45,20 +45,4 @@ const statuses = [
 
 
 
-//TODO: allow users to define their own labels and assign them to documents
-const labels = [
-  {
-    value: "research",
-    label: "Research",
-  },
-  {
-    value: "summary",
-    label: "Summary",
-  },
-  {
-    value: "compliance",
-    label: "Compliance",
-  },
-];
-
-export { statuses, documentTypes, labels };
+export { statuses, documentTypes };
