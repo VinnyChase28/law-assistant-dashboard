@@ -4,6 +4,9 @@ import { api } from "@/trpc/server";
 import ChatBubble from "@components/bubble/bubble";
 import { SiteHeader } from "@components/navigation/site-header";
 
+export const dynamic = "force-dynamic";
+
+
 export default async function DashboardLayout({
   children,
 }: {
