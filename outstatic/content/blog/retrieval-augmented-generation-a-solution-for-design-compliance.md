@@ -28,10 +28,6 @@ For professionals in the design and construction sectors, this lawsuit is a star
 
 Retrieval-augmented generation (RAG) with multimodal capabilities presents a proactive approach to compliance. By integrating RAG into the design process, architects and designers can leverage a system that retrieves relevant documents, guidelines, and images to check against their designs in real-time. This technology can significantly reduce the risk of oversight and non-compliance, potentially saving millions in retrofitting costs and legal fees.
 
-### **Closing**
-
 The Queens Public Library lawsuit is a wake-up call for the industry to adopt more rigorous compliance checks within the design process. Retrieval-augmented generation with multimodal capabilities could be the key to ensuring that such costly oversights are avoided in the future.
-
-### **Call-to-Action**
 
 Stay ahead of compliance issues and streamline your design process with the latest in AI technology. Discover how retrieval-augmented generation can transform your workflow and help you avoid legal pitfalls. Visit [lawassistant.ai](https://www.perplexity.ai/search#) to learn more and subscribe to our blog for updates on this story and more insights into leveraging AI for design compliance.

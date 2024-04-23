@@ -1,6 +1,6 @@
 {
-  "commit": "5d763ac6f79425713eab17ee8c570070286532be",
-  "generated": "2024-04-22T02:01:51.703Z",
+  "commit": "54d7f5dba3623992bdf4f65589409c6310618c11",
+  "generated": "2024-04-23T08:22:58.106Z",
   "metadata": [
     {
       "__outstatic": {
@@ -19,24 +19,6 @@
       "slug": "what-is-retrieval-augmented-generation",
       "status": "published",
       "title": "What is Retrieval Augmented Generation?"
-    },
-    {
-      "__outstatic": {
-        "commit": "486e1182043562727072ad40bbaf4a9fb73bc5c3",
-        "hash": "107986389",
-        "path": "outstatic/content/blog/retrieval-augmented-generation-a-solution-for-design-compliance.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "collection": "blog",
-      "coverImage": "/images/austin-curtis-8yftfxuk3f8-unsplash-Y4Mj.jpg",
-      "description": "",
-      "publishedAt": "2024-04-19T02:30:11.909Z",
-      "slug": "retrieval-augmented-generation-a-solution-for-design-compliance",
-      "status": "published",
-      "title": "Retrieval-Augmented Generation: A Solution for Design Compliance"
     },
     {
       "__outstatic": {
@@ -361,6 +343,24 @@
       "slug": "term-of-use",
       "status": "published",
       "title": "Terms of Use"
+    },
+    {
+      "__outstatic": {
+        "commit": "54d7f5dba3623992bdf4f65589409c6310618c11",
+        "hash": "4219717892",
+        "path": "outstatic/content/blog/retrieval-augmented-generation-a-solution-for-design-compliance.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/austin-curtis-8yftfxuk3f8-unsplash-Y4Mj.jpg",
+      "description": "",
+      "publishedAt": "2024-04-19T02:30:11.909Z",
+      "slug": "retrieval-augmented-generation-a-solution-for-design-compliance",
+      "status": "published",
+      "title": "Retrieval-Augmented Generation: A Solution for Design Compliance"
     }
   ]
 }
