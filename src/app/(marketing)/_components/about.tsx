@@ -13,6 +13,7 @@ export const About = () => {
             src={pilot}
             alt=""
             className="w-[300px] rounded-lg object-contain"
+            placeholder="blur"
           />
           <div className="bg-green-0 flex flex-col justify-between">
             <div className="pb-6">

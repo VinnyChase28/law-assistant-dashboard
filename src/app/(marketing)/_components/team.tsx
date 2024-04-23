@@ -113,6 +113,7 @@ export const Team = () => {
                   src={imageUrl}
                   alt={`${name} ${position}`}
                   className="absolute -top-12 aspect-square h-24 w-24 rounded-full object-cover"
+                  placeholder="blur"
                 />
                 <CardTitle className="text-center">{name}</CardTitle>
                 <CardDescription className="text-primary">

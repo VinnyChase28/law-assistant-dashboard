@@ -24,9 +24,9 @@ export default function StorySection() {
               <Image
                 src="/images/vancouver.jpg" // Replace with path to your image
                 alt="Vancouver"
-                layout="fill"
                 objectFit="cover"
                 className="rounded-lg"
+                placeholder="blur"
               />
             </div>
           </div>
@@ -37,9 +37,9 @@ export default function StorySection() {
               <Image
                 src="/images/san-fran.jpg" // Replace with path to your image
                 alt="San Francisco"
-                layout="fill"
                 objectFit="cover"
                 className="rounded-lg"
+                placeholder="blur"
               />
             </div>
             <div className="space-y-4 pl-8 lg:w-1/2">

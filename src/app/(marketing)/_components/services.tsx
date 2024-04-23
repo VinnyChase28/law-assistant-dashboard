@@ -69,6 +69,7 @@ export const Services = () => {
           src={cubeLeg}
           className="w-[300px] object-contain md:w-[500px] lg:w-[600px]"
           alt="Innovative AI Services"
+          placeholder="blur"
         /> */}
       </div>
     </section>

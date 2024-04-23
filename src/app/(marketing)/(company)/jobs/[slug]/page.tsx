@@ -72,6 +72,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 fill
                 style={{ objectFit: "cover" }}
                 className="rounded"
+                placeholder="blur"
               />
             </div>
           )}

@@ -82,6 +82,7 @@ export const Features = () => {
                 src={image}
                 alt="About feature"
                 className="mx-auto w-[200px] lg:w-[300px]"
+                placeholder="blur"
               />
             </CardFooter>
           </Card>

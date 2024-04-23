@@ -42,6 +42,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
           height={791}
           alt="Forms"
           className="block dark:hidden"
+          placeholder="blur"
         />
         <Image
           src="/dashboard/settings/forms-dark.jpg"
@@ -49,6 +50,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
           height={791}
           alt="Forms"
           className="hidden dark:block"
+          placeholder="blur"
         />
       </div>
       <div className="hidden space-y-6 p-10 pb-16 md:block">

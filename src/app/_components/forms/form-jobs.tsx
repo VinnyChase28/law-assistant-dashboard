@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler, FormProvider } from "react-hook-form";
 import { z } from "zod";
@@ -25,6 +27,7 @@ const applicationFormSchema = z.object({
 type ApplicationFormData = z.infer<typeof applicationFormSchema>;
 
 export function JobApplicationForm() {
+  const [disabled, setDisabled] = useState(false);
   const { toast } = useToast();
   const formMethods = useForm<ApplicationFormData>({
     resolver: zodResolver(applicationFormSchema),
@@ -40,18 +43,21 @@ export function JobApplicationForm() {
   const { isSubmitting } = formState;
 
   const onSubmit: SubmitHandler<ApplicationFormData> = async (data) => {
-    console.log("Form Data:", data);
-    // Simulate a server response delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setDisabled(true);
 
-    toast({
-      title: "Application Submitted",
-      description:
-        "Thank you for applying! One of our recruiters will be in touch soon.",
-      variant: "default",
-    });
+    try {
+      // Simulate a server response delay
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    reset(); // Clear form fields after submission
+      toast({
+        title: "Application Submitted",
+        description:
+          "Thank you for applying! One of our recruiters will be in touch soon.",
+        variant: "default",
+      });
+    } finally {
+      reset(); // Clear form fields after submission
+    }
   };
 
   return (
@@ -132,7 +138,13 @@ export function JobApplicationForm() {
             )}
           />
 
-          <Button type="submit">Submit Application</Button>
+          <Button
+            type="submit"
+            disabled={disabled}
+            variant={disabled ? "ghost" : "default"}
+          >
+            Submit Application
+          </Button>
         </form>
       </FormProvider>
     </div>

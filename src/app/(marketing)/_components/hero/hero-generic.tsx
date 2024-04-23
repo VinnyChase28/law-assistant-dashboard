@@ -26,6 +26,7 @@ export default function GenericHero({ title, description }: BlogHeroProps) {
             objectFit: "cover",
           }}
           width="1920"
+          placeholder="blur"
         />
       </motion.div>
       <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-4 bg-black/40 p-4 text-center text-white">
