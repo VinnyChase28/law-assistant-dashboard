@@ -129,19 +129,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: "https://lawassistant.ai/hr-policy",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
       url: "https://lawassistant.ai/real-estate",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: "https://lawassistant.ai/software",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
