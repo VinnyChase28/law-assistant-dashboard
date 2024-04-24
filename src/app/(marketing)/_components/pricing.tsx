@@ -79,7 +79,7 @@ export const Pricing = () => {
               <CardTitle className="item-center flex justify-between">
                 {pricing.title}
                 {pricing.popular === PopularPlanType.YES ? (
-                  <Badge variant="secondary" className="text-sm text-primary">
+                  <Badge variant="secondary" className="text-sm ">
                     Most popular
                   </Badge>
                 ) : null}

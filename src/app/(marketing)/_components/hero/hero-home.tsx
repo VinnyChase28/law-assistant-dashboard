@@ -14,16 +14,11 @@ export const Hero = () => {
       <div className="space-y-6 text-center lg:text-start">
         <main className="text-5xl font-bold md:text-3xl">
           <h2 className="inline">
-            <span className="inline bg-gradient-to-r from-[#F596D3] to-[#D247BF] bg-clip-text text-transparent">
+            <span className="inline bg-gradient-to-r from-[#1E2761] to-[#408EC6] bg-clip-text text-transparent">
               Compliance Automation
             </span>{" "}
             <br />
-            That Businesses{" "}
-            <h2 className="inline">
-              <span className="inline bg-gradient-to-r from-[#61DAFB] via-[#1fc0f1] to-[#03a3d7] bg-clip-text text-transparent">
-                Trust
-              </span>{" "}
-            </h2>
+            That Businesses Trust{" "}
           </h2>{" "}
         </main>
 

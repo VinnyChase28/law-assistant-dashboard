@@ -20,7 +20,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        customPrimary: "rgb(99, 102, 241)",
+        customPrimary: "#076585",
         // light mode
         tremor: {
           brand: {
@@ -129,8 +129,8 @@ module.exports = {
           to: { height: "var(--radix-accordion-content-height)" },
         },
         marquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-100%)' },
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
@@ -138,7 +138,7 @@ module.exports = {
         },
       },
       animation: {
-        marquee: 'marquee 200s linear infinite',
+        marquee: "marquee 200s linear infinite",
       },
     },
   },
