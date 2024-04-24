@@ -48,9 +48,8 @@ export default function StorySection() {
               </h2>
               <p className="max-w-[700px]  md:text-xl/relaxed">
                 As our ambitions grew, we found ourselves drawn to the bustling
-                tech hub of San Francisco. Immersing ourselves in the
-                city&apos;s innovative culture, we forged partnerships and
-                collaborations that propelled our vision forward.
+                tech hub of San Francisco. While we are fully remote, we still
+                occasionally meet in shared office spaces in both cities.
               </p>
             </div>
           </div>

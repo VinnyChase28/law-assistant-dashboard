@@ -11,7 +11,7 @@ export default function GenericHero({ title, description }: BlogHeroProps) {
       <ImageContainer
         src="black-bg.jpg"
         alt="Background"
-        className="absolute inset-0 z-0"
+        className="z-0"
         objectFit="cover"
         layout="fill"
       />

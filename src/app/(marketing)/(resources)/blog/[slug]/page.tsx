@@ -56,7 +56,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const fileContents = await fs.readFile(filePath, "utf8");
   const { data: frontMatter, content } = matter(fileContents);
 
-  console.log(frontMatter.coverImage, "frontMatter.coverImage");
 
   return (
     <>

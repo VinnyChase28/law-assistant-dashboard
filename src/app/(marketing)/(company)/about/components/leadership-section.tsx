@@ -30,7 +30,7 @@ export default function LeadershipTeamSection() {
                 <AvatarFallback>EC</AvatarFallback>
               </Avatar>
               <div>
-                <h4 className="font-semibold">Emily Carter</h4>
+                <h4 className="font-semibold">Nikhil Patel</h4>
                 <p className="text-sm ">CTO and Co-Founder</p>
               </div>
             </div>
@@ -48,7 +48,7 @@ export default function LeadershipTeamSection() {
             </div>
             <div className="flex items-center gap-2">
               <Avatar>
-                <AvatarImage alt="Sarah Johnson" src="/placeholder-user.jpg" />
+                <AvatarImage alt="Sarah Ludovich" src="/placeholder-user.jpg" />
                 <AvatarFallback>SJ</AvatarFallback>
               </Avatar>
               <div>
@@ -64,8 +64,8 @@ export default function LeadershipTeamSection() {
                 <AvatarFallback>PD</AvatarFallback>
               </Avatar>
               <div>
-                <h4 className="font-semibold">Priya Desai</h4>
-                <p className="text-sm ">Chief of Staff</p>
+                <h4 className="font-semibold">Matthew Lipman</h4>
+                <p className="text-sm ">Chief Compliance Officer</p>
               </div>
             </div>
             <div className="flex items-center gap-2">

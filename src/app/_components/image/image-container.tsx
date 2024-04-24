@@ -1,4 +1,3 @@
-// File: components/ImageContainer.tsx
 import { type FC } from "react";
 
 import Image from "next/image";
@@ -19,6 +18,7 @@ const ImageContainer: FC<ImageContainerProps> = ({
   width,
   height,
   layout,
+  objectFit = "cover", // Default to cover if not specified
   className = "",
 }) => {
   const baseImagePath = `/images/${src}`;
@@ -31,7 +31,8 @@ const ImageContainer: FC<ImageContainerProps> = ({
         <Image
           src={baseImagePath}
           alt={alt}
-          fill
+          layout="fill"
+          objectFit={objectFit}
           className={className}
           placeholder="blur"
           blurDataURL={blurredImagePath}
@@ -43,8 +44,8 @@ const ImageContainer: FC<ImageContainerProps> = ({
       <Image
         src={baseImagePath}
         alt={alt}
-        width={width}
         height={height}
+        width={width}
         className={className}
         placeholder="blur"
         blurDataURL={blurredImagePath}
