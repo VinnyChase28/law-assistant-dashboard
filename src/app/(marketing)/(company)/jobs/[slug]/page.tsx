@@ -2,13 +2,14 @@ import { promises as fs } from "fs";
 import path from "path";
 
 import matter from "gray-matter";
-import Image from "next/image";
 import { getDocumentSlugs } from "outstatic/server";
 
 import { JobApplicationForm } from "@components/forms/form-jobs";
+import ImageContainer from "@components/image/image-container";
+import Markdown from "@components/markdown";
 import { Separator } from "@components/ui/separator";
 import ProgressAnimations from "@marketing/components/animations/progress-animation";
-import Markdown from "src/app/_components/markdown";
+
 
 export async function generateMetadata({
   params,
@@ -66,13 +67,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <article className="mx-auto my-8 max-w-3xl">
           {frontMatter?.coverImage && (
             <div className="relative mb-8 aspect-video">
-              <Image
+              <ImageContainer
                 src={frontMatter.coverImage}
-                alt={frontMatter?.title || "Job post cover image"}
-                fill
-                style={{ objectFit: "cover" }}
-                className="rounded"
-                placeholder="blur"
+                alt={frontMatter.title}
+                width={1200}
+                height={630}
               />
             </div>
           )}

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ImageContainer from "@/app/_components/image/image-container";
 
 export default function StorySection() {
   return (
@@ -20,26 +20,26 @@ export default function StorySection() {
                 something truly remarkable.
               </p>
             </div>
-            <div className="relative h-[250px] w-full lg:w-1/2">
-              <Image
-                src="/images/vancouver.jpg" // Replace with path to your image
+            <div className="relative w-full lg:w-1/2">
+              <ImageContainer
+                src="vancouver.jpg" // Just specify the image file name
                 alt="Vancouver"
-                objectFit="cover"
+                width={500}
+                height={100}
                 className="rounded-lg"
-                placeholder="blur"
               />
             </div>
           </div>
 
           {/* San Francisco Section: Image Left, Text Right */}
           <div className="flex flex-col items-center space-y-4 lg:flex-row lg:space-x-20 lg:space-y-0 lg:space-x-reverse">
-            <div className="relative h-[250px] w-full lg:w-1/2">
-              <Image
-                src="/images/san-fran.jpg" // Replace with path to your image
+            <div className="relative w-full lg:w-1/2">
+              <ImageContainer
+                src="san-fran.jpg"
                 alt="San Francisco"
-                objectFit="cover"
+                width={500}
+                height={100}
                 className="rounded-lg"
-                placeholder="blur"
               />
             </div>
             <div className="space-y-4 pl-8 lg:w-1/2">

@@ -3,13 +3,13 @@ import React from "react";
 import type dynamicIconImports from "lucide-react/dynamicIconImports";
 import { Handle, Position } from "reactflow";
 
+import Icon from "@components/icon";
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@components/ui/card";
-import Icon from "src/app/_components/icon";
 
 interface CustomNodeData {
   title: string;

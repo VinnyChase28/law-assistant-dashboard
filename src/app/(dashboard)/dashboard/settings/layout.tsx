@@ -1,8 +1,8 @@
 import { type Metadata } from "next";
-import Image from "next/image";
 
+import ImageContainer from "@components/image/image-container";
+import { SidebarNav } from "@components/sidebar-nav";
 import { Separator } from "@components/ui/separator";
-import { SidebarNav } from "src/app/_components/sidebar-nav";
 
 export const metadata: Metadata = {
   title: "Forms",
@@ -36,21 +36,20 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
     <>
       <div className="md:hidden">
-        <Image
-          src="/dashboard/settings/forms-light.jpg"
+        <ImageContainer
+          src="settings/forms-light.jpg"
+          alt="Forms"
           width={1280}
           height={791}
-          alt="Forms"
           className="block dark:hidden"
-          placeholder="blur"
         />
-        <Image
-          src="/dashboard/settings/forms-dark.jpg"
+
+        <ImageContainer
+          src="settings/forms-dark.jpg"
+          alt="Forms"
           width={1280}
           height={791}
-          alt="Forms"
           className="hidden dark:block"
-          placeholder="blur"
         />
       </div>
       <div className="hidden space-y-6 p-10 pb-16 md:block">

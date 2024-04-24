@@ -10,7 +10,7 @@ import {
 } from "framer-motion";
 
 // Import AnimatedText
-import { Separator } from "src/app/_components/ui/separator";
+import { Separator } from "@components/ui/separator";
 
 import AnimatedText from "../animations/text-animation";
 

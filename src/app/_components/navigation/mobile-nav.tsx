@@ -5,11 +5,11 @@ import * as React from "react";
 import Link, { type LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 
+import { docsConfig } from "@/app/_config/docs";
+import { siteConfig } from "@/app/_config/site";
 import { cn } from "@/lib/utils";
 import { Icons } from "@components/icons";
 import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet";
-import { docsConfig } from "src/app/_config/docs";
-import { siteConfig } from "src/app/_config/site";
 
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";

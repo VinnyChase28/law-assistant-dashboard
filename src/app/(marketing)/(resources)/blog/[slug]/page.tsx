@@ -2,12 +2,11 @@ import { promises as fs } from "fs";
 import path from "path";
 
 import matter from "gray-matter";
-import Image from "next/image";
 import { getDocumentSlugs } from "outstatic/server";
 
+import ImageContainer from "@/app/_components/image/image-container";
+import Markdown from "@components/markdown";
 import ProgressAnimations from "@marketing/components/animations/progress-animation";
-import Markdown from "src/app/_components/markdown";
-
 
 export async function generateMetadata({
   params,
@@ -57,6 +56,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const fileContents = await fs.readFile(filePath, "utf8");
   const { data: frontMatter, content } = matter(fileContents);
 
+  console.log(frontMatter.coverImage, "frontMatter.coverImage");
+
   return (
     <>
       <ProgressAnimations />
@@ -64,13 +65,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <article className="mx-auto my-8 max-w-3xl">
           {frontMatter?.coverImage && (
             <div className="relative mb-8 aspect-video">
-              <Image
-                src={frontMatter.coverImage}
+              <ImageContainer
+                src={frontMatter.coverImage
+                  .replace("/public", "")
+                  .replace("/images/", "")}
                 alt={frontMatter?.title || "Blog post cover image"}
-                fill
-                style={{ objectFit: "cover" }}
-                className="rounded"
-                placeholder="blur"
+                width={1920}
+                height={500}
               />
             </div>
           )}

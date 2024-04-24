@@ -5,9 +5,9 @@ import { type Table } from "@tanstack/react-table";
 
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
+import { Separator } from "@components/ui/separator";
 import { DataTableFacetedFilter } from "src/app/(dashboard)/dashboard/files/components/data-table-faceted-filter";
 import { DataTableViewOptions } from "src/app/(dashboard)/dashboard/files/components/data-table-view-options";
-import { Separator } from "src/app/_components/ui/separator";
 import { useCheckedRowsStore } from "src/store/store";
 import { api } from "src/trpc/react";
 

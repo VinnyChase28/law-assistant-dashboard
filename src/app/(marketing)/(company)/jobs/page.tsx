@@ -27,7 +27,7 @@ export default async function JobsPage() {
     <div className="container mx-auto px-4">
       <GenericHero
         title="Join Our Team"
-        description="We are always looking for talented individuals to join our team. Check out our open positions below."
+        description="We're always looking for talented individuals to join our team. Check out our open positions below."
       />
       <JobsSectionsContainer posts={allPosts} />
     </div>

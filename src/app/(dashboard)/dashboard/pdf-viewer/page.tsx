@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 
 import { useSearchParams } from "next/navigation";
 
+import Markdown from "@components/markdown";
 import PDFViewer from "@components/pdf-viewer";
-import Markdown from "src/app/_components/markdown";
 import { api } from "src/trpc/react";
 
 export default function FileViewerPage() {

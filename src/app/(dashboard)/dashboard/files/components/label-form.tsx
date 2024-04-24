@@ -11,8 +11,8 @@ import { Button } from "@components/ui/button";
 import { Form, FormControl, FormItem } from "@components/ui/form";
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
+import { Separator } from "@components/ui/separator";
 import { useToast } from "@components/ui/use-toast";
-import { Separator } from "src/app/_components/ui/separator";
 import { api } from "src/trpc/react";
 const labelFormSchema = z.object({
   labels: z.array(

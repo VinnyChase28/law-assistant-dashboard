@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
+import { Button } from "@components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,7 +11,6 @@ import {
   CardTitle,
 } from "@components/ui/card";
 import { Separator } from "@components/ui/separator";
-import { Button } from "src/app/_components/ui/button";
 
 const cardVariants = {
   initial: { opacity: 0, scale: 0.8 },
