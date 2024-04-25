@@ -12,13 +12,18 @@ const blurImage = async (filePath) => {
     `${path.basename(filePath, path.extname(filePath))}-blurred${path.extname(filePath)}`,
   );
 
-  try {
-    await sharp(filePath)
-      .blur(10) // Adjust the blur intensity as needed
-      .toFile(outputPath);
-    console.log(`Blurred image created: ${outputPath}`);
-  } catch (error) {
-    console.error("Error processing image:", error);
+  // Check if the blurred image already exists
+  if (!fs.existsSync(outputPath)) {
+    try {
+      await sharp(filePath)
+        .blur(10) // Adjust the blur intensity as needed
+        .toFile(outputPath);
+      console.log(`Blurred image created: ${outputPath}`);
+    } catch (error) {
+      console.error("Error processing image:", error);
+    }
+  } else {
+    console.log(`Blurred image already exists: ${outputPath}`);
   }
 };
 
@@ -31,8 +36,8 @@ fs.readdir(imagesDir, (err, files) => {
 
   files.forEach((file) => {
     const filePath = path.join(imagesDir, file);
-    // Filter files to process only images
-    if (/\.(jpg|jpeg|png|gif)$/i.test(file)) {
+    // Filter files to process only images and skip already blurred images
+    if (/\.(jpg|jpeg|png|gif)$/i.test(file) && !/-blurred\./i.test(file)) {
       blurImage(filePath);
     }
   });
