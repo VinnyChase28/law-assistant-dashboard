@@ -6,7 +6,7 @@ author:
   picture: 'https://avatars.githubusercontent.com/u/50678382?v=4'
 slug: 'retrieval-augmented-generation-a-solution-for-design-compliance'
 description: ''
-coverImage: '/images/austin-curtis-8yftfxuk3f8-unsplash-Y4Mj.jpg'
+coverImage: '/images/redd-f-woj5odhdoz0-unsplash-c5MT.jpg'
 publishedAt: '2024-04-19T02:30:11.909Z'
 ---
 

@@ -1,6 +1,6 @@
 {
-  "commit": "94c5a5b13da6fb457ef19b76b5d57d8e6a3c4787",
-  "generated": "2024-04-23T08:29:49.697Z",
+  "commit": "fa89dbc54a837f2de9711279e4b83c24a71385c6",
+  "generated": "2024-04-25T00:19:44.494Z",
   "metadata": [
     {
       "__outstatic": {
@@ -328,24 +328,6 @@
     },
     {
       "__outstatic": {
-        "commit": "54d7f5dba3623992bdf4f65589409c6310618c11",
-        "hash": "4219717892",
-        "path": "outstatic/content/blog/retrieval-augmented-generation-a-solution-for-design-compliance.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "collection": "blog",
-      "coverImage": "/images/austin-curtis-8yftfxuk3f8-unsplash-Y4Mj.jpg",
-      "description": "",
-      "publishedAt": "2024-04-19T02:30:11.909Z",
-      "slug": "retrieval-augmented-generation-a-solution-for-design-compliance",
-      "status": "published",
-      "title": "Retrieval-Augmented Generation: A Solution for Design Compliance"
-    },
-    {
-      "__outstatic": {
         "commit": "94c5a5b13da6fb457ef19b76b5d57d8e6a3c4787",
         "hash": "3875108696",
         "path": "outstatic/content/blog/compliance-automation.md"
@@ -361,6 +343,24 @@
       "slug": "compliance-automation",
       "status": "published",
       "title": "What is Compliance Automation?"
+    },
+    {
+      "__outstatic": {
+        "commit": "fa89dbc54a837f2de9711279e4b83c24a71385c6",
+        "hash": "1483468051",
+        "path": "outstatic/content/blog/retrieval-augmented-generation-a-solution-for-design-compliance.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/redd-f-woj5odhdoz0-unsplash-c5MT.jpg",
+      "description": "",
+      "publishedAt": "2024-04-19T02:30:11.909Z",
+      "slug": "retrieval-augmented-generation-a-solution-for-design-compliance",
+      "status": "published",
+      "title": "Retrieval-Augmented Generation: A Solution for Design Compliance"
     }
   ]
 }
