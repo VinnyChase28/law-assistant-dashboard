@@ -18,7 +18,7 @@ import {
   resourcesItems,
   getStartedItems,
   companyItems,
-} from "../../_config/nav";
+} from "@marketing/config/nav";
 import { LawAssistantLogo } from "../../assets/law-assistant-logo";
 import AuthButtonWrapper from "../sign-in-out";
 
@@ -30,7 +30,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "./navigation-menu";
-
 
 interface NavbarProps {
   session: Session | null; // Include null because the session might not always be present
@@ -69,7 +68,10 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
           </NavigationMenuItem>
 
           {/* mobile */}
-          <MobileAccordionNav />
+          <div className="md:hidden">
+            <MobileAccordionNav />
+          </div>
+
           {/* desktop */}
           <nav className="hidden gap-2 md:flex">
             <NavigationMenu>

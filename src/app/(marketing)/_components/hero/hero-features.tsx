@@ -34,16 +34,16 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
     <motion.div initial="hidden" animate="visible" variants={videoVariants}>
       <BackgroundVideo src={videoSrc}>
         <section className="relative">
-          <div className="mx-auto grid max-w-screen-xl px-8 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
+          <div className="mx-auto grid max-w-screen-xl px-4 py-4 sm:px-8 sm:py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
             <div className="mr-auto place-self-center lg:col-span-7">
-              <p className="text-white">{title}</p>
+              <p className="text-base text-white sm:text-lg">{title}</p>
 
-              <h1 className="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl xl:text-6xl">
+              <h1 className="mb-4 max-w-xl text-3xl font-extrabold leading-none tracking-tight text-white sm:text-4xl md:text-5xl">
                 {headline}
               </h1>
 
-              <p className="mb-6 max-w-2xl text-lg font-normal text-gray-300 lg:mb-8">
-              {description}
+              <p className="mb-6 max-w-xl text-sm font-normal text-gray-300 sm:text-lg lg:mb-8">
+                {description}
               </p>
 
               <motion.div
@@ -52,7 +52,7 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
                 animate="visible"
                 transition={{ duration: 0.6, delay: 0.8 }}
               >
-                <Button size="lg" variant="default">
+                <Button variant="default">
                   <a
                     href={primaryButtonLink}
                     target="_blank"
