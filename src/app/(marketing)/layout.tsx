@@ -18,7 +18,7 @@ const MarketingLayout: React.FC<MarketingLayoutProps> = async ({
   return (
     <>
       <Navbar session={session} />
-      <div style={{ marginTop: "64px" }}>{children}</div>
+      <div style={{ marginTop: "20px" }}>{children}</div>
       <Cta />
       <Footer />
     </>
