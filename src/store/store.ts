@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 
+
 export interface CheckedRowsState {
   checkedRows: { [key: number]: boolean };
   toggleRow: (id: number) => void;

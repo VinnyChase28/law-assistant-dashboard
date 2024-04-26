@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Trash2 } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -14,6 +13,9 @@ import { Label } from "@components/ui/label";
 import { Separator } from "@components/ui/separator";
 import { useToast } from "@components/ui/use-toast";
 import { api } from "src/trpc/react";
+
+import LabelActionsDropdown from "./label-actions";
+
 const labelFormSchema = z.object({
   labels: z.array(
     z.object({
@@ -36,9 +38,7 @@ export function LabelForm() {
 
   const form = useForm<LabelFormValues>({
     resolver: zodResolver(labelFormSchema),
-    defaultValues: {
-      labels: [{ name: "" }],
-    },
+    defaultValues: { labels: [{ name: "" }] },
     mode: "onChange",
   });
 
@@ -48,39 +48,21 @@ export function LabelForm() {
   });
 
   const createLabel = api.file.createLabel.useMutation();
-  const deleteLabel = api.file.deleteLabel.useMutation();
   const {
     data: labels,
     isLoading: isLoadingLabels,
     refetch,
   } = api.file.getLabels.useQuery();
 
-  useEffect(() => {
-    if (labels) {
-      setSavedLabels(
-        labels.map((label: any) => ({ id: label.id, name: label.text })),
-      );
-    }
-  }, [labels]);
-
   async function onSubmit(data: LabelFormValues) {
     setIsSubmitting(true);
-
     try {
       for (const label of data.labels) {
         await createLabel.mutateAsync({ text: label.name });
       }
-
       await refetch();
-
-      toast({
-        title: "Labels created successfully",
-      });
-
-      // Reset the form fields to a single empty input
-      form.reset({
-        labels: [{ name: "" }],
-      });
+      toast({ title: "Labels created successfully" });
+      form.reset({ labels: [{ name: "" }] });
     } catch (error) {
       toast({
         title: "Error creating labels",
@@ -88,34 +70,23 @@ export function LabelForm() {
           error instanceof Error ? error.message : "An error occurred",
       });
     }
-
     setIsSubmitting(false);
   }
 
-  async function handleDeleteLabel(id: string) {
-    try {
-      await deleteLabel.mutateAsync({ id });
-      setSavedLabels((prevSavedLabels) =>
-        prevSavedLabels.filter((label) => label.id !== id),
+  useEffect(() => {
+    if (labels) {
+      setSavedLabels(
+        labels.map((label) => ({ id: label.id, name: label.text })),
       );
-      toast({
-        title: "Label deleted successfully",
-      });
-    } catch (error) {
-      toast({
-        title: "Error deleting label",
-        description:
-          error instanceof Error ? error.message : "An error occurred",
-      });
     }
-  }
+  }, [labels]);
 
   return (
     <div className="w-full">
       {isLoadingLabels ? (
         <div>Loading labels...</div>
       ) : (
-        <div className="mt-8 pb-4">
+        <div className=" pb-4">
           <Label>Saved Labels</Label>
           {savedLabels.map((label) => (
             <div key={label.id} className="mt-2 flex items-center space-x-2">
@@ -125,13 +96,14 @@ export function LabelForm() {
                 readOnly
                 disabled
               />
-              <button
-                type="button"
-                onClick={() => handleDeleteLabel(label.id)}
-                className="flex items-center justify-center p-1"
-              >
-                <Trash2 size={20} />
-              </button>
+              <LabelActionsDropdown
+                labelId={label.id}
+                onDeleted={() =>
+                  setSavedLabels((prev) =>
+                    prev.filter((l) => l.id !== label.id),
+                  )
+                }
+              />
             </div>
           ))}
         </div>
@@ -159,13 +131,6 @@ export function LabelForm() {
                   />
                 </FormControl>
               </FormItem>
-              <button
-                type="button"
-                onClick={() => remove(index)}
-                className="flex items-center justify-center p-1 pt-3 hover:text-gray-700"
-              >
-                <Trash2 size={20} />
-              </button>
             </div>
           ))}
           <Button

@@ -291,4 +291,57 @@ export const fileRouter = createTRPCRouter({
         data: { labelId: null },
       });
     }),
+
+  // New route to assign a label to multiple files
+  assignLabelToMultipleFiles: protectedProcedure
+    .input(
+      z.object({
+        fileIds: z.array(z.number()), // Array of file IDs
+        labelId: z.string(), // The label ID to apply
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { fileIds, labelId } = input;
+
+      // Update all files with the new label
+      await ctx.db.file.updateMany({
+        where: {
+          id: {
+            in: fileIds, // Target only files with IDs in the provided array
+          },
+          userId: ctx.session.user.id, // Ensure files belong to the current user
+        },
+        data: {
+          labelId: labelId,
+        },
+      });
+
+      return {
+        success: true,
+        message: "Labels updated successfully for selected files.",
+      };
+    }),
+
+  removeLabelFromFiles: protectedProcedure
+    .input(
+      z.object({
+        labelId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { labelId } = input;
+      await ctx.db.file.updateMany({
+        where: {
+          labelId: labelId,
+          userId: ctx.session.user.id,
+        },
+        data: {
+          labelId: null,
+        },
+      });
+      return {
+        success: true,
+        message: "Label removed from all files successfully.",
+      };
+    }),
 });
