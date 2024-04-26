@@ -29,7 +29,7 @@ const config = {
     "@typescript-eslint/prefer-optional-chain": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/consistent-indexed-object-style": "off",
-    "@typescript-eslint/no-unsafe-assignment": "off",
+
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unsafe-return": "off",
     "@typescript-eslint/non-nullable-type-assertion-style": "off",
@@ -52,9 +52,9 @@ const config = {
         fixStyle: "inline-type-imports",
       },
     ],
+    //working on it
+    "@typescript-eslint/no-unsafe-assignment": "error",
 
-    //turn this back on after getting rid of the jank
-    "@typescript-eslint/no-misused-promises": "error",
     "@typescript-eslint/await-thenable": "off",
     //order
     "import/order": [

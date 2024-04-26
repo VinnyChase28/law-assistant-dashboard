@@ -1,13 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-
+import { File, User } from "@prisma/client";
 
 export interface CheckedRowsState {
   checkedRows: { [key: number]: boolean };
   toggleRow: (id: number) => void;
   deleteAll: () => void;
-  uncheckAll: () => void; 
+  uncheckAll: () => void;
 }
 
 export const useCheckedRowsStore = create<CheckedRowsState>()(
@@ -43,17 +42,14 @@ export const useCheckedRowsStore = create<CheckedRowsState>()(
   ),
 );
 
-
-
-
 //track user uploaded files
 export interface FilesState {
-  files: any; // Assuming UserFile is your file type
-  setFiles: (newFiles: any) => void;
+  files: File[];
+  setFiles: (newFiles: File[]) => void;
   removeFile: (fileId: number) => void;
-  filesDeleting: { [key: number]: boolean }; // New state to track deleting status
-  setFileDeleting: (fileId: number, isDeleting: boolean) => void; // Function to update deleting status
-  isFileDeleting: (fileId: number) => boolean; // Function to check if a file is being deleted
+  filesDeleting: { [key: number]: boolean };
+  setFileDeleting: (fileId: number, isDeleting: boolean) => void;
+  isFileDeleting: (fileId: number) => boolean;
 }
 
 export const useFilesStore = create<FilesState>()(
@@ -63,9 +59,9 @@ export const useFilesStore = create<FilesState>()(
       setFiles: (newFiles) => set({ files: newFiles }),
       removeFile: (fileId) =>
         set((state) => ({
-          files: state.files.filter((file: any) => file.id !== fileId),
+          files: state.files.filter((file) => file.id !== fileId),
         })),
-      filesDeleting: {}, // Initialize the deleting status object
+      filesDeleting: {},
       setFileDeleting: (fileId, isDeleting) =>
         set((state) => ({
           filesDeleting: { ...state.filesDeleting, [fileId]: isDeleting },
@@ -79,23 +75,23 @@ export const useFilesStore = create<FilesState>()(
 );
 
 export interface ComplianceReportsState {
-  reports: any[]; // It's better to define a more specific type if possible
-  addReport: (report: any) => void; // Adjust the type as necessary
+  reports: File[];
+  addReport: (report: File) => void;
   removeReport: (reportId: number) => void;
-  setReports: (newReports: any[]) => void; // Function to set the entire reports array
+  setReports: (newReports: File[]) => void;
 }
 
 export const useComplianceReportsStore = create<ComplianceReportsState>()(
   persist(
     (set) => ({
-      reports: [],
+      reports: [], // Ensure this is typed as File[]
       addReport: (report) =>
         set((state) => ({ reports: [...state.reports, report] })),
       removeReport: (reportId) =>
         set((state) => ({
           reports: state.reports.filter((report) => report.id !== reportId),
         })),
-      setReports: (newReports) => set(() => ({ reports: newReports })), // Set the entire reports array
+      setReports: (newReports) => set({ reports: newReports }),
     }),
     {
       name: "compliance-reports-storage",
