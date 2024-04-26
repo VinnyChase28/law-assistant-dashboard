@@ -127,8 +127,8 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
                       <ListItem
                         title="Free Trial"
                         icon={Gift}
-                        onClick={() => {
-                          signInWithAuth0();
+                        onClick={(e) => {
+                          signInWithAuth0(e);
                         }}
                         className="hover:cursor-pointer"
                       >
