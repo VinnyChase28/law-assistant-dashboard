@@ -10,7 +10,6 @@ import {
   Calendar,
   Mail,
   Play,
-  Phone,
   Briefcase,
   Megaphone,
   Pencil,
@@ -106,7 +105,7 @@ export const resourcesItems: NavItem[]  = [
     icon: Mail,
   },
 ];
-export const getStartedItems: NavItem[]  = [
+export const getStartedItems: NavItem[] = [
   {
     title: "Request a Demo",
     href: "https://cal.com/vincent-gauthier-yxbpaz/30min",
@@ -118,13 +117,6 @@ export const getStartedItems: NavItem[]  = [
     href: "/pricing",
     description: "Choose the right plan for your compliance needs",
     icon: DollarSign,
-  },
-
-  {
-    title: "Contact Sales",
-    href: "https://cal.com/vincent-gauthier-yxbpaz/30min",
-    description: "Discuss your compliance needs with our experts",
-    icon: Phone,
   },
 ];
 
