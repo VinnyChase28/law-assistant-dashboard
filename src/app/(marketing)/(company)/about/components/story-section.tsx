@@ -13,11 +13,10 @@ export default function StorySection() {
                 Rooted in Vancouver
               </h2>
               <p className="max-w-[700px]  md:text-xl/relaxed">
-                Our journey began in the vibrant city of Vancouver, where a
-                group of passionate individuals came together with a shared
-                vision to revolutionize compliance. Inspired by the city&apos;s
-                natural beauty and entrepreneurial spirit, we set out to create
-                something truly remarkable.
+                Our company was founded in Vancouver by a team of compliance
+                experts and technologists. Inspired by the city&lsquo;s
+                innovative spirit, we set out to transform the compliance
+                landscape with cutting-edge solutions.
               </p>
             </div>
             <div className="relative w-full lg:w-1/2">
@@ -47,9 +46,10 @@ export default function StorySection() {
                 Grown in San Francisco
               </h2>
               <p className="max-w-[700px]  md:text-xl/relaxed">
-                As our ambitions grew, we found ourselves drawn to the bustling
-                tech hub of San Francisco. While we are fully remote, we still
-                occasionally meet in shared office spaces in both cities.
+                As our company grew, we established a presence in San Francisco
+                to tap into the vibrant tech ecosystem. While fully remote, our
+                team occasionally collaborates in shared office spaces in both
+                cities.
               </p>
             </div>
           </div>

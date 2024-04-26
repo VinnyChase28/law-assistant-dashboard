@@ -84,7 +84,7 @@ export default function LeadershipTeamSection() {
                 <AvatarFallback>NP</AvatarFallback>
               </Avatar>
               <div>
-                <h4 className="font-semibold">Nikhil Patel</h4>
+                <h4 className="font-semibold">Leaticia Morano</h4>
                 <p className="text-sm ">General Manager</p>
               </div>
             </div>

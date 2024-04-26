@@ -42,11 +42,7 @@ export function DataTableRowActions<TData extends WithId>({
     },
   });
 
-  const {
-    data: labels,
-    isLoading: isLoadingLabels,
-    refetch,
-  } = api.file.getLabels.useQuery();
+  const { data: labels, refetch } = api.file.getLabels.useQuery();
   const assignLabel = api.file.assignLabel.useMutation();
 
   const handleLabelAssignment = async (labelId: string) => {

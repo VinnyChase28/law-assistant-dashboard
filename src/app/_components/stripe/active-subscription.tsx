@@ -17,7 +17,7 @@ import { AlertDialogComponent } from "../alert-dialogue";
 import { IconSpinner } from "../ui/icons";
 import { toast } from "../ui/use-toast";
 
-export function SubscriptionManager({ subscription }: any) {
+export function SubscriptionManager() {
   const [isCanceled, setIsCanceled] = useState<boolean | null>(null);
   const [disabled, setDisabled] = useState(false);
   const cancelSubscription = api.stripe.cancelSubscription.useMutation();

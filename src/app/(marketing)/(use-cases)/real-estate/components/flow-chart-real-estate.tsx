@@ -124,7 +124,7 @@ const config: FlowchartConfig = {
 
 const FlowChartRealEstate = () => {
   return (
-    <div className="container mx-auto p-8">
+    <div className="container mx-auto">
       <HeroFeatures
         title="Real Estate"
         headline="Compliance Automation for Real Estate "

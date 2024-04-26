@@ -3,29 +3,25 @@ import React from "react";
 import { getServerAuthSession } from "@/server/auth";
 import { Cta } from "@marketing/components/cta";
 import { Footer } from "@marketing/components/footer";
+import Navbar from "@marketing/components/navigation/navbar";
 
-import Navbar from "./_components/navigation/navbar";
 
-// Props type definition if needed
 interface MarketingLayoutProps {
   children: React.ReactNode;
-  // This would come from your server-side logic
 }
 
 const MarketingLayout: React.FC<MarketingLayoutProps> = async ({
   children,
 }) => {
-  // Directly use server-side logic to fetch session data
-  const session = await getServerAuthSession(); // Adjust as needed based on actual server-side fetching mechanism
+  const session = await getServerAuthSession();
 
   return (
     <>
       <Navbar session={session} />
-      {children}
+      <div style={{ marginTop: "20px" }}>{children}</div>
       <Cta />
       <Footer />
     </>
   );
 };
-
 export default MarketingLayout;

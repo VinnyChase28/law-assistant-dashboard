@@ -122,7 +122,7 @@ const config: FlowchartConfig = {
 
 const FlowChartFinancial = () => {
   return (
-    <div className="container mx-auto p-8">
+    <div className="container mx-auto">
       <HeroFeatures
         title="Compliance Monitoring"
         headline="Monitoring for Financial Transactions"

@@ -18,7 +18,6 @@ export default function SettingsAccountPage() {
     data: subscription,
     isLoading,
     error,
-    refetch,
   } = api.stripe.getUserSubscriptions.useQuery();
 
   if (isLoading) {
@@ -72,11 +71,7 @@ export default function SettingsAccountPage() {
         </Alert>
       )}
 
-      {subscription ? (
-        <SubscriptionManager subscription={subscription} refetch={refetch} />
-      ) : (
-        <Subscriptions />
-      )}
+      {subscription ? <SubscriptionManager /> : <Subscriptions />}
     </div>
   );
 }
