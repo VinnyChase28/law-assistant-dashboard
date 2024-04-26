@@ -39,14 +39,12 @@ export function JobApplicationForm() {
     },
   });
 
-  const { reset, handleSubmit, formState } = formMethods;
-  const { isSubmitting } = formState;
+  const { reset } = formMethods;
 
-  const onSubmit: SubmitHandler<ApplicationFormData> = async (data) => {
+  const onSubmit: SubmitHandler<ApplicationFormData> = async () => {
     setDisabled(true);
 
     try {
-      // Simulate a server response delay
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       toast({
@@ -56,15 +54,13 @@ export function JobApplicationForm() {
         variant: "default",
       });
     } finally {
-      reset(); // Clear form fields after submission
+      reset();
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-10">
       <FormProvider {...formMethods}>
-        {" "}
-        {/* Wrap the form with FormProvider */}
         <form
           onSubmit={formMethods.handleSubmit(onSubmit)}
           className=" mx-auto my-8 max-w-3xl space-y-4"

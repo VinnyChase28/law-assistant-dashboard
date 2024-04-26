@@ -14,9 +14,9 @@ export default function StorySection() {
               </h2>
               <p className="max-w-[700px]  md:text-xl/relaxed">
                 Our company was founded in Vancouver by a team of compliance
-                experts and technologists. Inspired by the city's innovative
-                spirit, we set out to transform the compliance landscape with
-                cutting-edge solutions.
+                experts and technologists. Inspired by the city&lsquo;s
+                innovative spirit, we set out to transform the compliance
+                landscape with cutting-edge solutions.
               </p>
             </div>
             <div className="relative w-full lg:w-1/2">

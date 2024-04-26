@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 
 import { Gift } from "lucide-react";
 import Link from "next/link";
@@ -38,8 +38,6 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ session }) => {
   const pathname = usePathname();
   const isOnDashboardRoute = pathname.includes("/dashboard");
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { deleteAll } = useCheckedRowsStore();
 
   async function signInWithAuth0(event: React.SyntheticEvent) {

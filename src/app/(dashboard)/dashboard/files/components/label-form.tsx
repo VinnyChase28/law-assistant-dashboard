@@ -42,7 +42,7 @@ export function LabelForm() {
     mode: "onChange",
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append } = useFieldArray({
     name: "labels",
     control: form.control,
   });

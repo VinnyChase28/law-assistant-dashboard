@@ -22,7 +22,7 @@ const VectorSearchComponent: React.FC = () => {
   const [isStreaming, setIsStreaming] = useState(false);
   const [isAIResponding, setIsAIResponding] = useState(false);
   const { isChatWithDocsEnabled, toggleChatWithDocs } = useChatWithDocsStore();
-  let { chatSessionId } = useChatSessionStore();
+  const { chatSessionId } = useChatSessionStore();
   const { setChatSessionId } = useChatSessionStore();
   const { data: messages, isLoading } =
     api.chat.getAllMessagesForSession.useQuery(
@@ -34,7 +34,7 @@ const VectorSearchComponent: React.FC = () => {
     const checkedFileIds = Object.keys(checkedRows).map((key) => Number(key));
 
     const chatEndRef = useRef<HTMLDivElement | null>(null);
-
+    const chatSessionIdRef = useRef(chatSessionId);
     const convertTextToVector = api.vector.convertTextToVector.useMutation();
     const vectorSearch = api.vector.vectorSearch.useMutation();
     const generateDocumentPrompt = api.llm.generateDocumentPrompt.useMutation();
@@ -62,13 +62,13 @@ const VectorSearchComponent: React.FC = () => {
     useEffect(() => {
       // If no local chatSessionId is found, fetch the most recent session for the user
       const fetchRecentSession = async () => {
-        if (!chatSessionId) {
+        if (!chatSessionIdRef.current) {
           try {
             const recentSession =
               await getMostRecentSessionForUser.mutateAsync();
             if (recentSession) {
               setChatSessionId(recentSession.id);
-              chatSessionId = recentSession.id;
+              chatSessionIdRef.current = recentSession.id; // Update ref
             }
           } catch (error) {
             console.error("Error fetching recent chat session:", error);
@@ -77,7 +77,7 @@ const VectorSearchComponent: React.FC = () => {
       };
 
       fetchRecentSession();
-    }, [chatSessionId, setChatSessionId]);
+    }, [setChatSessionId, getMostRecentSessionForUser]);
 
     const sendMessage = async () => {
       setInputMessage("");
