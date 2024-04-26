@@ -62,7 +62,9 @@ export function JobApplicationForm() {
     <div className="container mx-auto px-4 py-10">
       <FormProvider {...formMethods}>
         <form
-          onSubmit={formMethods.handleSubmit(onSubmit)}
+          onSubmit={() => {
+            formMethods.handleSubmit(onSubmit);
+          }}
           className=" mx-auto my-8 max-w-3xl space-y-4"
         >
           {/* Full Name Field */}

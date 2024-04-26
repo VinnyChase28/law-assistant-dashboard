@@ -127,7 +127,9 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
                       <ListItem
                         title="Free Trial"
                         icon={Gift}
-                        onClick={signInWithAuth0}
+                        onClick={() => {
+                          signInWithAuth0();
+                        }}
                         className="hover:cursor-pointer"
                       >
                         Get started with CodeX risk-free

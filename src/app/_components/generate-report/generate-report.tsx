@@ -143,7 +143,9 @@ const CreateReportComponent = () => {
         {" "}
         {/* Flex container for the button and spinner */}
         <Button
-          onClick={handleCreateReportClick}
+          onClick={() => {
+            handleCreateReportClick();
+          }}
           variant={hasSingleComplianceSubmission ? "default" : "ghost"}
           disabled={isLoading || !hasSingleComplianceSubmission}
         >

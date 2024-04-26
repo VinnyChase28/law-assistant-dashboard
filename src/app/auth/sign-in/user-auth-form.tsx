@@ -19,7 +19,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     event.preventDefault();
     deleteAll();
     await signIn("auth0", {
-      // redirect: true,
       callbackUrl: "/dashboard",
     });
   }
@@ -41,7 +40,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin text-center" />
         ) : (
-          <Button onClick={onSubmit} variant={"secondary"} disabled={isLoading}>
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              onSubmit(e);
+            }}
+          >
             Authenticate
           </Button>
         )}
