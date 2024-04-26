@@ -51,35 +51,44 @@ export function SubscriptionManager() {
   const cancel = async () => {
     setDisabled(true);
     setIsCanceled(true);
-    await cancelSubscription.mutateAsync(undefined, {
-      onSuccess: async () => {
-        await refetch();
-        toast({
-          title: "Subscription Canceled",
-          description: "Your subscription has been canceled.",
-        });
-      },
-    });
-
-    setTimeout(() => {
-      setDisabled(false);
-    }, 3000);
+    try {
+      await cancelSubscription.mutateAsync();
+    } finally {
+      setTimeout(() => {
+        setDisabled(false);
+      }, 3000);
+    }
   };
 
   const resume = async () => {
     setDisabled(true);
     setIsCanceled(false);
-    await resumeSubscription.mutateAsync(undefined, {
-      onSuccess: async () => {
-        await refetch();
-        toast({
-          title: "Subscription Resumed",
-          description: "Your subscription has been resumed.",
-        });
-        setTimeout(() => {
-          setDisabled(false);
-        }, 3000);
-      },
+    try {
+      await resumeSubscription.mutateAsync();
+    } finally {
+      setTimeout(() => {
+        setDisabled(false);
+      }, 3000);
+    }
+  };
+
+  const handleCancel = () => {
+    cancel().catch((error) => {
+      console.error("Failed to cancel subscription:", error);
+      toast({
+        title: "Error",
+        description: "Failed to cancel subscription.",
+      });
+    });
+  };
+
+  const handleResume = () => {
+    resume().catch((error) => {
+      console.error("Failed to resume subscription:", error);
+      toast({
+        title: "Error",
+        description: "Failed to resume subscription.",
+      });
     });
   };
 
@@ -89,7 +98,7 @@ export function SubscriptionManager() {
       title="Resume Subscription"
       description="Are you sure you want to resume?"
       confirmLabel="Yes, Resume"
-      onConfirm={resume}
+      onConfirm={handleResume}
     />
   ) : (
     <AlertDialogComponent
@@ -97,7 +106,7 @@ export function SubscriptionManager() {
       title="Cancel Subscription"
       description="Are you sure you want to cancel your subscription? We're sad to see you go."
       confirmLabel="Yes, Cancel"
-      onConfirm={cancel}
+      onConfirm={handleCancel}
     />
   );
 

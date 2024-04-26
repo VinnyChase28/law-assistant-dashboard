@@ -36,7 +36,11 @@ const Subscriptions = () => {
             $19.99 and $0.06 per 1000 tokens (approximately 750 words) billed
             monthly
           </h5>
-          <Button onClick={() => handleGoToSubscriptionCheckoutSession()}>
+          <Button
+            onClick={() => {
+              handleGoToSubscriptionCheckoutSession();
+            }}
+          >
             Subscribe
           </Button>
         </div>

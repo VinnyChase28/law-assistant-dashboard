@@ -51,7 +51,12 @@ export function NotificationsForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={() => {
+          form.handleSubmit(onSubmit);
+        }}
+        className="space-y-8"
+      >
         <div>
           <h3 className="mb-4 text-lg font-medium">Email Notifications</h3>
           <div className="space-y-4">

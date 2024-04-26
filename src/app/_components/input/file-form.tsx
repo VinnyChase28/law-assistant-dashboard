@@ -62,7 +62,7 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    setFilesSelected(!!files && files.length > 0); // Update state based on file selection
+    setFilesSelected(!!files && files.length > 0);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -81,14 +81,14 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
 
     try {
       const uploadedFiles = await uploadFiles(inputFileRef.current.files);
-      uploadedFiles.forEach(async (fileMetadata) => {
-        sendDocumentDataForProcessingToInngest.mutateAsync({
+      for (const fileMetadata of uploadedFiles) {
+        await sendDocumentDataForProcessingToInngest.mutateAsync({
           fileId: fileMetadata.id,
           blobUrl: fileMetadata.blobUrl!,
           userId: fileMetadata.userId,
           documentType,
         });
-      });
+      }
       toast({
         title: "Files sent for processing",
         description:
@@ -109,7 +109,12 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
+      <form
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+        className="flex flex-col gap-4 p-4"
+      >
         {isUploading ? (
           <div className="flex h-full w-full items-center justify-center">
             <p>Please wait...</p>

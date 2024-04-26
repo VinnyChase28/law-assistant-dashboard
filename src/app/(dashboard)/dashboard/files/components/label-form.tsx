@@ -114,7 +114,7 @@ export function LabelForm() {
       <div className="pt-4" />
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={() => form.handleSubmit(onSubmit)}
           className="w-full space-y-8"
         >
           {fields.map((field, index) => (

@@ -145,7 +145,12 @@ export function ProfileForm() {
       <Label>Email</Label>
       <p className="pb-6">{userData?.email}</p>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={() => {
+            form.handleSubmit(onSubmit);
+          }}
+          className="space-y-8"
+        >
           <FormField
             control={form.control}
             name="name"

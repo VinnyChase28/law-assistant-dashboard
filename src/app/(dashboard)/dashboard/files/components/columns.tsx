@@ -15,6 +15,7 @@ interface SelectAllCheckboxHeaderProps {
   table: Table<File>;
 }
 
+
 const SelectAllCheckboxHeader = ({ table }: SelectAllCheckboxHeaderProps) => {
   const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
   const allRows = table.getPrePaginationRowModel().rows;

@@ -215,7 +215,9 @@ const VectorSearchComponent: React.FC = () => {
   return (
     <div className="chat-app-container relative mx-auto flex w-full flex-col py-6 sm:py-12 md:max-w-2xl lg:max-w-4xl">
       <DropdownMenuCheckboxes
-        onStartNewChat={startNewChat}
+        onStartNewChat={() => {
+          startNewChat();
+        }}
         isChatWithDocsEnabled={isChatWithDocsEnabled}
         toggleChatWithDocs={toggleChatWithDocs}
       />
