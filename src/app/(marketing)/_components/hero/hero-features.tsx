@@ -50,6 +50,7 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
             }}
           />
         </div>
+        {/* Render BackgroundVideo only on large screens (lg and above) */}
         <div className="hidden lg:block">
           <BackgroundVideo src={videoSrc}>
             <ContentSection
