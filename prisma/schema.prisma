@@ -98,7 +98,7 @@ model FileTaskHistory {
 model FileTaskDocument {
   taskHistoryId String
   fileId        Int
-  file          File            @relation(fields: [fileId], references: [id])
+  file          File @relation(fields: [fileId], references: [id], onDelete: Cascade)
   taskHistory   FileTaskHistory @relation(fields: [taskHistoryId], references: [id])
 
   @@id([taskHistoryId, fileId])

@@ -1,8 +1,8 @@
 "use client";
 
+import { type Label } from "@prisma/client";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { type Row } from "@tanstack/react-table";
-import { useRouter } from "next/navigation";
 
 import { Button } from "@components/ui/button";
 import {
@@ -10,17 +10,19 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
+  DropdownMenuShortcut,
 } from "@components/ui/dropdown-menu";
-import { useFilesStore } from "src/store/store";
-import { api } from "src/trpc/react";
+
+import { useFileActions } from "../hooks/use-file-actions";
+import { useLabelActions } from "../hooks/use-label-actions";
 
 interface WithId {
   id: number;
+  label: Label;
 }
 
 interface DataTableRowActionsProps<TData extends WithId> {
@@ -30,51 +32,11 @@ interface DataTableRowActionsProps<TData extends WithId> {
 export function DataTableRowActions<TData extends WithId>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const router = useRouter();
-  const { setFileDeleting, isFileDeleting, removeFile } = useFilesStore();
-  const deleteFile = api.file.deleteFile.useMutation({
-    onSuccess: () => {
-      setFileDeleting(row.original.id, false);
-    },
-    onError: (error: any) => {
-      console.error("Error deleting file:", error);
-      setFileDeleting(row.original.id, false);
-    },
-  });
-
-  const { data: labels, refetch } = api.file.getLabels.useQuery();
-  const assignLabel = api.file.assignLabel.useMutation();
-
-  const handleLabelAssignment = async (labelId: string) => {
-    await assignLabel.mutateAsync({
-      fileId: row.original.id,
-      labelId,
-    });
-  };
-
-  const removeLabel = api.file.removeLabel.useMutation({
-    onSuccess: () => {
-      void refetch();
-    },
-  });
-
-  const handleLabelRemoval = async () => {
-    await removeLabel.mutateAsync({
-      fileId: row.original.id,
-    });
-  };
-
-  const viewFile = () => {
-    router.push(`/dashboard/pdf-viewer?fileId=${row.original.id}`);
-  };
-
-  const handleDelete = async () => {
-    setFileDeleting(row.original.id, true);
-    await deleteFile.mutateAsync(row.original.id);
-    removeFile(row.original.id);
-  };
-
-  const isDeleting = isFileDeleting(row.original.id);
+  const { viewFile, handleDelete, isDeleting } = useFileActions(
+    row.original.id,
+  );
+  const { labels, handleAssignLabelToFile, handleRemoveLabelFromFile } =
+    useLabelActions(row.original.id);
 
   return (
     <DropdownMenu>
@@ -94,27 +56,32 @@ export function DataTableRowActions<TData extends WithId>({
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            {labels?.map((label: any) => (
+            {labels?.map((label: Label) => (
               <DropdownMenuItem
                 key={label.id}
-                onSelect={() => handleLabelAssignment(label.id)}
+                onSelect={() => {
+                  handleAssignLabelToFile(label.id).catch(console.error); // Pass label.id here
+                }}
               >
                 {label.text}
               </DropdownMenuItem>
             ))}
-            {/* @ts-expect-error label type*/}
-            {row.original.label && (
-              <>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={handleLabelRemoval}>
-                  Remove Label
-                </DropdownMenuItem>
-              </>
-            )}
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onSelect={() => {
+                handleRemoveLabelFromFile(row.original.id).catch(console.error);
+              }}
+            >
+              Remove Label
+            </DropdownMenuItem>
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onSelect={handleDelete}>
+        <DropdownMenuItem
+          onSelect={() => {
+            handleDelete().catch(console.error);
+          }}
+        >
           {isDeleting ? "Deleting..." : "Delete"}
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>

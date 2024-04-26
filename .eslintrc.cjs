@@ -54,7 +54,7 @@ const config = {
     ],
 
     //turn this back on after getting rid of the jank
-    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-misused-promises": "error",
     "@typescript-eslint/await-thenable": "off",
     //order
     "import/order": [

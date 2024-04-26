@@ -2,7 +2,6 @@ import React from "react";
 
 import { MoreVertical } from "lucide-react";
 
-import { useCheckedRowsStore } from "@/store/store";
 import { Button } from "@components/ui/button";
 import {
   DropdownMenu,
@@ -10,8 +9,8 @@ import {
   DropdownMenuItem,
   DropdownMenuContent,
 } from "@components/ui/dropdown-menu";
-import { useToast } from "@components/ui/use-toast";
-import { api } from "src/trpc/react";
+
+import { useLabelActions } from "../hooks/use-label-actions";
 
 interface LabelActionsDropdownProps {
   labelId: string;
@@ -19,50 +18,10 @@ interface LabelActionsDropdownProps {
 }
 
 const LabelActionsDropdown: React.FC<LabelActionsDropdownProps> = ({
-  labelId,
   onDeleted,
 }) => {
-  const { toast } = useToast();
-  const deleteLabel = api.file.deleteLabel.useMutation();
-  const assignLabelToMultipleFiles =
-    api.file.assignLabelToMultipleFiles.useMutation();
-  const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
-
-  const handleDelete = async () => {
-    try {
-      await deleteLabel.mutateAsync({ id: labelId });
-      toast({
-        title: "Label deleted successfully",
-      });
-      onDeleted();
-    } catch (error) {
-      toast({
-        title: "Error deleting label",
-        description:
-          error instanceof Error ? error.message : "An error occurred",
-      });
-    }
-  };
-
-  const handleAssignLabel = async () => {
-    const fileIds = Object.keys(checkedRows)
-      .filter((key) => checkedRows[Number(key)])
-      .map(Number);
-
-    try {
-      await assignLabelToMultipleFiles.mutateAsync({ fileIds, labelId });
-      toast({
-        title: "Label assigned successfully",
-        description: "The label has been applied to the selected files.",
-      });
-    } catch (error) {
-      toast({
-        title: "Error assigning label",
-        description:
-          error instanceof Error ? error.message : "An error occurred",
-      });
-    }
-  };
+  const { handleDeleteLabel, handleAssignLabelToMultipleFiles } =
+    useLabelActions();
 
   return (
     <DropdownMenu>
@@ -72,10 +31,20 @@ const LabelActionsDropdown: React.FC<LabelActionsDropdownProps> = ({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onSelect={handleAssignLabel}>
+        <DropdownMenuItem
+          onSelect={() => {
+            handleAssignLabelToMultipleFiles().catch(console.error);
+          }}
+        >
           Assign to Checked
         </DropdownMenuItem>
-        <DropdownMenuItem onSelect={handleDelete}>Delete</DropdownMenuItem>
+        <DropdownMenuItem
+          onSelect={() => {
+            handleDeleteLabel().then(onDeleted).catch(console.error);
+          }}
+        >
+          Delete
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
