@@ -22,7 +22,7 @@ import { useLabelActions } from "../hooks/use-label-actions";
 
 interface WithId {
   id: number;
-  label: Label;
+
 }
 
 interface DataTableRowActionsProps<TData extends WithId> {
