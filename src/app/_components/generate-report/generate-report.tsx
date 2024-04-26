@@ -14,28 +14,24 @@ import { IconSpinner } from "../ui/icons";
 
 const CreateReportComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast(); // Initialize useToast
-  const { checkedRows } = useCheckedRowsStore();
-
+  const { toast } = useToast();
+  const { getCheckedComplianceSubmissions, getCheckedRegulatoryDocuments } =
+    useCheckedRowsStore();
   const { files } = useFilesStore();
 
-  const selectedComplianceSubmission = files?.find(
-    (file: any) =>
-      file.documentType === "COMPLIANCE_SUBMISSION" && checkedRows[file.id],
+  // Retrieve IDs of checked documents
+  const complianceSubmissionIds = getCheckedComplianceSubmissions();
+  const regulatoryDocumentIds = getCheckedRegulatoryDocuments();
+
+  // Find the selected documents based on the IDs
+  const selectedComplianceSubmission = files.find((file) =>
+    complianceSubmissionIds.includes(file.id),
   );
-  const selectedRegulatoryDocuments = files?.filter(
-    (file: any) =>
-      file.documentType === "REGULATORY_FRAMEWORK" && checkedRows[file.id],
+  const selectedRegulatoryDocuments = files.filter((file) =>
+    regulatoryDocumentIds.includes(file.id),
   );
 
-  const hasSingleComplianceSubmission =
-    selectedComplianceSubmission &&
-    Object.keys(checkedRows).filter(
-      (id: any) =>
-        checkedRows[id] &&
-        files.find((file: File) => file.id === parseInt(id)).documentType ===
-          "COMPLIANCE_SUBMISSION",
-    ).length === 1;
+  const hasSingleComplianceSubmission = complianceSubmissionIds.length === 1;
 
   // Mutations
   const findSimilarRegulatoryDocuments =
@@ -71,7 +67,8 @@ const CreateReportComponent = () => {
 
       toast({
         title: "Compliance Report Started",
-        description: `The compliance data has been sent to CodeX. A new report will be available in the Reports tab.`,
+        description:
+          "The compliance data has been sent to CodeX. A new report will be available in the Reports tab.",
       });
     } catch (error) {
       console.error(
@@ -91,14 +88,12 @@ const CreateReportComponent = () => {
         code: "Escape",
         bubbles: true,
       });
-
       document.dispatchEvent(keyDownEvent);
     }
   };
 
   return (
     <div className="space-y-6 p-5">
-      {/* Compliance Submission Section */}
       <div>
         <h3 className="text-lg font-semibold">
           Selected Compliance Submission:
@@ -112,16 +107,14 @@ const CreateReportComponent = () => {
         )}
       </div>
 
-      {/* Divider */}
       <hr className="border-t border-gray-200" />
 
-      {/* Regulatory Framework Documents Section */}
       <div>
         <h3 className="text-lg font-semibold">
           Selected Regulatory Framework Documents:
         </h3>
         {selectedRegulatoryDocuments.length > 0 ? (
-          selectedRegulatoryDocuments.map((document: any) => (
+          selectedRegulatoryDocuments.map((document: File) => (
             <p key={document.id} className="mt-2">
               {document.name}
             </p>
@@ -135,24 +128,19 @@ const CreateReportComponent = () => {
 
       <AlertComponent
         title="Heads up!"
-        description=" You can only verify one Compliance Submission document at a time."
+        description="You can only verify one Compliance Submission document at a time."
         iconType="info"
       />
 
       <div className="mt-4 flex items-center">
-        {" "}
-        {/* Flex container for the button and spinner */}
         <Button
-          onClick={() => {
-            handleCreateReportClick();
-          }}
+          onClick={handleCreateReportClick}
           variant={hasSingleComplianceSubmission ? "default" : "ghost"}
           disabled={isLoading || !hasSingleComplianceSubmission}
         >
           Create Report
         </Button>
-        {isLoading && <IconSpinner className="ml-2 h-6 w-6 animate-spin" />}{" "}
-        {/* Spinner with margin-left */}
+        {isLoading && <IconSpinner className="ml-2 h-6 w-6 animate-spin" />}
       </div>
     </div>
   );

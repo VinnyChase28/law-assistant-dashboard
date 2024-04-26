@@ -1,45 +1,59 @@
-import { type File } from "@prisma/client";
+import { type File, type ChatSession } from "@prisma/client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-
-//track selected files across all tables
 export interface CheckedRowsState {
-  checkedRows: Record<number, boolean>;
-  toggleRow: (id: number) => void;
+  checkedRows: Record<File["id"], boolean>;
+  toggleRow: (id: File["id"]) => void;
   deleteAll: () => void;
   uncheckAll: () => void;
+  getCheckedComplianceSubmissions: () => File["id"][];
+  getCheckedRegulatoryDocuments: () => File["id"][];
 }
 
 export const useCheckedRowsStore = create<CheckedRowsState>()(
   persist(
-    (set) => ({
-      checkedRows: {} as Record<number, boolean>,
+    (set, get) => ({
+      checkedRows: {},
       toggleRow: (id: number) =>
         set((state) => {
           const newCheckedRows = { ...state.checkedRows };
-          if (newCheckedRows[id]) {
-            delete newCheckedRows[id];
-          } else {
-            newCheckedRows[id] = true;
-          }
+          newCheckedRows[id] = !state.checkedRows[id];
           return { checkedRows: newCheckedRows };
         }),
-      deleteAll: () => set({ checkedRows: {} as Record<number, boolean> }), 
+      deleteAll: () => set({ checkedRows: {} }),
       uncheckAll: () =>
         set((state) => {
-          const allUnchecked: Record<number, boolean> = Object.keys(
-            state.checkedRows,
-          ).reduce(
-            (acc, key) => {
-              const numericKey = Number(key);
-              acc[numericKey] = false;
-              return acc;
-            },
-            {} as Record<number, boolean>,
-          ); 
+          const allUnchecked: Record<number, boolean> = {};
+          Object.keys(state.checkedRows).forEach((key) => {
+            allUnchecked[Number(key)] = false;
+          });
           return { checkedRows: allUnchecked };
         }),
+      getCheckedComplianceSubmissions: () => {
+        const { files } = useFilesStore.getState();
+        return Object.keys(get().checkedRows)
+          .filter((id) => get().checkedRows[Number(id)])
+          .map(Number)
+          .filter((id) =>
+            files.find(
+              (file) =>
+                file.id === id && file.documentType === "COMPLIANCE_SUBMISSION",
+            ),
+          );
+      },
+      getCheckedRegulatoryDocuments: () => {
+        const { files } = useFilesStore.getState();
+        return Object.keys(get().checkedRows)
+          .filter((id) => get().checkedRows[Number(id)])
+          .map(Number)
+          .filter((id) =>
+            files.find(
+              (file) =>
+                file.id === id && file.documentType === "REGULATORY_FRAMEWORK",
+            ),
+          );
+      },
     }),
     {
       name: "checked-rows-storage",
@@ -51,10 +65,10 @@ export const useCheckedRowsStore = create<CheckedRowsState>()(
 export interface FilesState {
   files: File[];
   setFiles: (newFiles: File[]) => void;
-  removeFile: (fileId: number) => void;
+  removeFile: (fileId: File["id"]) => void;
   filesDeleting: { [key: number]: boolean };
-  setFileDeleting: (fileId: number, isDeleting: boolean) => void;
-  isFileDeleting: (fileId: number) => boolean;
+  setFileDeleting: (fileId: File["id"], isDeleting: boolean) => void;
+  isFileDeleting: (fileId: File["id"]) => boolean;
 }
 
 export const useFilesStore = create<FilesState>()(
@@ -82,14 +96,14 @@ export const useFilesStore = create<FilesState>()(
 export interface ComplianceReportsState {
   reports: File[];
   addReport: (report: File) => void;
-  removeReport: (reportId: number) => void;
+  removeReport: (reportId: File["id"]) => void;
   setReports: (newReports: File[]) => void;
 }
 
 export const useComplianceReportsStore = create<ComplianceReportsState>()(
   persist(
     (set) => ({
-      reports: [], 
+      reports: [],
       addReport: (report) =>
         set((state) => ({ reports: [...state.reports, report] })),
       removeReport: (reportId) =>
@@ -107,17 +121,17 @@ export const useComplianceReportsStore = create<ComplianceReportsState>()(
 // Define the interface for your store's state and actions
 interface ChatWithDocsState {
   isChatWithDocsEnabled: boolean;
-  toggleChatWithDocs: () => void; 
+  toggleChatWithDocs: () => void;
 }
 
 // Create the store using Zustand
 export const useChatWithDocsStore = create<ChatWithDocsState>()(
   persist(
     (set) => ({
-      isChatWithDocsEnabled: true, 
+      isChatWithDocsEnabled: true,
       toggleChatWithDocs: () =>
         set((state) => ({
-          isChatWithDocsEnabled: !state.isChatWithDocsEnabled, 
+          isChatWithDocsEnabled: !state.isChatWithDocsEnabled,
         })),
     }),
     {
@@ -127,20 +141,20 @@ export const useChatWithDocsStore = create<ChatWithDocsState>()(
 );
 
 interface ChatSessionState {
-  chatSessionId: string | null; // Holds the current chat session ID
-  setChatSessionId: (id: string | null) => void; // Method to update the chat session ID
-  clearChatSession: () => void; // Method to clear the current chat session
+  chatSessionId: ChatSession["id"] | null;
+  setChatSessionId: (id: ChatSession["id"] | null) => void;
+  clearChatSession: () => void;
 }
 
 export const useChatSessionStore = create<ChatSessionState>()(
   persist(
     (set) => ({
-      chatSessionId: null, // Default state is no active session
+      chatSessionId: null, 
       setChatSessionId: (id: string | null) => set({ chatSessionId: id }),
       clearChatSession: () => set({ chatSessionId: null }),
     }),
     {
-      name: "chat-session-storage", // Unique name for localStorage key
+      name: "chat-session-storage", 
     },
   ),
 );
