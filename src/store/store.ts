@@ -1,9 +1,11 @@
+import { type File } from "@prisma/client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { File, User } from "@prisma/client";
 
+
+//track selected files across all tables
 export interface CheckedRowsState {
-  checkedRows: { [key: number]: boolean };
+  checkedRows: Record<number, boolean>;
   toggleRow: (id: number) => void;
   deleteAll: () => void;
   uncheckAll: () => void;
@@ -12,9 +14,9 @@ export interface CheckedRowsState {
 export const useCheckedRowsStore = create<CheckedRowsState>()(
   persist(
     (set) => ({
-      checkedRows: {},
+      checkedRows: {} as Record<number, boolean>,
       toggleRow: (id: number) =>
-        set((state: any) => {
+        set((state) => {
           const newCheckedRows = { ...state.checkedRows };
           if (newCheckedRows[id]) {
             delete newCheckedRows[id];
@@ -23,16 +25,19 @@ export const useCheckedRowsStore = create<CheckedRowsState>()(
           }
           return { checkedRows: newCheckedRows };
         }),
-      deleteAll: () => set({ checkedRows: {} }),
+      deleteAll: () => set({ checkedRows: {} as Record<number, boolean> }), 
       uncheckAll: () =>
-        set((state: any) => {
+        set((state) => {
           const allUnchecked: Record<number, boolean> = Object.keys(
             state.checkedRows,
-          ).reduce((acc: Record<number, boolean>, key) => {
-            const numericKey = Number(key); // Convert the key to a number since your keys are numerical
-            acc[numericKey] = false; // Set each row's value to false
-            return acc;
-          }, {});
+          ).reduce(
+            (acc, key) => {
+              const numericKey = Number(key);
+              acc[numericKey] = false;
+              return acc;
+            },
+            {} as Record<number, boolean>,
+          ); 
           return { checkedRows: allUnchecked };
         }),
     }),
@@ -84,7 +89,7 @@ export interface ComplianceReportsState {
 export const useComplianceReportsStore = create<ComplianceReportsState>()(
   persist(
     (set) => ({
-      reports: [], // Ensure this is typed as File[]
+      reports: [], 
       addReport: (report) =>
         set((state) => ({ reports: [...state.reports, report] })),
       removeReport: (reportId) =>
@@ -101,22 +106,22 @@ export const useComplianceReportsStore = create<ComplianceReportsState>()(
 
 // Define the interface for your store's state and actions
 interface ChatWithDocsState {
-  isChatWithDocsEnabled: boolean; // Tracks whether the Chat with Docs feature is enabled
-  toggleChatWithDocs: () => void; // Method to toggle the state
+  isChatWithDocsEnabled: boolean;
+  toggleChatWithDocs: () => void; 
 }
 
 // Create the store using Zustand
 export const useChatWithDocsStore = create<ChatWithDocsState>()(
   persist(
     (set) => ({
-      isChatWithDocsEnabled: true, // Default state
+      isChatWithDocsEnabled: true, 
       toggleChatWithDocs: () =>
         set((state) => ({
-          isChatWithDocsEnabled: !state.isChatWithDocsEnabled, // Toggle the state
+          isChatWithDocsEnabled: !state.isChatWithDocsEnabled, 
         })),
     }),
     {
-      name: "chat-with-docs-feature-storage", // Unique name for localStorage key
+      name: "chat-with-docs-feature-storage",
     },
   ),
 );
@@ -139,4 +144,3 @@ export const useChatSessionStore = create<ChatSessionState>()(
     },
   ),
 );
-

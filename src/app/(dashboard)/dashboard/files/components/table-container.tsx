@@ -1,8 +1,11 @@
 "use client";
 import { useEffect } from "react";
+
 import { type DocumentType, type File } from "@prisma/client";
+
 import { useFilesStore } from "src/store/store";
 import { api } from "src/trpc/react";
+
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
