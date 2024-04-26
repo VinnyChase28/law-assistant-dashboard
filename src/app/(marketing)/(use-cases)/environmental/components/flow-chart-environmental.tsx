@@ -128,7 +128,7 @@ const config: FlowchartConfig = {
 
 const FlowChartEnvironmental = () => {
   return (
-    <div className="container mx-auto p-8">
+    <div>
       <HeroFeatures
         title="Environmental Compliance"
         headline="Environmental Compliance Automation"

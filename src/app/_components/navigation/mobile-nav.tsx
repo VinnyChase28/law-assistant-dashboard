@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 import { motion } from "framer-motion";
 import { MenuIcon } from "lucide-react";
@@ -28,7 +28,7 @@ import {
 } from "@marketing/config/nav";
 
 const MobileAccordionNav = () => {
-  const [isOpen, setIsOpen] = useState(false);
+
   const groups = [
     { title: "Platform", items: platformItems },
     { title: "Use Cases", items: useCasesItems },
@@ -37,7 +37,6 @@ const MobileAccordionNav = () => {
     { title: "Company", items: companyItems },
   ];
 
-  // Animation variants for framer-motion
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (custom: number) => ({
@@ -47,15 +46,22 @@ const MobileAccordionNav = () => {
     }),
   };
 
+  const simulateEscapeKeyPress = () => {
+    const event = new KeyboardEvent("keydown", {
+      key: "Escape",
+      code: "Escape",
+      keyCode: 27,
+      bubbles: true,
+      cancelable: true,
+    });
+    document.dispatchEvent(event);
+  };
+
   return (
     <>
       <Drawer>
         <DrawerTrigger asChild>
-          <Button
-            variant="outline"
-            onClick={() => setIsOpen(!isOpen)}
-            className="p-4"
-          >
+          <Button variant="outline" className="p-4">
             <MenuIcon />
           </Button>
         </DrawerTrigger>
@@ -78,7 +84,12 @@ const MobileAccordionNav = () => {
                           custom={itemIndex}
                           style={{ margin: "auto", padding: "10px 0" }}
                         >
-                          <Link href={item.href}>{item.title}</Link>
+                          <Link
+                            href={item.href}
+                            onClick={simulateEscapeKeyPress}
+                          >
+                            {item.title}
+                          </Link>
                         </motion.li>
                       ))}
                     </ul>

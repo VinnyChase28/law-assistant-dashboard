@@ -24,7 +24,7 @@ export default async function JobsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="container">
       <GenericHero
         title="Join Our Team"
         description="We're always looking for talented individuals to join our team. Check out our open positions below."

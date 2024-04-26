@@ -130,7 +130,7 @@ const config: FlowchartConfig = {
 
 const FlowChartContract = () => {
   return (
-    <div className="container mx-auto p-8">
+    <div>
       <HeroFeatures
         title="Contract Compliance"
         headline="Contract Compliance Automation"
