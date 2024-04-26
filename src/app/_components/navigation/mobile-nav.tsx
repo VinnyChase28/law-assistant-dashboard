@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 
+import { motion } from "framer-motion";
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -25,7 +26,6 @@ import {
   getStartedItems,
   companyItems,
 } from "@marketing/config/nav";
-import { motion } from "framer-motion";
 
 const MobileAccordionNav = () => {
   const [isOpen, setIsOpen] = useState(false);

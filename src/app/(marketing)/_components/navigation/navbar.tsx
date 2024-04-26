@@ -10,8 +10,6 @@ import { signIn } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "@components/mode-toggle";
 import MobileAccordionNav from "@components/navigation/mobile-nav";
-import { useCheckedRowsStore } from "src/store/store";
-
 import {
   platformItems,
   useCasesItems,
@@ -19,6 +17,8 @@ import {
   getStartedItems,
   companyItems,
 } from "@marketing/config/nav";
+import { useCheckedRowsStore } from "src/store/store";
+
 import { LawAssistantLogo } from "../../assets/law-assistant-logo";
 import AuthButtonWrapper from "../sign-in-out";
 
