@@ -12,7 +12,7 @@ import { useCheckedRowsStore } from "src/store/store";
 import { api } from "src/trpc/react";
 
 import { statuses } from "./data";
-import { LabelDialog } from "./label-dialogue";
+import { LabelDropdown } from "./label-dropdown";
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
@@ -71,7 +71,7 @@ export function DataTableToolbar<TData>({
         >
           Uncheck All
         </Button>
-        <LabelDialog />
+        <LabelDropdown />
       </div>
       <DataTableViewOptions table={table} />
     </div>
