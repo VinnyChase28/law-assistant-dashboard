@@ -5,7 +5,6 @@ import { z } from "zod";
 import {
   createTRPCRouter,
   protectedProcedure,
-  publicProcedure,
 } from "src/server/api/trpc";
 import { pinecone } from "src/utils/pinecone";
 
@@ -133,27 +132,6 @@ export const fileRouter = createTRPCRouter({
           userId: ctx.session.user.id,
           processingStatus: "IN_PROGRESS",
           documentType: "COMPLIANCE_REPORT",
-        },
-      });
-    }),
-
-  // update compliance report with the generated report data and set status to done
-  updateComplianceReport: publicProcedure
-    .input(
-      z.object({
-        id: z.number(),
-        reportData: z.any(), // TODO: adjust with a real type
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      if (!ctx?.session?.user) {
-        throw new Error("Unauthorized");
-      }
-      return ctx.db.file.update({
-        where: { id: input.id },
-        data: {
-          processingStatus: "DONE",
-          reportData: input.reportData,
         },
       });
     }),

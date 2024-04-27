@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 
-import { type DocumentType } from "@prisma/client";
+import { type DocumentType, type File } from "@prisma/client";
 
 import { useFilesStore } from "src/store/store";
 import { api } from "src/trpc/react";
@@ -26,16 +26,22 @@ export default function TableContainer({
   );
 
   useEffect(() => {
-    // Set files in store on component mount or when data changes
     if (data) {
       setFiles(data);
     }
   }, [data, setFiles]);
 
-  const filteredFiles = files.filter(
-    (file: any) => file.documentType === documentType,
-  );
-
+  const filteredFiles = files
+    .filter((file: File) => file.documentType === documentType)
+    .map((file) => ({
+      ...file,
+      fileType: file.fileType ?? "",
+      blobUrl: file.blobUrl ?? "",
+      fileSize: file.fileSize ?? "",
+      finalReport: file.finalReport ?? "",
+      labelId: file.labelId ?? undefined, // Convert null to undefined
+    }));
+    
   if (isLoading) {
     return (
       <div

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import { load } from "outstatic/server";
 
 import GenericHero from "@marketing/components/hero/hero-generic";

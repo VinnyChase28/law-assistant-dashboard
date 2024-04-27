@@ -1,5 +1,6 @@
 "use client";
 
+import { type Label } from "@prisma/client";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { type Table } from "@tanstack/react-table";
 
@@ -46,7 +47,7 @@ export function DataTableToolbar<TData>({
           <DataTableFacetedFilter
             column={table.getColumn("label")}
             title="Label"
-            options={labels.map((label: any) => ({
+            options={labels.map((label: Label) => ({
               label: label.text,
               value: label.id,
             }))}

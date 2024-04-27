@@ -10,9 +10,29 @@ import {
 } from "src/server/api/trpc";
 import { api } from "src/trpc/server";
 
+const complianceSubmissionSchema = z.object({
+  fileId: z.number(),
+  documentName: z.string(),
+  textData: z.string(),
+  pageNumber: z.number(),
+});
+
+const regulatoryFrameworkSchema = z.object({
+  fileId: z.number(),
+  documentName: z.string(),
+  textData: z.string(),
+  pageNumber: z.number(),
+});
+
+const similarDocsDataSchema = z.array(
+  z.object({
+    complianceSubmission: complianceSubmissionSchema,
+    regulatoryFramework: z.array(regulatoryFrameworkSchema),
+  }),
+);
 
 // TRPC router implementation
-export const llmRouter = createTRPCRouter({
+export const inngestRouter = createTRPCRouter({
   generateDocumentPrompt: protectedProcedure
     .input(
       z.object({
@@ -61,47 +81,63 @@ export const llmRouter = createTRPCRouter({
       return prompt;
     }),
 
-  // Add a new procedure for sending data to Inngest
   sendComplianceReportToInngest: protectedProcedure
     .input(
       z.object({
-        complianceReportData: z.any(),
-        userId: z.string(),
-        reportName: z.string(),
-        id: z.number(),
+        complianceReports: z.array(
+          z.object({
+            complianceReportData: similarDocsDataSchema,
+            userId: z.string(),
+            reportName: z.string(),
+            id: z.number(),
+          }),
+        ),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       if (!ctx.session.user) {
         throw new Error("UNAUTHORIZED");
       }
-      const { complianceReportData, userId, reportName, id } = input;
-      const eventPayload = {
-        name: "compliance-report/event.sent" as const,
-        data: {
-          reportName,
-          ...complianceReportData,
-          userId,
-          id,
-        },
-      };
 
-      try {
-        await inngest.send(eventPayload);
-        return {
-          success: true,
-          message: "Event sent successfully to Inngest.",
-        };
-      } catch (error) {
-        console.error("Error sending event to Inngest:", error);
+      const results = await Promise.all(
+        input.complianceReports.map(async (report) => {
+          const { complianceReportData, userId, reportName, id } = report;
 
-        await api.file.setFileStatus.mutate({
-          fileId: id,
-          status: processingStatus.FAILED,
-        });
+          const eventPayload = {
+            name: "compliance-report/event.sent" as const,
+            data: {
+              data: complianceReportData, // This should be an array of ComplianceData
+              userId,
+              reportName,
+              id,
+            },
+          };
 
-        throw new Error("Failed to send event to Inngest.");
-      }
+          try {
+            await inngest.send(eventPayload);
+            return {
+              success: true,
+              message: `Event for report ${id} sent successfully to Inngest.`,
+            };
+          } catch (error) {
+            console.error(
+              `Error sending event for report ${id} to Inngest:`,
+              error,
+            );
+            await api.file.setFileStatus.mutate({
+              fileId: id,
+              status: processingStatus.FAILED,
+            });
+            return {
+              success: false,
+              message: `Failed to send event for report ${id} to Inngest.`,
+            };
+          }
+        }),
+      );
+
+      // Aggregate results or handle them as needed
+      return results;
     }),
 
   // load a pdf from a blob url and return the pages.

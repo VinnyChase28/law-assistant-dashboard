@@ -62,3 +62,23 @@ export type UserSubscriptionPlan = SubscriptionPlan &
     stripeCurrentPeriodEnd: number;
     isPro: boolean;
   };
+
+
+  export interface ComplianceSubmission {
+    fileId: number;
+    documentName: string;
+    textData: string;
+    pageNumber: number;
+  }
+
+  export interface RegulatoryFramework {
+    fileId: number;
+    documentName: string;
+    textData: string;
+    pageNumber: number;
+  }
+
+  export interface SimilarDocsData {
+    complianceSubmission: ComplianceSubmission;
+    regulatoryFramework: RegulatoryFramework[];
+  }

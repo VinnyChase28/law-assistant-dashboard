@@ -3,7 +3,7 @@ import { createTRPCRouter } from "src/server/api/trpc";
 import { activity } from "./routers/activity";
 import { chatRouter } from "./routers/chat";
 import { fileRouter } from "./routers/file";
-import { llmRouter } from "./routers/llm";
+import { inngestRouter } from "./routers/inngest";
 import { stripeRouter } from "./routers/stripe";
 import { userRouter } from "./routers/user";
 import { vectorRouter } from "./routers/vector";
@@ -17,7 +17,7 @@ export const appRouter = createTRPCRouter({
   file: fileRouter,
   company: userRouter,
   vector: vectorRouter,
-  llm: llmRouter,
+  inngest: inngestRouter,
   chat: chatRouter,
   user: userRouter,
   stripe: stripeRouter,

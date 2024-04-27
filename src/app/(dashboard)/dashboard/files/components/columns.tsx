@@ -11,10 +11,14 @@ import { statuses, documentTypes } from "./data";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { type File } from "./schema";
 
+
 interface SelectAllCheckboxHeaderProps {
   table: Table<File>;
 }
 
+interface CheckboxCellProps {
+  row: Row<File>;
+}
 
 const SelectAllCheckboxHeader = ({ table }: SelectAllCheckboxHeaderProps) => {
   const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
@@ -36,7 +40,7 @@ const SelectAllCheckboxHeader = ({ table }: SelectAllCheckboxHeaderProps) => {
 };
 
 // Custom Cell Component
-const CheckboxCell = ({ row }: { row: Row<File> }) => {
+const CheckboxCell = ({ row }: CheckboxCellProps) => {
   const { checkedRows, toggleRow } = useCheckedRowsStore();
   return (
     <Checkbox
@@ -76,16 +80,12 @@ export const columns: ColumnDef<File>[] = [
       <DataTableColumnHeader column={column} title="Label" />
     ),
     cell: ({ row }) => {
-      //@ts-expect-error label type is not defined in the schema
-
       const label = row.original.label;
       return label ? <Badge>{label.text}</Badge> : null;
-    
     },
     filterFn: (row, id, value) => {
-      //@ts-expect-error  //label type is not defined in the schema
       const label = row.original.label;
-      return value.includes(label?.id || "");
+      return value.includes(label?.id ?? "");
     },
   },
   {

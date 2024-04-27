@@ -9,7 +9,7 @@ import ImageContainer from "@components/image/image-container";
 import Markdown from "@components/markdown";
 import { Separator } from "@components/ui/separator";
 import ProgressAnimations from "@marketing/components/animations/progress-animation";
-
+import { type FrontMatter } from "src/types/font-matter"; // Import the FrontMatter interface
 
 export async function generateMetadata({
   params,
@@ -25,9 +25,9 @@ export async function generateMetadata({
     `${slug}.md`,
   );
   const fileContents = await fs.readFile(filePath, "utf8");
-  const { data: frontMatter } = matter(fileContents);
+  const { data } = matter(fileContents);
+  const frontMatter = data as FrontMatter; // Use the imported FrontMatter interface
 
-  // Return a metadata object with dynamic values based on the blog post content
   return {
     title: frontMatter.title,
     description: frontMatter.description,
@@ -39,7 +39,6 @@ export async function generateMetadata({
         },
       ],
     },
-    // Add any other metadata fields as needed
   };
 }
 
@@ -58,14 +57,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
     `${slug}.md`,
   );
   const fileContents = await fs.readFile(filePath, "utf8");
-  const { data: frontMatter, content } = matter(fileContents);
+  const { data, content } = matter(fileContents);
+  const frontMatter = data as FrontMatter; // Use the imported FrontMatter interface
 
   return (
     <>
       <ProgressAnimations />
       <div className="container mx-auto px-4 py-10">
         <article className="mx-auto my-8 max-w-3xl">
-          {frontMatter?.coverImage && (
+          {frontMatter.coverImage && (
             <div className="relative mb-8 aspect-video">
               <ImageContainer
                 src={frontMatter.coverImage}
@@ -75,10 +75,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
               />
             </div>
           )}
-          <h1 className="mb-4 text-4xl font-bold">{frontMatter?.title}</h1>
+          <h1 className="mb-4 text-4xl font-bold">{frontMatter.title}</h1>
           <div className="mb-8 text-gray-500">
             Published on{" "}
-            {frontMatter?.publishedAt
+            {frontMatter.publishedAt
               ? new Date(frontMatter.publishedAt).toLocaleDateString()
               : "N/A"}
           </div>

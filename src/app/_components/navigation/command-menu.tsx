@@ -27,6 +27,12 @@ import {
 
 import { Button } from "../ui/button";
 
+type NavItemWithChildren = {
+  title: string;
+  href?: string; // Note the optional modifier
+  disabled?: boolean;
+  children?: NavItemWithChildren[]; // Example if there are nested children
+};
 
 export function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter();
@@ -97,12 +103,14 @@ export function CommandMenu({ ...props }: DialogProps) {
           </CommandGroup>
           {docsConfig.sidebarNav.map((group) => (
             <CommandGroup key={group.title} heading={group.title}>
-              {group.items.map((navItem: any) => (
+              {group.items.map((navItem: NavItemWithChildren) => (
                 <CommandItem
-                  key={navItem.href}
+                  key={navItem.href ?? navItem.title} 
                   value={navItem.title}
                   onSelect={() => {
-                    runCommand(() => router.push(navItem.href as string));
+                    if (navItem.href) {
+                      runCommand(() => router.push(navItem.href as string));
+                    }
                   }}
                 >
                   <div className="mr-2 flex h-4 w-4 items-center justify-center">
