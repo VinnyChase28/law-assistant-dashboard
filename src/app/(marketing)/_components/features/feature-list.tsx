@@ -8,9 +8,15 @@ import particles from "/videos/particles.mp4";
 
 import FeatureShowcase from "@marketing/components/features/feature-showcase";
 import HeroFeatures from "@marketing/components/hero/hero-features";
+import type { FrontMatter } from "@/types/font-matter";
 
 interface FeatureListProps {
   slug: string;
+}
+
+interface Feature {
+  title: string;
+  description: string;
 }
 
 const FeatureList = async ({ slug }: FeatureListProps) => {
@@ -22,14 +28,17 @@ const FeatureList = async ({ slug }: FeatureListProps) => {
       "navigation-item",
       `${slug}.md`,
     );
-    const fileContents = await fs.readFile(filePath, "utf8");
-    const { data: frontmatter } = matter(fileContents);
 
-    const features = Object.entries(frontmatter)
+    const fileContents = await fs.readFile(filePath, "utf8");
+    const { data: frontmatter } = matter(fileContents) as unknown as {
+      data: FrontMatter;
+    };
+
+    const features: Feature[] = Object.entries(frontmatter)
       .filter(([key]) => key.startsWith("feature"))
       .map(([key, value]) => ({
-        title: value,
-        description: frontmatter[`${key}Description`],
+        title: value as string,
+        description: frontmatter[`${key}Description`] as string,
       }))
       .filter((feature) => feature.description !== undefined);
 

@@ -5,7 +5,7 @@ import { inngest } from "../client";
 import { findViolations } from "../helpers/report-helpers";
 
 export enum Models {
-  GPT4 = "gpt-4-0125-preview",
+  GPT4 = "gpt-4-turbo",
   GPT3 = "gpt-3.5-turbo-0125",
 }
 

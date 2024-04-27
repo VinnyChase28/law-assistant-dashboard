@@ -37,7 +37,8 @@ const VectorSearchComponent: React.FC = () => {
     const chatSessionIdRef = useRef(chatSessionId);
     const convertTextToVector = api.vector.convertTextToVector.useMutation();
     const vectorSearch = api.vector.vectorSearch.useMutation();
-    const generateDocumentPrompt = api.inngestRouter.generateDocumentPrompt.useMutation();
+    const generateDocumentPrompt =
+      api.inngest.generateDocumentPrompt.useMutation();
     const createChatMessage = api.chat.createChatMessage.useMutation();
     const createChatSession = api.chat.createChatSession.useMutation();
     const getMostRecentSessionForUser =
