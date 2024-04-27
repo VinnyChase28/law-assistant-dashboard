@@ -38,7 +38,7 @@ export default function UploadFiles({ setIsDialogOpen }: UploadFilesProps) {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const insertFileMetadata = api.file.insertFileMetadata.useMutation();
   const sendDocumentDataForProcessingToInngest =
-    api.llm.sendDocumentDataForProcessingToInngest.useMutation();
+    api.inngest.sendDocumentDataForProcessingToInngest.useMutation();
 
   const uploadFiles = async (files: FileList) => {
     const uploadPromises = Array.from(files).map(async (file) => {

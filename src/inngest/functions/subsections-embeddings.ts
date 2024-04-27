@@ -68,7 +68,7 @@ export const processDocument = inngest.createFunction(
     const { fileId, blobUrl, userId, documentType } = event.data;
 
     // Load the document content
-    const pages = await api.llm.getPagesFromBlobUrl.mutate({ blobUrl });
+    const pages = await api.inngest.getPagesFromBlobUrl.mutate({ blobUrl });
 
     // Process each page
     for (const [i, page] of pages.entries()) {

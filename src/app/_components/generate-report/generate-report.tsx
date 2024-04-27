@@ -1,96 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
-
-import { type File } from "@prisma/client";
-
-import { useToast } from "@components/ui/use-toast";
-import { useCheckedRowsStore, useFilesStore } from "src/store/store";
-import { api } from "src/trpc/react";
+import React from "react";
 
 import AlertComponent from "../alert";
 import { Button } from "../ui/button";
 import { IconSpinner } from "../ui/icons";
 
+import { useReportGenerator } from "./hooks/use-report-generator";
+
 const CreateReportComponent = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-  const { getCheckedComplianceSubmissions, getCheckedRegulatoryDocuments } =
-    useCheckedRowsStore();
-  const { files } = useFilesStore();
-
-  // Retrieve IDs of checked documents
-  const complianceSubmissionIds = getCheckedComplianceSubmissions();
-  const regulatoryDocumentIds = getCheckedRegulatoryDocuments();
-
-  // Find the selected documents based on the IDs
-  const selectedComplianceSubmission = files.find((file) =>
-    complianceSubmissionIds.includes(file.id),
-  );
-  const selectedRegulatoryDocuments = files.filter((file) =>
-    regulatoryDocumentIds.includes(file.id),
-  );
-
-  const hasSingleComplianceSubmission = complianceSubmissionIds.length === 1;
-
-  // Mutations
-  const findSimilarRegulatoryDocuments =
-    api.vector.findSimilarRegulatoryDocuments.useMutation();
-  const createComplianceReportMetadata =
-    api.file.createComplianceReportMetadata.useMutation();
-  const sendComplianceReportToInngest =
-    api.llm.sendComplianceReportToInngest.useMutation();
-
-  const handleCreateReportClick = async () => {
-    if (!selectedComplianceSubmission) {
-      console.error("No compliance submission selected.");
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const similarDocsData = await findSimilarRegulatoryDocuments.mutateAsync({
-        fileId: selectedComplianceSubmission.id,
-      });
-
-      const reportMetadata = await createComplianceReportMetadata.mutateAsync({
-        name: `${new Date().toISOString()} Compliance Report`,
-      });
-
-      await sendComplianceReportToInngest.mutateAsync({
-        complianceReportData: similarDocsData,
-        userId: reportMetadata.userId,
-        reportName: reportMetadata.name,
-        id: reportMetadata.id,
-      });
-
-      toast({
-        title: "Compliance Report Started",
-        description:
-          "The compliance data has been sent to CodeX. A new report will be available in the Reports tab.",
-      });
-    } catch (error) {
-      console.error(
-        "Error in creating or sending the compliance report:",
-        error,
-      );
-      toast({
-        title: "Compliance Report Failed to Start",
-        description:
-          "There was an error starting the compliance report. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-      const keyDownEvent = new KeyboardEvent("keydown", {
-        key: "Escape",
-        code: "Escape",
-        bubbles: true,
-      });
-      document.dispatchEvent(keyDownEvent);
-    }
-  };
+  const {
+    createReport,
+    isLoading,
+    hasSingleComplianceSubmission,
+    selectedComplianceSubmission,
+    selectedRegulatoryDocuments,
+  } = useReportGenerator();
 
   return (
     <div className="space-y-6 p-5">
@@ -114,34 +39,31 @@ const CreateReportComponent = () => {
           Selected Regulatory Framework Documents:
         </h3>
         {selectedRegulatoryDocuments.length > 0 ? (
-          selectedRegulatoryDocuments.map((document: File) => (
+          selectedRegulatoryDocuments.map((document) => (
             <p key={document.id} className="mt-2">
               {document.name}
             </p>
           ))
         ) : (
-          <p className="mt-2 text-gray-500">
-            No regulatory framework documents selected.
-          </p>
+          <p className="mt-2 text-gray-500">No documents selected.</p>
         )}
       </div>
 
-      <AlertComponent
-        title="Heads up!"
-        description="You can only verify one Compliance Submission document at a time."
-        iconType="info"
-      />
+      <Button
+        onClick={createReport}
+        disabled={!hasSingleComplianceSubmission || isLoading}
+        className="mt-4"
+      >
+        {isLoading ? <IconSpinner /> : "Generate Report"}
+      </Button>
 
-      <div className="mt-4 flex items-center">
-        <Button
-          onClick={handleCreateReportClick}
-          variant={hasSingleComplianceSubmission ? "default" : "ghost"}
-          disabled={isLoading || !hasSingleComplianceSubmission}
-        >
-          Create Report
-        </Button>
-        {isLoading && <IconSpinner className="ml-2 h-6 w-6 animate-spin" />}
-      </div>
+      {isLoading && (
+        <AlertComponent
+          iconType="info"
+          description="Generating report, please wait..."
+          title="The report will be in the Reports tab."
+        />
+      )}
     </div>
   );
 };
