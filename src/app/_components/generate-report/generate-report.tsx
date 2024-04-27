@@ -50,7 +50,9 @@ const CreateReportComponent = () => {
       </div>
 
       <Button
-        onClick={createReport}
+        onClick={() => {
+          createReport();
+        }}
         disabled={!hasSingleComplianceSubmission || isLoading}
         className="mt-4"
       >

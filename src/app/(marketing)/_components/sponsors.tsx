@@ -19,15 +19,17 @@ export const Sponsors = () => {
 
       <div className="relative flex overflow-x-hidden">
         <div className="animate-marquee whitespace-nowrap py-12">
-          {[...Array(Math.ceil(100 / logos.length))].map((_, i) => (
-            <React.Fragment key={i}>
-              {logos.map((Logo, index) => (
-                <span key={`${i}-${index}`} className="mx-8 inline-block">
-                  <Logo className="h-16 w-auto rounded-lg" />
-                </span>
-              ))}
-            </React.Fragment>
-          ))}
+          {[...(Array(Math.ceil(100 / logos.length)) as unknown[])].map(
+            (_, i) => (
+              <React.Fragment key={i}>
+                {logos.map((Logo, index) => (
+                  <span key={`${i}-${index}`} className="mx-8 inline-block">
+                    <Logo className="h-16 w-auto rounded-lg" />
+                  </span>
+                ))}
+              </React.Fragment>
+            ),
+          )}
         </div>
       </div>
     </section>

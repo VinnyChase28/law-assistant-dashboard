@@ -85,7 +85,7 @@ export const columns: ColumnDef<File>[] = [
     },
     filterFn: (row, id, value) => {
       const label = row.original.label;
-      return value.includes(label?.id || "");
+      return value.includes(label?.id ?? "");
     },
   },
   {
