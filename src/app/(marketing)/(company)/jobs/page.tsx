@@ -1,23 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import { load } from "outstatic/server";
 
 import GenericHero from "@marketing/components/hero/hero-generic";
 import JobsSectionsContainer from "@marketing/components/jobs/jobs-grid-container";
 
 export const dynamic = "force-static";
-
-interface Post {
-  title: string;
-  slug: string;
-  publishedAt: Date; // This is a Date object
-  category: string;
-}
-
-interface PostType {
-  title: string;
-  slug: string;
-  publishedAt: string; // This needs to be a string
-  category: string;
-}
 
 export default async function JobsPage() {
   const { find } = await load();
@@ -26,21 +14,15 @@ export default async function JobsPage() {
   const categories = ["Engineering", "Product", "Revenue"];
 
   // Fetch posts for each category and combine them into one array
-  let allPosts: PostType[] = [];
+  let allPosts: any = [];
   for (const category of categories) {
-    const categoryPosts = (await find({
-      category: category,
+    const categoryPosts = await find({
+      category: category, // Assuming 'category' is the field name in your schema
     })
-      .project({ title: 1, slug: 1, publishedAt: 1, category: 1 })
-      .toArray()) as unknown as Post[];
+      .project(["title", "slug", "publishedAt", "category"])
+      .toArray();
 
-    // Convert Date to string format before passing to JobsSectionsContainer
-    const formattedPosts: PostType[] = categoryPosts.map((post) => ({
-      ...post,
-      publishedAt: post.publishedAt.toISOString(), // Convert Date to ISO string format
-    }));
-
-    allPosts = [...allPosts, ...formattedPosts];
+    allPosts = [...allPosts, ...categoryPosts];
   }
 
   return (
