@@ -6,7 +6,7 @@ author:
   picture: 'https://avatars.githubusercontent.com/u/50678382?v=4'
 slug: 'compliance-trends-what-property-managers-need-to-know-in-2024'
 description: ''
-coverImage: '/images/avi-waxman-f9qzukozyoy-unsplash-IyMT.jpg'
+coverImage: '/images/avi-waxman-f9qzukozyoy-unsplash-E0Mj.jpg'
 publishedAt: '2024-04-27T17:27:48.167Z'
 ---
 
