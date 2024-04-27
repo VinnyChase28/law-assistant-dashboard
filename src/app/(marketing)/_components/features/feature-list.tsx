@@ -6,9 +6,9 @@ import matter from "gray-matter";
 
 import particles from "/videos/particles.mp4";
 
+import type { FrontMatter } from "@/types/font-matter";
 import FeatureShowcase from "@marketing/components/features/feature-showcase";
 import HeroFeatures from "@marketing/components/hero/hero-features";
-import type { FrontMatter } from "@/types/font-matter";
 
 interface FeatureListProps {
   slug: string;

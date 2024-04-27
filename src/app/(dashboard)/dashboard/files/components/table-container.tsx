@@ -35,10 +35,11 @@ export default function TableContainer({
     .filter((file: File) => file.documentType === documentType)
     .map((file) => ({
       ...file,
-      fileType: file.fileType || "", // Provide default empty string if null
-      blobUrl: file.blobUrl || "", // Provide default empty string if null
-      fileSize: file.fileSize || "", // Provide default empty string if null
-      finalReport: file.finalReport || "", // Provide default empty string if null
+      fileType: file.fileType ?? "",
+      blobUrl: file.blobUrl ?? "",
+      fileSize: file.fileSize ?? "",
+      finalReport: file.finalReport ?? "",
+      labelId: file.labelId ?? undefined, // Convert null to undefined
     }));
     
   if (isLoading) {

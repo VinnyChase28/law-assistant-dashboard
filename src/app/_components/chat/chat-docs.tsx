@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+//TODO: remove the above
 "use client";
 import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 
@@ -15,7 +17,6 @@ import { DropdownMenuCheckboxes } from "./dropdown-menu";
 import { TypingIndicator } from "./helpers";
 import { type ChatMessage } from "./types";
 
-
 const VectorSearchComponent: React.FC = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
@@ -30,127 +31,126 @@ const VectorSearchComponent: React.FC = () => {
       { enabled: !!chatSessionId },
     );
 
-    const { checkedRows } = useCheckedRowsStore();
-    const checkedFileIds = Object.keys(checkedRows).map((key) => Number(key));
+  const { checkedRows } = useCheckedRowsStore();
+  const checkedFileIds = Object.keys(checkedRows).map((key) => Number(key));
 
-    const chatEndRef = useRef<HTMLDivElement | null>(null);
-    const chatSessionIdRef = useRef(chatSessionId);
-    const convertTextToVector = api.vector.convertTextToVector.useMutation();
-    const vectorSearch = api.vector.vectorSearch.useMutation();
-    const generateDocumentPrompt =
-      api.inngest.generateDocumentPrompt.useMutation();
-    const createChatMessage = api.chat.createChatMessage.useMutation();
-    const createChatSession = api.chat.createChatSession.useMutation();
-    const getMostRecentSessionForUser =
-      api.chat.getMostRecentSessionForUser.useMutation();
+  const chatEndRef = useRef<HTMLDivElement | null>(null);
+  const chatSessionIdRef = useRef(chatSessionId);
+  const convertTextToVector = api.vector.convertTextToVector.useMutation();
+  const vectorSearch = api.vector.vectorSearch.useMutation();
+  const generateDocumentPrompt =
+    api.inngest.generateDocumentPrompt.useMutation();
+  const createChatMessage = api.chat.createChatMessage.useMutation();
+  const createChatSession = api.chat.createChatSession.useMutation();
+  const getMostRecentSessionForUser =
+    api.chat.getMostRecentSessionForUser.useMutation();
 
-    useLayoutEffect(() => {
-      chatEndRef.current?.scrollIntoView({ behavior: "instant" });
-    }, [chatMessages]);
+  useLayoutEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "instant" });
+  }, [chatMessages]);
 
-    useEffect(() => {
-      if (messages) {
-        setChatMessages(
-          messages.map((msg: any) => ({
-            role: msg.role === "USER" ? "Me" : "CodeX",
-            content: msg.content,
-            isFinal: true,
-          })),
-        );
-      }
-    }, [messages]);
+  useEffect(() => {
+    if (messages) {
+      setChatMessages(
+        messages.map((msg: any) => ({
+          role: msg.role === "USER" ? "Me" : "CodeX",
+          content: msg.content,
+          isFinal: true,
+        })),
+      );
+    }
+  }, [messages]);
 
-    useEffect(() => {
-      // If no local chatSessionId is found, fetch the most recent session for the user
-      const fetchRecentSession = async () => {
-        if (!chatSessionIdRef.current) {
-          try {
-            const recentSession =
-              await getMostRecentSessionForUser.mutateAsync();
-            if (recentSession) {
-              setChatSessionId(recentSession.id);
-              chatSessionIdRef.current = recentSession.id; // Update ref
-            }
-          } catch (error) {
-            console.error("Error fetching recent chat session:", error);
+  useEffect(() => {
+    // If no local chatSessionId is found, fetch the most recent session for the user
+    const fetchRecentSession = async () => {
+      if (!chatSessionIdRef.current) {
+        try {
+          const recentSession = await getMostRecentSessionForUser.mutateAsync();
+          if (recentSession) {
+            setChatSessionId(recentSession.id);
+            chatSessionIdRef.current = recentSession.id; // Update ref
           }
+        } catch (error) {
+          console.error("Error fetching recent chat session:", error);
         }
-      };
-
-      fetchRecentSession();
-    }, [setChatSessionId, getMostRecentSessionForUser]);
-
-    const sendMessage = async () => {
-      setInputMessage("");
-      if (!inputMessage.trim() ?? isStreaming ?? !chatSessionId) return;
-      setIsStreaming(true);
-      setIsAIResponding(true);
-      setChatMessages((prevMessages) => [
-        ...prevMessages,
-        { role: "Me", content: inputMessage, isFinal: true },
-      ]);
-
-      let prompt = inputMessage;
-
-      if (isChatWithDocsEnabled) {
-        const vector = await convertTextToVector.mutateAsync({
-          text: inputMessage,
-        });
-        const searchResults = await vectorSearch.mutateAsync({
-          queryVector: vector,
-          topK: 4,
-          fileIds: checkedFileIds,
-        });
-        prompt = await generateDocumentPrompt.mutateAsync({
-          userQuery: inputMessage,
-          pages: searchResults.map((result: any) => ({
-            fileName: result.fileName,
-            textData: result.textData,
-            pageNumber: result.pageNumber,
-          })),
-        });
-      }
-
-      await createChatMessage.mutateAsync({
-        chatSessionId,
-        content: inputMessage,
-        prompt,
-        role: "USER",
-      });
-
-      try {
-        const response = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            messages: [{ role: "user", content: prompt }],
-          }),
-        });
-
-        if (response.body) {
-          const reader = response.body.getReader();
-          const decoder = new TextDecoder();
-          let systemResponse = "";
-          let isFirstChunk = true;
-          setIsAIResponding(true);
-
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) {
-              updateChatMessagesFinal(systemResponse);
-              break;
-            }
-            systemResponse += decoder.decode(value, { stream: true });
-            updateChatMessagesOngoing(systemResponse, isFirstChunk);
-            isFirstChunk = false;
-          }
-        }
-      } catch (error) {
-        console.error("Error sending message or receiving response:", error);
-      } finally {
-        resetMessage();
       }
     };
+
+    fetchRecentSession();
+  }, [setChatSessionId, getMostRecentSessionForUser]);
+
+  const sendMessage = async () => {
+    setInputMessage("");
+    if (!inputMessage.trim() ?? isStreaming ?? !chatSessionId) return;
+    setIsStreaming(true);
+    setIsAIResponding(true);
+    setChatMessages((prevMessages) => [
+      ...prevMessages,
+      { role: "Me", content: inputMessage, isFinal: true },
+    ]);
+
+    let prompt = inputMessage;
+
+    if (isChatWithDocsEnabled) {
+      const vector = await convertTextToVector.mutateAsync({
+        text: inputMessage,
+      });
+      const searchResults = await vectorSearch.mutateAsync({
+        queryVector: vector,
+        topK: 4,
+        fileIds: checkedFileIds,
+      });
+      prompt = await generateDocumentPrompt.mutateAsync({
+        userQuery: inputMessage,
+        pages: searchResults.map((result: any) => ({
+          fileName: result.fileName,
+          textData: result.textData,
+          pageNumber: result.pageNumber,
+        })),
+      });
+    }
+
+    await createChatMessage.mutateAsync({
+      chatSessionId,
+      content: inputMessage,
+      prompt,
+      role: "USER",
+    });
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [{ role: "user", content: prompt }],
+        }),
+      });
+
+      if (response.body) {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let systemResponse = "";
+        let isFirstChunk = true;
+        setIsAIResponding(true);
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+            updateChatMessagesFinal(systemResponse);
+            break;
+          }
+          systemResponse += decoder.decode(value, { stream: true });
+          updateChatMessagesOngoing(systemResponse, isFirstChunk);
+          isFirstChunk = false;
+        }
+      }
+    } catch (error) {
+      console.error("Error sending message or receiving response:", error);
+    } finally {
+      resetMessage();
+    }
+  };
 
   const updateChatMessagesFinal = async (systemResponse: string) => {
     setChatMessages((prevMessages) => {

@@ -4,11 +4,11 @@ import {
   type DefaultSession,
   type NextAuthOptions,
   type DefaultUser,
+  type Session,
 } from "next-auth";
 import Auth0Provider from "next-auth/providers/auth0";
 
 import { db } from "src/server/db";
-
 
 declare module "next-auth" {
   interface User extends DefaultUser {}
@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         session.user.id = user.id;
       }
-      return session;
+      return session as Session; // Explicitly cast the modified session to the extended type
     },
   },
   adapter: PrismaAdapter(db),

@@ -1,20 +1,27 @@
+import { FileAccess, DocumentType, processingStatus } from "@prisma/client";
 import { z } from "zod";
 
 export const myFilesSchema = z.object({
   id: z.number(),
   name: z.string(),
-  blobUrl: z.string(),
-  fileType: z.string(),
-  fileSize: z.string(),
-  vectorId: z.string().nullable().optional(), // Allow null and optional
-  processingStatus: z.string(),
-  vectorProcessedAt: z.date().nullable().optional(), // Allow null and optional
+  blobUrl: z.string().optional(),
+  fileType: z.string().optional(),
+  fileSize: z.string().optional(),
+  vectorId: z.string().nullable().optional(),
+  processingStatus: z.nativeEnum(processingStatus),
+  vectorProcessedAt: z.date().nullable().optional(),
   createdAt: z.date(),
   updatedAt: z.date(),
   userId: z.string(),
-  access: z.enum(["PRIVATE", "PUBLIC", "SHARED"]).optional(), // Adjusted based on your file access types
-  documentType: z.string().nullable().optional(), // Allow null and optional
-  // Include other fields if they are part of your model
+  access: z.nativeEnum(FileAccess).optional(),
+  documentType: z.nativeEnum(DocumentType).nullable().optional(),
+  labelId: z.string().optional(),
+  label: z
+    .object({
+      id: z.string(),
+      text: z.string(),
+    })
+    .optional(),
 });
 
 export type File = z.infer<typeof myFilesSchema>;
