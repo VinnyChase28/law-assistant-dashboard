@@ -1,6 +1,6 @@
 {
-  "commit": "c23b27ccc81c4e32aefa18924dfc41d67b47fd11",
-  "generated": "2024-04-27T18:28:02.739Z",
+  "commit": "a5724501a8426a848f4dee62ff999be43a1b80f7",
+  "generated": "2024-04-27T18:30:59.234Z",
   "metadata": [
     {
       "__outstatic": {
@@ -328,24 +328,6 @@
     },
     {
       "__outstatic": {
-        "commit": "94c5a5b13da6fb457ef19b76b5d57d8e6a3c4787",
-        "hash": "3875108696",
-        "path": "outstatic/content/blog/compliance-automation.md"
-      },
-      "author": {
-        "name": "Vincent Gauthier",
-        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
-      },
-      "collection": "blog",
-      "coverImage": "/images/compliance-blog-M4ND.jpg",
-      "description": "",
-      "publishedAt": "2024-04-08T00:14:57.541Z",
-      "slug": "compliance-automation",
-      "status": "published",
-      "title": "What is Compliance Automation?"
-    },
-    {
-      "__outstatic": {
         "commit": "fa89dbc54a837f2de9711279e4b83c24a71385c6",
         "hash": "1483468051",
         "path": "outstatic/content/blog/retrieval-augmented-generation-a-solution-for-design-compliance.md"
@@ -379,6 +361,24 @@
       "slug": "compliance-trends-what-property-managers-need-to-know-in-2024",
       "status": "published",
       "title": "Compliance Trends: What Property Managers Need to Know in 2024"
+    },
+    {
+      "__outstatic": {
+        "commit": "a5724501a8426a848f4dee62ff999be43a1b80f7",
+        "hash": "3654860728",
+        "path": "outstatic/content/blog/compliance-automation.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/compliance-blog-M4ND.jpg",
+      "description": "",
+      "publishedAt": "2024-04-08T00:14:57.541Z",
+      "slug": "compliance-automation",
+      "status": "published",
+      "title": "What is Compliance Automation?"
     }
   ]
 }
