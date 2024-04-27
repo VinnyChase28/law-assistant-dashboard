@@ -1,6 +1,6 @@
 {
   "commit": "c23b27ccc81c4e32aefa18924dfc41d67b47fd11",
-  "generated": "2024-04-27T18:25:44.575Z",
+  "generated": "2024-04-27T18:28:02.739Z",
   "metadata": [
     {
       "__outstatic": {
@@ -365,7 +365,7 @@
     {
       "__outstatic": {
         "commit": "c23b27ccc81c4e32aefa18924dfc41d67b47fd11",
-        "hash": "3133568361",
+        "hash": "2225027766",
         "path": "outstatic/content/blog/compliance-trends-what-property-managers-need-to-know-in-2024.md"
       },
       "author": {
@@ -373,7 +373,7 @@
         "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
       },
       "collection": "blog",
-      "coverImage": "/images/avi-waxman-f9qzukozyoy-unsplash-E0Mj.jpg",
+      "coverImage": "/images/avi-waxman-f9qzukozyoy-unsplash-Y5Mz.jpg",
       "description": "",
       "publishedAt": "2024-04-27T17:27:48.167Z",
       "slug": "compliance-trends-what-property-managers-need-to-know-in-2024",
