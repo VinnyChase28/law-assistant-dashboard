@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -13,6 +15,8 @@ import { Label } from "@components/ui/label";
 import { Separator } from "@components/ui/separator";
 import { useToast } from "@components/ui/use-toast";
 import { api } from "src/trpc/react";
+
+import { useLabelActions } from "../hooks/use-label-actions";
 
 import LabelActionsDropdown from "./label-actions";
 
@@ -53,6 +57,8 @@ export function LabelForm() {
     isLoading: isLoadingLabels,
     refetch,
   } = api.file.getLabels.useQuery();
+
+  const { handleDeleteLabel } = useLabelActions();
 
   async function onSubmit(data: LabelFormValues) {
     setIsSubmitting(true);
@@ -98,11 +104,7 @@ export function LabelForm() {
               />
               <LabelActionsDropdown
                 labelId={label.id}
-                onDeleted={() =>
-                  setSavedLabels((prev) =>
-                    prev.filter((l) => l.id !== label.id),
-                  )
-                }
+                onDeleted={() => handleDeleteLabel(label.id)} // Updated to use handleDeleteLabel
               />
             </div>
           ))}
@@ -114,7 +116,7 @@ export function LabelForm() {
       <div className="pt-4" />
       <Form {...form}>
         <form
-          onSubmit={() => form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="w-full space-y-8"
         >
           {fields.map((field, index) => (

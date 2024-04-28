@@ -19,6 +19,7 @@ interface LabelActionsDropdownProps {
 
 const LabelActionsDropdown: React.FC<LabelActionsDropdownProps> = ({
   onDeleted,
+  labelId
 }) => {
   const { handleDeleteLabel, handleAssignLabelToMultipleFiles } =
     useLabelActions();
@@ -40,7 +41,7 @@ const LabelActionsDropdown: React.FC<LabelActionsDropdownProps> = ({
         </DropdownMenuItem>
         <DropdownMenuItem
           onSelect={() => {
-            handleDeleteLabel().then(onDeleted).catch(console.error);
+            handleDeleteLabel(labelId).then(onDeleted).catch(console.error);
           }}
         >
           Delete

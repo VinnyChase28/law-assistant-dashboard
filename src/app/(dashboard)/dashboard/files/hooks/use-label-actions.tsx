@@ -11,15 +11,14 @@ export function useLabelActions(fileId?: number, labelId?: string) {
   const removeLabelFromFile = api.file.removeLabel.useMutation();
   const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
 
-  // Fetch labels using a query
   const {
     data: labels,
     isLoading: labelsLoading,
     error: labelsError,
   } = api.file.getLabels.useQuery();
 
-  const handleDeleteLabel = async () => {
-    if (labelId === undefined) {
+  const handleDeleteLabel = async (labelId: string) => {
+    if (!labelId) {
       toast({
         title: "Error",
         description: "No label ID provided",
