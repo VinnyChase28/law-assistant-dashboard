@@ -2,6 +2,8 @@ import { z } from "zod";
 
 import { protectedProcedure, createTRPCRouter } from "src/server/api/trpc";
 
+import { handleError } from "../utils";
+
 export const labelRouter = createTRPCRouter({
   // allows a user to create a new label
   createLabel: protectedProcedure
@@ -11,38 +13,46 @@ export const labelRouter = createTRPCRouter({
           .string()
           .min(1)
           .max(20)
-          .transform((str) => str.toLowerCase()), // Ensure label text is within length limits and lowercase
+          .transform((str) => str.toLowerCase()),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { text } = input;
-      // Optional: Check if the label already exists for the user
-      const existingLabel = await ctx.db.label.findFirst({
-        where: {
-          text,
-          userId: ctx.session.user.id,
-        },
-      });
-      if (existingLabel) {
-        throw new Error("Label already exists.");
+      try {
+        const { text } = input;
+        const existingLabel = await ctx.db.label.findFirst({
+          where: {
+            text,
+            userId: ctx.session.user.id,
+          },
+        });
+        if (existingLabel) {
+          throw new Error("Label already exists.");
+        }
+        return await ctx.db.label.create({
+          data: {
+            text,
+            userId: ctx.session.user.id,
+          },
+        });
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to create label.");
       }
-      // Create the new label
-      return ctx.db.label.create({
-        data: {
-          text,
-          userId: ctx.session.user.id, // Associate label with the user's ID
-        },
-      });
     }),
 
   getLabels: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.db.label.findMany({
-      where: {
-        userId: ctx.session.user.id,
-      },
-    });
+    try {
+      return await ctx.db.label.findMany({
+        where: {
+          userId: ctx.session.user.id,
+        },
+      });
+    } catch (error) {
+      handleError(error);
+      throw new Error("Failed to fetch labels.");
+    }
   }),
-  //delete a label
+
   deleteLabel: protectedProcedure
     .input(
       z.object({
@@ -50,15 +60,19 @@ export const labelRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { id } = input;
-
-      return ctx.db.label.delete({
-        where: {
-          id,
-        },
-      });
+      try {
+        const { id } = input;
+        return await ctx.db.label.delete({
+          where: {
+            id,
+          },
+        });
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to delete label.");
+      }
     }),
-  //assign a label to a file
+
   assignLabel: protectedProcedure
     .input(
       z.object({
@@ -67,11 +81,16 @@ export const labelRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { fileId, labelId } = input;
-      return ctx.db.file.update({
-        where: { id: fileId },
-        data: { labelId },
-      });
+      try {
+        const { fileId, labelId } = input;
+        return await ctx.db.file.update({
+          where: { id: fileId },
+          data: { labelId },
+        });
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to assign label to file.");
+      }
     }),
 
   removeLabel: protectedProcedure
@@ -81,41 +100,45 @@ export const labelRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { fileId } = input;
-      return ctx.db.file.update({
-        where: { id: fileId },
-        data: { labelId: null },
-      });
+      try {
+        const { fileId } = input;
+        return await ctx.db.file.update({
+          where: { id: fileId },
+          data: { labelId: null },
+        });
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to remove label from file.");
+      }
     }),
 
-  // New route to assign a label to multiple files
   assignLabelToMultipleFiles: protectedProcedure
     .input(
       z.object({
-        fileIds: z.array(z.number()), // Array of file IDs
-        labelId: z.string(), // The label ID to apply
+        fileIds: z.array(z.number()),
+        labelId: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { fileIds, labelId } = input;
-
-      // Update all files with the new label
-      await ctx.db.file.updateMany({
-        where: {
-          id: {
-            in: fileIds, // Target only files with IDs in the provided array
+      try {
+        const { fileIds, labelId } = input;
+        await ctx.db.file.updateMany({
+          where: {
+            id: { in: fileIds },
+            userId: ctx.session.user.id,
           },
-          userId: ctx.session.user.id, // Ensure files belong to the current user
-        },
-        data: {
-          labelId: labelId,
-        },
-      });
-
-      return {
-        success: true,
-        message: "Labels updated successfully for selected files.",
-      };
+          data: {
+            labelId: labelId,
+          },
+        });
+        return {
+          success: true,
+          message: "Labels updated successfully for selected files.",
+        };
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to assign label to multiple files.");
+      }
     }),
 
   removeLabelFromFiles: protectedProcedure
@@ -125,19 +148,24 @@ export const labelRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { labelId } = input;
-      await ctx.db.file.updateMany({
-        where: {
-          labelId: labelId,
-          userId: ctx.session.user.id,
-        },
-        data: {
-          labelId: null,
-        },
-      });
-      return {
-        success: true,
-        message: "Label removed from all files successfully.",
-      };
+      try {
+        const { labelId } = input;
+        await ctx.db.file.updateMany({
+          where: {
+            labelId: labelId,
+            userId: ctx.session.user.id,
+          },
+          data: {
+            labelId: null,
+          },
+        });
+        return {
+          success: true,
+          message: "Label removed from all files successfully.",
+        };
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to remove label from files.");
+      }
     }),
 });
