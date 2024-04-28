@@ -11,7 +11,6 @@ import { pinecone } from "src/utils/pinecone";
 import { handleError } from "../utils";
 
 export const fileRouter = createTRPCRouter({
-  //insert file metadata on upload to my files
   insertFileMetadata: protectedProcedure
     .input(
       z.object({
@@ -76,7 +75,6 @@ export const fileRouter = createTRPCRouter({
       }
     }),
 
-  // fetch generated compliance reports
   getMyComplianceReports: protectedProcedure.query(async ({ ctx }) => {
     try {
       return ctx.db.file.findMany({
@@ -91,9 +89,6 @@ export const fileRouter = createTRPCRouter({
     }
   }),
 
-  // delete a specific file, and its associated vectors
-  //TODO: change this to delete all subsections and vectors at once
-  //TODO: need to ensure the user cant delete a file that is still processing
   deleteFile: protectedProcedure
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
@@ -134,7 +129,6 @@ export const fileRouter = createTRPCRouter({
       }
     }),
 
-  // create the compliance report metadata
   createComplianceReportMetadata: protectedProcedure
     .input(
       z.object({
@@ -142,31 +136,39 @@ export const fileRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.file.create({
-        data: {
-          name: input.name,
-          userId: ctx.session.user.id,
-          processingStatus: "IN_PROGRESS",
-          documentType: "COMPLIANCE_REPORT",
-        },
-      });
+      try {
+        return ctx.db.file.create({
+          data: {
+            name: input.name,
+            userId: ctx.session.user.id,
+            processingStatus: "IN_PROGRESS",
+            documentType: "COMPLIANCE_REPORT",
+          },
+        });
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to create compliance report metadata.");
+      }
     }),
 
-  //fetch blob url based on file id
   getFile: protectedProcedure
     .input(z.number())
     .query(async ({ ctx, input }) => {
-      if (!ctx.session.user) {
-        throw new Error("Unauthorized");
+      try {
+        const fileId = input;
+        const file = await ctx.db.file.findUnique({
+          where: { id: fileId },
+        });
+        if (!file) {
+          throw new Error("File not found.");
+        }
+        return file;
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to retrieve file.");
       }
-      const fileId = input;
-      const file = await ctx.db.file.findUnique({
-        where: { id: fileId },
-      });
-
-      return file;
     }),
-  //for a given file id, set the status to failed
+
   setFileStatus: protectedProcedure
     .input(
       z.object({
@@ -179,17 +181,21 @@ export const fileRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      if (!ctx.session.user) {
-        throw new Error("Unauthorized");
+      try {
+        const { fileId, status } = input;
+        const updatedFile = await ctx.db.file.update({
+          where: { id: fileId },
+          data: {
+            processingStatus: status,
+          },
+        });
+        if (!updatedFile) {
+          throw new Error("File not found or update failed.");
+        }
+        return updatedFile;
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to update file status.");
       }
-      const { fileId, status } = input;
-      return ctx.db.file.update({
-        where: { id: fileId },
-        data: {
-          processingStatus: status,
-        },
-      });
     }),
-
-  
 });
