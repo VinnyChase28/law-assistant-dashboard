@@ -10,26 +10,8 @@ import {
 } from "src/server/api/trpc";
 import { api } from "src/trpc/server";
 
-const complianceSubmissionSchema = z.object({
-  fileId: z.number(),
-  documentName: z.string(),
-  textData: z.string(),
-  pageNumber: z.number(),
-});
-
-const regulatoryFrameworkSchema = z.object({
-  fileId: z.number(),
-  documentName: z.string(),
-  textData: z.string(),
-  pageNumber: z.number(),
-});
-
-const similarDocsDataSchema = z.array(
-  z.object({
-    complianceSubmission: complianceSubmissionSchema,
-    regulatoryFramework: z.array(regulatoryFrameworkSchema),
-  }),
-);
+import { similarDocsDataSchema } from "../schemas";
+import { handleError } from "../utils";
 
 // TRPC router implementation
 export const inngestRouter = createTRPCRouter({
@@ -192,11 +174,11 @@ export const inngestRouter = createTRPCRouter({
           message: "Event sent successfully to Inngest.",
         };
       } catch (error) {
-        console.error("Error sending event to Inngest:", error);
         await api.file.setFileStatus.mutate({
           fileId: fileId,
           status: processingStatus.FAILED,
         });
+        handleError(error); // Now correctly handling any type of thrown object
         throw new Error("Failed to send event to Inngest.");
       }
     }),
