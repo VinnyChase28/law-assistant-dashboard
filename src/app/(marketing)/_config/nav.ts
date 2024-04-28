@@ -118,6 +118,12 @@ export const getStartedItems: NavItem[] = [
     description: "Choose the right plan for your compliance needs",
     icon: DollarSign,
   },
+  {
+    title: "Contact Sales",
+    href: "/contact-sales",
+    description: "Contact our sales team",
+    icon: DollarSign,
+  },
 ];
 
 export const companyItems: NavItem[]  = [
