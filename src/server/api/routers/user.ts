@@ -2,23 +2,35 @@ import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 
+import { handleError } from "../utils";
+
 export const userRouter = createTRPCRouter({
-  //get user id
+  // Get user id
   getUserId: protectedProcedure.query(async ({ ctx }) => {
-    return ctx.session.user.id;
+    try {
+      return ctx.session.user.id;
+    } catch (error) {
+      handleError(error);
+      throw new Error("Failed to retrieve user ID");
+    }
   }),
 
   // Get Stripe Customer
   getStripeCustomer: protectedProcedure.query(async ({ ctx }) => {
-    const stripeCustomer = await ctx.db.stripeCustomer.findUnique({
-      where: { id: ctx.session.user.id },
-    });
+    try {
+      const stripeCustomer = await ctx.db.stripeCustomer.findUnique({
+        where: { id: ctx.session.user.id },
+      });
 
-    if (!stripeCustomer) {
-      return null;
+      if (!stripeCustomer) {
+        throw new Error("Stripe customer not found");
+      }
+
+      return stripeCustomer;
+    } catch (error) {
+      handleError(error);
+      throw new Error("Failed to fetch Stripe customer");
     }
-
-    return stripeCustomer;
   }),
 
   // Create Stripe Customer
@@ -29,43 +41,58 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const stripeCustomer = await ctx.db.stripeCustomer.create({
-        data: {
-          stripeCustomerId: input.stripeCustomerId,
-          userId: ctx.session.user.id,
-        },
-      });
+      try {
+        const stripeCustomer = await ctx.db.stripeCustomer.create({
+          data: {
+            stripeCustomerId: input.stripeCustomerId,
+            userId: ctx.session.user.id,
+          },
+        });
 
-      return stripeCustomer;
+        return stripeCustomer;
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to create Stripe customer");
+      }
     }),
 
   // Get Subscription
   getSubscription: protectedProcedure.query(async ({ ctx }) => {
-    const subscriptions = await ctx.db.subscription.findMany({
-      where: { stripeCustomer: { userId: ctx.session.user.id } },
-    });
+    try {
+      const subscriptions = await ctx.db.subscription.findMany({
+        where: { stripeCustomer: { userId: ctx.session.user.id } },
+      });
 
-    if (subscriptions.length === 0) {
-      return [];
+      if (subscriptions.length === 0) {
+        return [];
+      }
+
+      return subscriptions;
+    } catch (error) {
+      handleError(error);
+      throw new Error("Failed to retrieve subscriptions");
     }
-
-    return subscriptions;
   }),
 
-  //get user details
+  // Get user details
   getUserDetails: protectedProcedure.query(async ({ ctx }) => {
-    const user = await ctx.db.user.findUnique({
-      where: { id: ctx.session.user.id },
-    });
+    try {
+      const user = await ctx.db.user.findUnique({
+        where: { id: ctx.session.user.id },
+      });
 
-    if (!user) {
-      throw new Error("User not found");
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      return user;
+    } catch (error) {
+      handleError(error);
+      throw new Error("Failed to fetch user details");
     }
-
-    return user;
   }),
 
-  //update the user's name
+  // Update the user's name
   updateName: protectedProcedure
     .input(
       z.object({
@@ -73,14 +100,20 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const updatedUser = await ctx.db.user.update({
-        where: { id: ctx.session.user.id },
-        data: { name: input.name },
-      });
+      try {
+        const updatedUser = await ctx.db.user.update({
+          where: { id: ctx.session.user.id },
+          data: { name: input.name },
+        });
 
-      return updatedUser;
+        return updatedUser;
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to update user name");
+      }
     }),
 
+  // Update the user's bio
   updateBio: protectedProcedure
     .input(
       z.object({
@@ -88,14 +121,20 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const updatedUser = await ctx.db.user.update({
-        where: { id: ctx.session.user.id },
-        data: { bio: input.bio },
-      });
+      try {
+        const updatedUser = await ctx.db.user.update({
+          where: { id: ctx.session.user.id },
+          data: { bio: input.bio },
+        });
 
-      return updatedUser;
+        return updatedUser;
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to update user bio");
+      }
     }),
 
+  // Add a social link
   addSocialLink: protectedProcedure
     .input(
       z.object({
@@ -103,62 +142,91 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const newLink = await ctx.db.socialLink.create({
-        data: {
-          url: input.url,
-          userId: ctx.session.user.id, // Assuming the session has the user's ID
-        },
-      });
+      try {
+        const newLink = await ctx.db.socialLink.create({
+          data: {
+            url: input.url,
+            userId: ctx.session.user.id,
+          },
+        });
 
-      return newLink;
+        return newLink;
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to add social link");
+      }
     }),
+
+  // Update a social link
   updateSocialLink: protectedProcedure
     .input(
       z.object({
-        linkId: z.number(), // or z.string() if your ID is a string
+        linkId: z.number(),
         newUrl: z.string().url(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const updatedLink = await ctx.db.socialLink.update({
-        where: { id: input.linkId },
-        data: { url: input.newUrl },
+      try {
+        const updatedLink = await ctx.db.socialLink.update({
+          where: { id: input.linkId },
+          data: { url: input.newUrl },
+        });
+
+        return updatedLink;
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to update social link");
+      }
+    }),
+  // Get social links
+  getSocialLinks: protectedProcedure.query(async ({ ctx }) => {
+    try {
+      const links = await ctx.db.socialLink.findMany({
+        where: { userId: ctx.session.user.id },
       });
 
-      return updatedLink;
-    }),
-  //get social links
-  getSocialLinks: protectedProcedure.query(async ({ ctx }) => {
-    const links = await ctx.db.socialLink.findMany({
-      where: { userId: ctx.session.user.id },
-    });
-
-    return links;
+      return links;
+    } catch (error) {
+      handleError(error);
+      throw new Error("Failed to retrieve social links");
+    }
   }),
+
+  // Remove a social link
   removeSocialLink: protectedProcedure
     .input(
       z.object({
-        linkId: z.number(), // or z.string() if your ID is a string
+        linkId: z.number(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const deletedLink = await ctx.db.socialLink.delete({
-        where: { id: input.linkId },
-      });
+      try {
+        const deletedLink = await ctx.db.socialLink.delete({
+          where: { id: input.linkId },
+        });
 
-      return deletedLink;
+        return deletedLink;
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to remove social link");
+      }
     }),
 
-  //delete all social links for a user
-
+  // Delete all social links for a user
   deleteAllSocialLinks: protectedProcedure.mutation(async ({ ctx }) => {
-    const deletedLinks = await ctx.db.socialLink.deleteMany({
-      where: { userId: ctx.session.user.id },
-    });
+    try {
+      const deletedLinks = await ctx.db.socialLink.deleteMany({
+        where: { userId: ctx.session.user.id },
+      });
 
-    return deletedLinks;
+      return deletedLinks;
+    } catch (error) {
+      handleError(error);
+      throw new Error("Failed to delete all social links for the user");
+    }
   }),
 
+  // Accept terms
   acceptTerms: protectedProcedure
     .input(
       z.object({
@@ -166,23 +234,33 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.user.update({
-        where: { id: ctx.session.user.id },
-        data: { acceptedTerms: input.accepted },
-      });
+      try {
+        await ctx.db.user.update({
+          where: { id: ctx.session.user.id },
+          data: { acceptedTerms: input.accepted },
+        });
+      } catch (error) {
+        handleError(error);
+        throw new Error("Failed to update acceptance of terms");
+      }
     }),
 
   // Query to check if the user has accepted the terms
   hasAcceptedTerms: protectedProcedure.query(async ({ ctx }) => {
-    const user = await ctx.db.user.findUnique({
-      where: { id: ctx.session.user.id },
-      select: { acceptedTerms: true },
-    });
+    try {
+      const user = await ctx.db.user.findUnique({
+        where: { id: ctx.session.user.id },
+        select: { acceptedTerms: true },
+      });
 
-    if (!user) {
-      throw new Error("User not found");
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      return user.acceptedTerms;
+    } catch (error) {
+      handleError(error);
+      throw new Error("Failed to check if user has accepted terms");
     }
-
-    return user.acceptedTerms;
   }),
 });
