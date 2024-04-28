@@ -1,37 +1,48 @@
 import { createTRPCRouter, protectedProcedure } from "src/server/api/trpc";
 
+import { handleError } from "../utils";
+
 export const activity = createTRPCRouter({
   getFileTaskHistory: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.db.fileTaskHistory.findMany({
-      where: {
-        userId: ctx.session.user.id,
-      },
-      include: {
-        relatedDocuments: {
-          include: {
-            file: true, // Include the file details
+    try {
+      return await ctx.db.fileTaskHistory.findMany({
+        where: {
+          userId: ctx.session.user.id,
+        },
+        include: {
+          relatedDocuments: {
+            include: {
+              file: true, 
+            },
           },
         },
-      },
-    });
+      });
+    } catch (error) {
+      handleError(error);
+      throw new Error("Failed to fetch file task history.");
+    }
   }),
 
-  // Updated procedure to get only user's questions in chat history
   getChatHistory: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.db.chatSession.findMany({
-      where: {
-        userId: ctx.session.user.id,
-      },
-      include: {
-        messages: {
-          where: {
-            role: "USER",
+    try {
+      return await ctx.db.chatSession.findMany({
+        where: {
+          userId: ctx.session.user.id,
+        },
+        include: {
+          messages: {
+            where: {
+              role: "USER",
+            },
           },
         },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    } catch (error) {
+      handleError(error);
+      throw new Error("Failed to fetch chat history.");
+    }
   }),
 });

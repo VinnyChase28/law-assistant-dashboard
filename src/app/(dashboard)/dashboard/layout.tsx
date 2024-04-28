@@ -21,7 +21,7 @@ export default async function DashboardLayout({
     <>
       <SiteHeader />
       <main className="flex-1">{children}</main>
-      <ChatBubble />;
+      <ChatBubble />
     </>
   );
 }

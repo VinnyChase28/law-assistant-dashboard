@@ -34,7 +34,7 @@ const LabelActionsDropdown: React.FC<LabelActionsDropdownProps> = ({
       <DropdownMenuContent>
         <DropdownMenuItem
           onSelect={() => {
-            handleAssignLabelToMultipleFiles().catch(console.error);
+            handleAssignLabelToMultipleFiles(labelId).catch(console.error);
           }}
         >
           Assign to Checked

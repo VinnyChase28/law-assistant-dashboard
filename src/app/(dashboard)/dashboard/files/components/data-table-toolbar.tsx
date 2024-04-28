@@ -23,7 +23,7 @@ export function DataTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const { uncheckAll } = useCheckedRowsStore();
-  const { data: labels } = api.file.getLabels.useQuery();
+  const { data: labels } = api.label.getLabels.useQuery();
 
   return (
     <div className="flex items-center justify-between">

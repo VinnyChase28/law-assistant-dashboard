@@ -20,6 +20,7 @@ import { useLabelActions } from "../hooks/use-label-actions";
 
 import LabelActionsDropdown from "./label-actions";
 
+
 const labelFormSchema = z.object({
   labels: z.array(
     z.object({
@@ -51,12 +52,12 @@ export function LabelForm() {
     control: form.control,
   });
 
-  const createLabel = api.file.createLabel.useMutation();
+  const createLabel = api.label.createLabel.useMutation();
   const {
     data: labels,
     isLoading: isLoadingLabels,
     refetch,
-  } = api.file.getLabels.useQuery();
+  } = api.label.getLabels.useQuery();
 
   const { handleDeleteLabel } = useLabelActions();
 

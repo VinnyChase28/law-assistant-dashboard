@@ -9,7 +9,9 @@
     "dev": "next dev & npx next-video sync -w",
     "postinstall": "prisma generate",
     "fix": "npx eslint --fix 'src/**/*.{ts,tsx}'",
-    "start": "next start"
+    "start": "next start",
+    "img": "node scripts/blur-images.js",
+    "count": "node scripts/line-count.js"
   },
   "dependencies": {
     "@dnd-kit/sortable": "^8.0.0",
@@ -57,6 +59,7 @@
     "compromise": "^14.10.1",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.1.7",
+    "glob-promise": "^6.0.5",
     "gray-matter": "^4.0.3",
     "inngest": "^3.16.1",
     "langchain": "^0.1.34",

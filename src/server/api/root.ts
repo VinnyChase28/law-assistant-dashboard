@@ -4,6 +4,7 @@ import { activity } from "./routers/activity";
 import { chatRouter } from "./routers/chat";
 import { fileRouter } from "./routers/file";
 import { inngestRouter } from "./routers/inngest";
+import { labelRouter } from "./routers/label";
 import { stripeRouter } from "./routers/stripe";
 import { userRouter } from "./routers/user";
 import { vectorRouter } from "./routers/vector";
@@ -22,6 +23,7 @@ export const appRouter = createTRPCRouter({
   user: userRouter,
   stripe: stripeRouter,
   activity: activity,
+  label: labelRouter,
 });
 
 // export type definition of API

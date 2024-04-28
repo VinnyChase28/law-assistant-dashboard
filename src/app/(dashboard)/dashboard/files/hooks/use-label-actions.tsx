@@ -1,31 +1,43 @@
+
 import { useCheckedRowsStore } from "@/store/store";
 import { useToast } from "@components/ui/use-toast";
 import { api } from "src/trpc/react";
 
-export function useLabelActions(fileId?: number, labelId?: string) {
+export function useLabelActions(
+  fileId?: number,
+  labelId?: string,
+) {
   const { toast } = useToast();
-  const deleteLabel = api.file.deleteLabel.useMutation();
+  const createLabel = api.label.createLabel.useMutation();
+  const deleteLabel = api.label.deleteLabel.useMutation();
   const assignLabelToMultipleFiles =
-    api.file.assignLabelToMultipleFiles.useMutation();
-  const assignLabelToFile = api.file.assignLabel.useMutation();
-  const removeLabelFromFile = api.file.removeLabel.useMutation();
+    api.label.assignLabelToMultipleFiles.useMutation();
+  const assignLabelToFile = api.label.assignLabel.useMutation();
+  const removeLabelFromFile = api.label.removeLabel.useMutation();
   const checkedRows = useCheckedRowsStore((state) => state.checkedRows);
 
   const {
     data: labels,
     isLoading: labelsLoading,
     error: labelsError,
-  } = api.file.getLabels.useQuery();
+  } = api.label.getLabels.useQuery();
+
+  const handleCreateLabel = async (labelName: string) => {
+    try {
+      await createLabel.mutateAsync({ text: labelName });
+      toast({
+        title: "Label created successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Error creating label",
+        description:
+          error instanceof Error ? error.message : "An error occurred",
+      });
+    }
+  };
 
   const handleDeleteLabel = async (labelId: string) => {
-    if (!labelId) {
-      toast({
-        title: "Error",
-        description: "No label ID provided",
-      });
-      return;
-    }
-
     try {
       await deleteLabel.mutateAsync({ id: labelId });
       toast({
@@ -40,11 +52,12 @@ export function useLabelActions(fileId?: number, labelId?: string) {
     }
   };
 
-  const handleAssignLabelToMultipleFiles = async () => {
+  const handleAssignLabelToMultipleFiles = async (labelId: string) => {
     const fileIds = Object.keys(checkedRows)
       .filter((key) => checkedRows[Number(key)])
       .map(Number);
 
+    console.log(labelId, "labeliod");
     if (labelId === undefined) {
       toast({
         title: "Error",
@@ -118,6 +131,7 @@ export function useLabelActions(fileId?: number, labelId?: string) {
     labels,
     labelsLoading,
     labelsError,
+    handleCreateLabel,
     handleDeleteLabel,
     handleAssignLabelToMultipleFiles,
     handleAssignLabelToFile,
