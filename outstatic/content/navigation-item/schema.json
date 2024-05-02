@@ -39,7 +39,7 @@
     },
     "buttonLink": {
       "required": true,
-      "description": "https://calendly.com/vince-gauthier/30min?month=2024-04",
+      "description": "https://usemotion.com/meet/vincent-gauthier/meeting?d=30",
       "fieldType": "String",
       "dataType": "string",
       "title": "Button Link"
