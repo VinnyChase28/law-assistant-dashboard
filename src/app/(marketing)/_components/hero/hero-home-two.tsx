@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { Button } from "@components/ui/button";
-import 
+import Link from "next/link";
 export default function HeroHomeTwo() {
   return (
     <section className="flex flex-col-reverse items-center justify-between gap-6 p-6 md:flex-row md:p-8 lg:p-12">
@@ -16,7 +16,9 @@ export default function HeroHomeTwo() {
           customized compliance reports tailored to your business needs.
         </p>
         <div className="flex gap-4">
-          <Button>Get Started</Button>
+          <Link href="/auth/sign-in">
+            <Button>Get Started</Button>
+          </Link>
           <Button variant="outline">Learn More</Button>
         </div>
       </div>
