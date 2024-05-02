@@ -1,7 +1,7 @@
 import { CalendarIcon } from "lucide-react";
+import Link from "next/link";
 
-import { buttonVariants } from "@components/ui/button";
-
+import { Button } from "@components/ui/button";
 export const Cta = () => {
   return (
     <section
@@ -24,16 +24,15 @@ export const Cta = () => {
         </div>
 
         <div className="lg:col-start-2">
-          <a
+          <Link
             href="https://cal.com/vincent-gauthier-yxbpaz/30min"
             target="_blank"
-            className={`w-full md:w-2/3 ${buttonVariants({
-              variant: "default",
-            })}`}
           >
-            Request Demo
-            <CalendarIcon className="ml-2 h-5 w-5" />
-          </a>
+            <Button variant="default">
+              Request Demo
+              <CalendarIcon className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
           <p className="mt-4 text-center text-sm md:text-right">
             Discover the benefits of AI-powered compliance
           </p>
