@@ -1,7 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "@components/ui/button";
-import Link from "next/link";
 export default function HeroHomeTwo() {
   return (
     <section className="flex flex-col-reverse items-center justify-between gap-6 p-6 md:flex-row md:p-8 lg:p-12">
