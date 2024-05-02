@@ -54,8 +54,8 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
   }
 
   return (
-    <header className="fixed top-0 z-40 w-full bg-background dark:border-b-slate-700 dark:bg-background">
-      <NavigationMenu className="mx-auto">
+    <header className="fixed top-0 z-40 w-full bg-white dark:bg-black">
+      <NavigationMenu className="mx-auto ">
         <NavigationMenuList className="container flex h-14 w-screen justify-between px-4">
           <NavigationMenuItem className="flex items-center font-bold">
             <Link href="/" passHref>
