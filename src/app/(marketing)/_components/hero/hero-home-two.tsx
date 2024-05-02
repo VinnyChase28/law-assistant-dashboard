@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "@components/ui/button";
 export default function HeroHomeTwo() {
@@ -15,7 +16,9 @@ export default function HeroHomeTwo() {
           customized compliance reports tailored to your business needs.
         </p>
         <div className="flex gap-4">
-          <Button>Get Started</Button>
+          <Link href="/auth/sign-in">
+            <Button>Get Started</Button>
+          </Link>
           <Button variant="outline">Learn More</Button>
         </div>
       </div>
