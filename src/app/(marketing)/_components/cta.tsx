@@ -1,7 +1,7 @@
 import { CalendarIcon } from "lucide-react";
-
-import { Button, buttonVariants } from "@components/ui/button";
 import Link from "next/link";
+
+import { Button } from "@components/ui/button";
 export const Cta = () => {
   return (
     <section
