@@ -13,7 +13,7 @@ publishedAt: '2024-04-19T05:28:19.070Z'
 
 ### **Company Overview:**
 
-CodeX is a leader in the field of compliance automation, utilizing state-of-the-art machine learning and artificial intelligence to streamline and enhance compliance processes. Our commitment to innovation and excellence has positioned us as a trusted partner for businesses seeking to navigate the complexities of regulatory compliance.
+Law Assistant AI is a leader in the field of compliance automation, utilizing state-of-the-art machine learning and artificial intelligence to streamline and enhance compliance processes. Our commitment to innovation and excellence has positioned us as a trusted partner for businesses seeking to navigate the complexities of regulatory compliance.
 
 ### Job Description:
 
@@ -45,7 +45,7 @@ We are seeking a Senior Software Engineer with a strong background in backend de
 - Prior experience in compliance automation or related fields.
 - Contributions to open-source projects or a strong GitHub portfolio.
 
-### **Why Join CodeX?**
+### **Why Join Law Assistant AI?**
 
 - **Cutting-edge Technology:** Work with the latest technologies in machine learning, AI, and backend development.
 - **Impactful Work:** Contribute to a platform that has a significant impact on the way businesses manage compliance.
@@ -54,4 +54,4 @@ We are seeking a Senior Software Engineer with a strong background in backend de
 
 ### **Application Process:**
 
-To apply for this position, please submit your resume along with a cover letter detailing your experience and qualifications as they relate to the role of Senior Software Engineer - Platform. Highlight any specific projects or achievements that demonstrate your expertise in backend development and proficiency in TypeScript, Python, and Go.At CodeX, we are excited to welcome a Senior Software Engineer who is passionate about building scalable backend services and eager to make a mark on our core platform. We look forward to exploring how your skills and experience can contribute to our mission of automating compliance through technology.
+To apply for this position, please submit your resume along with a cover letter detailing your experience and qualifications as they relate to the role of Senior Software Engineer - Platform. Highlight any specific projects or achievements that demonstrate your expertise in backend development and proficiency in TypeScript, Python, and Go.At Law Assistant AI, we are excited to welcome a Senior Software Engineer who is passionate about building scalable backend services and eager to make a mark on our core platform. We look forward to exploring how your skills and experience can contribute to our mission of automating compliance through technology.

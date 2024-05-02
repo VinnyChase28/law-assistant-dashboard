@@ -39,16 +39,8 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
         </CardDescription>
       </CardHeader>
 
-      <Handle
-        type="target"
-        position={Position.Top}
-        className="w-16 !bg-indigo-500"
-      />
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        className="w-16 !bg-indigo-500"
-      />
+      <Handle type="target" position={Position.Top} className="w-16" />
+      <Handle type="source" position={Position.Bottom} className="w-16" />
     </Card>
   );
 };

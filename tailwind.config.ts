@@ -19,6 +19,26 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        heading: ["Merriweather", "serif"], // Define your custom font stack
+        body: ["Open Sans", "sans-serif"],
+      },
+      fontSize: {
+        h1: "2.25rem", // 36px
+        h2: "1.875rem", // 30px
+        h3: "1.5rem", // 24px
+        h4: "1.25rem", // 20px
+        h5: "1.125rem", // 18px
+        h6: "1rem", // 16px
+      },
+      fontWeight: {
+        h1: "700", // Bold
+        h2: "600", // Semi-bold
+        h3: "500", // Medium
+        h4: "400", // Regular
+        h5: "300", // Light
+        h6: "200", // Extra-light
+      },
       colors: {
         customPrimary: "#076585",
         // light mode

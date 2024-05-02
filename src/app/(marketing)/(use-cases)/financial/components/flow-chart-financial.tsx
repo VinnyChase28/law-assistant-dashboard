@@ -126,7 +126,7 @@ const FlowChartFinancial = () => {
       <HeroFeatures
         title="Compliance Monitoring"
         headline="Monitoring for Financial Transactions"
-        description="CodeX enhances your ability to monitor transactions, ensuring compliance with AML laws and internal guidelines."
+        description="Law Assistant AI enhances your ability to monitor transactions, ensuring compliance with AML laws and internal guidelines."
         primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
         primaryButtonText="Discover More"
         videoSrc={stars}

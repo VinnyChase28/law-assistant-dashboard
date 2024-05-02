@@ -19,7 +19,7 @@ import {
 } from "@marketing/config/nav";
 import { useCheckedRowsStore } from "src/store/store";
 
-import { LawAssistantLogo } from "../../assets/law-assistant-logo";
+import ThemedLogo from "../design/logo";
 import AuthButtonWrapper from "../sign-in-out";
 
 import {
@@ -31,8 +31,9 @@ import {
   NavigationMenuTrigger,
 } from "./navigation-menu";
 
+
 interface NavbarProps {
-  session: Session | null; // Include null because the session might not always be present
+  session: Session | null;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ session }) => {
@@ -59,8 +60,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
           <NavigationMenuItem className="flex items-center font-bold">
             <Link href="/" passHref>
               <div className="flex items-center">
-                <LawAssistantLogo />
-                <span className="ml-2">CodeX</span>
+                <ThemedLogo />
               </div>
             </Link>
           </NavigationMenuItem>
@@ -132,7 +132,7 @@ const Navbar: React.FC<NavbarProps> = ({ session }) => {
                         }}
                         className="hover:cursor-pointer"
                       >
-                        Get started with CodeX risk-free
+                        Get started with Law Assistant AI risk-free
                       </ListItem>
                     </ul>
                   </NavigationMenuContent>

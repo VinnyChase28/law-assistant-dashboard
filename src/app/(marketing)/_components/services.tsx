@@ -18,7 +18,7 @@ const serviceList: ServiceProps[] = [
   {
     title: "Build your own knowledge base",
     description:
-      "By adding documents, web pages, and other data sources to your account,  CodeX becomes an expert in your regulatory environment intantly.",
+      "By adding documents, web pages, and other data sources to your account,  Law Assistant AI becomes an expert in your regulatory environment intantly.",
     icon: <ChartIcon />,
   },
 

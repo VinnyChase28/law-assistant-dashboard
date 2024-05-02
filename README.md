@@ -49,4 +49,7 @@ To get stripe running locally, use the following commands:
 - or `tree -d -I 'node_modules|outstatic|videos'` for just folder structures
 - ensure all pages have metadata 
 
+## Convert SVG to Component
+
+```npx @svgr/cli --icon --replace-attr-values "#000=currentColor" --typescript LA-Logo-light.svg --out-dir ./src/app/\(marketing\)/_components/design```
 

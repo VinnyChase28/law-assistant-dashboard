@@ -1,66 +1,37 @@
 "use client";
-import { CalendarIcon } from "lucide-react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
-
-import { Button } from "@components/ui/button";
-import { buttonVariants } from "@components/ui/button";
-
-import { HeroCards } from "./hero-cards";
 
 export const Hero = () => {
   return (
-    <section className="container grid place-items-center gap-10 py-20 md:py-32 lg:grid-cols-2">
-      <div className="space-y-6 text-center lg:text-start">
-        <main className="text-5xl font-bold md:text-3xl">
-          <h2 className="inline">
-            <span className="inline bg-gradient-to-r from-[#1E2761] to-[#408EC6] bg-clip-text text-transparent">
-              Compliance Automation
-            </span>{" "}
-            <br />
-            That Businesses Trust{" "}
-          </h2>{" "}
-        </main>
-
-        <p className="mx-auto text-xl text-muted-foreground md:w-10/12 lg:mx-0">
-          Harness the power of Generative AI with a Compliance Automation
-          platform that ensures regulatory compliance for the world&apos;s top
-          businesses.
-        </p>
-
-        <div className="space-y-4 md:space-x-4 md:space-y-0">
-          <Link href="/dashboard"> </Link>
-          <Button
-            onClick={() => {
-              signIn("auth0", {
-                callbackUrl: "/dashboard",
-              });
-            }}
-            className="w-full md:w-1/3"
-          >
-            Get Started
-          </Button>
-
-          <a
-            href="https://cal.com/vincent-gauthier-yxbpaz/30min"
-            target="_blank"
-            className={`w-full md:w-1/3 ${buttonVariants({
-              variant: "outline",
-            })}`}
-          >
-            Book Demo
-            <CalendarIcon className="ml-2 h-5 w-5" />
-          </a>
+    <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+      <div className="container px-4 md:px-6">
+        <div className="flex flex-col items-center space-y-4 text-center">
+          <div className="space-y-2">
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+              Your Time&apos;s Worth More
+            </h1>
+            <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400 md:text-xl">
+              Maximize your operational efficiency with advanced compliance
+              tools and expert guidance to safeguard and enhance your
+              business&apos;s integrity.
+            </p>
+          </div>
+          <div className="space-x-4">
+            <Link
+              className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              href="#"
+            >
+              Get Started
+            </Link>
+            <Link
+              className="inline-flex h-9 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+              href="#"
+            >
+              Learn More
+            </Link>
+          </div>
         </div>
       </div>
-
-      {/* Hero cards sections */}
-      <div className="z-10">
-        <HeroCards />
-      </div>
-
-      {/* Shadow effect */}
-      <div className="shadow"></div>
     </section>
   );
 };

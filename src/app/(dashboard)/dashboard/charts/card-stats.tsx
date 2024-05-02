@@ -88,7 +88,7 @@ export function CardsStats() {
           </p>
           <div className="mt-4 h-[80px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data}>
+              <BarChart data={data} className="">
                 <Bar dataKey="subscription" />
               </BarChart>
             </ResponsiveContainer>

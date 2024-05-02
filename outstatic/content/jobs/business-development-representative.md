@@ -13,7 +13,7 @@ publishedAt: '2024-04-19T05:38:40.895Z'
 
 ### **Company Overview:**
 
-CodeX is a leading technology company specializing in compliance automation through advanced AI solutions. We are dedicated to transforming compliance processes across industries, making them more efficient and effective. Our innovative approach and commitment to excellence have positioned us as a key player in the tech industry.
+Law Assistant AI is a leading technology company specializing in compliance automation through advanced AI solutions. We are dedicated to transforming compliance processes across industries, making them more efficient and effective. Our innovative approach and commitment to excellence have positioned us as a key player in the tech industry.
 
 ### **Job Description:**
 
@@ -41,7 +41,7 @@ We are seeking a proactive and driven Business Development Representative to joi
 - Experience with CRM software, such as Salesforce, to manage and track sales activities.
 - A background in compliance or regulatory industries is a plus, providing a better understanding of customer challenges and needs.
 
-### **Why Join CodeX?**
+### **Why Join Law Assistant AI?**
 
 - **Innovative Culture:** Be part of a company that is at the forefront of technological advancements in compliance automation.
 - **Career Growth:** Opportunities for professional development and advancement in a rapidly growing company.
@@ -49,4 +49,4 @@ We are seeking a proactive and driven Business Development Representative to joi
 
 ### **Application Process:**
 
-Interested candidates should submit a resume and a cover letter detailing their experience in business development and their interest in technology and compliance solutions. Please highlight any relevant achievements in lead generation and client engagement. Join CodeX and contribute to shaping the future of compliance automation by leveraging your skills in business development and your passion for technology. We look forward to your application and the potential to welcome you to our team.
+Interested candidates should submit a resume and a cover letter detailing their experience in business development and their interest in technology and compliance solutions. Please highlight any relevant achievements in lead generation and client engagement. Join Law Assistant AI and contribute to shaping the future of compliance automation by leveraging your skills in business development and your passion for technology. We look forward to your application and the potential to welcome you to our team.

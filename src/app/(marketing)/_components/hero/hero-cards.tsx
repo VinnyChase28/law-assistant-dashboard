@@ -24,7 +24,7 @@ export const HeroCards = () => {
           </Avatar>
 
           <div className="flex flex-col">
-            <CardTitle className="text-lg">CodeX</CardTitle>
+            <CardTitle className="text-lg">Law Assistant AI</CardTitle>
             <p>How can I help? </p>
           </div>
         </CardHeader>

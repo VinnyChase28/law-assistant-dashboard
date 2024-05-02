@@ -52,7 +52,7 @@ const ChatBubble = () => {
               </button>
             )}
             <DialogTitle>
-              CodeX <Badge>Alpha</Badge>
+              Law Assistant AI <Badge>Alpha</Badge>
             </DialogTitle>
           </div>
         </DialogHeader>
@@ -63,8 +63,8 @@ const ChatBubble = () => {
         {!showVectorSearch && !showCreateReport && (
           <div className="p-2">
             <AlertComponent
-              description="Hi! I'm CodeX. You can chat with me for general help, use my memory to chat with your selected docs, or create reports from the documents stored in your files table. What would you like to do?"
-              title="CodeX"
+              description="Hi! I'm Law Assistant AI. You can chat with me for general help, use my memory to chat with your selected docs, or create reports from the documents stored in your files table. What would you like to do?"
+              title="Law Assistant AI"
               iconType="info"
             />
 

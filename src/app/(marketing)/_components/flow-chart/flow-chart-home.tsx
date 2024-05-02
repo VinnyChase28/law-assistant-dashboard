@@ -12,7 +12,7 @@ const config: FlowchartConfig = {
   horizontalSpacing: startingPositions.horizontalSpacing,
   verticalSpacing: startingPositions.verticalSpacing,
   initialNodes: [
-    // Nodes above CodeX
+    // Nodes above Law Assistant AI
     {
       id: "input",
       type: "customNode",
@@ -40,7 +40,7 @@ const config: FlowchartConfig = {
       },
     },
 
-    // CodeX node
+    // Law Assistant AI node
     {
       id: "codex",
       type: "customNode",
@@ -49,12 +49,12 @@ const config: FlowchartConfig = {
         y: 5 + startingPositions.nodeHeight + startingPositions.verticalSpacing,
       },
       data: {
-        title: "CodeX",
+        title: "Law Assistant AI",
         description: "Analyse and Extract Insights",
         icon: "code",
       },
     },
-    // Nodes below CodeX
+    // Nodes below Law Assistant AI
     {
       id: "compliance-report",
       type: "customNode",
