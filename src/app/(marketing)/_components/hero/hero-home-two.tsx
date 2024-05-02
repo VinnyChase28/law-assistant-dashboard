@@ -1,5 +1,6 @@
-import { Button } from "@components/ui/button";
 import Image from "next/image";
+
+import { Button } from "@components/ui/button";
 export default function HeroHomeTwo() {
   return (
     <section className="flex flex-col-reverse items-center justify-between gap-6 p-6 md:flex-row md:p-8 lg:p-12">
@@ -23,7 +24,7 @@ export default function HeroHomeTwo() {
           alt="Compliance Solutions"
           className="rounded-lg shadow-lg"
           height="400"
-          src="/placeholder.svg"
+          src="/images/library.jpg"
           style={{
             aspectRatio: "600/400",
             objectFit: "cover",
