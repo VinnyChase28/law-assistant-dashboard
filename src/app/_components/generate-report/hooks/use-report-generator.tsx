@@ -61,7 +61,7 @@ export function useReportGenerator() {
       toast({
         title: "Compliance Report Started",
         description:
-          "The compliance data has been sent to CodeX. A new report will be available in the Reports tab.",
+          "The compliance data has been sent to Law Assistant AI. A new report will be available in the Reports tab.",
       });
     } catch (error) {
       console.error(

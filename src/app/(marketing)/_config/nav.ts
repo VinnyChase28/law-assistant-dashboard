@@ -14,6 +14,7 @@ import {
   Megaphone,
   Pencil,
   type LucideIcon,
+  Phone,
 } from "lucide-react";
 
 export type NavItem = {
@@ -37,7 +38,7 @@ export const platformItems: NavItem[] = [
     icon: HelpCircle,
   },
   {
-    title: "Why CodeX",
+    title: "Why Law Assistant AI",
     href: "/why-codex",
     description: "The leader in AI-powered compliance solutions",
     icon: Award,
@@ -50,7 +51,7 @@ export const platformItems: NavItem[] = [
   },
 ];
 
-export const useCasesItems: NavItem[]  = [
+export const useCasesItems: NavItem[] = [
   {
     title: "Real Estate",
     href: "/real-estate",
@@ -79,7 +80,7 @@ export const useCasesItems: NavItem[]  = [
   },
 ];
 
-export const resourcesItems: NavItem[]  = [
+export const resourcesItems: NavItem[] = [
   {
     title: "Blog",
     href: "/blog",
@@ -95,7 +96,7 @@ export const resourcesItems: NavItem[]  = [
   {
     title: "Case Studies",
     href: "/case-studies",
-    description: "See how CodeX helps organizations stay compliant",
+    description: "See how Law Assistant AI helps organizations stay compliant",
     icon: Pencil,
   },
   {
@@ -109,7 +110,7 @@ export const getStartedItems: NavItem[] = [
   {
     title: "Request a Demo",
     href: "https://cal.com/vincent-gauthier-yxbpaz/30min",
-    description: "See CodeX in action with a personalized demo",
+    description: "See Law Assistant AI in action with a personalized demo",
     icon: Play,
   },
   {
@@ -122,11 +123,11 @@ export const getStartedItems: NavItem[] = [
     title: "Contact Sales",
     href: "/contact-sales",
     description: "Contact our sales team",
-    icon: DollarSign,
+    icon: Phone,
   },
 ];
 
-export const companyItems: NavItem[]  = [
+export const companyItems: NavItem[] = [
   {
     title: "About",
     href: "/about",
@@ -142,7 +143,8 @@ export const companyItems: NavItem[]  = [
   {
     title: "Press",
     href: "/press",
-    description: "Read the latest news and press releases about CodeX",
+    description:
+      "Read the latest news and press releases about Law Assistant AI",
     icon: Megaphone,
   },
   {

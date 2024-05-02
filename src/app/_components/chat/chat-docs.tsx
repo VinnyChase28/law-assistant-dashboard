@@ -53,7 +53,7 @@ const VectorSearchComponent: React.FC = () => {
     if (messages) {
       setChatMessages(
         messages.map((msg: any) => ({
-          role: msg.role === "USER" ? "Me" : "CodeX",
+          role: msg.role === "USER" ? "Me" : "Law Assistant AI",
           content: msg.content,
           isFinal: true,
         })),
@@ -155,7 +155,7 @@ const VectorSearchComponent: React.FC = () => {
   const updateChatMessagesFinal = async (systemResponse: string) => {
     setChatMessages((prevMessages) => {
       const lastMessage = prevMessages[prevMessages.length - 1];
-      if (lastMessage && lastMessage.role === "CodeX") {
+      if (lastMessage && lastMessage.role === "Law Assistant AI") {
         lastMessage.content = systemResponse;
         lastMessage.isFinal = true;
       }
@@ -183,11 +183,15 @@ const VectorSearchComponent: React.FC = () => {
       const messagesCopy = [...prevMessages];
       if (isFirstChunk) setIsAIResponding(false);
       const lastMessage = messagesCopy[messagesCopy.length - 1];
-      if (lastMessage && lastMessage.role === "CodeX" && !lastMessage.isFinal) {
+      if (
+        lastMessage &&
+        lastMessage.role === "Law Assistant AI" &&
+        !lastMessage.isFinal
+      ) {
         lastMessage.content = systemResponse;
       } else {
         messagesCopy.push({
-          role: "CodeX",
+          role: "Law Assistant AI",
           content: systemResponse,
           isFinal: false,
         });
@@ -237,7 +241,7 @@ const VectorSearchComponent: React.FC = () => {
                 }`}
               >
                 <span className="sender-name block text-sm font-bold">
-                  {msg.role === "Me" ? "You" : "CodeX"}
+                  {msg.role === "Me" ? "You" : "Law Assistant AI"}
                 </span>
                 <ReactMarkdown
                   remarkPlugins={[remarkBreaks]}

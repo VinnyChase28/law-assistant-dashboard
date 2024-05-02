@@ -128,7 +128,7 @@ const FlowChartRealEstate = () => {
       <HeroFeatures
         title="Real Estate"
         headline="Compliance Automation for Real Estate "
-        description="CodeX helps you automate compliance processes, reduce risks, and save time."
+        description="Law Assistant AI helps you automate compliance processes, reduce risks, and save time."
         primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
         primaryButtonText="Get Started"
         videoSrc={stars}

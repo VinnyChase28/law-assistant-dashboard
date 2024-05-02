@@ -13,7 +13,7 @@ publishedAt: '2024-04-19T05:22:31.680Z'
 
 ### **Company Overview:**
 
-At CodeX, we specialize in leveraging cutting-edge technology to automate compliance processes through Retrieval Augmented Generation (RAG). Our mission is to enhance the efficiency and accuracy of compliance management systems across various industries, using advanced machine learning techniques to adapt to dynamic regulatory environments.
+At Law Assistant AI, we specialize in leveraging cutting-edge technology to automate compliance processes through Retrieval Augmented Generation (RAG). Our mission is to enhance the efficiency and accuracy of compliance management systems across various industries, using advanced machine learning techniques to adapt to dynamic regulatory environments.
 
 ### **Job Description:**
 
@@ -41,7 +41,7 @@ We are looking for a Staff Machine Learning Engineer with expertise in Retrieval
 - Experience in automating compliance processes in a regulated industry.
 - Familiarity with the specific challenges and requirements of compliance in sectors such as finance, healthcare, or telecommunications.
 
-### **Why Join CodeX?**
+### **Why Join Law Assistant AI?**
 
 - **Innovative Culture:** Be part of a culture that values innovation and promotes the integration of new technologies.
 - **Career Growth:** Engage in continuous professional development and career advancement opportunities.
@@ -49,4 +49,4 @@ We are looking for a Staff Machine Learning Engineer with expertise in Retrieval
 
 ### **Application Process:**
 
-Interested candidates should submit a resume and a cover letter outlining their qualifications and experience related to the responsibilities and requirements stated above. Please include examples of past projects related to RAG and compliance automation if applicable. Join CodeX and contribute to the future of automated compliance through advanced machine learning technologies. We look forward to discovering how your expertise can help us achieve new heights in compliance automation.
+Interested candidates should submit a resume and a cover letter outlining their qualifications and experience related to the responsibilities and requirements stated above. Please include examples of past projects related to RAG and compliance automation if applicable. Join Law Assistant AI and contribute to the future of automated compliance through advanced machine learning technologies. We look forward to discovering how your expertise can help us achieve new heights in compliance automation.

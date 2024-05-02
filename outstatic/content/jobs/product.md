@@ -13,11 +13,11 @@ publishedAt: '2024-04-19T05:34:51.146Z'
 
 ### **Company Overview:**
 
-CodeX is a trailblazer in the realm of compliance automation, utilizing artificial intelligence to simplify and enhance the compliance process for businesses across various sectors. Our commitment to innovation drives us to develop solutions that are not only effective but also transformative, ensuring our clients can navigate the complexities of regulatory compliance with ease and confidence.
+Law Assistant AI is a trailblazer in the realm of compliance automation, utilizing artificial intelligence to simplify and enhance the compliance process for businesses across various sectors. Our commitment to innovation drives us to develop solutions that are not only effective but also transformative, ensuring our clients can navigate the complexities of regulatory compliance with ease and confidence.
 
 ### **Job Description:**
 
-We are in search of a Head of Product with a proven track record in crafting compelling product visions for AI-driven solutions. The ideal candidate will possess a unique blend of business and technical acumen, a big-picture vision, and the drive to make that vision a reality. As a Head of Product at CodeX, you will lead the strategic direction of our AI products, from conception to launch, ensuring they meet market needs and exceed customer expectations.
+We are in search of a Head of Product with a proven track record in crafting compelling product visions for AI-driven solutions. The ideal candidate will possess a unique blend of business and technical acumen, a big-picture vision, and the drive to make that vision a reality. As a Head of Product at Law Assistant AI, you will lead the strategic direction of our AI products, from conception to launch, ensuring they meet market needs and exceed customer expectations.
 
 ### **Key Responsibilities:**
 
@@ -44,7 +44,7 @@ We are in search of a Head of Product with a proven track record in crafting com
 - A track record of successful product launches and lifecycle management in the AI space.
 - Advanced degree in Business, Computer Science, or a related field.
 
-### **Why Join CodeX?**
+### **Why Join Law Assistant AI?**
 
 - **Leadership Opportunity:** Lead the product strategy for innovative AI solutions in a company that values forward-thinking and creativity.
 - **Impactful Work:** Make a significant impact on the future of compliance automation and the success of our AI products.
@@ -52,4 +52,4 @@ We are in search of a Head of Product with a proven track record in crafting com
 
 ### **Application Process:**
 
-To apply for the role of Head of Product, please submit your resume along with a cover letter that highlights your experience in creating product visions for AI products. Include examples of successful AI products you have led and the impact they have had on the market. At CodeX, we are eager to welcome a Head of Product who shares our passion for innovation and has the vision to lead our AI products into the future. We look forward to exploring how your leadership and expertise can help us continue to redefine the landscape of compliance automation.
+To apply for the role of Head of Product, please submit your resume along with a cover letter that highlights your experience in creating product visions for AI products. Include examples of successful AI products you have led and the impact they have had on the market. At Law Assistant AI, we are eager to welcome a Head of Product who shares our passion for innovation and has the vision to lead our AI products into the future. We look forward to exploring how your leadership and expertise can help us continue to redefine the landscape of compliance automation.

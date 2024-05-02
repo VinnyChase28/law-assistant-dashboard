@@ -132,7 +132,7 @@ const FlowChartEnvironmental = () => {
       <HeroFeatures
         title="Environmental Compliance"
         headline="Environmental Compliance Automation"
-        description="CodeX simplifies the process of ensuring your projects meet environmental standards and regulations."
+        description="Law Assistant AI simplifies the process of ensuring your projects meet environmental standards and regulations."
         primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
         primaryButtonText="Learn More"
         videoSrc={stars}

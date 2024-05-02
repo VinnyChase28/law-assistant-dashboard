@@ -1,4 +1,5 @@
 import { Construction } from "lucide-react";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -13,7 +14,11 @@ export default function NotFound() {
         <p className="mt-4 text-xl text-gray-600">
           We&apos;re still building this page
         </p>
-        <p className="mt-2 text-gray-500">Check back later!</p>
+        <Link href="/">
+          <a className="mt-2 text-blue-500 hover:text-blue-700">
+            Go back to Home
+          </a>
+        </Link>
       </div>
     </div>
   );

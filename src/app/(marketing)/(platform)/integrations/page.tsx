@@ -6,9 +6,9 @@ import HowItWorks from "./components/how-it-works";
 
 
 export const metadata: Metadata = {
-  title: "Integrations - CodeX Compliance Platform",
+  title: "Integrations - Law Assistant AI Compliance Platform",
   description:
-    "Connect CodeX with your existing tools and databases for enhanced compliance workflow. Explore integrations with legal databases, document management systems, and more.",
+    "Connect Law Assistant AI with your existing tools and databases for enhanced compliance workflow. Explore integrations with legal databases, document management systems, and more.",
 };
 
 export default function IntegrationsPage() {

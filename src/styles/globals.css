@@ -3,77 +3,80 @@
 @tailwind utilities;
 
 @layer base {
+
+  h1 {
+    font-family: 'Tiempos Headline', Lucida, Georgia, serif; /* Custom font stack */
+    font-size: 80.8679px; /* Specified font size, adjust accordingly */
+    font-weight: 400; /* Normal font weight */
+    font-style: normal;
+    text-align: left;
+    text-transform: none;
+    text-decoration: none;
+  }
+
+
+
   :root {
-    --gradient: #076585;
-
-    --background: 207 9% 96.35%;
-    --foreground: 240 10% 3.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --background: 0.00 0.00% 100.00%;
+    --foreground: 240.00 100.00% 2.55%;
     
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-
-    --primary: 207 90% 27%;
-    --primary-foreground: 207 9% 96.35%;
-
-    --secondary: 207 22.5% 10.530000000000001%;
-    --secondary-foreground: 207 9% 96.35%;
-
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-
+    --primary: 240.00 100.00% 25.10%;
+    --primary-foreground: 0.00 0.00% 100.00%;
+    
+    --card: 0.00 0.00% 100.00%;
+    --card-foreground: 240.00 100.00% 2.55%;
+    
+    --popover: 0.00 0.00% 100.00%;
+    --popover-foreground: 240.00 100.00% 2.55%;
+    
+    --secondary: 240.00 33.33% 88.82%;
+    --secondary-foreground: 240.00 100.00% 0.98%;
+    
+    --muted: 240.00 31.58% 92.55%;
+    --muted-foreground: 0.00 0.00% 40.00%;
+     
+    --accent: 240.00 31.58% 92.55%;
+    --accent-foreground: 240.00 100.00% 25.10%;
+    
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-   
-    --ring: 240 5.9% 10%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 0.00 0.00% 90.20%;
+    --input: 0.00 0.00% 90.20%;
+    --ring: 240.00 100.00% 25.10%;
+    
     --radius: 0.5rem;
   }
 
   .dark {
-    /* Name: custom color palette
-       Author: Ilias Ism
-       URL: https://gradient.page */
+    --background: 0.00 0.00% 0.00%;
+    --foreground: 216.00 49.02% 90.00%;
 
-    /* CSS: .bg-gradient { background: var(--gradient) } */
-    --gradient: #076585;
+    --primary: 215.09 100.00% 33.53%;
+    --primary-foreground: 0.00 0.00% 100.00%;
 
-    --background: 207 58.5% 2.16%;
-    --foreground: 207 9% 96.35%;
+    --card: 0.00 0.00% 0.00%;
+    --card-foreground: 216.00 49.02% 90.00%;
 
-    --muted: 207 22.5% 10.530000000000001%;
-    --muted-foreground: 207 9% 52.7%;
+    --popover: 0.00 0.00% 0.00%;
+    --popover-foreground: 216.00 49.02% 90.00%;
 
-    --popover: 207 37.099999999999994% 6.75%;
-    --popover-foreground: 207 9% 96.35%;
+    --secondary: 215.00 100.00% 11.76%;
+    --secondary-foreground: 0.00 0.00% 100.00%;
 
-    --card: 207 37.099999999999994% 6.75%;
-    --card-foreground: 207 9% 96.35%;
+    --muted: 0.00 0.00% 9.80%;
+    --muted-foreground: 0.00 0.00% 50.20%;
+    
+    --accent: 215.00 100.00% 11.76%;
+    --accent-foreground: 216.00 49.02% 90.00%;
 
-    --border: 207 22.5% 10.530000000000001%;
-    --input: 207 22.5% 10.530000000000001%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --primary: 207 90% 27%;
-    --primary-foreground: 207 9% 96.35%;
+    --border: 0.00 0.00% 14.90%;
+    --input: 0.00 0.00% 14.90%;
+    --ring: 215.09 100.00% 33.53%;
 
-    --secondary: 207 22.5% 10.530000000000001%;
-    --secondary-foreground: 207 9% 96.35%;
-
-    --accent: 207 22.5% 10.530000000000001%;
-    --accent-foreground: 207 9% 96.35%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 207 9% 96.35%;
-
-    --ring: 240 5.9% 10%;
     --radius: 0.5rem;
   }
 
@@ -96,7 +99,7 @@
 }
 
 .casey-message {
-  /* Styles specific to CodeX's messages */
+  /* Styles specific to Law Assistant AI's messages */
   background-color: rgba(200, 200, 200, 0.25); /* Light transparent gray */
   text-align: left;
 }

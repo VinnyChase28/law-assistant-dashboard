@@ -13,7 +13,7 @@ publishedAt: '2024-04-19T05:31:18.316Z'
 
 ### **Company Overview:**
 
-CodeX is a pioneering technology firm specializing in compliance automation through advanced software solutions. We leverage the latest technologies to ensure that businesses can meet regulatory requirements efficiently and effectively. Our team is dedicated to innovation, quality, and delivering superior tools that enhance operational compliance across industries.
+Law Assistant AI is a pioneering technology firm specializing in compliance automation through advanced software solutions. We leverage the latest technologies to ensure that businesses can meet regulatory requirements efficiently and effectively. Our team is dedicated to innovation, quality, and delivering superior tools that enhance operational compliance across industries.
 
 ### Job Description:
 
@@ -44,7 +44,7 @@ We are seeking a Senior Front-End Engineer with expertise in Next.js and Figma t
 - Familiarity with state management libraries such as Redux or Context API.
 - Previous work in compliance or regulatory industries is a plus.
 
-### **Why Join CodeX?**
+### **Why Join Law Assistant AI?**
 
 - **Innovative Projects:** Work on cutting-edge projects that are transforming compliance through technology.
 - **Career Growth:** Opportunities for professional development and advancement in a rapidly growing company.
@@ -52,4 +52,4 @@ We are seeking a Senior Front-End Engineer with expertise in Next.js and Figma t
 
 ### **Application Process:**
 
-Interested candidates should submit a resume and a cover letter detailing their experience with Next.js, Figma, and other relevant front-end technologies. Please include links to portfolios or previous projects that demonstrate your expertise in front-end development. Join CodeX and play a pivotal role in shaping the future of compliance automation by leveraging your expertise in Next.js and Figma to create outstanding user experiences. We look forward to your application and the potential to welcome you to our team.
+Interested candidates should submit a resume and a cover letter detailing their experience with Next.js, Figma, and other relevant front-end technologies. Please include links to portfolios or previous projects that demonstrate your expertise in front-end development. Join Law Assistant AI and play a pivotal role in shaping the future of compliance automation by leveraging your expertise in Next.js and Figma to create outstanding user experiences. We look forward to your application and the potential to welcome you to our team.

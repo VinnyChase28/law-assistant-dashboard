@@ -6,8 +6,9 @@ import HowItWorks from "./components/how-it-works";
 
 
 export const metadata: Metadata = {
-  title: "How It Works - CodeX Compliance Automation",
-  description: "Unlock a better compliance workflow with CodeX. Learn how our AI-driven platform seamlessly integrates with your existing systems to enhance compliance processes."
+  title: "How It Works - Law Assistant AI Compliance Automation",
+  description:
+    "Unlock a better compliance workflow with Law Assistant AI. Learn how our AI-driven platform seamlessly integrates with your existing systems to enhance compliance processes.",
 };
 
 export default function HowItWorksPage() {

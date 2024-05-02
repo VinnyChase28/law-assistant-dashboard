@@ -13,7 +13,7 @@ publishedAt: '2024-04-19T05:40:33.736Z'
 
 ### **Company Overview:**
 
-CodeX is a pioneering technology firm that specializes in compliance automation using advanced artificial intelligence. We are committed to delivering innovative solutions that streamline compliance processes for businesses across various industries. Our dedication to excellence and innovation makes us a leader in the tech industry.
+Law Assistant AI is a pioneering technology firm that specializes in compliance automation using advanced artificial intelligence. We are committed to delivering innovative solutions that streamline compliance processes for businesses across various industries. Our dedication to excellence and innovation makes us a leader in the tech industry.
 
 ### **Job Description:**
 
@@ -42,7 +42,7 @@ We are looking for a motivated and skilled Software Engineer II to join our plat
 - Familiarity with microservices architecture and distributed systems.
 - Previous work in compliance or regulatory industries is beneficial but not required.
 
-### **Why Join CodeX?**
+### **Why Join Law Assistant AI?**
 
 - **Career Development:** Grow your career in a supportive environment that encourages innovation and continuous learning.
 - **Impactful Work:** Contribute to a platform that plays a crucial role in transforming compliance processes through technology.
@@ -50,4 +50,4 @@ We are looking for a motivated and skilled Software Engineer II to join our plat
 
 ### **Application Process:**
 
-To apply for the Software Engineer II - Platform position, please submit your resume along with a cover letter that highlights your experience in software development, particularly in backend or platform-related projects. Include any specific technologies or projects that demonstrate your skills and contributions. At CodeX, we are excited to welcome a Software Engineer II who is eager to develop their skills and contribute to our mission of automating compliance through cutting-edge technology. We look forward to your application and the opportunity to discuss how you can make a significant impact on our team.
+To apply for the Software Engineer II - Platform position, please submit your resume along with a cover letter that highlights your experience in software development, particularly in backend or platform-related projects. Include any specific technologies or projects that demonstrate your skills and contributions. At Law Assistant AI, we are excited to welcome a Software Engineer II who is eager to develop their skills and contribute to our mission of automating compliance through cutting-edge technology. We look forward to your application and the opportunity to discuss how you can make a significant impact on our team.

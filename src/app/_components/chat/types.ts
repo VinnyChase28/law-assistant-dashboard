@@ -1,5 +1,5 @@
 export type ChatMessage = {
-  role: "Me" | "CodeX";
+  role: "Me" | "Law Assistant AI";
   content: string;
   isFinal?: boolean;
 };

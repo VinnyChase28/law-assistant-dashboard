@@ -5,9 +5,9 @@ import { type Metadata } from "next";
 import Overview from "./components/overview";
 
 export const metadata: Metadata = {
-  title: "Platform Overview - CodeX Compliance Engine",
+  title: "Platform Overview - Law Assistant AI Compliance Engine",
   description:
-    "Discover the power of CodeX Compliance Engine. Launch, power, and refine your compliance automation from a single platform with infinite scalability.",
+    "Discover the power of Law Assistant AI Compliance Engine. Launch, power, and refine your compliance automation from a single platform with infinite scalability.",
 };
 
 export default function PlatformOverviewPage() {

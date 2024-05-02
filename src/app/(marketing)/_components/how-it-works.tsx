@@ -26,7 +26,7 @@ const features: FeatureProps[] = [
     icon: <Paperclip />,
     title: "Compliance Reporting",
     description:
-      "CodeX generates comprehensive reports detailing your compliance status, including any potential issues or areas for improvement. You can specify any reporting requirements.",
+      "Law Assistant AI generates comprehensive reports detailing your compliance status, including any potential issues or areas for improvement. You can specify any reporting requirements.",
   },
 ];
 
