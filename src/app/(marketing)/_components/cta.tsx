@@ -25,7 +25,7 @@ export const Cta = () => {
 
         <div className="lg:col-start-2">
           <Link
-            href="https://cal.com/vincent-gauthier-yxbpaz/30min"
+            href="https://usemotion.com/meet/vincent-gauthier/meeting?d=30"
             target="_blank"
           >
             <Button variant="default">

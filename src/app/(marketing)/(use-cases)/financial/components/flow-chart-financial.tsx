@@ -5,7 +5,7 @@ import {
 } from "src/app/(marketing)/_components/flow-chart/flow-chart-config";
 import HeroFeatures from "src/app/(marketing)/_components/hero/hero-features";
 
-import stars from "/videos/stars.mp4";
+import particles from "/videos/stars.mp4";
 const config: FlowchartConfig = {
   pageWidth: startingPositions.pageWidth,
   nodesAboveCodeX: startingPositions.nodesAboveCodeX,
@@ -127,9 +127,9 @@ const FlowChartFinancial = () => {
         title="Compliance Monitoring"
         headline="Monitoring for Financial Transactions"
         description="Law Assistant AI enhances your ability to monitor transactions, ensuring compliance with AML laws and internal guidelines."
-        primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
+        primaryButtonLink="https://usemotion.com/meet/vincent-gauthier/meeting?d=30"
         primaryButtonText="Discover More"
-        videoSrc={stars}
+        videoSrc={particles}
       />
       <Flowchart config={config} />
     </div>

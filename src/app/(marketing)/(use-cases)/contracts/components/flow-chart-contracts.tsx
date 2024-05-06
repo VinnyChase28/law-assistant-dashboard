@@ -135,7 +135,7 @@ const FlowChartContract = () => {
         title="Contract Compliance"
         headline="Contract Compliance Automation"
         description="Law Assistant AI streamlines your contract review process, ensuring compliance and alignment with industry standards."
-        primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
+        primaryButtonLink="https://usemotion.com/meet/vincent-gauthier/meeting?d=30"
         primaryButtonText="Schedule a Review"
         videoSrc={particles}
       />

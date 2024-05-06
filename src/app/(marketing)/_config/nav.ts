@@ -109,7 +109,7 @@ export const resourcesItems: NavItem[] = [
 export const getStartedItems: NavItem[] = [
   {
     title: "Request a Demo",
-    href: "https://cal.com/vincent-gauthier-yxbpaz/30min",
+    href: "https://usemotion.com/meet/vincent-gauthier/meeting?d=30",
     description: "See Law Assistant AI in action with a personalized demo",
     icon: Play,
   },

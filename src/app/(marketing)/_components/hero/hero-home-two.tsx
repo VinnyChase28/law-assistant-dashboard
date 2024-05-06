@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@components/ui/button";
 export default function HeroHomeTwo() {
   return (
-    <section className="flex flex-col-reverse items-center justify-between gap-6 p-6 md:flex-row md:p-8 lg:p-12">
+    <section className="flex h-screen w-full flex-col-reverse items-center justify-between gap-6 p-6 md:flex-row md:p-8 lg:p-12">
       <div className="flex-1 space-y-4 md:max-w-md">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
           Comprehensive Compliance Solutions

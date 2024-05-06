@@ -37,9 +37,9 @@ const HeroFeatures: React.FC<HeroFeaturesProps> = ({
   };
 
   return (
-    <div className="relative">
+    <div className="relative pt-14">
       <motion.div initial="hidden" animate="visible" variants={videoVariants}>
-        <div className="bg-gray-800 lg:hidden">
+        <div className="bg-black lg:hidden">
           <ContentSection
             {...{
               title,
@@ -77,7 +77,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
   primaryButtonLink,
 }) => (
   <section className="relative w-full">
-    <div className="mx-auto grid max-w-screen-xl px-4 py-4 sm:px-8 sm:py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
+    <div className="mx-auto grid max-w-screen-xl px-4 sm:px-8 sm:py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
       <div className="w-full place-self-center lg:col-span-7">
         <p className="text-base text-white sm:text-lg">{title}</p>
         <h1 className="mb-4 max-w-xl text-3xl font-extrabold leading-none tracking-tight text-white sm:text-4xl md:text-5xl">

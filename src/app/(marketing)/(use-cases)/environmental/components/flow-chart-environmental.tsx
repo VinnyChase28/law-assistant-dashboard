@@ -6,7 +6,7 @@ import {
 } from "src/app/(marketing)/_components/flow-chart/flow-chart-config";
 import HeroFeatures from "src/app/(marketing)/_components/hero/hero-features";
 
-import stars from "/videos/stars.mp4";
+import particles from "/videos/stars.mp4";
 
 const config: FlowchartConfig = {
   pageWidth: startingPositions.pageWidth,
@@ -128,14 +128,14 @@ const config: FlowchartConfig = {
 
 const FlowChartEnvironmental = () => {
   return (
-    <div>
+    <div >
       <HeroFeatures
         title="Environmental Compliance"
         headline="Environmental Compliance Automation"
         description="Law Assistant AI simplifies the process of ensuring your projects meet environmental standards and regulations."
-        primaryButtonLink="https://cal.com/vincent-gauthier-yxbpaz/30min"
+        primaryButtonLink="https://usemotion.com/meet/vincent-gauthier/meeting?d=30"
         primaryButtonText="Learn More"
-        videoSrc={stars}
+        videoSrc={particles}
       />
       <Flowchart config={config} />
     </div>
