@@ -28,7 +28,7 @@ export const Cta = () => {
             href="https://usemotion.com/meet/vincent-gauthier/meeting?d=30"
             target="_blank"
           >
-            <Button variant="default">
+            <Button variant="outline">
               Request Demo
               <CalendarIcon className="ml-2 h-5 w-5" />
             </Button>

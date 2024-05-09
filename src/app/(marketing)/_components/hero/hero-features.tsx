@@ -93,10 +93,10 @@ const ContentSection: React.FC<ContentSectionProps> = ({
           transition={{ duration: 0.6, delay: 0.8 }}
         >
           <Button variant="default">
-            <a href={primaryButtonLink} target="_blank" className="text-white">
+            <a href={primaryButtonLink} target="_blank">
               {primaryButtonText}
             </a>
-            <Calendar className="ml-2 h-5 w-5 text-white" />
+            <Calendar className="ml-2 h-5 w-5" />
           </Button>
         </motion.div>
       </div>
