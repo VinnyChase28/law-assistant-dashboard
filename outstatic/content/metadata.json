@@ -1,6 +1,6 @@
 {
-  "commit": "a5724501a8426a848f4dee62ff999be43a1b80f7",
-  "generated": "2024-04-27T18:30:59.234Z",
+  "commit": "a1d7597564d25b5d49fc3536f7783d625067355d",
+  "generated": "2024-05-10T19:30:25.737Z",
   "metadata": [
     {
       "__outstatic": {
@@ -379,6 +379,24 @@
       "slug": "compliance-automation",
       "status": "published",
       "title": "What is Compliance Automation?"
+    },
+    {
+      "__outstatic": {
+        "commit": "a1d7597564d25b5d49fc3536f7783d625067355d",
+        "hash": "3993290059",
+        "path": "outstatic/content/blog/retrieval-augmented-generation-for-compliance-workflows.md"
+      },
+      "author": {
+        "name": "Vincent Gauthier",
+        "picture": "https://avatars.githubusercontent.com/u/50678382?v=4"
+      },
+      "collection": "blog",
+      "coverImage": "/images/giammarco-boscaro-zeh-ljawhtg-unsplash-QyNT.jpg",
+      "description": "",
+      "publishedAt": "2024-05-10T18:45:10.485Z",
+      "slug": "retrieval-augmented-generation-for-compliance-workflows",
+      "status": "published",
+      "title": "Retrieval Augmented Generation for Compliance Workflows "
     }
   ]
 }
