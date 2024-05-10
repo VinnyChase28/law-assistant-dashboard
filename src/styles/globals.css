@@ -17,34 +17,35 @@
 
 
   :root {
-    -foreground: 0.00 0.00% 0.00%;
-
---primary: 0.00 0.00% 0.00%;
---primary-foreground: 0.00 0.00% 100.00%;
-
---card: 0.00 0.00% 96.08%;
---card-foreground: 0.00 0.00% 0.00%;
-
---popover: 0.00 0.00% 100.00%;
---popover-foreground: 0.00 0.00% 0.00%;
-
---secondary: 0.00 0.00% 85.10%;
---secondary-foreground: 0.00 0.00% 0.00%;
-
---muted: 0.00 0.00% 90.20%;
---muted-foreground: 0.00 0.00% 40.00%;
- 
---accent: 0.00 0.00% 90.20%;
---accent-foreground: 0.00 0.00% 0.00%;
-
---destructive: 0 84.2% 60.2%;
---destructive-foreground: 210 40% 98%;
-
---border: 0.00 0.00% 90.20%;
---input: 0.00 0.00% 90.20%;
---ring: 0.00 0.00% 0.00%;
-
---radius: 0.5rem;
+    --background: 0.00 0.00% 96.08%;
+    --foreground: 0.00 0.00% 0.00%;
+    
+    --primary: 0.00 0.00% 0.00%;
+    --primary-foreground: 0.00 0.00% 100.00%;
+    
+    --card: 0.00 0.00% 96.08%;
+    --card-foreground: 0.00 0.00% 0.00%;
+    
+    --popover: 0.00 0.00% 100.00%;
+    --popover-foreground: 0.00 0.00% 0.00%;
+    
+    --secondary: 0.00 0.00% 85.10%;
+    --secondary-foreground: 0.00 0.00% 0.00%;
+    
+    --muted: 0.00 0.00% 90.20%;
+    --muted-foreground: 0.00 0.00% 40.00%;
+     
+    --accent: 0.00 0.00% 90.20%;
+    --accent-foreground: 0.00 0.00% 0.00%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 0.00 0.00% 90.20%;
+    --input: 0.00 0.00% 90.20%;
+    --ring: 0.00 0.00% 0.00%;
+    
+    --radius: 0.5rem;
   }
 
   .dark {
