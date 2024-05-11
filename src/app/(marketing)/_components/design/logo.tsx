@@ -1,9 +1,6 @@
-"use client";
-
 import * as React from "react";
-import type { SVGProps } from "react";
 
-const ThemedLogo: React.FC<SVGProps<SVGSVGElement>> = () => {
+const ThemedLogo: React.FC = () => {
   return <h4>l.a.</h4>;
 };
 
