@@ -18,7 +18,7 @@ const AuthButtonWrapper: React.FC<AuthButtonWrapperProps> = ({ session }) => {
     );
   } else {
     return (
-      <Link href="/api/auth/signin">
+      <Link href="/auth/sign-in">
         <Button variant="outline">Sign in</Button>
       </Link>
     );
