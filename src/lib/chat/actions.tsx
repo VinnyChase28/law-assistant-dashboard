@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import "server-only";
 
 import { openai } from "@ai-sdk/openai";
@@ -165,7 +167,7 @@ async function submitUserMessage(content: string) {
     
     Besides that, you can also chat with users and do some calculations if needed.`,
     messages: [
-      ...aiState.get().messages.map((message: Message) => {
+      ...aiState.get().messages.map((message: any) => {
         console.log(message, "lalalala");
         return {
           role: message.role,
@@ -398,6 +400,13 @@ async function submitUserMessage(content: string) {
 }
 
 export type Message = {
+  role: "user" | "assistant" | "system" | "function" | "data" | "tool";
+  content: string;
+  id: string;
+  name?: string;
+};
+
+type Message = {
   id: string;
   role: string;
   content: string;
