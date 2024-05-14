@@ -42,6 +42,17 @@ export function MainNav() {
           Files
         </Link>
         <Link
+          href="/dashboard/chat"
+          className={cn(
+            "transition-colors hover:text-foreground/80",
+            pathname?.startsWith("/themes")
+              ? "text-foreground"
+              : "text-foreground/60",
+          )}
+        >
+          Chat
+        </Link>
+        <Link
           href="/dashboard/settings"
           className={cn(
             "transition-colors hover:text-foreground/80",

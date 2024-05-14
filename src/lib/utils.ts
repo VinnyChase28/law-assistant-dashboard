@@ -11,10 +11,10 @@ export const nanoid = customAlphabet(
   7,
 ); 
 
-export async function fetcher<JSON = any>(
+export async function fetcher<T = unknown>(
   input: RequestInfo,
   init?: RequestInit,
-): Promise<JSON> {
+): Promise<T> {
   const res = await fetch(input, init);
 
   if (!res.ok) {
@@ -71,7 +71,7 @@ export enum ResultCode {
   UserLoggedIn = "USER_LOGGED_IN",
 }
 
-export const getMessageFromCode = (resultCode: string) => {
+export const getMessageFromCode = (resultCode: ResultCode) => {
   switch (resultCode) {
     case ResultCode.InvalidCredentials:
       return "Invalid credentials!";
