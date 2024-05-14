@@ -54,7 +54,11 @@
     "@vercel/blob": "^0.23.2",
     "@vercel/kv": "^0.2.4",
     "@vercel/postgres": "^0.8.0",
+<<<<<<< HEAD
     "ai": "^3.1.7",
+=======
+    "ai": "^3.1.5",
+>>>>>>> main
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^1.0.0",
@@ -71,8 +75,12 @@
     "lucide-react": "^0.372.0",
     "marked": "^12.0.1",
     "micro": "^10.0.1",
+<<<<<<< HEAD
     "nanoid": "^5.0.4",
     "next": "^14.0.3",
+=======
+    "next": "^14.2.3",
+>>>>>>> main
     "next-auth": "^4.24.5",
     "next-themes": "^0.3.0",
     "next-video": "^1.0.6",
@@ -91,7 +99,7 @@
     "react-markdown": "^9.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "react-textarea-autosize": "^8.5.3",
-    "reactflow": "^11.11.2",
+    "reactflow": "^11.11.3",
     "rehype-raw": "^7.0.0",
     "remark": "^15.0.1",
     "remark-breaks": "^4.0.0",
@@ -116,10 +124,10 @@
     "@tailwindcss/typography": "^0.5.10",
     "@types/d3-scale": "^4.0.8",
     "@types/eslint": "^8.44.2",
-    "@types/node": "^20.11.28",
+    "@types/node": "^20.12.11",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.2.23",
-    "@types/react-syntax-highlighter": "^15.5.10",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.7.0",
     "autoprefixer": "^10.4.14",
