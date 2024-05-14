@@ -1,8 +1,7 @@
-// Inspired by Chatbot-UI and modified to fit the needs of this project
-// @see https://github.com/mckaywrigley/chatbot-ui/blob/main/components/Chat/ChatMessage.tsx
-import React from "react"; // Add this line at the beginning of your file
+import { type ReactNode } from "react";
 
 import { type Message } from "ai";
+import { type PluggableList } from "node_modules/react-markdown/lib";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
@@ -15,6 +14,13 @@ import { MemoizedReactMarkdown } from "./markdown";
 
 export interface ChatMessageProps {
   message: Message;
+}
+
+interface CodeComponentProps {
+  inline?: boolean;
+  className?: string;
+  children?: ReactNode;
+  node?: any;
 }
 
 export function ChatMessage({ message, ...props }: ChatMessageProps) {
@@ -36,23 +42,25 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
       <div className="ml-4 flex-1 space-y-2 overflow-hidden px-1">
         <MemoizedReactMarkdown
           className="prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 break-words"
-          remarkPlugins={[remarkGfm, remarkMath]}
+          remarkPlugins={[remarkGfm, remarkMath] as PluggableList}
           components={{
             p({ children }) {
               return <p className="mb-2 last:mb-0">{children}</p>;
             },
-            // @ts-ignore
-            code({ node, inline, className, children, ...props }) {
-              // @ts-ignore
-              if (children.length) {
-                // @ts-ignore
-                if (children[0] == "▍") {
+            code({
+              inline,
+              className,
+              children,
+              ...props
+            }: CodeComponentProps) {
+              if (children && typeof children === "string" && children.length) {
+                if (children.startsWith("▍")) {
                   return (
                     <span className="mt-1 animate-pulse cursor-default">▍</span>
                   );
                 }
-                // @ts-ignore
-                children[0] = (children[0] as string).replace("`▍`", "▍");
+
+                children = children.replace("`▍`", "▍");
               }
 
               const match = /language-(\w+)/.exec(className ?? "");

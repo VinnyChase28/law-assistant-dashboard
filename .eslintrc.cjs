@@ -41,6 +41,7 @@ const config = {
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/require-await": "off",
     "@typescript-eslint/prefer-for-of": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unnecessary-type-assertion": "off",
     "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
     "@typescript-eslint/no-unescaped-entities": "off",
@@ -52,8 +53,6 @@ const config = {
         fixStyle: "inline-type-imports",
       },
     ],
-    //working on it
-    "@typescript-eslint/no-unsafe-assignment": "error",
 
     "@typescript-eslint/await-thenable": "off",
     //order

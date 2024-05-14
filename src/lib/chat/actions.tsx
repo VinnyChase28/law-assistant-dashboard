@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import "server-only";
 
 import { openai } from "@ai-sdk/openai";
@@ -399,7 +397,7 @@ async function submitUserMessage(content: string) {
   };
 }
 
-type Message = {
+export type Message = {
   id: string;
   role: string;
   content: string;
@@ -439,7 +437,7 @@ export const AI = createAI<AIState, UIState>({
       return;
     }
   },
-  onSetAIState: async ({ state, done }) => {
+  onSetAIState: async ({ state }) => {
     "use server";
 
     const session = await getServerAuthSession();
@@ -471,16 +469,6 @@ export const AI = createAI<AIState, UIState>({
     }
   },
 });
-
-type Event = {
-  date: string;
-  headline: string;
-  description: string;
-};
-
-type EventsProps = {
-  events: Event[];
-};
 
 export const getUIStateFromAIState = (aiState: Chat) => {
   return aiState.messages

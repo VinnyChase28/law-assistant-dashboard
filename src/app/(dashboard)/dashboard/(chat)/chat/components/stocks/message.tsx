@@ -55,7 +55,7 @@ export function BotMessage({
               return <p className="mb-2 last:mb-0">{children}</p>;
             },
             // @ts-ignore next line
-            code({ node, inline, className, children, ...props }) {
+            code({ inline, className, children, ...props }) {
               // @ts-ignore next line
               if (children.length) {
                 // @ts-ignore next line
@@ -68,7 +68,7 @@ export function BotMessage({
                 children[0] = (children[0] as string).replace("`▍`", "▍");
               }
 
-              const match = /language-(\w+)/.exec(className || "");
+              const match = /language-(\w+)/.exec(className ?? "");
 
               if (inline) {
                 return (
@@ -81,7 +81,7 @@ export function BotMessage({
               return (
                 <CodeBlock
                   key={Math.random()}
-                  language={(match && match[1]) || ""}
+                  language={(match && match[1]) ?? ""}
                   value={String(children).replace(/\n$/, "")}
                   {...props}
                 />

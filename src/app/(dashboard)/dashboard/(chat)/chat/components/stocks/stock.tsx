@@ -45,27 +45,27 @@ export function Stock({ props: { symbol, price, delta } }: { props: Stock }) {
     if (startHighlight && endHighlight) {
       const message = {
         id,
-        role: 'system' as const,
-        content: `[User has highlighted dates between between ${format(
+        role: "system" as const,
+        content: `[User has highlighted dates between ${format(
           xToDate(startHighlight),
-          'd LLL'
-        )} and ${format(xToDate(endHighlight), 'd LLL, yyyy')}`
-      }
+          "d LLL",
+        )} and ${format(xToDate(endHighlight), "d LLL, yyyy")}]`,
+      };
 
       if (aiState.messages[aiState.messages.length - 1]?.id === id) {
         setAIState({
           ...aiState,
-          messages: [...aiState.messages.slice(0, -1), message]
-        })
+          messages: [...aiState.messages.slice(0, -1), message],
+        });
       } else {
         setAIState({
           ...aiState,
-          messages: [...aiState.messages, message]
-        })
+          messages: [...aiState.messages, message],
+        });
       }
     }
-  }, [startHighlight, endHighlight])
-
+  }, [startHighlight, endHighlight, aiState, setAIState, id, xToDate]);
+  
   return (
     <div className="rounded-xl border bg-zinc-950 p-4 text-green-400">
       <div className="float-right inline-block rounded-full bg-white/10 px-2 py-1 text-xs">

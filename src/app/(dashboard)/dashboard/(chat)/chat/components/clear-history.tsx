@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 
-import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 import { type ServerActionResult } from '@/lib/types'
@@ -30,8 +29,7 @@ export function ClearHistory({
   clearChats
 }: ClearHistoryProps) {
   const [open, setOpen] = React.useState(false)
-  const [isPending, startTransition] = React.useTransition()
-  const router = useRouter()
+  const [isPending, startTransition] = React.useTransition();
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>

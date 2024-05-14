@@ -1,12 +1,11 @@
 'use client'
 
-import * as React from 'react'
-
+import * as React from "react";
 
 import { useActions, useUIState } from 'ai/rsc'
 import { nanoid } from 'nanoid'
 import { useRouter } from 'next/navigation'
-import Textarea from 'react-textarea-autosize'
+import Textarea from "react-textarea-autosize";
 
 import { type AI } from '@/lib/chat/actions'
 import { useEnterSubmit } from '@/lib/hooks/use-enter-submit'
@@ -42,30 +41,36 @@ export function PromptForm({
   return (
     <form
       ref={formRef}
-      onSubmit={async (e: any) => {
-        e.preventDefault()
+      onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        (async () => {
+          const form = e.target as HTMLFormElement;
 
-        // Blur focus on mobile
-        if (window.innerWidth < 600) {
-          e.target.message?.blur()
-        }
-
-        const value = input.trim()
-        setInput('')
-        if (!value) return
-
-        // Optimistically add user message UI
-        setMessages(currentMessages => [
-          ...currentMessages,
-          {
-            id: nanoid(),
-            display: <UserMessage>{value}</UserMessage>
+          // Blur focus on mobile
+          if (window.innerWidth < 600) {
+            (form.elements.namedItem("message") as HTMLTextAreaElement)?.blur();
           }
-        ])
 
-        // Submit and get response message
-        const responseMessage = await submitUserMessage(value)
-        setMessages(currentMessages => [...currentMessages, responseMessage])
+          const value = input.trim();
+          setInput("");
+          if (!value) return;
+
+          // Optimistically add user message UI
+          setMessages((currentMessages) => [
+            ...currentMessages,
+            {
+              id: nanoid(),
+              display: <UserMessage>{value}</UserMessage>,
+            },
+          ]);
+
+          // Submit and get response message
+          const responseMessage = await submitUserMessage(value);
+          setMessages((currentMessages) => [
+            ...currentMessages,
+            responseMessage,
+          ]);
+        })();
       }}
     >
       <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-background px-8 sm:rounded-md sm:border sm:px-12">
@@ -76,7 +81,7 @@ export function PromptForm({
               size="icon"
               className="absolute left-0 top-[14px] size-8 rounded-full bg-background p-0 sm:left-4"
               onClick={() => {
-                router.push('/dashboard/chat/new')
+                router.push("/dashboard/chat/new");
               }}
             >
               <IconPlus />
@@ -98,12 +103,12 @@ export function PromptForm({
           name="message"
           rows={1}
           value={input}
-          onChange={e => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
         />
         <div className="absolute right-0 top-[13px] sm:right-4">
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button type="submit" size="icon" disabled={input === ''}>
+              <Button type="submit" size="icon" disabled={input === ""}>
                 <IconArrowElbow />
                 <span className="sr-only">Send message</span>
               </Button>
@@ -113,5 +118,5 @@ export function PromptForm({
         </div>
       </div>
     </form>
-  )
+  );
 }
