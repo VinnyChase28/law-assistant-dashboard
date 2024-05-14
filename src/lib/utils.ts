@@ -2,6 +2,10 @@ import { clsx, type ClassValue } from "clsx";
 import { customAlphabet } from "nanoid";
 import { twMerge } from "tailwind-merge";
 
+interface JsonResponse {
+  error?: string;
+}
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -9,7 +13,7 @@ export function cn(...inputs: ClassValue[]) {
 export const nanoid = customAlphabet(
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
   7,
-); 
+);
 
 export async function fetcher<T = unknown>(
   input: RequestInfo,
@@ -18,7 +22,7 @@ export async function fetcher<T = unknown>(
   const res = await fetch(input, init);
 
   if (!res.ok) {
-    const json = await res.json();
+    const json = (await res.json()) as JsonResponse;
     if (json.error) {
       const error = new Error(json.error) as Error & {
         status: number;
@@ -30,7 +34,7 @@ export async function fetcher<T = unknown>(
     }
   }
 
-  return res.json();
+  return res.json() as Promise<T>;
 }
 
 export function formatDate(input: string | number | Date): string {

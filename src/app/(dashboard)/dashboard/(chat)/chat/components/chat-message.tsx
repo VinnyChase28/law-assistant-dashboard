@@ -55,7 +55,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                 children[0] = (children[0] as string).replace("`▍`", "▍");
               }
 
-              const match = /language-(\w+)/.exec(className || "");
+              const match = /language-(\w+)/.exec(className ?? "");
 
               if (inline) {
                 return (
@@ -68,7 +68,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
               return (
                 <CodeBlock
                   key={Math.random()}
-                  language={(match && match[1]) || ""}
+                  language={(match && match[1]) ?? ""}
                   value={String(children).replace(/\n$/, "")}
                   {...props}
                 />

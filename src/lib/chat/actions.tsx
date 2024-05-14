@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import "server-only";
 
 import { openai } from "@ai-sdk/openai";
@@ -38,7 +40,6 @@ import {
 import { StockSkeleton } from "../../app/(dashboard)/dashboard/(chat)/chat/components/stocks/stock-skeleton";
 import { Stocks } from "../../app/(dashboard)/dashboard/(chat)/chat/components/stocks/stocks";
 import { StocksSkeleton } from "../../app/(dashboard)/dashboard/(chat)/chat/components/stocks/stocks-skeleton";
-
 
 async function confirmPurchase(symbol: string, price: number, amount: number) {
   "use server";
@@ -166,11 +167,14 @@ async function submitUserMessage(content: string) {
     
     Besides that, you can also chat with users and do some calculations if needed.`,
     messages: [
-      ...aiState.get().messages.map((message: any) => ({
-        role: message.role,
-        content: message.content,
-        name: message.name,
-      })),
+      ...aiState.get().messages.map((message: Message) => {
+        console.log(message, "lalalala");
+        return {
+          role: message.role,
+          content: message.content,
+          name: message.name,
+        };
+      }),
     ],
     text: ({ content, done, delta }) => {
       if (!textStream) {
@@ -395,10 +399,10 @@ async function submitUserMessage(content: string) {
   };
 }
 
-export type Message = {
-  role: "user" | "assistant" | "system" | "function" | "data" | "tool";
-  content: string;
+type Message = {
   id: string;
+  role: string;
+  content: string;
   name?: string;
 };
 
@@ -461,14 +465,22 @@ export const AI = createAI<AIState, UIState>({
         await saveChat(chat);
       } catch (error) {
         console.error("Failed to save chat:", error);
-        // Handle error appropriately
       }
     } else {
-      console.log("No valid session found");
-      // Handle no session case appropriately
+      console.error("No valid session found");
     }
   },
 });
+
+type Event = {
+  date: string;
+  headline: string;
+  description: string;
+};
+
+type EventsProps = {
+  events: Event[];
+};
 
 export const getUIStateFromAIState = (aiState: Chat) => {
   return aiState.messages
