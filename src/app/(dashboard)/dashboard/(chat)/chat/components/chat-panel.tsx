@@ -9,8 +9,7 @@ import { Button } from '@components/ui/button'
 import { shareChat } from '../actions'
 
 import { ButtonScrollToBottom } from './button-scroll-to-bottom'
-import { ChatShareDialog } from './chat-share-dialog'
-import { FooterText } from './footer'
+import { ChatShareDialog } from "./chat-share-dialog";
 import { IconShare } from './icons'
 import { PromptForm } from './prompt-form'
 import { UserMessage } from './stocks/message'
@@ -74,25 +73,25 @@ export function ChatPanel({
               <div
                 key={example.heading}
                 className={`cursor-pointer rounded-lg border bg-white p-4 hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900 ${
-                  index > 1 && 'hidden md:block'
+                  index > 1 && "hidden md:block"
                 }`}
                 onClick={async () => {
-                  setMessages(currentMessages => [
+                  setMessages((currentMessages) => [
                     ...currentMessages,
                     {
                       id: nanoid(),
-                      display: <UserMessage>{example.message}</UserMessage>
-                    }
-                  ])
+                      display: <UserMessage>{example.message}</UserMessage>,
+                    },
+                  ]);
 
                   const responseMessage = await submitUserMessage(
-                    example.message
-                  )
+                    example.message,
+                  );
 
-                  setMessages(currentMessages => [
+                  setMessages((currentMessages) => [
                     ...currentMessages,
-                    responseMessage
-                  ])
+                    responseMessage,
+                  ]);
                 }}
               >
                 <div className="text-sm font-semibold">{example.heading}</div>
@@ -123,7 +122,7 @@ export function ChatPanel({
                     chat={{
                       id,
                       title,
-                      messages: aiState.messages
+                      messages: aiState.messages,
                     }}
                   />
                 </>
@@ -134,9 +133,8 @@ export function ChatPanel({
 
         <div className="space-y-4 border-t bg-background px-4 py-2 shadow-lg sm:rounded-t-xl sm:border md:py-4">
           <PromptForm input={input} setInput={setInput} />
-          <FooterText className="hidden sm:block" />
         </div>
       </div>
     </div>
-  )
+  );
 }
