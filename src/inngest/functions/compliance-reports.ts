@@ -108,7 +108,7 @@ export const complianceReport = inngest.createFunction(
 
     let finalReport = ""; 
     const stream = await openai.chat.completions.create({
-      model: Models.GPT4,
+      model: Models.GPT3,
       messages: [{ role: "user", content: finalReportPrompt }],
       temperature: 0.2,
       max_tokens: 4096,

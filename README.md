@@ -1,3 +1,35 @@
+Beware: this was my first nextjs/typescript project. there is a lot of bad code in here, and I learned a ton along the way. I'm happy to receive feedback from the community :) 
+
+Tools used: 
+
+Misc:
+
+- Mux for video https://www.mux.com/
+
+Vercel:
+
+- Vercel KV, Postgres, AI SDK, hosting, edge functions etc.
+
+Vectors:
+
+- Pinecone (just creating a vector of each page of each doc)
+
+Stripe
+
+T3 Stack 
+
+- (Shadcn, tailwind, tRPC, prisma, all the goodies)
+
+CMS 
+
+- Oustatic https://outstatic.com/ check it out! super simple cms for nextjs :) 
+
+Background tasks 
+
+- inngest allows me to create tasks that run in the background, and can get around the execution time limits for longer running functions. 
+https://www.inngest.com/
+
+
 # Getting started
 
 ## Install Vercel CLI
