@@ -11,9 +11,7 @@ export const Hero = () => {
               Your Time&apos;s Worth More
             </h1>
             <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400 md:text-xl">
-              Maximize your operational efficiency with advanced compliance
-              tools and expert guidance to safeguard and enhance your
-              business&apos;s integrity.
+              A portfolio project built by Vincent Gauthier https://github.com/VinnyChase28
             </p>
           </div>
           <div className="space-x-4">
