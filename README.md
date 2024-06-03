@@ -1,4 +1,3 @@
-Beware: this was my first nextjs/typescript project. there is a lot of bad code in here, and I learned a ton along the way. I'm happy to receive feedback from the community :) 
 
 Tools used: 
 
